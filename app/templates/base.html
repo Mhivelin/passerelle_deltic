@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <link rel="shortcut icon" href="../static/img/favicon.ico" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Passerelle DELTIC</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Accueil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/form_add_client">Ajouter un client</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/form_add_logiciel"
+                >Ajouter un logiciel</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/form_add_passerelle"
+                >Ajouter une passerelle
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/documentation">Documentation</a>
+            </li>
+          </ul>
+
+          <a href="/logout" class="btn btn-outline-light logout-btn">
+            <img
+              src="{{ url_for('static', filename='img/logout.png') }}"
+              alt="logout"
+              class="navbar-logo logout-icon"
+            />
+          </a>
+
+          <a href="https://deltic.fr/">
+            <img
+              src="{{ url_for('static', filename='img/logo.jpg') }}"
+              alt="logo"
+              class="navbar-logo"
+            />
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container mt-5">
+      <main>{% block content %}{% endblock %}</main>
+    </div>
+
+    <footer class="text-center mt-5">
+      <p>&copy; Marius Hivelin DELTIC</p>
+    </footer>
+
+    <!-- Chargement des scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Si nécessaire -->
+
+    <script>
+      $(document).ready(function () {
+        $("#requis").select2({
+          placeholder: "Choisir le(s) champ(s) requis",
+          allowClear: true,
+          width: "100%",
+        });
+      });
+    </script>
+
+    <script>
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
+  </body>
+</html>

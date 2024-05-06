@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block title %}Ajout Client{% endblock %} {% block
+content%}
+
+<br />
+
+<h1>Ajout Client</h1>
+
+<form action="{{ url_for('database.add_client') }}" method="post">
+  <div class="form-group">
+    <label for="lib_client">Nom</label>
+    <input
+      type="text"
+      class="form-control"
+      id="lib_client"
+      name="lib_client"
+      placeholder="Nom"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+
+{% endblock %}

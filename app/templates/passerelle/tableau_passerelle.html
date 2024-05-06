@@ -1,0 +1,34 @@
+<table class="table table-striped">
+  <thead>
+    <th>LibPasserelle</th>
+    <th>actions</th>
+  </thead>
+  <tbody>
+    {% for passerelle in passerelles %}
+    <tr>
+      <td>{{ passerelle.LibPasserelle }}</td>
+      <td>
+        <form
+          id="deleteClientPasserelleForm"
+          onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette passerelle ?')"
+        >
+          <input
+            type="hidden"
+            name="idClient"
+            value="{{ passerelle.idClient }}"
+          />
+
+          <input
+            type="hidden"
+            name="IdPasserelle"
+            value="{{ passerelle.IdPasserelle }}"
+          />
+
+          <button type="submit" class="btn btn-danger">🗑️</button>
+        </form>
+      </td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+</table>

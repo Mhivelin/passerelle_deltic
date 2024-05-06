@@ -1,0 +1,76 @@
+{% extends 'base.html' %} {% block title %}Ajout Passerelle{% endblock %} {%
+block content%}
+<br />
+
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css"
+  rel="stylesheet"
+/>
+
+<h1>Ajout Passerelle</h1>
+
+<form
+  action="{{ url_for('database.add_passerelle_with_connectors_and_fields') }}"
+  method="post"
+>
+  <div class="form-group">
+    <label for="lib_passerelle">Nom</label>
+    <input
+      type="text"
+      class="form-control"
+      id="lib_passerelle"
+      name="lib_passerelle"
+      placeholder="Nom"
+    />
+  </div>
+  <div class="form-group">
+    <label for="id_logiciel_source">Logiciel source</label>
+    <select
+      class="form-control"
+      id="id_logiciel_source"
+      name="id_logiciel_source"
+    >
+      {% for logiciel in logiciels %}
+      <option value="{{ logiciel.IdLogiciel }}">
+        {{ logiciel.LibLogiciel }}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="id_logiciel_destination">Logiciel destination</label>
+    <select
+      class="form-control"
+      id="id_logiciel_destination"
+      name="id_logiciel_destination"
+    >
+      {% for logiciel in logiciels %}
+      <option value="{{ logiciel.IdLogiciel }}">
+        {{ logiciel.LibLogiciel }}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="requis"> champs requis </label>
+    <select
+      multiple="multiple"
+      class="form-control"
+      id="requis"
+      name="requis[]"
+    >
+      {% for champ in champs %}
+      <option value="{{ champ.id_champ }}">{{ champ.lib_champ }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+
+{% endblock %}

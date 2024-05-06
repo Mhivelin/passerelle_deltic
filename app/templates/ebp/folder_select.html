@@ -1,0 +1,7 @@
+<label for="ebp_folder">Dossier EBP</label>
+<select id="ebp_folder" name="lib_champ[]" class="form-control">
+  <option value="">Sélectionner un dossier</option>
+  {% for ebp_folder in liste_ebp_folder %}
+  <option value="{{ ebp_folder.id }}">{{ ebp_folder.name }}</option>
+  {% endfor %}
+</select>

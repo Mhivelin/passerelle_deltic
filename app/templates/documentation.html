@@ -1,0 +1,277 @@
+{% extends 'base.html' %}
+{% block title %}Documentation{% endblock %}
+{% block content %}
+
+<style>
+  .nav-link {
+    color: #007bff;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  }
+  .nav-link:hover, .nav-link:focus {
+    color: #0056b3;
+    background-color: #e9ecef;
+    border-radius: 5px;
+  }
+  .nav-link.active {
+    font-weight: bold;
+    color: #fff !important;
+    background-color: #007bff !important;
+    border-radius: 5px;
+  }
+  .sidebar {
+    background-color: #e9ecef;
+    position: fixed;
+    max-width: 150px;
+    left: 10px;
+
+  }
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <nav class="col-md-3 col-lg-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky pt-3">
+        <h5 class="navbar-brand">Menu</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#intro">
+              Introduction
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#PasserellesEbp">
+              Passerelles EBP
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#PasserellesSage">
+              Passerelles Sage
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#PasserellesSellsy">
+              Passerelles Sellsy
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="pt-3 pb-2 mb-3 border-bottom">
+          <h1>Documentation</h1>
+        </div>
+        <section id="intro">
+          <h2>Introduction</h2>
+          <p>Bienvenue sur la documentation du gestionnaire de passerelles.</p>
+            <p>
+                Cette documentation a pour but de vous aider à comprendre le
+                fonctionnement du gestionnaire de passerelles et à vous guider dans
+                la configuration des passerelles.
+            </p>
+
+            <p>
+                Cet outil a été conçu pour faciliter la gestion des passerelles dévellopées par Deltic. Grâce à cet outil, vous pourrez configurer et gérer vos passerelles et clients en toute simplicité.
+                Pour plus d'informations, veuillez consulter la documentation ci-dessous.
+            </p>
+
+
+
+
+        </section>
+
+        <hr />
+
+        <section id="PasserellesEbp">
+          <h2>Passerelles EBP</h2>
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Remontée de paiement (EBP --> Zeendoc)</h3>
+              <p class="card-subtitle">code passerelle : <code>1</code></p>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li>
+                  <h4>Objectif 🥅 :</h4>
+                  <p>
+                    Remonter les paiements effectués dans EBP vers Zeendoc afin
+                    de faciliter cette démarche pour les utilisateurs,
+                    automatiser le processus et éviter les erreurs de saisie.
+                  </p>
+                </li>
+
+                <br />
+                <li>
+                    <h4>Paramétrage ⚙️ :</h4>
+                  <ul>
+                    <li>créer un index de paiement dans Zeendoc</li>
+                  </ul>
+                </li>
+
+                <br />
+
+                <li>
+                    <h4>informations requises pour la configuration :</h4>
+                    <ul>
+                        <li>Les informations de connexion à l'API EBP 🔑
+                            <ul>
+                                <li>L'<code>id</code> (EBP Client ID)</li>
+                                <li>Le <code>client secret</code> (EBP Client Secret)</li>
+                                <li>La <code>clé d'abonnement</code> (EBP Subscription Key)<a href="https://developpeurs.ebp.com/profile" target="_blank"> ici</a></li>
+                            </ul>
+                        </li>
+                        <li>Les informations de connexion à l'API Zeendoc 🔑
+                            <ul>
+                                <li>Le <code>login</code> (Zeendoc login)</li>
+                                <li>L'<code>url du client</code> (Zeendoc URL Client)</li>
+                                <li>Le <code>mot de passe</code> (Zeendoc CPassword)</li>
+                            </ul>
+                         </li>
+                    </ul>
+
+                </li>
+
+                <br />
+                <li>
+                    <h4>Configuration ⚙️ :</h4>
+                    <ul>
+                        <li>Se rendre sur <a href="{{ url_for('v_client.form_add_client') }}">cette page</a> pour ajouter un nouveau client ➕</li>
+                        <li>Remplir les informations requises ✏️</li>
+                        <li>Valider le formulaire ✅</li>
+                        <li>Se rendre sur la page de configuration du client</li>
+                        <li>Se connecter à l'API EBP grace au bouton</li>
+                        <li>selectionner les champs requis
+                            <ul>
+                                <li><code>EBP_FOLDER_ID</code> : l'identifiant du dossier EBP</li>
+                                <li><code>ZEENDOC_CLASSEUR</code> : l'identifiant du classeur Zeendoc</li>
+                            </ul>
+                        </li>
+                        <li>Enregistrer les modifications 💾</li>
+                        <li>Tester la configuration en lançant une routine 🚀</li>
+                        <li>[OPTIONNEL] Ajouter le bouton de lancement de routine sur Zeendoc</li>
+
+                    </ul>
+                </li>
+
+                <br />
+                <li>
+                    <h4>Fonctionnement 🚀 :</h4>
+                    <p>
+                        Une fois la configuration terminée, il y a plusieurs façons de lancer la routine :
+                        <ul>
+                            <li>Manuellement en cliquant sur le bouton "Lancer la routine" sur la page de configuration du client</li>
+                            <li>Manuellement en cliquant sur le bouton "Lancer la routine" sur Zeendoc</li>
+                            <li>Automatiquement grace à la routine qui est déja configurée</li>
+
+                        </ul><br>
+
+                        une fois la routine lancée, le programme va se connecter à l'API EBP, récupérer les paiements effectués et les remonter dans Zeendoc.
+                        Pour cela, il va chercher le document correspondant à la reference du document EBP dans Zeendoc et passer son index de paiement à "payé".
+
+
+                    </p>
+
+
+
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+        <br />
+
+        <div class="alert alert-info" role="alert">
+            <p>
+                <strong>Information :</strong> Les autres passerelles EBP sont en cours de développement.
+            </p>
+            <p>
+                Nous vous tiendrons informé de l'avancement de ce projet.
+                si vous avez des suggestions de nouvelle passerelle vous savez a qui vous adresser.
+            </p>
+        </div>
+
+        </section>
+
+        <hr />
+
+
+
+        <section id="PasserellesSage">
+            <h2>Passerelles Sage</h2>
+
+
+            <div class="alert alert-info" role="alert">
+                <p>
+                    <strong>Information :</strong> Les passerelles Sage sont en cours de développement.
+                </p>
+                <p>
+                    Nous vous tiendrons informé de l'avancement de ce projet.
+                </p>
+            </div>
+
+
+        </section>
+
+        <hr />
+
+        <section id="PasserellesSellsy">
+            <h2>Passerelles Sellsy</h2>
+
+
+            <div class="alert alert-info" role="alert">
+                <p>
+                    <strong>Information :</strong> Les passerelles Sellsy sont en cours de développement.
+                </p>
+                <p>
+                    Nous vous tiendrons informé de l'avancement de ce projet.
+                </p>
+            </div>
+
+
+
+
+
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Sélectionne tous les liens dans la navigation
+    var navLinks = document.querySelectorAll(".nav-link");
+
+    navLinks.forEach(function (link) {
+      link.addEventListener("click", function () {
+        // Trouve l'élément actuellement actif et le désactive
+        var currentActive = document.querySelector(".nav .nav-link.active");
+        if (currentActive && currentActive !== this) {
+          currentActive.classList.remove("active");
+        }
+
+        // Active le lien cliqué
+        this.classList.add("active");
+      });
+    });
+  });
+</script>
+
+{% endblock %}
+```
+
+
+
+
+
+
+sudo docker rm -f passerelledeltic
+sudo docker build -t passerelledeltic .
+sudo docker run -d -p 5000:5000 --name passerelledeltic passerelledeltic

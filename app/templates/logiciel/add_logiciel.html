@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block title %}Ajout logiciel{% endblock %} {% block
+content%}
+
+<br />
+
+<h1>Ajout logiciel</h1>
+
+<form action="{{ url_for('database.add_logiciel') }}" method="post">
+  <div class="form-group">
+    <label for="lib_logiciel">Nom</label>
+    <input
+      type="text"
+      class="form-control"
+      id="lib_logiciel"
+      name="lib_logiciel"
+      placeholder="Nom"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+
+{% endblock %}

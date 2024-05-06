@@ -1,0 +1,13 @@
+.navbar-logo {
+    max-height: 40px;
+  }
+
+.logout-icon {
+  height: 15px;
+  width: 15px;
+}
+
+
+.logout-btn {
+  margin-right: 10px;
+}

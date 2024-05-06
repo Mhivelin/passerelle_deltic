@@ -1,0 +1,8 @@
+<label for="classeur">Classeur Zeendoc</label>
+<select id="classeur" name="lib_champ[]" class="form-control">
+  <option value="">Sélectionner un classeur</option>
+  {% for classeur in liste_zeendoc_classeur %}
+  <option value="{{ classeur.Coll_Id }}">{{ classeur.Label }}</option>
+  {% endfor %}
+</select>
+<input type="hidden" name="id_champ[]" value="id_Zeendoc_CLASSEUR" />

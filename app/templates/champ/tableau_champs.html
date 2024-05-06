@@ -1,0 +1,14 @@
+<table class="table table-striped">
+  <thead>
+    <th>LibChamp</th>
+    <th>values</th>
+  </thead>
+  <tbody>
+    {% for champ in client.champsClient %}
+    <tr>
+      <td>{{ champ.lib_champ }}</td>
+      <td>{{ champ.valeur }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

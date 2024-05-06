@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {% block title %}remplissage des champs requis{% endblock %}
+{% block content%}
+<br />
+
+
+<h1>remplissage des champs requis</h1>
+
+<form action="{{ url_for('database.add_champ_client_multiple') }}" method="post">
+  <div class="form-group">
+    {% for field in fields %}
+
+    {% if field.lib_champ == "EBP_FOLDER_ID" %}
+    {% if liste_ebp_folder == [] %}
+    <p> La connexion à EBP n'est pas configurée </p>
+    {% else %}
+    {% with liste_ebp_folder=liste_ebp_folder%} {% include 'ebp/folder_select.html' %} {% endwith %}
+    {% endif %}
+
+
+    {% elif field.lib_champ == "Zeendoc_CLASSEUR" %}
+    {% if liste_zeendoc_classeur == [] %}
+    <p> La connexion à Zeendoc n'est pas configurée </p>
+    {% else %}
+    {% with liste_zeendoc_classeur=liste_zeendoc_classeur%} {% include 'zeendoc/classeur_select.html' %} {% endwith %}
+    {% endif %}
+
+
+    {% else %}
+
+
+
+
+    <label for="lib_champ_{{ loop.index }}">{{ field.lib_champ }}</label>
+    <input type="hidden" name="id_champ[]" value="{{ field.id_champ }}" />
+    <input
+      type="text"
+      class="form-control"
+      id="lib_champ_{{ loop.index }}"
+      name="lib_champ[]"
+      placeholder="Entrer la valeur"
+      {% for champ in champ_client %}
+      {% if champ.id_champ == field.id_champ %}
+      value="{{ champ.valeur }}"
+      {% endif %}
+      {% endfor %}
+
+    />
+
+
+    {% endif %}
+
+    </br>
+
+
+    {% endfor %}
+  </div>
+  <input type="hidden" name="id_client" value="{{ id_client }}" />
+  <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+
+{% endblock %}

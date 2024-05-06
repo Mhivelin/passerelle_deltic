@@ -1,0 +1,122 @@
+<table class="table table-striped" id="clientsTable">
+  <thead>
+    <tr>
+      <th>IdClient</th>
+      <th>Nom client</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for client in clients %}
+    <tr>
+      <td>{{ client.idClient }}</td>
+      <td>{{ client.username }}</td>
+      <td>
+        <div class="btn-group" role="group">
+          <button
+            class="btn btn-info"
+            data-toggle="collapse"
+            data-target="#details{{ client.idClient }}"
+          >
+            Détails
+          </button>
+
+          <form
+            class="delete-client-form"
+            onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce client ?')"
+            data-client-id="{{ client.idClient }}"
+          >
+            <input
+              type="hidden"
+              name="client_id"
+              value="{{ client.idClient }}"
+            />
+            <button type="submit" class="btn btn-danger delete-btn">🗑️</button>
+          </form>
+        </div>
+      </td>
+    </tr>
+
+    <tr id="details{{ client.idClient }}" class="collapse">
+      <td colspan="3">
+        {% with passerelles=client.passerellesClient %}
+            {% include 'passerelle/tableau_passerelle.html' %}
+        {% endwith %}
+
+        <div>
+          <a
+            href="{{ url_for('passerelle.form_connect_passerelle', idClient=client.idClient) }}"
+            class="btn btn-primary"
+            >connecter une passerelle
+          </a>
+
+        </div>
+
+        </br>
+        {% with champs=client.champsClient %}
+            {% include 'champ/tableau_champs.html' %}
+        {% endwith %}
+
+        <div>
+          <a
+            href="{{ url_for('v_client.form_add_multiple_requiert', id_client=client.idClient) }}"
+            class="btn btn-primary"
+            >Ajouter/modifier des champs requis</a
+          >
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $(".delete-client-form").on("submit", function (e) {
+      e.preventDefault(); // Empêche la soumission normale du formulaire
+
+      var clientId = $(this).data("client-id"); // Récupère l'ID du client à partir des données du formulaire
+      var url = "/database/client/" + clientId; // Construit l'URL pour la requête DELETE
+
+      // Envoie une requête AJAX
+      $.ajax({
+        url: url,
+        type: "DELETE",
+        success: function (result) {
+          alert("Client supprimé avec succès");
+          location.reload(); // Recharge la page pour refléter les changements
+        },
+        error: function (xhr, status, error) {
+          alert("Erreur lors de la suppression: " + xhr.responseText);
+        },
+      });
+    });
+  });
+
+  $(document).ready(function () {
+    $("form#deleteClientPasserelleForm").on("submit", function (e) {
+      e.preventDefault(); // Empêche la soumission normale du formulaire
+
+      var form = $(this); // Le formulaire qui a été soumis
+      var idClient = form.find('input[name="idClient"]').val(); // Récupère l'ID du client
+      var idPasserelle = form.find('input[name="IdPasserelle"]').val(); // Récupère l'ID de la passerelle
+      var url = `/database/client_passerelle/${idClient}/${idPasserelle}`; // Construit l'URL pour la requête DELETE
+
+      // Envoie une requête AJAX
+      $.ajax({
+        url: url,
+        type: "DELETE",
+        success: function (result) {
+          alert("Client Passerelle supprimé avec succès");
+          location.reload(); // Recharge la page pour refléter les changements
+        },
+        error: function (xhr, status, error) {
+          alert("Erreur lors de la suppression: " + xhr.responseText);
+        },
+      });
+    });
+  });
+</script>

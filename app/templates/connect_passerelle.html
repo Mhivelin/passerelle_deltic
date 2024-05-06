@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block title %}Connexion Passerelle{% endblock %} {%
+block content%}
+
+<br />
+
+<h2>Connexion à une passerelle pour : {{ client.username }}</h2>
+
+<form action="{{ url_for('database.add_client_passerelle') }}" method="post">
+  <div class="form-group">
+    <label for="id_passerelle">Passerelle</label>
+    <select class="form-control" id="id_passerelle" name="id_passerelle">
+      {% for passerelle in passerelles %}
+      <option value="{{ passerelle.IdPasserelle }}">
+        {{ passerelle.LibPasserelle }}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+  <input type="hidden" name="id_client" value="{{ client.idClient }}" />
+  <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+
+{% endblock %}
