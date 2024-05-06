@@ -35,7 +35,7 @@ def configure_logs(app):
 def create_app():
     app = Flask(__name__)
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
-    app.config['SERVER_NAME'] = 'localhost:5000'
+    # app.config['SERVER_NAME'] = 'localhost:5000'
 
     app.config["SECRET_KEY"] = "deltictmp"
     db.init_app(app)
