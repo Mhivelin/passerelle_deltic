@@ -4,10 +4,10 @@
     <th>values</th>
   </thead>
   <tbody>
-    {% for champ in client.champsClient %}
+    {% for champ in champs %}
     <tr>
-      <td>{{ champ.lib_champ }}</td>
-      <td>{{ champ.valeur }}</td>
+      <td>{{ champ.LibChamp }}</td>
+      <td>{{ champ.Valeur }}</td>
     </tr>
     {% endfor %}
   </tbody>

@@ -18,11 +18,11 @@ def routine():
 
 
 
-def P_remonte_paiement(idClient):
+def P_remonte_paiement(IdClient):
     """ routine de la passerelle de remontée des paiements """
 
-    clientZeendoc = Zeendoc(idClient)
-    clientEBP = EBP(idClient)
+    clientZeendoc = Zeendoc(IdClient)
+    clientEBP = EBP(IdClient)
 
     # on récupère les paiements dans EBP
 

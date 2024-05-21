@@ -26,7 +26,7 @@ class EBP:
         infos = db.get_champ_client_by_client(id)
 
 
-        # infos = [{"idClient":1,"id_champ":1,"lib_champ":"EBP_Client_ID","nomTable":"EBP","valeur":"/database/champ_client_by_client/"},{"idClient":1,"id_champ":2,"lib_champ":"EBP_Client_Secret","nomTable":"EBP","valeur":"/database/champ_client_by_client/"},{"idClient":1,"id_champ":3,"lib_champ":"EBP_Subscription_Key","nomTable":"EBP","valeur":"/database/champ_client_by_client/"},{"idClient":1,"id_champ":4,"lib_champ":"Zeendoc_Login","nomTable":"Zeendoc","valeur":"/database/champ_client_by_client/"},{"idClient":1,"id_champ":5,"lib_champ":"Zeendoc_URL_Client","nomTable":"Zeendoc","valeur":"/database/champ_client_by_client/"},{"idClient":1,"id_champ":6,"lib_champ":"Zeendoc_CPassword","nomTable":"Zeendoc","valeur":"/database/champ_client_by_client/"},{"idClient":1,"id_champ":7,"lib_champ":"EBP_FOLDER_ID","nomTable":"remont\u00e9e de paiement","valeur":"/database/champ_client_by_client/"},{"idClient":1,"id_champ":8,"lib_champ":"Zeendoc_CLASSEUR","nomTable":"remont\u00e9e de paiement","valeur":"/database/champ_client_by_client/"}]
+        # infos = [{"IdClient":1,"id_champ":1,"lib_champ":"EBP_Client_ID","nomTable":"EBP","valeur":"/database/champ_client_by_client/"},{"IdClient":1,"id_champ":2,"lib_champ":"EBP_Client_Secret","nomTable":"EBP","valeur":"/database/champ_client_by_client/"},{"IdClient":1,"id_champ":3,"lib_champ":"EBP_Subscription_Key","nomTable":"EBP","valeur":"/database/champ_client_by_client/"},{"IdClient":1,"id_champ":4,"lib_champ":"Zeendoc_Login","nomTable":"Zeendoc","valeur":"/database/champ_client_by_client/"},{"IdClient":1,"id_champ":5,"lib_champ":"Zeendoc_URL_Client","nomTable":"Zeendoc","valeur":"/database/champ_client_by_client/"},{"IdClient":1,"id_champ":6,"lib_champ":"Zeendoc_CPassword","nomTable":"Zeendoc","valeur":"/database/champ_client_by_client/"},{"IdClient":1,"id_champ":7,"lib_champ":"EBP_FOLDER_ID","nomTable":"remont\u00e9e de paiement","valeur":"/database/champ_client_by_client/"},{"IdClient":1,"id_champ":8,"lib_champ":"Zeendoc_CLASSEUR","nomTable":"remont\u00e9e de paiement","valeur":"/database/champ_client_by_client/"}]
 
         for info in infos:
             if info["lib_champ"] == "EBP_Client_ID":
@@ -117,9 +117,9 @@ class EBP:
 
 
 
-    def callback(self, code, idClient):
+    def callback(self, code, IdClient):
         print("Début du callback")
-        redirect_uri = url_for("ebp.SignInRedirect", id=idClient, _external=True)
+        redirect_uri = url_for("ebp.SignInRedirect", id=IdClient, _external=True)
         token_url = "https://api-login.ebp.com/connect/token"
 
         try:
@@ -132,7 +132,7 @@ class EBP:
 
             idChamp = db.get_id_champ_by_lib_champ("EBP_token")
             print("token : ", token)
-            db.add_champ_client(idClient, idChamp, token)
+            db.add_champ_client(IdClient, idChamp, token)
             print("Token enregistré avec succès.")
             return self.create_oauth_session(token)
 

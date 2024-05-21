@@ -1,61 +1,73 @@
-{% extends 'base.html' %} {% block title %}remplissage des champs requis{% endblock %}
-{% block content%}
+{% extends 'base.html' %} {% block title %}Remplissage des champs requis{%
+endblock %} {% block content %}
 <br />
+<h1>Remplissage des champs requis</h1>
 
-
-<h1>remplissage des champs requis</h1>
-
-<form action="{{ url_for('database.add_champ_client_multiple') }}" method="post">
+<form
+  id="addMultipleChampPasserelleClientForm"
+  action="{{ url_for('database.add_multiple_champ_passerelle') }}"
+  method="post"
+>
   <div class="form-group">
-    {% for field in fields %}
+    {% for field in fields %} {% if field.LibChamp == "EBP_FOLDER_ID" %} {% if
+    not liste_ebp_folder %}
 
-    {% if field.lib_champ == "EBP_FOLDER_ID" %}
-    {% if liste_ebp_folder == [] %}
-    <p> La connexion à EBP n'est pas configurée </p>
+    <p>La connexion à EBP n'est pas configurée</p>
+
+    {% else %} {% with liste_ebp_folder=liste_ebp_folder %} {% include
+    'logiciel/ebp/folder_select.html' %} {% endwith %} {% endif %} {% elif
+    field.LibChamp == "Zeendoc_CLASSEUR" %} {% if not liste_zeendoc_classeur %}
+
+    <p>La connexion à Zeendoc n'est pas configurée</p>
+
+    {% else %} {% with liste_zeendoc_classeur=liste_zeendoc_classeur %} {%
+    include 'logiciel/zeendoc/classeur_select.html' %} {% endwith %} {% endif %}
     {% else %}
-    {% with liste_ebp_folder=liste_ebp_folder%} {% include 'ebp/folder_select.html' %} {% endwith %}
-    {% endif %}
-
-
-    {% elif field.lib_champ == "Zeendoc_CLASSEUR" %}
-    {% if liste_zeendoc_classeur == [] %}
-    <p> La connexion à Zeendoc n'est pas configurée </p>
-    {% else %}
-    {% with liste_zeendoc_classeur=liste_zeendoc_classeur%} {% include 'zeendoc/classeur_select.html' %} {% endwith %}
-    {% endif %}
-
-
-    {% else %}
-
-
-
-
-    <label for="lib_champ_{{ loop.index }}">{{ field.lib_champ }}</label>
-    <input type="hidden" name="id_champ[]" value="{{ field.id_champ }}" />
+    <label for="LibChamp_{{ loop.index }}">{{ field.LibChamp }}</label>
+    <input type="hidden" name="IdChamp[]" value="{{ field.IdChamp }}" />
     <input
       type="text"
       class="form-control"
-      id="lib_champ_{{ loop.index }}"
-      name="lib_champ[]"
+      id="LibChamp_{{ loop.index }}"
+      name="LibChamp[]"
       placeholder="Entrer la valeur"
-      {% for champ in champ_client %}
-      {% if champ.id_champ == field.id_champ %}
-      value="{{ champ.valeur }}"
-      {% endif %}
-      {% endfor %}
-
+      value="{% for champ in fields %}{% if champ.IdChamp == field.IdChamp %}{{ champ.Valeur }}{% endif %}{% endfor %}"
     />
-
-
     {% endif %}
-
-    </br>
-
-
+    <br />
     {% endfor %}
   </div>
   <input type="hidden" name="id_client" value="{{ id_client }}" />
   <button type="submit" class="btn btn-primary">Ajouter</button>
 </form>
+
+<script>
+  document
+    .getElementById("addMultipleChampPasserelleClientForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault(); // Empêche le comportement par défaut du formulaire
+      const form = event.target;
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: form.method,
+        body: formData,
+      })
+        .then((response) => {
+          if (response.ok) {
+            window.location.href = "{{ url_for('v_interface.home') }}"; // Redirection après succès
+          } else {
+            return response.json().then((data) => {
+              console.error("Error:", data);
+              alert("Erreur lors de l'ajout des champs requis.");
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Fetch error:", error);
+          alert("Erreur lors de l'ajout des champs requis.");
+        });
+    });
+</script>
 
 {% endblock %}

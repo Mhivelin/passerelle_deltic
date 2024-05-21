@@ -30,4 +30,11 @@
     </form>
   </div>
 </div>
-{% endblock %}
+
+<!-- Affichage des erreurs grace à la fonction get_flashed_messages() -->
+{% with errors = get_flashed_messages(with_categories=true) %} {% if errors %}
+<div class="alert alert-danger mt-3 mx-auto" style="max-width: 400px">
+  {% for category, message in errors %}
+  <strong>{{ category }}:</strong> {{ message }} {% endfor %}
+</div>
+{% endif %} {% endwith %} {% endblock %}

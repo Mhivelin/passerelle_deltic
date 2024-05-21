@@ -22,15 +22,14 @@ def form_add_client():
 @login_required
 def form_add_multiple_requiert(id_client):
     """Route pour afficher le formulaire d'ajout de plusieurs clients"""
-    fields = database.get_all_fields_requiert_by_client(id_client)
-    champ_client = database.get_champ_client_by_client(id_client)
+    fields = database.get_champ_passerelle_client_by_client_with_lib_champ(id_client)
 
     # on verifie si EBP_FOLDER_ID est dans les champs requis
     liste_ebp_folder = []
     liste_zeendoc_classeur = []
 
     for field in fields:
-        if field["lib_champ"] == "EBP_FOLDER_ID":
+        if field["LibChamp"] == "EBP_FOLDER_ID":
             try:
                 instance_ebp = ebp.EBP(id_client)
                 liste_ebp_folder = instance_ebp.get_folders()
@@ -39,7 +38,7 @@ def form_add_multiple_requiert(id_client):
                 liste_ebp_folder = []
 
 
-        if field["lib_champ"] == "Zeendoc_CLASSEUR":
+        if field["LibChamp"] == "Zeendoc_CLASSEUR":
             try:
                 instance_zeendoc = zeendoc.Zeendoc(id_client)
                 liste_zeendoc_classeur = instance_zeendoc.get_classeurs()
@@ -50,4 +49,4 @@ def form_add_multiple_requiert(id_client):
 
 
 
-    return render_template("client/add_multiple_requiert.html", fields=fields, id_client=id_client, champ_client=champ_client, liste_ebp_folder=liste_ebp_folder, liste_zeendoc_classeur=liste_zeendoc_classeur)
+    return render_template("client/add_multiple_requiert.html", fields=fields, id_client=id_client, liste_ebp_folder=liste_ebp_folder, liste_zeendoc_classeur=liste_zeendoc_classeur)

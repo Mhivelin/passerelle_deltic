@@ -26,7 +26,7 @@ def form_add_passerelle():
 def form_connect_passerelle():
     """Route pour afficher le formulaire de connexion d'une passerelle"""
     # on recupère l'id du client
-    id_client = request.args.get("idClient")
+    id_client = request.args.get("IdClient")
     passerelles = database.get_all_passerelles()
 
     client =  database.get_client_by_id(id_client)

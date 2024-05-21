@@ -1,11 +1,15 @@
 {% extends 'base.html' %} {% block title %}Connexion Passerelle{% endblock %} {%
-block content%}
+block content %}
 
 <br />
 
 <h2>Connexion à une passerelle pour : {{ client.username }}</h2>
 
-<form action="{{ url_for('database.add_client_passerelle') }}" method="post">
+<form
+  id="addPasserelleClientForm"
+  action="{{ url_for('database.add_passerelle_client') }}"
+  method="post"
+>
   <div class="form-group">
     <label for="id_passerelle">Passerelle</label>
     <select class="form-control" id="id_passerelle" name="id_passerelle">
@@ -16,8 +20,37 @@ block content%}
       {% endfor %}
     </select>
   </div>
-  <input type="hidden" name="id_client" value="{{ client.idClient }}" />
+  <input type="hidden" name="id_client" value="{{ client.IdClient }}" />
   <button type="submit" class="btn btn-primary">Ajouter</button>
 </form>
+
+<script>
+  document
+    .getElementById("addPasserelleClientForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault(); // Empêche le comportement par défaut du formulaire
+      const form = event.target;
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: form.method,
+        body: formData,
+      })
+        .then((response) => {
+          if (response.ok) {
+            window.location.href = "{{ url_for('v_interface.home') }}"; // Redirection après succès
+          } else {
+            return response.json().then((data) => {
+              console.error("Error:", data);
+              alert("Erreur lors de la connexion à la passerelle.");
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Fetch error:", error);
+          alert("Erreur lors de la connexion à la passerelle.");
+        });
+    });
+</script>
 
 {% endblock %}

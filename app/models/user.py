@@ -5,15 +5,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model, UserMixin):
     """
-    Represents a user in the system.
+    Classe User qui permet de gérer les utilisateurs de l'application.
 
-    Attributes:
-        id (int): The unique identifier for the user.
-        username (str): The username of the user.
-        password (str): The hashed password of the user.
-
-    Methods:
-        set_password: Sets the password for the user.
 
     """
 
@@ -23,27 +16,14 @@ class User(db.Model, UserMixin):
 
     def set_password(self, password):
         """
-        Sets the password for the user.
-
-        Args:
-            password (str): The password to set.
-
-        Returns:
-            None
-
+        Méthode qui permet de hasher le mot de passe de l'utilisateur avant de le stocker en base de données.
         """
         self.password = generate_password_hash(password)
-        
-    
+
+
     def verify_password(self, password):
         """
-        Verify the password of the user.
-
-        Args:
-            password (str): The password to verify.
-
-        Returns:
-            bool: True if the password is correct, False otherwise.
-
+        Méthode qui permet de vérifier si le mot de passe donné correspond au mot de passe stocké en base de données.
+        si le mot de passe correspond, la méthode retourne True, sinon elle retourne False.
         """
         return check_password_hash(self.password, password)

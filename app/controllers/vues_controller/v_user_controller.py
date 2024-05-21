@@ -17,26 +17,33 @@ v_user_bp = Blueprint("user", __name__)
 @v_user_bp.route('/login', methods=['GET', 'POST'])
 def login():
     """Route pour afficher le formulaire de connexion"""
+    # si le formulaire est soumis
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
+
+        # vérifier si l'utilisateur existe et si le mot de passe est correct
         if user and user.verify_password(password):
             login_user(user)
-            flash('Logged in successfully.')
             return redirect(url_for('v_interface.home'))
 
-        flash('Invalid username or password.')
+        # afficher un message d'erreur si l'utilisateur n'existe pas ou si le mot de passe est incorrect
+        flash('Invalid username or password', 'error')
         return redirect(url_for('user.login'))
 
+    # si la méthode est GET, afficher le formulaire de connexion
     return render_template('login.html')
 
 
 @v_user_bp.route("/app/login", methods=["POST"])
 def app_login():
+    # récupérer les données du formulaire
     data = request.get_json()
     username = data.get("username")
     password = data.get("password")
+
+    # vérifier si l'utilisateur existe et si le mot de passe est correct
     user = User.query.filter_by(username=username).first()
     if user and user.verify_password(password):
         access_token = create_access_token(identity=username)

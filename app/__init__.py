@@ -4,10 +4,14 @@ import sys
 from flask import Flask, render_template
 from flask_login import LoginManager
 from flask_jwt_extended import JWTManager
+import os
+import dotenv
 from datetime import timedelta
 from app.extensions import db
 from app.models.user import User
+from app.models.database import create_database
 
+dotenv.load_dotenv(dotenv.find_dotenv())
 
 def configure_logs(app):
     # Formatter pour les logs
@@ -34,10 +38,10 @@ def configure_logs(app):
 
 def create_app():
     app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
     # app.config['SERVER_NAME'] = 'localhost:5000'
 
-    app.config["SECRET_KEY"] = "deltictmp"
+    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
     db.init_app(app)
 
     # Configurer les logs
@@ -51,16 +55,18 @@ def create_app():
 
 
     # initialisation du JWT
-    app.config["JWT_SECRET_KEY"] = "deltictmp"
+    app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
     app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
     jwt = JWTManager(app)
 
+    # création de la base de données
 
 
 
     with app.app_context():
         db.create_all()
+        create_database()
 
 
     @login_manager.user_loader
@@ -97,11 +103,19 @@ def create_app():
 
     # ajout d'un utilisateur
     with app.app_context():
-        if not User.query.filter_by(username="admin").first():
-            new_user = User(username="admin")
-            new_user.set_password("admin")
+        username = os.getenv("ADMIN_USERNAME")
+        password = os.getenv("ADMIN_PASSWORD")
+
+        if username is None or password is None:
+            app.logger.error("ADMIN_USERNAME ou ADMIN_PASSWORD non définis dans .env")
+            raise ValueError("ADMIN_USERNAME ou ADMIN_PASSWORD doivent être définis dans le fichier .env")
+
+        if not User.query.filter_by(username=username).first():
+            new_user = User(username=username)
+            new_user.set_password(password)
             db.session.add(new_user)
             db.session.commit()
+            app.logger.info("Nouvel utilisateur admin ajouté avec succès.")
 
 
 

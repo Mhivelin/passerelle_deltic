@@ -2,18 +2,64 @@
 Ce module contient les routes pour les différentes entités de la base de données.
 """
 
-
 from flask_jwt_extended import jwt_required
 from flask import Blueprint, jsonify, request, redirect, url_for
 from flask_login import login_required
 import logging
 from app.models import database
 
-
-# Création d'un Blueprint pour le ebp controller
+# Création d'un Blueprint pour le controller
 database_bp = Blueprint("database", __name__)
 
+###################################################################################################
+#                                        CLIENT                                                  #
+###################################################################################################
 
+@database_bp.route("/database/client", methods=["GET"])
+@login_required
+def get_all_clients():
+    """
+    Obtient tous les clients de la base de données.
+    """
+    try:
+        clients = database.get_all_clients()
+        return jsonify(clients)
+    except Exception as e:
+        logging.error(f"Error fetching clients: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@database_bp.route("/database/client", methods=["POST"])
+@login_required
+def add_client():
+    """
+    Ajoute un nouveau client à la base de données.
+    """
+    try:
+        if request.is_json:
+            data = request.get_json()
+        else:
+            data = request.form
+        username = data.get("username")
+        if not username:
+            return jsonify({"error": "Username is required"}), 400
+        database.add_client(username)
+        return jsonify({"message": "Client added successfully"}), 201
+    except Exception as e:
+        logging.error(f"Error adding client: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@database_bp.route("/database/client/<int:id_client>", methods=["DELETE"])
+@login_required
+def delete_client(id_client):
+    """
+    Supprime un client de la base de données par identifiant.
+    """
+    try:
+        database.delete_client(id_client)
+        return jsonify({"message": "Client deleted successfully"}), 200
+    except Exception as e:
+        logging.error(f"Error deleting client: {e}")
+        return jsonify({"error": str(e)}), 500
 
 ###################################################################################################
 #                                        PASSERELLE                                              #
@@ -25,295 +71,49 @@ def get_all_passerelles():
     """
     Obtient toutes les passerelles de la base de données.
     """
-    passerelles = database.get_all_passerelles()
-    return jsonify(passerelles)
-
-
-@database_bp.route("/database/passerelle/<int:passerelle_id>", methods=["GET"])
-@login_required
-def get_passerelle_by_id(passerelle_id):
-    """
-    Obtient une passerelle par son ID.
-    """
-    passerelle = database.get_passerelle_by_id(passerelle_id)
-    return jsonify(passerelle)
-
-
-@database_bp.route("/database/passerelle_with_connectors/<int:passerelle_id>", methods=["GET"])
-@login_required
-def get_passerelle_with_connectors_by_id(passerelle_id):
-    """
-    Obtient une passerelle avec ses connecteurs source et destination par son ID.
-    """
-    passerelle = database.get_passerelle_with_connectors_by_id(passerelle_id)
-    return jsonify(passerelle)
-
-
+    try:
+        passerelles = database.get_all_passerelles()
+        return jsonify(passerelles)
+    except Exception as e:
+        logging.error(f"Error fetching passerelles: {e}")
+        return jsonify({"error": str(e)}), 500
 
 @database_bp.route("/database/passerelle", methods=["POST"])
 @login_required
 def add_passerelle():
     """
-    Ajoute une passerelle à la base de données.
+    Ajoute une nouvelle passerelle à la base de données.
     """
-    # obtenir les données de la requête (soit en JSON, soit en form-data)
-    if request.is_json:
-        data = request.get_json()
-    else:
-        data = request.form
 
-    # ajouter la passerelle
-    database.add_passerelle(data["lib_passerelle"])
-    return redirect(url_for("v_interface.home"))
+    try:
+        if request.is_json:
+            data = request.get_json()
+        else:
+            data = request.form
+        lib_passerelle = data.get("LibPasserelle")
+        if not lib_passerelle:
+            return jsonify({"error": "LibPasserelle is required"}), 400
+        database.add_passerelle(lib_passerelle)
+        return jsonify({"message": "Passerelle added successfully"}), 201
+    except Exception as e:
+        logging.error(f"Error adding passerelle: {e}")
+        return jsonify({"error": str(e)}), 500
 
-
-@database_bp.route("/database/passerelle_with_connectors", methods=["POST"])
+@database_bp.route("/database/passerelle/<int:id_passerelle>", methods=["DELETE"])
 @login_required
-def add_passerelle_with_connectors():
+def delete_passerelle(id_passerelle):
     """
-    Ajoute une passerelle à la base de données avec un connecteur source et un connecteur destination.
+    Supprime une passerelle de la base de données par identifiant.
     """
-    # obtenir les données de la requête (soit en JSON, soit en form-data)
-    if request.is_json:
-        data = request.get_json()
-    else:
-        data = request.form
-
-    # ajouter la passerelle
-    database.add_passerelle_with_connectors(
-        data["lib_passerelle"],
-        data["id_logiciel_source"],
-        data["id_logiciel_destination"]
-    )
-    return redirect(url_for("v_interface.home"))
-
-@database_bp.route("/database/add_passerelle_with_connectors_and_fields", methods=["POST"])
-@login_required
-def add_passerelle_with_connectors_and_fields():
-    """
-    Ajoute une passerelle à la base de données avec un connecteur source et un connecteur destination.
-    """
-    # obtenir les données de la requête (soit en JSON, soit en form-data)
-    if request.is_json:
-        data = request.get_json()
-        requis_list = data['requis']
-    else:
-        data = request.form
-        requis_list = data.getlist('requis')
-
-
-    print("data: ", data)
-
-
-    # ajouter la passerelle
-    print("add_passerelle_with_connectors:")
-    print(database.add_passerelle_with_connectors(
-        data["lib_passerelle"],
-        data["id_logiciel_source"],
-        data["id_logiciel_destination"]))
-
-    id_passerelle = database.get_id_passerelle_by_lib_passerelle(data["lib_passerelle"])
-
-    # ajouter les champs
-    for champ in requis_list:
-        print("champ: ", champ)
-        print(database.add_requiert_passerelle(champ, id_passerelle))
-
-    return jsonify({"data": data, "requis": requis_list})
-#redirect(url_for("v_interface.home"))
-
-
-
-
-@database_bp.route("/database/passerelle/<int:passerelle_id>", methods=["DELETE"])
-@login_required
-def delete_passerelle(passerelle_id):
-    """
-    Supprime une passerelle de la base de données.
-    """
-    result = database.delete_passerelle(passerelle_id)
-    return jsonify(result)
-
-
+    try:
+        database.delete_passerelle(id_passerelle)
+        return jsonify({"message": "Passerelle deleted successfully"}), 200
+    except Exception as e:
+        logging.error(f"Error deleting passerelle: {e}")
+        return jsonify({"error": str(e)}), 500
 
 ###################################################################################################
-#                                        CONNECTEURS                                              #
-###################################################################################################
-
-#### CONNECTEUR SOURCE ####
-
-@database_bp.route("/database/connecteur_source", methods=["GET"])
-@login_required
-def get_all_connecteurs_source():
-    """
-    Obtient tous les connecteurs source de la base de données.
-    """
-    connecteurs_source = database.get_all_connecteurs_source()
-    return jsonify(connecteurs_source)
-
-
-
-@database_bp.route("/database/connecteur_source", methods=["POST"])
-@login_required
-def add_connecteur_source():
-    """
-    Ajoute un connecteur source à la base de données.
-    """
-    # obtenir les données de la requête (soit en JSON, soit en form-data)
-    if request.is_json:
-        data = request.get_json()
-    else:
-        data = request.form
-
-    database.add_connecteur_source(data["id_passerelle"], data["id_logiciel"])
-    return redirect(url_for("v_interface.home"))
-
-@database_bp.route("/database/connecteur_source/<int:connecteur_source_id>", methods=["GET"])
-@login_required
-def get_connecteur_source_by_id(connecteur_source_id):
-    """
-    Obtient un connecteur source par son ID.
-    """
-    connecteur_source = database.get_connecteur_source_by_id(connecteur_source_id)
-    return jsonify(connecteur_source)
-
-
-@database_bp.route("/database/connecteur_source/<int:connecteur_source_id>", methods=["DELETE"])
-@login_required
-def delete_connecteur_source(connecteur_source_id):
-    """
-    Supprime un connecteur source de la base de données.
-    """
-    result = database.delete_connecteur_source(connecteur_source_id)
-    return jsonify(result)
-
-
-
-#### CONNECTEUR DESTINATION ####
-
-
-@database_bp.route("/database/connecteur_destination", methods=["GET"])
-@login_required
-def get_all_connecteurs_destination():
-    """
-    Obtient tous les connecteurs destination de la base de données.
-    """
-    connecteurs_destination = database.get_all_connecteurs_destination()
-    return jsonify(connecteurs_destination)
-
-
-
-@database_bp.route("/database/connecteur_destination", methods=["POST"])
-@login_required
-def add_connecteur_destination():
-    """
-    Ajoute un connecteur destination à la base de données.
-    """
-    # obtenir les données de la requête (soit en JSON, soit en form-data)
-    if request.is_json:
-        data = request.get_json()
-    else:
-        data = request.form
-
-    # ajouter le connecteur destination
-    database.add_connecteur_destination(data["id_passerelle"], data["id_logiciel"])
-    return redirect(url_for("v_interface.home"))
-
-@database_bp.route(
-    "/database/connecteur_destination/<int:connecteur_destination_id>",
-    methods=["GET"])
-@login_required
-def get_connecteur_destination_by_id(connecteur_destination_id):
-    """
-    Obtient un connecteur destination par son ID.
-    """
-    connecteur_destination = database.get_connecteur_destination_by_id(connecteur_destination_id)
-    return jsonify(connecteur_destination)
-
-@database_bp.route(
-    "/database/connecteur_destination/<int:connecteur_destination_id>",
-    methods=["DELETE"])
-@login_required
-def delete_connecteur_destination(connecteur_destination_id):
-    """
-    Supprime un connecteur destination de la base de données.
-    """
-    result = database.delete_connecteur_destination(connecteur_destination_id)
-    return jsonify(result)
-
-
-###################################################################################################
-#                                        CLIENT                                                   #
-###################################################################################################
-
-@database_bp.route("/database/client", methods=["GET"])
-@jwt_required()
-def get_all_clients():
-    """
-    Obtient tous les clients de la base de données.
-    """
-    clients = database.get_all_clients()
-    return jsonify(clients)
-
-
-@database_bp.route("/database/client/<int:client_id>", methods=["GET"])
-@login_required
-def get_client_by_id(client_id):
-    """
-    Obtient un client par son ID.
-    """
-    client = database.get_client_by_id(client_id)
-    return jsonify(client)
-
-
-@database_bp.route("/database/client", methods=["POST"])
-@login_required
-def add_client():
-    """
-    Ajoute un client à la base de données.
-    """
-    # obtenir les données de la requête (soit en JSON, soit en form-data)
-    if request.is_json:
-        data = request.get_json()
-    else:
-        data = request.form
-
-    # ajouter le client
-    database.add_client(data["lib_client"])
-    id_client = database.get_id_client_by_lib_client(data["lib_client"])
-    return redirect(url_for("passerelle.form_connect_passerelle", idClient=id_client))
-
-
-@database_bp.route("/database/app/client", methods=["POST"])
-@jwt_required()
-def app_add_client():
-    """
-    Ajoute un client à la base de données.
-    """
-    # obtenir les données de la requête (soit en JSON, soit en form-data)
-    if request.is_json:
-        data = request.get_json()
-    else:
-        data = request.form
-
-    # ajouter le client
-    database.add_client(data["lib_client"])
-    return jsonify({"message": "Client ajouté avec succès"})
-
-
-@database_bp.route("/database/client/<int:client_id>", methods=["DELETE"])
-@login_required
-def delete_client(client_id):
-    """
-    Supprime un client de la base de données.
-    """
-    result = database.delete_client(client_id)
-    print("result: ", result)
-    return jsonify(result)
-
-
-###################################################################################################
-#                                        LOGICIEL                                                 #
+#                                        LOGICIEL                                                #
 ###################################################################################################
 
 @database_bp.route("/database/logiciel", methods=["GET"])
@@ -322,115 +122,49 @@ def get_all_logiciels():
     """
     Obtient tous les logiciels de la base de données.
     """
-    logiciels = database.get_all_logiciels()
-    return jsonify(logiciels)
-
-
-@database_bp.route("/database/logiciel/<int:logiciel_id>", methods=["GET"])
-@login_required
-def get_logiciel_by_id(logiciel_id):
-    """
-    Obtient un logiciel par son ID.
-    """
-    logiciel = database.get_logiciel_by_id(logiciel_id)
-    return jsonify(logiciel)
-
-
-@database_bp.route("/database/logicielByPasserelle/<int:passerelle_id>", methods=["GET"])
-@login_required
-def get_logiciel_by_passerelle(passerelle_id):
-    """
-    Obtient tous les logiciels d'une passerelle.
-    """
-    logiciels = database.get_logiciel_by_passerelle(passerelle_id)
-    return jsonify(logiciels)
-
+    try:
+        logiciels = database.get_all_logiciels()
+        return jsonify(logiciels)
+    except Exception as e:
+        logging.error(f"Error fetching logiciels: {e}")
+        return jsonify({"error": str(e)}), 500
 
 @database_bp.route("/database/logiciel", methods=["POST"])
 @login_required
 def add_logiciel():
     """
-    Ajoute un logiciel à la base de données.
+    Ajoute un nouveau logiciel à la base de données.
     """
-    # obtenir les données de la requête (soit en JSON, soit en form-data)
-    if request.is_json:
-        data = request.get_json()
-    else:
-        data = request.form
+    try:
+        if request.is_json:
+            data = request.get_json()
+        else:
+            data = request.form
+        lib_logiciel = data.get("lib_logiciel")
+        if not lib_logiciel:
+            return jsonify({"error": "LibLogiciel is required"}), 400
+        database.add_logiciel(lib_logiciel)
+        return jsonify({"message": "Logiciel added successfully"}), 201
+    except Exception as e:
+        logging.error(f"Error adding logiciel: {e}")
+        return jsonify({"error": str(e)}), 500
 
-    # ajouter le logiciel
-    database.add_logiciel(data["lib_logiciel"])
-    return redirect(url_for("v_interface.home"))
-
-
-@database_bp.route("/database/logiciel/<int:logiciel_id>", methods=["DELETE"])
+@database_bp.route("/database/logiciel/<int:id_logiciel>", methods=["DELETE"])
 @login_required
-def delete_logiciel(logiciel_id):
+def delete_logiciel(id_logiciel):
     """
-    Supprime un logiciel de la base de données.
+    Supprime un logiciel de la base de données par identifiant.
     """
-    result = database.delete_logiciel(logiciel_id)
-    return jsonify(result)
-
-
-
+    try:
+        database.delete_logiciel(id_logiciel)
+        return jsonify({"message": "Logiciel deleted successfully"}), 200
+    except Exception as e:
+        logging.error(f"Error deleting logiciel: {e}")
+        return jsonify({"error": str(e)}), 500
 
 ###################################################################################################
-#                                   CLIENT PASSERELLE                                            #
+#                                        CHAMPS                                                  #
 ###################################################################################################
-
-@database_bp.route("/database/client_passerelle", methods=["GET"])
-@login_required
-def get_all_clients_passerelle():
-    """
-    Obtient tous les clients passerelle de la base de données.
-    """
-    clients_passerelle = database.get_all_clients_passerelle()
-    return jsonify(clients_passerelle)
-
-
-@database_bp.route("/database/client_passerelle/<int:client_passerelle_id>", methods=["GET"])
-@login_required
-def get_client_passerelle_by_id(client_passerelle_id):
-    """
-    Obtient un client passerelle par son ID.
-    """
-    client_passerelle = database.get_client_passerelle_by_id(client_passerelle_id)
-    return jsonify(client_passerelle)
-
-
-@database_bp.route("/database/client_passerelle", methods=["POST"])
-@login_required
-def add_client_passerelle():
-    """
-    Ajoute un client passerelle à la base de données.
-    """
-    # obtenir les données de la requête (soit en JSON, soit en form-data)
-    if request.is_json:
-        data = request.get_json()
-    else:
-        data = request.form
-
-    # ajouter le client passerelle
-    database.add_client_passerelle(data["id_client"], data["id_passerelle"])
-    return redirect(url_for("v_client.form_add_multiple_requiert", id_client=data["id_client"]))
-
-
-@database_bp.route("/database/client_passerelle/<int:id_client>/<int:id_passerelle>", methods=["DELETE"])
-@login_required
-def delete_client_passerelle(id_client, id_passerelle):
-    """
-    Supprime un client passerelle de la base de données.
-    """
-    result = database.delete_client_passerelle(id_client, id_passerelle)
-    return jsonify(result)
-
-
-
-###################################################################################################
-#                                         CHAMP                                                   #
-###################################################################################################
-
 
 @database_bp.route("/database/champ", methods=["GET"])
 @login_required
@@ -438,278 +172,344 @@ def get_all_champs():
     """
     Obtient tous les champs de la base de données.
     """
-    champs = database.get_all_champs()
-    return jsonify(champs)
-
-
-@database_bp.route("/database/champ/<int:champ_id>", methods=["GET"])
-@login_required
-def get_champ_by_id(champ_id):
-    """
-    Obtient un champ par son ID.
-    """
-    champ = database.get_champ_by_id(champ_id)
-    return jsonify(champ)
-
+    try:
+        champs = database.get_all_champs()
+        return jsonify(champs)
+    except Exception as e:
+        logging.error(f"Error fetching champs: {e}")
+        return jsonify({"error": str(e)}), 500
 
 @database_bp.route("/database/champ", methods=["POST"])
 @login_required
 def add_champ():
     """
-    Ajoute un champ à la base de données.
+    Ajoute un nouveau champ à la base de données.
     """
-    # obtenir les données de la requête (soit en JSON, soit en form-data)
-    if request.is_json:
-        data = request.get_json()
-    else:
-        data = request.form
+    try:
+        if request.is_json:
+            data = request.get_json()
+        else:
+            data = request.form
+        lib_champ = data.get("lib_champ")
+        nom_table = data.get("nom_table")
+        id_passerelle = data.get("id_passerelle")
+        id_logiciel = data.get("id_logiciel")
+        if not lib_champ or not nom_table:
+            return jsonify({"error": "LibChamp and NomTable are required"}), 400
+        database.add_champ(lib_champ, nom_table, id_passerelle, id_logiciel)
+        return jsonify({"message": "Champ added successfully"}), 201
+    except Exception as e:
+        logging.error(f"Error adding champ: {e}")
+        return jsonify({"error": str(e)}), 500
 
-    # ajouter le champ
-    database.add_champ(data["lib_champ"])
-    return redirect(url_for("v_interface.home"))
-
-
-@database_bp.route("/database/champ/<int:champ_id>", methods=["DELETE"])
+@database_bp.route("/database/champ/<int:id_champ>", methods=["DELETE"])
 @login_required
-def delete_champ(champ_id):
+def delete_champ(id_champ):
     """
-    Supprime un champ de la base de données.
+    Supprime un champ de la base de données par identifiant.
     """
-    result = database.delete_champ(champ_id)
-    return jsonify(result)
+    try:
+        database.delete_champ(id_champ)
+        return jsonify({"message": "Champ deleted successfully"}), 200
+    except Exception as e:
+        logging.error(f"Error deleting champ: {e}")
+        return jsonify({"error": str(e)}), 500
 
+###################################################################################################
+#                                        CONNECT_LOGICIEL                                        #
+###################################################################################################
 
-@database_bp.route("/database/champByPasserelle/<int:passerelle_id>", methods=["GET"])
+@database_bp.route("/database/connecteur", methods=["GET"])
 @login_required
-def get_champ_by_passerelle(passerelle_id):
+def get_all_connecteurs():
     """
-    Obtient tous les champs d'une passerelle.
+    Obtient tous les connecteurs de la base de données.
     """
-    champs = database.get_champ_by_passerelle(passerelle_id)
-    return jsonify(champs)
+    try:
+        connecteurs = database.get_all_connecteurs()
+        return jsonify(connecteurs)
+    except Exception as e:
+        logging.error(f"Error fetching connecteurs: {e}")
+        return jsonify({"error": str(e)}), 500
 
-
-@database_bp.route("/database/champByLogiciel/<int:logiciel_id>", methods=["GET"])
+@database_bp.route("/database/connecteur", methods=["POST"])
 @login_required
-def get_champ_by_logiciel(logiciel_id):
+def add_connecteur():
     """
-    Obtient tous les champs d'un logiciel.
+    Ajoute un nouveau connecteur à la base de données.
     """
-    champs = database.get_champ_by_logiciel(logiciel_id)
-    return jsonify(champs)
+    try:
+        if request.is_json:
+            data = request.get_json()
+        else:
+            data = request.form
+        id_logiciel = data.get("id_logiciel")
+        id_passerelle = data.get("id_passerelle")
+        is_source = data.get("is_source")
+        if not id_logiciel or not id_passerelle or is_source is None:
+            return jsonify({"error": "IdLogiciel, IdPasserelle, and IsSource are required"}), 400
+        database.add_connecteur(id_logiciel, id_passerelle, is_source)
+        return jsonify({"message": "Connecteur added successfully"}), 201
+    except Exception as e:
+        logging.error(f"Error adding connecteur: {e}")
+        return jsonify({"error": str(e)}), 500
 
-
-@database_bp.route("/database/champByClient/<int:client_id>", methods=["GET"])
+@database_bp.route("/database/connecteur/<int:id_logiciel>/<int:id_passerelle>", methods=["DELETE"])
 @login_required
-def get_champ_by_client(client_id):
+def delete_connecteur(id_logiciel, id_passerelle):
     """
-    Obtient tous les champs d'un client.
+    Supprime un connecteur de la base de données par identifiant.
     """
-    champs = database.get_champ_by_client(client_id)
-    return jsonify(champs)
+    try:
+        database.delete_connecteur(id_logiciel, id_passerelle)
+        return jsonify({"message": "Connecteur deleted successfully"}), 200
+    except Exception as e:
+        logging.error(f"Error deleting connecteur: {e}")
+        return jsonify({"error": str(e)}), 500
+
+###################################################################################################
+#                                        CHAMP_PASSERELLE                                        #
+###################################################################################################
+
+@database_bp.route("/database/champ_passerelle", methods=["GET"])
+@login_required
+def get_all_champ_passerelle():
+    """
+    Obtient tous les champs passerelle de la base de données.
+    """
+    try:
+        champ_passerelles = database.get_all_champ_passerelle()
+        return jsonify(champ_passerelles)
+    except Exception as e:
+        logging.error(f"Error fetching champ passerelles: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@database_bp.route("/database/champ_passerelle", methods=["POST"])
+@login_required
+def add_champ_passerelle():
+    """
+    Ajoute un nouveau champ passerelle à la base de données.
+    """
+    try:
+        if request.is_json:
+            data = request.get_json()
+        else:
+            data = request.form
+        id_passerelle_client = data.get("id_passerelle_client")
+        id_champ = data.get("id_champ")
+        valeur = data.get("valeur")
+        if not id_passerelle_client or not id_champ or not valeur:
+            return jsonify({"error": "IdPasserelleClient, IdChamp, and Valeur are required"}), 400
+        database.add_champ_passerelle(id_passerelle_client, id_champ, valeur)
+        return jsonify({"message": "Champ Passerelle added successfully"}), 201
+    except Exception as e:
+        logging.error(f"Error adding champ passerelle: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@database_bp.route("/database/champ_passerelle/<int:id_champ>/<int:id_passerelle_client>", methods=["DELETE"])
+@login_required
+def delete_champ_passerelle(id_champ, id_passerelle_client):
+    """
+    Supprime un champ passerelle de la base de données par identifiant.
+    """
+    try:
+        database.delete_champ_passerelle(id_champ, id_passerelle_client)
+        return jsonify({"message": "Champ Passerelle deleted successfully"}), 200
+    except Exception as e:
+        logging.error(f"Error deleting champ passerelle: {e}")
+        return jsonify({"error": str(e)}), 500
+
+###################################################################################################
+#                                        PASSERELLE_CLIENT                                       #
+###################################################################################################
+
+@database_bp.route("/database/passerelle_client", methods=["GET"])
+@login_required
+def get_all_passerelle_client():
+    """
+    Obtient toutes les passerelles client de la base de données.
+    """
+    try:
+        passerelle_clients = database.get_all_passerelle_client()
+        return jsonify(passerelle_clients)
+    except Exception as e:
+        logging.error(f"Error fetching passerelle clients: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@database_bp.route("/database/passerelle_client", methods=["POST"])
+@login_required
+def add_passerelle_client():
+    """
+    Ajoute une nouvelle passerelle client à la base de données.
+    """
+    try:
+        if request.is_json:
+            data = request.get_json()
+        else:
+            data = request.form
+        id_passerelle = data.get("id_passerelle")
+        id_client = data.get("id_client")
+        if not id_passerelle or not id_client:
+            return jsonify({"error": "IdPasserelle and IdClient are required"}), 400
+        database.add_passerelle_client(id_passerelle, id_client)
+        return jsonify({"message": "Passerelle Client added successfully"}), 201
+    except Exception as e:
+        logging.error(f"Error adding passerelle client: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@database_bp.route("/database/passerelle_client/<int:id_passerelle>/<int:id_client>", methods=["DELETE"])
+@login_required
+def delete_passerelle_client(id_passerelle, id_client):
+    """
+    Supprime une passerelle client de la base de données par identifiant.
+    """
+    try:
+        database.delete_passerelle_client(id_passerelle, id_client)
+        return jsonify({"message": "Passerelle Client deleted successfully"}), 200
+    except Exception as e:
+        logging.error(f"Error deleting passerelle client: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@database_bp.route("/database/passerelle_client/<int:id_client>/lib", methods=["GET"])
+@login_required
+def get_passerelle_client_with_lib_passerelle(id_client):
+    """
+    Obtient toutes les passerelles client avec libellé pour un client spécifique.
+    """
+    try:
+        passerelle_clients = database.get_passerelle_client_with_lib_passerelle(id_client)
+        return jsonify(passerelle_clients)
+    except Exception as e:
+        logging.error(f"Error fetching passerelle clients with lib passerelle: {e}")
+        return jsonify({"error": str(e)}), 500
 
 
 
+@database_bp.route("/database/passerelle_client/<int:id_client>/champ", methods=["GET"])
+@login_required
+def get_champ_passerelle_client_by_client_with_lib_champ(id_client):
+    """
+    Obtient tous les champs passerelle client pour un client spécifique.
+    """
+    try:
+        champ_passerelle_client = database.get_champ_passerelle_client_by_client_with_lib_champ(id_client)
+        return jsonify(champ_passerelle_client)
+    except Exception as e:
+        logging.error(f"Error fetching champ passerelle client: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+
+@database_bp.route("/database/add_multiple_champ_passerelle/", methods=["POST"])
+@login_required
+def add_multiple_champ_passerelle():
+    """
+    Ajoute plusieurs champs passerelle client pour un client spécifique.
+    """
+    try:
+        if request.is_json:
+            data = request.get_json()
+        else:
+            data = request.form
+        for champ in data:
+            id_champ = champ.get("id_champ")
+            valeur = champ.get("valeur")
+            id_client = champ.get("id_client")
+            if not id_champ or not valeur:
+                return jsonify({"error": "IdChamp and Valeur are required"}), 400
+            database.add_champ_passerelle(id_client, id_champ, valeur)
+        return jsonify({"message": "Champ Passerelle added successfully"}), 201
+    except Exception as e:
+        logging.error(f"Error adding champ passerelle: {e}")
+        return jsonify({"error": str(e)}), 500
 
 
 
 ###################################################################################################
-#                                          requiert                                               #
+#                                       application controller                                    #
 ###################################################################################################
 
-@database_bp.route("/database/requiert", methods=["GET"])
-@login_required
-def get_all_requierts():
+@database_bp.route("/database/app/client", methods=["GET"])
+@jwt_required()
+def get_all_clients_app():
     """
-    Obtient tous les requierts de la base de données.
+    Obtient tous les clients de la base de données.
     """
-    requierts = database.get_all_requiert()
-    return jsonify(requierts)
+    try:
+        clients = database.get_all_clients()
+        return jsonify(clients)
+    except Exception as e:
+        logging.error(f"Error fetching clients: {e}")
+        return jsonify({"error": str(e)}), 500
 
 
-@database_bp.route("/database/requiert/<int:id_champ>/<int:id_logiciel>", methods=["GET"])
-@login_required
-def get_requiert_by_id(id_champ, id_logiciel):
+@database_bp.route("/database/app/client", methods=["POST"])
+@jwt_required()
+def add_client_app():
     """
-    Obtient un requiert par son ID.
+    Ajoute un nouveau client à la base de données.
     """
-    requiert = database.get_requiert_by_id(id_champ, id_logiciel)
-    return jsonify(requiert)
+    try:
+        if request.is_json:
+            data = request.get_json()
+        else:
+            data = request.form
+        username = data.get("username")
+        if not username:
+            return jsonify({"error": "Username is required"}), 400
+        database.add_client(username)
+        return jsonify({"message": "Client added successfully"}), 201
+    except Exception as e:
+        logging.error(f"Error adding client: {e}")
+        return jsonify({"error": str(e)}), 500
 
-@database_bp.route("/database/logiciel_requiert", methods=["POST"])
-@login_required
-def add_requiert_logiciel():
+# get_all_logiciels
+@database_bp.route("/database/app/logiciel", methods=["GET"])
+@jwt_required()
+def get_all_logiciels_app():
     """
-    Ajoute un requiert à la base de données pour un logiciel.
+    Obtient tous les logiciels de la base de données.
     """
-    # obtenir les données de la requête (soit en JSON, soit en form-data)
-    if request.is_json:
-        data = request.get_json()
-    else:
-        data = request.form
-
-    # ajouter le requiert
-    database.add_requiert_logiciel(data["id_champ"], data["id_logiciel"])
-    return redirect(url_for("v_interface.home"))
+    try:
+        logiciels = database.get_all_logiciels()
+        return jsonify(logiciels)
+    except Exception as e:
+        logging.error(f"Error fetching logiciels: {e}")
+        return jsonify({"error": str(e)}), 500
 
 
-@database_bp.route("/database/passerelle_requiert", methods=["POST"])
-@login_required
-def add_requiert_passerelle():
+# get_all_champs
+@database_bp.route("/database/app/champ", methods=["GET"])
+@jwt_required()
+def get_all_champs_app():
     """
-    Ajoute un requiert à la base de données pour une passerelle.
+    Obtient tous les champs de la base de données.
     """
-    # obtenir les données de la requête (soit en JSON, soit en form-data)
-    if request.is_json:
-        data = request.get_json()
-    else:
-        data = request.form
+    try:
+        champs = database.get_all_champs()
+        return jsonify(champs)
+    except Exception as e:
+        logging.error(f"Error fetching champs: {e}")
+        return jsonify({"error": str(e)}), 500
 
-    # ajouter le requiert
-    database.add_requiert_passerelle(data["id_champ"], data["id_passerelle"])
-    return redirect(url_for("v_interface.home"))
-
-
-
-
-
-@database_bp.route("/database/requiert/<int:id_champ>/<int:id_logiciel>", methods=["DELETE"])
-@login_required
-def delete_requiert_logiciel(id_champ, id_logiciel):
+# add_passerelle
+@database_bp.route("/database/app/passerelle", methods=["POST"])
+@jwt_required()
+def add_passerelle_app():
     """
-    Supprime un requiert de la base de données pour un logiciel.
+    Ajoute une nouvelle passerelle à la base de données.
     """
-    result = database.delete_requiert_logiciel(id_champ, id_logiciel)
-    return jsonify(result)
 
-
-@database_bp.route("/database/requiert/<int:id_champ>/<int:id_passerelle>", methods=["DELETE"])
-@login_required
-def delete_requiert_passerelle(id_champ, id_passerelle):
-    """
-    Supprime un requiert de la base de données pour une passerelle.
-    """
-    result = database.delete_requiert_passerelle(id_champ, id_passerelle)
-    return jsonify(result)
-
-
-@database_bp.route("/database/requiertByLogiciel/<int:logiciel_id>", methods=["GET"])
-@login_required
-def get_requiert_by_logiciel(logiciel_id):
-    """
-    Obtient tous les requierts d'un logiciel.
-    """
-    requierts = database.get_requiert_by_logiciel(logiciel_id)
-    return jsonify(requierts)
-
-
-@database_bp.route("/database/requiertByPasserelle/<int:passerelle_id>", methods=["GET"])
-@login_required
-def get_requiert_by_passerelle(passerelle_id):
-    """
-    Obtient tous les requierts d'une passerelle.
-    """
-    requierts = database.get_requiert_by_passerelle(passerelle_id)
-    return jsonify(requierts)
-
-
-@database_bp.route("/database/requiertByPasserelleAndLogiciel/<int:passerelle_id>", methods=["GET"])
-@login_required
-def get_requiert_by_passerelle_and_his_logiciel(passerelle_id):
-    """
-    Obtient tous les requierts d'une passerelle et de ses logiciels.
-    """
-    requierts = database.get_requiert_by_passerelle_and_his_logiciel(passerelle_id)
-    return jsonify(requierts)
-
-
-@database_bp.route("/database/requiertByClient/<int:client_id>", methods=["GET"])
-@login_required
-def get_requiert_by_client(client_id):
-    """
-    Obtient tous les requierts d'un client (logiciels et passerelles)
-    """
-    requierts = database.get_requiert_by_client(client_id)
-    return jsonify(requierts)
-
-
-
-###################################################################################################
-#                                     CHAMP CLIENT                                                #
-###################################################################################################
-
-@database_bp.route("/database/champ_client", methods=["GET"])
-@login_required
-def get_all_champs_clients():
-    """
-    Obtient tous les champs clients de la base de données.
-    """
-    champs_clients = database.get_all_champs_clients()
-    return jsonify(champs_clients)
-
-
-@database_bp.route("/database/champ_client/<int:champ_client_id>", methods=["GET"])
-@login_required
-def get_champ_client_by_id(champ_client_id):
-    """
-    Obtient un champ client par son ID.
-    """
-    champ_client = database.get_champ_client_by_id(champ_client_id)
-    return jsonify(champ_client)
-
-
-@database_bp.route("/database/champ_client", methods=["POST"])
-@login_required
-def add_champ_client():
-    """
-    Ajoute un champ client à la base de données.
-    """
-    # obtenir les données de la requête (soit en JSON, soit en form-data)
-    if request.is_json:
-        data = request.get_json()
-    else:
-        data = request.form
-
-    # ajouter le champ client
-    database.add_champ_client(data["id_champ"], data["id_client"])
-    return redirect(url_for("v_interface.home"))
-
-@database_bp.route("/database/champ_client_multiple", methods=["POST"])
-@login_required
-def add_champ_client_multiple():
-    """
-    Ajoute plusieurs champs client à un client dans la base de données.
-    si le champ existe déjà, il est mis à jour.
-    """
-    if request.is_json:
-        data = request.get_json()
-        id_champs = data['id_champ']
-        lib_champs = data['lib_champ']
-    else:
-        data = request.form
-        id_champs = data.getlist('id_champ[]')
-        lib_champs = data.getlist('lib_champ[]')
-        logging.debug("IDs: %s, Labels: %s", id_champs, lib_champs)
-
-
-
-    # Ajouter les champs client
-    id_client = data.get('id_client')
-    champs = []
-    for id_champ, lib_champ in zip(id_champs, lib_champs):
-        database.add_champ_client(id_client, id_champ, lib_champ)
-        champs.append({'id_champ': id_champ, 'lib_champ': lib_champ})
-
-    return redirect(url_for("v_interface.home"))
-    # return jsonify({"data": data, "champs": champs})
-
-
-@database_bp.route("/database/champ_client_by_client/<int:client_id>", methods=["GET"])
-def get_champ_client_by_client(client_id):
-    """
-    Obtient tous les champs d'un client.
-    """
-    champs = database.get_champ_client_by_client(client_id)
-    return jsonify(champs)
-
-
+    try:
+        if request.is_json:
+            data = request.get_json()
+        else:
+            data = request.form
+        lib_passerelle = data.get("LibPasserelle")
+        if not lib_passerelle:
+            return jsonify({"error": "LibPasserelle is required"}), 400
+        database.add_passerelle(lib_passerelle)
+        return jsonify({"message": "Passerelle added successfully"}), 201
+    except Exception as e:
+        logging.error(f"Error adding passerelle: {e}")
+        return jsonify({"error": str(e)}), 500
