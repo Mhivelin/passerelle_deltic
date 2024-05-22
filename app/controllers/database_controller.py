@@ -411,17 +411,47 @@ def add_multiple_champ_passerelle():
             data = request.get_json()
         else:
             data = request.form
-        for champ in data:
+
+        # Log pour déboguer le contenu de data
+        logging.debug(f"Request data: {data}")
+
+        # Convertir les données du formulaire en une liste de dictionnaires
+        champs = []
+        id_champs = data.getlist('IdChamp[]')
+        valeurs = data.getlist('LibChamp[]')
+        id_client = data.get('id_client')
+
+        logging.debug(f"id_champs: {id_champs}")
+        logging.debug(f"valeurs: {valeurs}")
+        logging.debug(f"id_client: {id_client}")
+
+        if not id_champs or not valeurs or not id_client:
+            return jsonify({"error": "Missing data"}), 400
+
+        for id_champ, valeur in zip(id_champs, valeurs):
+            champ = {
+                'id_champ': id_champ,
+                'valeur': valeur,
+                'id_client': id_client
+            }
+            champs.append(champ)
+
+        for champ in champs:
             id_champ = champ.get("id_champ")
             valeur = champ.get("valeur")
             id_client = champ.get("id_client")
             if not id_champ or not valeur:
                 return jsonify({"error": "IdChamp and Valeur are required"}), 400
-            database.add_champ_passerelle(id_client, id_champ, valeur)
+            database.add_or_update_champ_passerelle(id_client, valeur)
+
         return jsonify({"message": "Champ Passerelle added successfully"}), 201
+
     except Exception as e:
         logging.error(f"Error adding champ passerelle: {e}")
         return jsonify({"error": str(e)}), 500
+
+
+
 
 
 

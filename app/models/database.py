@@ -395,6 +395,17 @@ def add_multiple_champ_passerelle(id_passerelle_client, champs):
         add_champ_passerelle(id_passerelle_client, champ["IdChamp"], champ["Valeur"])
 
 
+def add_or_update_champ_passerelle(id_passerelle_client, champs):
+    """Ajoute ou met à jour plusieurs champs passerelle à un client spécifique."""
+    for champ in champs:
+        champ_passerelle = get_champ_passerelle_by_id(champ["IdChamp"], id_passerelle_client)
+        if champ_passerelle:
+            query = "UPDATE CHAMP_PASSERELLE SET Valeur = ? WHERE IdChamp = ? AND IdPasserelleClient = ?"
+            execute_query(query, (champ["Valeur"], champ["IdChamp"], id_passerelle_client))
+        else:
+            add_champ_passerelle(id_passerelle_client, champ["IdChamp"], champ["Valeur"])
+
+
 
 ##########################################################################################
 #                               PASSERELLE_CLIENT                                       #
