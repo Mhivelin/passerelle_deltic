@@ -99,6 +99,37 @@ def add_passerelle():
         logging.error(f"Error adding passerelle: {e}")
         return jsonify({"error": str(e)}), 500
 
+@database_bp.route("/database/add_passerelle_with_champs", methods=["POST"])
+def add_passerelle_with_champs():
+    """
+    Ajoute une nouvelle passerelle à la base de données avec ses champs.
+    """
+    lib_passerelle = request.form.get("LibPasserelle")
+    id_logiciel_source = request.form.get("id_logiciel_source")
+    id_logiciel_destination = request.form.get("id_logiciel_destination")
+    champs = request.form.getlist("requis[]")
+
+    try:
+        # Ajouter la passerelle
+        database.add_passerelle_with_logiciels(lib_passerelle, id_logiciel_source, id_logiciel_destination)
+
+        # Récupérer l'ID de la passerelle nouvellement ajoutée
+        id_passerelle = database.get_passerelle_by_lib(lib_passerelle).get("IdPasserelle")
+
+        # Ajouter les champs requis
+        for champ_id in champs:
+            champ = database.get_champ_by_id(champ_id)
+            lib_champ = champ.get("LibChamp")
+            nom_table = champ.get("NomTable")
+            database.add_champ(lib_champ, nom_table, id_passerelle)
+
+        return jsonify({"message": "Passerelle added successfully"}), 201
+    except Exception as e:
+        logging.error(f"Error adding passerelle: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+
 @database_bp.route("/database/passerelle/<int:id_passerelle>", methods=["DELETE"])
 @login_required
 def delete_passerelle(id_passerelle):
@@ -543,3 +574,5 @@ def add_passerelle_app():
     except Exception as e:
         logging.error(f"Error adding passerelle: {e}")
         return jsonify({"error": str(e)}), 500
+
+

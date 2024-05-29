@@ -217,6 +217,20 @@ def add_passerelle(lib_passerelle):
     """Ajoute une passerelle avec le libellé spécifié."""
     return add_record("PASSERELLE", ["LibPasserelle"], [lib_passerelle])
 
+
+def add_passerelle_with_logiciels(lib_passerelle, id_logiciel_source, id_logiciel_destination):
+    """Ajoute une passerelle avec les logiciels spécifiés."""
+    passerelle_id = add_passerelle(lib_passerelle)
+    add_connecteur(id_logiciel_source, passerelle_id, True)
+    add_connecteur(id_logiciel_destination, passerelle_id, False)
+
+
+
+def get_passerelle_by_lib(lib_passerelle):
+    """Récupère une passerelle spécifique en fonction de son libellé."""
+    query = "SELECT * FROM PASSERELLE WHERE LibPasserelle = ?"
+    return execute_query_single(query, (lib_passerelle, ))
+
 ###################################################################################################
 #                                        CLIENT                                                 #
 ###################################################################################################
@@ -381,11 +395,13 @@ def get_champ_passerelle_client_by_client(id_client):
 def get_champ_passerelle_client_by_client_with_lib_champ(id_client):
     """Récupère tous les champs passerelle associés à un client spécifique avec le libellé du champ."""
     query = """
-        SELECT CP.*, CH.LibChamp
-        FROM CHAMP_PASSERELLE CP
+        SELECT CH.*, CP.Valeur, P.LibPasserelle
+        FROM CHAMPS CH
+        JOIN CHAMP_PASSERELLE CP ON CH.IdChamp = CP.IdChamp
         JOIN PASSERELLE_CLIENT PC ON CP.IdPasserelleClient = PC.IdPasserelleClient
-        JOIN CHAMPS CH ON CP.IdChamp = CH.IdChamp
+        JOIN PASSERELLE P ON PC.IdPasserelle = P.IdPasserelle
         WHERE PC.IdClient = ?
+
     """
     return execute_query(query, (id_client, ))
 
