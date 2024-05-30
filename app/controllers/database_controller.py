@@ -576,3 +576,17 @@ def add_passerelle_app():
         return jsonify({"error": str(e)}), 500
 
 
+
+@database_bp.route("/database/app/client/<int:id_client>", methods=["DELETE"])
+@jwt_required()
+def delete_client_app(id_client):
+    """
+    Supprime un client de la base de données par identifiant.
+    """
+    try:
+        database.delete_client(id_client)
+        return jsonify({"message": "Client deleted successfully"}), 200
+    except Exception as e:
+        logging.error(f"Error deleting client: {e}")
+        return jsonify({"error": str(e)}), 500
+
