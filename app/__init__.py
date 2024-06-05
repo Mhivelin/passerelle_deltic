@@ -1,4 +1,5 @@
 import logging
+import socket
 from logging.handlers import RotatingFileHandler
 import sys
 from flask import Flask, render_template
@@ -61,7 +62,8 @@ def create_app():
     jwt = JWTManager(app)
 
     # recupération de l'adresse ip de la machine
-    ip = os.getenv("IP")
+    hostname = socket.gethostname()
+    ip = socket.gethostbyname(hostname)
 
 
     app.config['SERVER_NAME'] = ip + ':5000'
