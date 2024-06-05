@@ -60,7 +60,11 @@ def create_app():
     app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
     jwt = JWTManager(app)
 
-    app.config['SERVER_NAME'] = '127.0.0.1:5000'
+    # recupération de l'adresse ip de la machine
+    ip = os.getenv("IP")
+
+
+    app.config['SERVER_NAME'] = ip + ':5000'
     app.config['APPLICATION_ROOT'] = '/'
     app.config['PREFERRED_URL_SCHEME'] = 'https'
 
