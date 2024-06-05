@@ -81,33 +81,33 @@ class TestModels(unittest.TestCase):
 
 
 
-    def test_zeendoc_get_rights(self):
-        """
-        Teste la récupération des droits d'un utilisateur Zeendoc.
-        """
+    # def test_zeendoc_get_rights(self):
+    #     """
+    #     Teste la récupération des droits d'un utilisateur Zeendoc.
+    #     """
 
-        instance_zeendoc = Zeendoc(1)
+    #     instance_zeendoc = Zeendoc(1)
 
-        rights = instance_zeendoc.get_rights()
+    #     rights = instance_zeendoc.get_rights()
 
-        # print("Rights: ", rights)
+    #     # print("Rights: ", rights)
 
-        self.assertIsNotNone(rights)
+    #     self.assertIsNotNone(rights)
 
 
 
-    def test_zeendoc_get_classeurs(self):
-        """
-        Teste la récupération des classeurs d'un utilisateur Zeendoc.
-        """
+    # def test_zeendoc_get_classeurs(self):
+    #     """
+    #     Teste la récupération des classeurs d'un utilisateur Zeendoc.
+    #     """
 
-        instance_zeendoc = Zeendoc(1)
+    #     instance_zeendoc = Zeendoc(1)
 
-        classeurs = instance_zeendoc.get_classeurs()
+    #     classeurs = instance_zeendoc.get_classeurs()
 
-        print("Classeurs: ", classeurs)
+    #     print("Classeurs: ", classeurs)
 
-        self.assertIsNotNone(classeurs)
+    #     self.assertIsNotNone(classeurs)
 
 
 

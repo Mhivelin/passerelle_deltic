@@ -45,9 +45,22 @@ class TestModels(unittest.TestCase):
 
 
 
-
         # suppression du token pour les prochains tests
         # database.delete_champ_client_libelle("EBP_token", 1)
+
+    # def test_refresh_token(self):
+    #     """
+    #     Teste le rafraîchissement du token EBP.
+    #     """
+
+    #     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+
+    #     ebp = EBP(1)
+    #     ebp.refresh_token()
+
+    #     print("Token: ", ebp.token)
+
+
 
 
     # def test_get_folders(self):

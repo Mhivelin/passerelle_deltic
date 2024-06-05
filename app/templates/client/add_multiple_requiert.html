@@ -13,10 +13,17 @@ endblock %} {% block content %}
     not liste_ebp_folder %}
 
     <p>La connexion à EBP n'est pas configurée</p>
+    <p>
+      Se connecter à EBP : <a href="{{ url_for('ebp.login_ebp', id=id_client) }}"
+        >Connexion</a>
+    </p>
 
-    {% else %} {% with liste_ebp_folder=liste_ebp_folder %} {% include
-    'logiciel/ebp/folder_select.html' %} {% endwith %} {% endif %} {% elif
-    field.LibChamp == "Zeendoc_CLASSEUR" %} {% if not liste_zeendoc_classeur %}
+       {% else %} {% with
+      liste_ebp_folder=liste_ebp_folder %} {% include
+      'logiciel/ebp/folder_select.html' %} {% endwith %} {% endif %} {% elif
+      field.LibChamp == "Zeendoc_CLASSEUR" %} {% if not liste_zeendoc_classeur
+      %}
+    </p>
 
     <p>La connexion à Zeendoc n'est pas configurée</p>
 

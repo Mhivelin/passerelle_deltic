@@ -14,25 +14,24 @@ class Zeendoc:
     def __init__(self, id) -> None:
         """Constructeur de la classe Zeendoc"""
 
-        infos = db.get_champ_client_by_client(id)
-
+        infos = db.get_all_champ_passerelle_by_passerelle_client_with_lib_champ(id)
 
 
         for info in infos:
-            if info["lib_champ"] == "Zeendoc_Login":
-                self.log = info["valeur"]
-            elif info["lib_champ"] == "Zeendoc_CPassword":
-                self.cpassword = info["valeur"]
-            elif info["lib_champ"] == "Zeendoc_URL_Client":
-                self.urlclient = info["valeur"]
-            elif info["lib_champ"] == "Zeendoc_CLASSEUR":
-                self.classeur = info["valeur"]
-            elif info["lib_champ"] == "EBP_FOLDER_ID":
-                self.indexBAP = info["valeur"]
-            elif info["lib_champ"] == "EBP_PAIEMENT":
-                self.indexPaiement = info["valeur"]
-            elif info["lib_champ"] == "EBP_REF":
-                self.indexREF = info["valeur"]
+            if info["LibChamp"] == "Zeendoc_Login":
+                self.log = info["Valeur"]
+            elif info["LibChamp"] == "Zeendoc_CPassword":
+                self.cpassword = info["Valeur"]
+            elif info["LibChamp"] == "Zeendoc_URL_Client":
+                self.urlclient = info["Valeur"]
+            elif info["LibChamp"] == "Zeendoc_CLASSEUR":
+                self.classeur = info["Valeur"]
+            elif info["LibChamp"] == "EBP_FOLDER_ID":
+                self.indexBAP = info["Valeur"]
+            elif info["LibChamp"] == "EBP_PAIEMENT":
+                self.indexPaiement = info["Valeur"]
+            elif info["LibChamp"] == "OUTPUT_INDEX":
+                self.indexREF = info["Valeur"]
 
 
         self.login()
@@ -191,6 +190,28 @@ class Zeendoc:
 
         return cookie_data
 
+
+    def getAllDoc(self):
+        """fonction qui permet de récupérer tous les documents de l'utilisateur"""
+
+        url = "https://armoires.zeendoc.com/" + self.urlclient + "/ws/3_0/Zeendoc.php"
+
+        payload = (
+            '<?xml version="1.0" encoding="utf-8"?>\n<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\n  <soap:Body>\n    <searchDoc>\n      <Coll_Id>'
+            + self.classeur +
+            "</Coll_Id>\n      <IndexList/>\n      <Saved_Query_Name></Saved_Query_Name>\n      <Wanted_Columns/>\n    </searchDoc>\n  </soap:Body>\n</soap:Envelope>\n"
+        )
+        headers = {
+            "Content-Type": "text/xml; charset=utf-8",
+            "SOAPAction": "urn:Zeendoc#searchDoc",
+            "Cookie": "ZeenDoc=c88d73cfd3fd7600bf9a6efb94e01599",
+        }
+
+        response = requests.request("POST", url, headers=headers, data=payload)
+
+        return response.text
+
+
     def GetDocBAP(self):
         """fonction qui permet de récupérer les doc BAP à partir de son numéro de pièce comptable"""
 
@@ -213,7 +234,7 @@ class Zeendoc:
         """
         fonction qui permet de mettre à jour un document
         res_id: ID de la ressource du document
-        index: dictionnaire représentant l'index à mettre à jour et sa nouvelle valeur
+        index: dictionnaire représentant l'index à mettre à jour et sa nouvelle Valeur
         """
 
         # URL de l'API Zeendoc

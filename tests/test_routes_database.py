@@ -1,149 +1,255 @@
-"""
-Ce module contient les tests des routes liées à la base de données de l'application.
-"""
-# permet de désactiver les avertissements inutiles de pylint
-# nombre maximum de méthodes autorisées :
-# pylint: disable=R0904
+import pytest
+from flask import Flask, url_for
+from flask_login import LoginManager, login_user, UserMixin
+from app.models import database, user
 
-from flask_testing import TestCase
-from flask_login import login_user
-from app import create_app, db
-from app.models.user import User
-from app.models import database
-
-
-
-class TestRoutes(TestCase):
+@pytest.fixture
+def app():
     """
-    Classe de test pour les routes liées à la base de données.
+    Fixture pour configurer l'application Flask pour les tests.
     """
+    app = Flask(__name__)
+    app.register_blueprint(database_bp)
+    app.register_blueprint(v_user_bp)  # Assurez-vous que le blueprint d'authentification est enregistré
+    app.config['TESTING'] = True
+    app.config['LOGIN_DISABLED'] = False
+    app.secret_key = 'supersecretkey'  # Nécessaire pour les sessions
 
+    login_manager = LoginManager()
+    login_manager.init_app(app)
 
+    @login_manager.user_loader
+    def load_user(user_id):
+        return user.query.get(int(user_id))
 
+    return app
 
-    def create_app(self):
-        """
-        Créer une instance de l'application pour les tests.
-        """
-        app = create_app()
-        app.config['TESTING'] = True
-        app.config['WTF_CSRF_ENABLED'] = False  # Désactiver CSRF pour les tests
-        app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///:memory:"
-        database.create_database()
-        return app
+@pytest.fixture
+def client(app):
+    """
+    Fixture pour configurer un client de test.
+    """
+    return app.test_client()
 
+@pytest.fixture(scope='function')
+def db_setup():
+    """
+    Fixture pour la configuration de la base de données.
+    """
+    database.create_database()
+    # Ajout d'un utilisateur de test
+    user = user(username="test", password="")
+    user.set_password("test")
+    database.db.session.add(user)
+    database.db.session.commit()
+    yield
+    database.drop_all_tables()
 
-    def setUp(self):
-        """
-        mettre en place le contexte de l'application avant chaque test.
-        """
-        super().setUp()
-        self.app = self.create_app()
-        self.client = self.app.test_client()
-        with self.app.app_context():
-            db.create_all()
-            self.client.post('/login', data={"username": "admin", "password": "admin"})
+class TestRoutes:
 
-    def tearDown(self):
-        """
-        Nettoyer le contexte de l'application après chaque test.
-        """
-        with self.app.app_context():
-            db.session.remove()
-            db.drop_all()
-
-
-
-
-    def login(self, username, password):
+    def login(self, client, username, password):
         """
         Fonction de connexion pour les tests
         """
+        return client.post('/login', data={"username": username, "password": password}, follow_redirects=True)
 
-        user = User.query.filter_by(username=username).first()
-        if user and user.verify_password(password):
-            login_user(user)
-            return True
-        return False
-
-
-    # def test_drop_table(self):
-    #     """
-    #     Test de la suppression de la table. (à ne pas exécuter si on veut conserver
-    #     les données)
-    #     """
-    #     database.drop_all_tables()
-
-
-    def test_login(self):
+    def test_login(self, client, db_setup):
         """
-        Teste la route login
+        Test de la route de connexion.
         """
-        response = self.client.post("/login", data={
-            "username": "admin",
-            "password": "admin"
-        }, follow_redirects=True)
+        response = self.login(client, "test", "test")
+        assert response.status_code == 200
+        assert 'Invalid username or password' not in response.data.decode()
 
-
-        self.assertEqual(response.status_code, 200)
-        self.assertIn('Liste des Clients', response.data.decode())
-
-
-
-
-# @database_bp.route("/database/add_passerelle_with_connectors_and_fields", methods=["POST"])
-# @login_required
-# def add_passerelle_with_connectors_and_fields():
-#     """
-#     Ajoute une passerelle à la base de données avec un connecteur source et un connecteur destination.
-#     """
-#     # obtenir les données de la requête (soit en JSON, soit en form-data)
-#     if request.is_json:
-#         data = request.get_json()
-#     else:
-#         data = request.form
-
-#     print("data: ", data)
-
-
-#     # ajouter la passerelle
-#     database.add_passerelle_with_connectors(
-#         data["lib_passerelle"],
-#         data["id_logiciel_source"],
-#         data["id_logiciel_destination"])
-
-#     # ajouter les champs
-#     for champ in data["requis"]:
-#         print("champ: ", champ)
-#         database.add_requiere_passerelle(champ, data["id_passerelle"])
-
-#     return redirect(url_for("v_interface.home"))
-
-
-
-    def test_add_passerelle_with_connectors_and_fields(self):
+    def test_get_all_clients(self, client, db_setup):
         """
-        Teste la route add_passerelle_with_connectors_and_fields
+        Test de la route pour obtenir tous les clients.
         """
-        # Simuler une connexion
-        self.login("admin", "admin")
+        response = client.get('/database/client')
+        assert response.status_code == 200
+        assert isinstance(response.json, list)
 
-        response = self.client.post("/database/add_passerelle_with_connectors_and_fields", data={
-            "lib_passerelle": "passerelle_test",
+    def test_add_client(self, client, db_setup):
+        """
+        Test de la route pour ajouter un client.
+        """
+        response = client.post('/database/client', json={"username": "test_user"})
+        assert response.status_code == 201
+        assert response.json['message'] == "Client added successfully"
+
+        # Vérifie que le client a été ajouté
+        response = client.get('/database/client')
+        clients = response.json
+        assert len(clients) == 1
+        assert clients[0]['Username'] == "test_user"
+
+    def test_delete_client(self, client, db_setup):
+        """
+        Test de la route pour supprimer un client.
+        """
+        # Ajoute un client pour le test
+        client.post('/database/client', json={"username": "test_user"})
+
+        # Récupère l'ID du client ajouté
+        response = client.get('/database/client')
+        id_client = response.json[0]['IdClient']
+
+        # Supprime le client
+        response = client.delete(f'/database/client/{id_client}')
+        assert response.status_code == 200
+        assert response.json['message'] == "Client deleted successfully"
+
+        # Vérifie que le client a été supprimé
+        response = client.get('/database/client')
+        assert len(response.json) == 0
+
+    def test_get_all_passerelles(self, client, db_setup):
+        """
+        Test de la route pour obtenir toutes les passerelles.
+        """
+        response = client.get('/database/passerelle')
+        assert response.status_code == 200
+        assert isinstance(response.json, list)
+
+    def test_add_passerelle(self, client, db_setup):
+        """
+        Test de la route pour ajouter une passerelle.
+        """
+        response = client.post('/database/passerelle', json={"LibPasserelle": "test_passerelle"})
+        assert response.status_code == 201
+        assert response.json['message'] == "Passerelle added successfully"
+
+        # Vérifie que la passerelle a été ajoutée
+        response = client.get('/database/passerelle')
+        passerelles = response.json
+        assert len(passerelles) == 1
+        assert passerelles[0]['LibPasserelle'] == "test_passerelle"
+
+    def test_delete_passerelle(self, client, db_setup):
+        """
+        Test de la route pour supprimer une passerelle.
+        """
+        # Ajoute une passerelle pour le test
+        client.post('/database/passerelle', json={"LibPasserelle": "test_passerelle"})
+
+        # Récupère l'ID de la passerelle ajoutée
+        response = client.get('/database/passerelle')
+        id_passerelle = response.json[0]['IdPasserelle']
+
+        # Supprime la passerelle
+        response = client.delete(f'/database/passerelle/{id_passerelle}')
+        assert response.status_code == 200
+        assert response.json['message'] == "Passerelle deleted successfully"
+
+        # Vérifie que la passerelle a été supprimée
+        response = client.get('/database/passerelle')
+        assert len(response.json) == 0
+
+    # Ajoutez des tests similaires pour les autres routes
+
+    def test_get_all_logiciels(self, client, db_setup):
+        """
+        Test de la route pour obtenir tous les logiciels.
+        """
+        response = client.get('/database/logiciel')
+        assert response.status_code == 200
+        assert isinstance(response.json, list)
+
+    def test_add_logiciel(self, client, db_setup):
+        """
+        Test de la route pour ajouter un logiciel.
+        """
+        response = client.post('/database/logiciel', json={"lib_logiciel": "test_logiciel"})
+        assert response.status_code == 201
+        assert response.json['message'] == "Logiciel added successfully"
+
+        # Vérifie que le logiciel a été ajouté
+        response = client.get('/database/logiciel')
+        logiciels = response.json
+        assert len(logiciels) == 1
+        assert logiciels[0]['LibLogiciel'] == "test_logiciel"
+
+    def test_delete_logiciel(self, client, db_setup):
+        """
+        Test de la route pour supprimer un logiciel.
+        """
+        # Ajoute un logiciel pour le test
+        client.post('/database/logiciel', json={"lib_logiciel": "test_logiciel"})
+
+        # Récupère l'ID du logiciel ajouté
+        response = client.get('/database/logiciel')
+        id_logiciel = response.json[0]['IdLogiciel']
+
+        # Supprime le logiciel
+        response = client.delete(f'/database/logiciel/{id_logiciel}')
+        assert response.status_code == 200
+        assert response.json['message'] == "Logiciel deleted successfully"
+
+        # Vérifie que le logiciel a été supprimé
+        response = client.get('/database/logiciel')
+        assert len(response.json) == 0
+
+    def test_get_all_champs(self, client, db_setup):
+        """
+        Test de la route pour obtenir tous les champs.
+        """
+        response = client.get('/database/champ')
+        assert response.status_code == 200
+        assert isinstance(response.json, list)
+
+    def test_add_champ(self, client, db_setup):
+        """
+        Test de la route pour ajouter un champ.
+        """
+        response = client.post('/database/champ', json={"lib_champ": "test_champ", "nom_table": "test_table"})
+        assert response.status_code == 201
+        assert response.json['message'] == "Champ added successfully"
+
+        # Vérifie que le champ a été ajouté
+        response = client.get('/database/champ')
+        champs = response.json
+        assert len(champs) == 1
+        assert champs[0]['LibChamp'] == "test_champ"
+
+    def test_delete_champ(self, client, db_setup):
+        """
+        Test de la route pour supprimer un champ.
+        """
+        # Ajoute un champ pour le test
+        client.post('/database/champ', json={"lib_champ": "test_champ", "nom_table": "test_table"})
+
+        # Récupère l'ID du champ ajouté
+        response = client.get('/database/champ')
+        id_champ = response.json[0]['IdChamp']
+
+        # Supprime le champ
+        response = client.delete(f'/database/champ/{id_champ}')
+        assert response.status_code == 200
+        assert response.json['message'] == "Champ deleted successfully"
+
+        # Vérifie que le champ a été supprimé
+        response = client.get('/database/champ')
+        assert len(response.json) == 0
+
+    def test_add_passerelle_with_connectors_and_fields(self, client, db_setup):
+        """
+        Test pour ajouter une passerelle avec des connecteurs et des champs.
+        """
+        # Connectez-vous en tant qu'test
+        response = self.login(client, "test", "test")
+        assert response.status_code == 200
+
+        response = client.post('/database/add_passerelle_with_champs', data={
+            "LibPasserelle": "test_passerelle",
             "id_logiciel_source": 1,
             "id_logiciel_destination": 2,
-            "requis": ["champ1", "champ2"]
-        }, follow_redirects=True)
+            "requis[]": [1, 2]
+        })
+        assert response.status_code == 201
+        assert response.json['message'] == "Passerelle added successfully"
 
-
-
-        self.assertEqual(response.status_code, 200)
-        self.assertIn('{"status":"success"}', response.data.decode())
-
-        # supprimer les données ajoutées
-        id_passerelle = database.get_id_passerelle_by_lib_passerelle("passerelle_test")
-
-        print("id_passerelle: ", id_passerelle)
-        print("logiciel pass: ", database.get_logiciel_by_passerelle(id_passerelle))
-
-        database.delete_passerelle(id_passerelle)
+        # Vérifie que la passerelle et les champs ont été ajoutés
+        response = client.get('/database/passerelle')
+        passerelles = response.json
+        assert len(passerelles) == 1
+        assert passerelles[0]['LibPasserelle'] == "test_passerelle"

@@ -65,7 +65,10 @@ class TestModels(unittest.TestCase):
 
         # ajout des champs requis pour les passerelles
         database.add_champ_to_passerelle("EBP_FOLDER_ID", "remontée de paiement", "remontée de paiement")
+        database.add_champ_to_passerelle("OUTPUT_INDEX", "remontée de paiement", "remontée de paiement")
+
         database.add_champ_to_passerelle("Zeendoc_CLASSEUR", "remontée de paiement", "remontée de paiement")
+        database.add_champ_to_passerelle("INPUT_INDEX", "remontée de paiement", "remontée de paiement")
 
         # ajout du client
         database.add_client("client1")
@@ -84,19 +87,25 @@ class TestModels(unittest.TestCase):
         database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="9b90dc6db6554429a027cb43fe12ab4e")
 
         id_champ = database.get_id_champ_by_lib_champ("Zeendoc_Login")
-        database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="tests_webservices@zeendoc.com")
+        database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="marius.hivelin@gmail.com")
 
         id_champ = database.get_id_champ_by_lib_champ("Zeendoc_URL_Client")
-        database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="tests_webservices")
+        database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="deltic_demo")
 
         id_champ = database.get_id_champ_by_lib_champ("Zeendoc_CPassword")
-        database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="tests01")
+        database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="X?BSh:R92EmyDKi")
 
         id_champ = database.get_id_champ_by_lib_champ("EBP_FOLDER_ID")
         database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="306851")
 
         id_champ = database.get_id_champ_by_lib_champ("Zeendoc_CLASSEUR")
-        database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="1")
+        database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="coll_21")
+
+        id_champ = database.get_id_champ_by_lib_champ("OUTPUT_INDEX")
+        database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="DocumentNumber")
+
+        id_champ = database.get_id_champ_by_lib_champ("INPUT_INDEX")
+        database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="tempo")
 
 
 

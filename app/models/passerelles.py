@@ -8,23 +8,73 @@ from app.models import database
 
 
 def routine():
-    # on récupère la liste passrelles
-    passrelles = database.get_client_passerelle()
-
-    for passerelle in passrelles:
-        if passerelle["IdPasserelle"] == 1:
-            P_remonte_paiement(passerelle["IdClient"])
+    # on récupère la liste passerelles
+    passerelles = database.get_all_passerelle_client_with_lib_passerelle()
 
 
+    for passerelle in passerelles:
+        # on récupère l'id de la passerelle
+        IdPasserelleClient = passerelle['IdPasserelleClient']
+
+        if passerelle['LibPasserelle'] == "remontée de paiement":
+            P_remonte_paiement(IdPasserelleClient)
 
 
-def P_remonte_paiement(IdClient):
-    """ routine de la passerelle de remontée des paiements """
+    return "Routine terminée avec succès."
 
-    clientZeendoc = Zeendoc(IdClient)
-    clientEBP = EBP(IdClient)
 
-    # on récupère les paiements dans EBP
 
-    paiements = clientEBP.getPaidPurchaseDocument()
+
+def P_remonte_paiement(IdPasserelleClient):
+    """
+    Fonction pour la passerelle remontée de paiement.
+    """
+
+    print("P_remonte_paiement - IdPasserelleClient: ", IdPasserelleClient)
+
+    datas = database.get_all_champ_passerelle_by_passerelle_client_with_lib_champ(IdPasserelleClient)
+
+    print("Datas: ", datas)
+    # connexion à EBP
+    ebp = EBP(IdPasserelleClient)
+    ebp.login()
+
+    print("EBP login success")
+
+    # connexion à Zeendoc
+    zeendoc = Zeendoc(IdPasserelleClient)
+
+
+
+
+
+
+
+
+    # on récupère les documents payés dans EBP
+    paiddoc = ebp.get_paid_documents()
+
+    print(paiddoc)
+
+    paiddoc = json.loads(paiddoc)
+
+    output_index = database.get_champ_passerelle_by_lib_champ(IdPasserelleClient, "OUTPUT_INDEX")['Valeur']
+
+    # print(output_index)
+
+
+    # print(zeendoc.getAllDoc())
+
+    for doc in paiddoc['results']:
+        # on récupère le numéro de document
+        document_number = doc[output_index]
+
+        print(zeendoc.GetDocRef(document_number))
+
+
+
+
+
+
+
 

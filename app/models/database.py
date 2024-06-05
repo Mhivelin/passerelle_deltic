@@ -368,6 +368,27 @@ def add_champ_passerelle(id_passerelle_client, id_champ, valeur):
     """Ajoute un champ passerelle avec l'identifiant, la valeur et IdChamp spécifiés."""
     return add_record("CHAMP_PASSERELLE", ["IdPasserelleClient", "IdChamp", "Valeur"], [id_passerelle_client, id_champ, valeur])
 
+def get_all_champ_passerelle_by_passerelle_client(id_passerelle_client):
+    """Récupère tous les champs passerelle associés à une passerelle client spécifique."""
+    query = "SELECT * FROM CHAMP_PASSERELLE WHERE IdPasserelleClient = ?"
+    return execute_query(query, (id_passerelle_client, ))
+
+def get_all_champ_passerelle_by_passerelle_client_with_lib_champ(id_passerelle_client):
+    """Récupère tous les champs passerelle associés à une passerelle client spécifique avec le libellé du champ."""
+    query = """
+        SELECT CP.*, CH.LibChamp
+        FROM CHAMP_PASSERELLE CP
+        JOIN CHAMPS CH ON CP.IdChamp = CH.IdChamp
+        WHERE IdPasserelleClient = ?
+    """
+    return execute_query(query, (id_passerelle_client, ))
+
+def update_champ_passerelle(id_passerelle_client, id_champ, valeur):
+    """Met à jour un champ passerelle spécifique en fonction de son identifiant."""
+    query = "UPDATE CHAMP_PASSERELLE SET Valeur = ? WHERE IdChamp = ? AND IdPasserelleClient = ?"
+    return execute_query(query, (valeur, id_champ, id_passerelle_client))
+
+
 def get_all_champ_passerelle():
     """Récupère tous les champs passerelle de la base de données."""
     return get_all_records("CHAMP_PASSERELLE")
@@ -376,6 +397,27 @@ def get_champ_passerelle_by_id(id_champ, id_passerelle_client):
     """Récupère un champ passerelle spécifique en fonction de son identifiant."""
     query = "SELECT * FROM CHAMP_PASSERELLE WHERE IdChamp = ? AND IdPasserelleClient = ?"
     return execute_query_single(query, (id_champ, id_passerelle_client))
+
+def get_champ_passerelle_by_lib_champ(id_passerelle_client, lib_champ):
+    """Récupère un champ passerelle spécifique en fonction du libellé du champ."""
+    query = """
+        SELECT CP.*
+        FROM CHAMP_PASSERELLE CP
+        JOIN CHAMPS CH ON CP.IdChamp = CH.IdChamp
+        WHERE CP.IdPasserelleClient = ? AND CH.LibChamp = ?
+    """
+    return execute_query_single(query, (id_passerelle_client, lib_champ))
+
+def get_champ_passerelle_by_passerelle_client_and_lib_champ(id_passerelle_client, lib_champ):
+    """Récupère un champ passerelle spécifique en fonction du libellé du champ et de l'identifiant de la passerelle client."""
+    query = """
+        SELECT CP.*
+        FROM CHAMP_PASSERELLE CP
+        JOIN CHAMPS CH ON CP.IdChamp = CH.IdChamp
+        WHERE CP.IdPasserelleClient = ? AND CH.LibChamp = ?
+    """
+    return execute_query_single(query, (id_passerelle_client, lib_champ))
+
 
 def delete_champ_passerelle(id_champ, id_passerelle_client):
     """Supprime un champ passerelle spécifique en fonction de son identifiant."""
@@ -434,6 +476,15 @@ def add_passerelle_client(id_passerelle, id_client):
 def get_all_passerelle_client():
     """Récupère toutes les entrées de la table PASSERELLE_CLIENT."""
     return get_all_records("PASSERELLE_CLIENT")
+
+def get_all_passerelle_client_with_lib_passerelle():
+    """Récupère toutes les entrées de la table PASSERELLE_CLIENT avec le libellé de la passerelle."""
+    query = """
+        SELECT pc.*, p.LibPasserelle
+        FROM PASSERELLE_CLIENT pc
+        JOIN PASSERELLE p ON pc.IdPasserelle = p.IdPasserelle
+    """
+    return execute_query(query)
 
 def get_passerelle_client_by_ids(id_passerelle, id_client):
     """Récupère une entrée spécifique de la table PASSERELLE_CLIENT."""

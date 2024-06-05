@@ -60,9 +60,13 @@ def create_app():
     app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
     jwt = JWTManager(app)
 
+    app.config['SERVER_NAME'] = '127.0.0.1:5000'
+    app.config['APPLICATION_ROOT'] = '/'
+    app.config['PREFERRED_URL_SCHEME'] = 'https'
+
+
+
     # création de la base de données
-
-
 
     with app.app_context():
         db.create_all()
