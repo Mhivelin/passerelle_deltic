@@ -319,15 +319,15 @@ def add_champ(lib_champ, nom_table, id_passerelle=None, id_logiciel=None):
     return add_record("CHAMPS", columns, values)
 
 
-def add_champ_to_passerelle(lib_champ, nom_table, lib_passerelle, id_logiciel=None):
+def add_champ_to_passerelle(lib_champ, nom_table, lib_passerelle):
     """Ajoute un champ à une passerelle spécifique."""
     id_passerelle = get_id_passerelle_by_lib_passerelle(lib_passerelle)
-    return add_champ(lib_champ, nom_table, id_passerelle, id_logiciel)
+    return add_champ(lib_champ, nom_table, id_passerelle)
 
-def add_champ_to_logiciel(lib_champ, nom_table, lib_logiciel, id_passerelle=None):
+def add_champ_to_logiciel(lib_champ, nom_table, lib_logiciel):
     """Ajoute un champ à un logiciel spécifique."""
     id_logiciel = get_id_logiciel_by_lib_logiciel(lib_logiciel)
-    return add_champ(lib_champ, nom_table, id_passerelle, id_logiciel)
+    return add_champ(lib_champ, nom_table, id_logiciel=id_logiciel)
 
 def delete_champ(id_champ):
     """Supprime un champ spécifique en fonction de son identifiant."""
@@ -338,6 +338,19 @@ def get_lib_champ_by_id(id_champ):
     """Récupère le libellé d'un champ spécifique en fonction de son identifiant."""
     query = "SELECT LibChamp FROM CHAMPS WHERE IdChamp = ?"
     return execute_query_single(query, (id_champ, ))["LibChamp"]
+
+
+def get_champ_by_client_with_lib_champ(id_client):
+    """Récupère tous les champs associés (par les passerelles) à un client spécifique avec le libellé du champ."""
+    query = """
+        SELECT CH.*, CP.Valeur, P.LibPasserelle
+        FROM CHAMPS CH
+        JOIN CHAMP_PASSERELLE CP ON CH.IdChamp = CP.IdChamp
+        JOIN PASSERELLE_CLIENT PC ON CP.IdPasserelleClient = PC.IdPasserelleClient
+        JOIN PASSERELLE P ON PC.IdPasserelle = P.IdPasserelle
+        WHERE PC.IdClient = ?
+    """
+    return execute_query(query, (id_client, ))
 
 ###################################################################################################
 #                                        CONNECT_LOGICIEL                                       #

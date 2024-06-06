@@ -21,6 +21,13 @@ SECRET_KEY=*********
 JWT_SECRET_KEY=*********
 ```
 
+
+* pour les tests en local, vous pouvez ajouter la variable suivante
+```bash
+IP=localhost
+```
+
+
 ### Etape 3 : Lancez le projet
 > Pour lancer le projet, vous avez besoin de docker et docker-compose
 

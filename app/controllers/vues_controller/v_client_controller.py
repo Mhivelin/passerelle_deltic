@@ -22,7 +22,8 @@ def form_add_client():
 @login_required
 def form_add_multiple_requiert(id_client):
     """Route pour afficher le formulaire d'ajout de plusieurs clients"""
-    fields = database.get_champ_passerelle_client_by_client_with_lib_champ(id_client)
+    filled_fields = database.get_champ_passerelle_client_by_client_with_lib_champ(id_client)
+    fields = database.get_champ_by_client_with_lib_champ(id_client)
 
     # on verifie si EBP_FOLDER_ID est dans les champs requis
     liste_ebp_folder = []
