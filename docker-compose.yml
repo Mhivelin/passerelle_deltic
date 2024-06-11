@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  flask-app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_APP=app:create_app
+      - FLASK_ENV=development
+      - OAUTHLIB_INSECURE_TRANSPORT=1
+
+  adminer:
+    build: ./adminer
+    ports:
+      - "8080:80"
+    volumes:
+      - ./instance:/var/sqlite

@@ -44,13 +44,6 @@ def P_remonte_paiement(IdPasserelleClient):
     # connexion à Zeendoc
     zeendoc = Zeendoc(IdPasserelleClient)
 
-
-
-
-
-
-
-
     # on récupère les documents payés dans EBP
     paiddoc = ebp.get_paid_documents()
 
@@ -69,8 +62,14 @@ def P_remonte_paiement(IdPasserelleClient):
         # on récupère le numéro de document
         document_number = doc[output_index]
 
-        print(zeendoc.GetDocRef(document_number))
 
+        # on vérifie si le document existe dans zeendoc
+        if zeendoc.GetDocRef(document_number) == 0:
+            # on recupère l'index a modifier
+            index = database.get_champ_passerelle_by_lib_champ(IdPasserelleClient, "INPUT_INDEX")['Valeur']
+
+            # on passe l'index a payé
+            zeendoc.SetDocRef(document_number, index)
 
 
 

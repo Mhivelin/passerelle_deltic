@@ -105,7 +105,7 @@ class TestModels(unittest.TestCase):
         database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="DocumentNumber")
 
         id_champ = database.get_id_champ_by_lib_champ("INPUT_INDEX")
-        database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="tempo")
+        database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="custom_t4")
 
 
 

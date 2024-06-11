@@ -90,9 +90,40 @@ class TestModels(unittest.TestCase):
 
     #     rights = instance_zeendoc.get_rights()
 
-    #     # print("Rights: ", rights)
+    #     print("Rights: ", rights)
 
     #     self.assertIsNotNone(rights)
+
+
+    # def test_getDoc(self):
+    #     """
+    #     Teste la récupération d'un document Zeendoc.
+    #     """
+
+    #     instance_zeendoc = Zeendoc(1)
+
+    #     doc_id = "1"
+
+    #     doc = instance_zeendoc.searchDocDoc(doc_id)
+
+    #     print("Doc: ", doc)
+
+    #     self.assertIsNotNone(doc)
+
+
+    # def test_zeendoc_updateDocPaiement(self):
+    #     """
+    #     Teste la définition d'un libellé pour un client Zeendoc.
+    #     """
+
+    #     instance_zeendoc = Zeendoc(1)
+
+    #     doc_id = "1"
+    #     index = "custom_n7"
+
+
+    #     print(instance_zeendoc.updateDocPaiement(doc_id, index) )
+
 
 
 
@@ -110,8 +141,49 @@ class TestModels(unittest.TestCase):
     #     self.assertIsNotNone(classeurs)
 
 
+    # def test_get_all_doc(self):
+    #     """
+    #     Teste la récupération de tous les documents d'un utilisateur Zeendoc.
+    #     """
+
+    #     instance_zeendoc = Zeendoc(1)
+
+    #     docs = instance_zeendoc.getAllDoc()
+
+    #     print("Docs: ", docs)
+
+    #     self.assertIsNotNone(docs)
 
 
+
+    # def test_GetDocRef(self):
+    #     """
+    #     Teste la récupération d'un document Zeendoc.
+    #     """
+
+    #     instance_zeendoc = Zeendoc(1)
+
+    #     numPiece = "FF00000001"
+
+    #     doc = instance_zeendoc.get_doc_ref(numPiece)
+
+    #     print("Doc: ", doc)
+
+    #     self.assertIsNotNone(doc)
+
+
+
+    def test_update_doc_paiement_by_ref(self):
+        """
+        Teste la définition d'un libellé pour un document Zeendoc.
+        """
+
+        instance_zeendoc = Zeendoc(1)
+
+        numPiece = "FF00000001"
+        index = "custom_n7"
+
+        print(instance_zeendoc.update_doc_paiement_by_ref(numPiece, index))
 
 
 if __name__ == "__main__":
