@@ -148,7 +148,7 @@ class TestModels(unittest.TestCase):
 
     #     instance_zeendoc = Zeendoc(1)
 
-    #     docs = instance_zeendoc.getAllDoc()
+    #     docs = instance_zeendoc.get_all_doc()
 
     #     print("Docs: ", docs)
 
@@ -178,12 +178,28 @@ class TestModels(unittest.TestCase):
         Teste la définition d'un libellé pour un document Zeendoc.
         """
 
-        instance_zeendoc = Zeendoc(1)
+        zeendoc = Zeendoc(id=1)
 
-        numPiece = "FF00000001"
-        index = "custom_n7"
+        zeendoc.search_doc_by_custom("custom_n7", "1")
 
-        print(instance_zeendoc.update_doc_paiement_by_ref(numPiece, index))
+
+        # response = zeendoc.update_doc_paiement_by_ref(ref="FF00000001", index="custom_n8", value="1")
+        # print(response)
+
+
+
+        # instance_zeendoc = Zeendoc(1)
+
+        # numPiece = "FF00000001"
+        # index = "custom_n7"
+
+        #recupere le res_id du document
+        # res_id = instance_zeendoc.get_doc_ref(numPiece)
+        # print("res_id: ", res_id)
+
+
+
+        # print(instance_zeendoc.update_doc_paiement_by_ref(numPiece, index))
 
 
 if __name__ == "__main__":

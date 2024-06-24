@@ -16,7 +16,8 @@ class Zeendoc:
         self.classeur = self._get_info_value(infos, "Zeendoc_CLASSEUR")
         self.indexBAP = self._get_info_value(infos, "EBP_FOLDER_ID")
         self.indexPaiement = self._get_info_value(infos, "EBP_PAIEMENT")
-        self.indexREF = self._get_info_value(infos, "INPUT_INDEX")
+        self.indexStatutPaiement = self._get_info_value(infos, "INDEX_STATUT_PAIEMENT")
+        self.indexNumPiece = self._get_info_value(infos, "INDEX_NUM_PIECE")
         self.right = None
         self.login()
 
@@ -92,6 +93,9 @@ class Zeendoc:
 
     def get_index(self):
         """Fonction qui permet de récupérer les index de l'utilisateur"""
+        if not self.right:
+            self.get_rights()
+
         return self.right["Collections"][0]["Index"] if self.right else None
 
     def get_id_index(self, index_libelle):
@@ -177,7 +181,8 @@ class Zeendoc:
     def get_doc_ref(self, ref):
         """Fonction qui permet de récupérer un document par référence"""
         try:
-            res = self.search_doc_by_custom(self.indexREF, ref)
+            res = self.search_doc_by_custom(self.indexStatutPaiement, ref)
+            print(res)
             doc = res["Document"]
             res_id = doc[0]["Res_Id"]
             return res_id
@@ -185,38 +190,68 @@ class Zeendoc:
             print(f"Erreur lors de la récupération du document par référence: {e}")
             return None
 
-    def update_doc(self, res_id, index):
-        """Fonction qui permet de mettre à jour un document
-        res_id: ID de la ressource du document
-        index: dictionnaire représentant l'index à mettre à jour et sa nouvelle Valeur
-        """
+    def update_doc(self, coll_id, res_id, index_list, mode="UpdateGiven"):
+        """Fonction qui permet de mettre à jour un document"""
+        index_xml = ''.join([f'''
+            <Index>
+                <Id>{index['Id']}</Id>
+                <Label>{index['Label']}</Label>
+                <Value>{index['Value']}</Value>
+            </Index>''' for index in index_list])
+
         body = f'''
         <updateDoc>
-          <Coll_Id>{self.classeur}</Coll_Id>
+          <Coll_Id>{coll_id}</Coll_Id>
           <Res_Id>{res_id}</Res_Id>
-          <IndexList>'''
-        for key, value in index.items():
-            body += f'''
-            <Index>
-                <Id>1</Id>
-                <Label>{key}</Label>
-                <Value>{value}</Value>
-            </Index>'''
-        body += '''
+          <IndexList>
+            {index_xml}
           </IndexList>
-          <ArrayOfIndexInput/>
-          <Mode>UpdateGiven</Mode>
+          <Mode>{mode}</Mode>
           <Access_token></Access_token>
         </updateDoc>'''
+
+
+        print("body: ", body)
+
+
         try:
-            return self._post_request(body, "updateDoc")
-        except requests.RequestException as e:
+            response_text = self._post_request(body, "updateDoc")
+            root = ET.fromstring(response_text)
+            json_response = root.find(".//jsonResponse").text
+            return json.loads(json_response)
+        except (requests.RequestException, ET.ParseError, json.JSONDecodeError) as e:
             print(f"Erreur lors de la mise à jour du document: {e}")
             return None
 
-    def update_doc_paiement_by_ref(self, ref, index):
-        """Fonction qui permet de mettre à jour un document de paiement par référence"""
-        res_id = self.get_doc_ref(ref)
-        if res_id:
-            return self.update_doc(res_id, {index: "1"})
-        return None
+
+
+
+    def update_doc_paiement_by_ref(self, ref, index, value="1"):
+        """Fonction qui permet de mettre à jour un document de paiement par référence
+        ref: Référence du document
+        index: L'index à mettre à jour
+        value: La valeur de l'index à mettre à jour (par défaut "1")
+        """
+        try:
+            # Recherche du document par référence
+            res = self.search_doc_by_custom(self.indexNumPiece, ref)
+            doc = res["Document"]
+            res_id = doc[0]["Res_Id"]
+            res_id = str(res_id)
+
+            print("res_id: ", res_id)
+
+            # Création de la liste des index à mettre à jour
+            index_list = [
+                {"Id": res_id, "Label": index, "Value": value}
+            ]
+
+            # Mise à jour du document
+            update_response = self.update_doc(coll_id=self.classeur, res_id=res_id, index_list=index_list)
+
+            return update_response
+        except (KeyError, IndexError, TypeError) as e:
+            print(f"Erreur lors de la mise à jour du document par référence: {e}")
+            return None
+
+

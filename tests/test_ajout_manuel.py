@@ -63,12 +63,22 @@ class TestModels(unittest.TestCase):
         # ajout des passerelles
         database.add_passerelle("remontée de paiement")
 
+        # connexion des logiciels aux passerelles
+        id_logiciel_source = database.get_id_logiciel_by_lib_logiciel("EBP")
+
+        database.add_passerelle_logiciel(id_passerelle=1, id_logiciel=id_logiciel_source)
+
+        id_logiciel_destination = database.get_id_logiciel_by_lib_logiciel("Zeendoc")
+
+        database.add_passerelle_logiciel(id_passerelle=1, id_logiciel=id_logiciel_destination)
+
+
         # ajout des champs requis pour les passerelles
         database.add_champ_to_passerelle("EBP_FOLDER_ID", "remontée de paiement", "remontée de paiement")
-        database.add_champ_to_passerelle("OUTPUT_INDEX", "remontée de paiement", "remontée de paiement")
 
         database.add_champ_to_passerelle("Zeendoc_CLASSEUR", "remontée de paiement", "remontée de paiement")
-        database.add_champ_to_passerelle("INPUT_INDEX", "remontée de paiement", "remontée de paiement")
+        database.add_champ_to_passerelle("INDEX_STATUT_PAIEMENT", "remontée de paiement", "remontée de paiement")
+        database.add_champ_to_passerelle("INDEX_NUM_PIECE", "remontée de paiement", "remontée de paiement")
 
         # ajout du client
         database.add_client("client1")
@@ -101,13 +111,12 @@ class TestModels(unittest.TestCase):
         id_champ = database.get_id_champ_by_lib_champ("Zeendoc_CLASSEUR")
         database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="coll_21")
 
-        id_champ = database.get_id_champ_by_lib_champ("OUTPUT_INDEX")
-        database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="DocumentNumber")
 
-        id_champ = database.get_id_champ_by_lib_champ("INPUT_INDEX")
+        id_champ = database.get_id_champ_by_lib_champ("INDEX_STATUT_PAIEMENT")
+        database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="custom_n8")
+
+        id_champ = database.get_id_champ_by_lib_champ("INDEX_NUM_PIECE")
         database.add_champ_passerelle(id_passerelle_client=id_client, id_champ=id_champ, valeur="custom_t4")
-
-
 
 
 

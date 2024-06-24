@@ -1,0 +1,8 @@
+<label for="index">Index Zeendoc</label>
+<select id="index" name="LibChamp[]" class="form-control">
+  <option value="">Sélectionner un index</option>
+  {% for index in liste_zeendoc_index %}
+  <option value="{{ index.Index_Id }}">{{ index.Label }}</option>
+  {% endfor %}
+</select>
+<input type="hidden" name="IdChamp[]" value="{{field.IdChamp}}" />

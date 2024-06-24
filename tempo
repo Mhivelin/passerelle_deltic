@@ -1,0 +1,136 @@
+get_db_connexion():
+    """Retourne une connexion à la base de données SQLite."""
+create_database():
+    """
+execute_query(query, params=None):
+    """Exécute une requête SQL sur la base de données et retourne les résultats si la requête est un SELECT."""
+execute_query_single(query, params=None):
+    """Exécute une requête SQL sur la base de données et retourne un seul résultat si la requête est un SELECT."""
+add_record(table_name, columns, values):
+    """Ajoute un enregistrement à la table spécifiée avec les colonnes et valeurs spécifiées."""
+delete_record(table_name, condition, params):
+    """Supprime un enregistrement de la table spécifiée en fonction de la condition et des paramètres spécifiés."""
+get_all_records(table_name):
+    """Récupère tous les enregistrements de la table spécifiée."""
+get_record_by_id(table_name, id_column, id_value):
+    """Récupère un enregistrement spécifique de la table spécifiée en fonction de la colonne et de la valeur d'identifiant."""
+drop_table(table_name):
+    """Supprime la table spécifiée de la base de données."""
+get_all_passerelles():
+    """Récupère toutes les passerelles de la base de données."""
+get_passerelle_by_id(id_passerelle):
+    """Récupère une passerelle spécifique en fonction de son identifiant."""
+get_id_passerelle_by_lib_passerelle(lib_passerelle):
+    """Récupère une passerelle spécifique en fonction de son libellé."""
+delete_passerelle(id_passerelle):
+    """Supprime une passerelle spécifique en fonction de son identifiant."""
+get_passerelle_by_logiciel(logiciel_id):
+    """Récupère toutes les passerelles associées à un logiciel spécifique."""
+get_passerelle_by_client(client_id):
+    """Récupère toutes les passerelles associées à un client spécifique."""
+add_passerelle(lib_passerelle):
+    """Ajoute une passerelle avec le libellé spécifié."""
+add_passerelle_with_logiciels(lib_passerelle, id_logiciel_source, id_logiciel_destination):
+    """Ajoute une passerelle avec les logiciels spécifiés."""
+get_passerelle_by_lib(lib_passerelle):
+    """Récupère une passerelle spécifique en fonction de son libellé."""
+get_all_clients():
+    """Récupère tous les clients de la base de données."""
+get_client_by_id(id_client):
+    """Récupère un client spécifique en fonction de son identifiant."""
+get_id_client_by_lib_client(lib_client):
+    """Récupère un client spécifique en fonction de son libellé."""
+add_client(username):
+    """Ajoute un client avec le nom d'utilisateur spécifié."""
+delete_client(id_client):
+    """Supprime un client spécifique en fonction de son identifiant."""
+get_all_logiciels():
+    """Récupère tous les logiciels de la base de données."""
+get_logiciel_by_id(id_logiciel):
+    """Récupère un logiciel spécifique en fonction de son identifiant."""
+get_id_logiciel_by_lib_logiciel(lib_logiciel):
+    """Récupère un logiciel spécifique en fonction de son libellé."""
+add_logiciel(lib_logiciel):
+    """Ajoute un logiciel avec le libellé spécifié."""
+delete_logiciel(id_logiciel):
+    """Supprime un logiciel spécifique en fonction de son identifiant."""
+get_all_champs():
+    """Récupère tous les champs de la base de données."""
+get_champ_by_id(id_champ):
+    """Récupère un champ spécifique en fonction de son identifiant."""
+get_id_champ_by_lib_champ(lib_champ):
+    """Récupère un champ spécifique en fonction de son libellé."""
+add_champ(lib_champ, nom_table, id_passerelle=None, id_logiciel=None):
+    """Ajoute un champ avec le libellé et le nom de table spécifiés."""
+add_champ_to_passerelle(lib_champ, nom_table, lib_passerelle):
+    """Ajoute un champ à une passerelle spécifique."""
+add_champ_to_logiciel(lib_champ, nom_table, lib_logiciel):
+    """Ajoute un champ à un logiciel spécifique."""
+delete_champ(id_champ):
+    """Supprime un champ spécifique en fonction de son identifiant."""
+get_lib_champ_by_id(id_champ):
+    """Récupère le libellé d'un champ spécifique en fonction de son identifiant."""
+get_passerelles_by_client(id_client):
+    query = """
+get_logiciels_by_passerelles(passerelles_ids):
+    if not passerelles_ids:
+get_champs_by_passerelles(passerelles_ids):
+    query = """
+get_champs_by_logiciels(logiciels_ids):
+    query = """
+get_all_champs_for_client(id_client):
+    # Étape 1: Récupérer les ID des passerelles liées au client
+get_all_connecteurs():
+    """Récupère tous les connecteurs de la base de données."""
+get_connecteur_by_id(id_logiciel, id_passerelle):
+    """Récupère un connecteur spécifique en fonction de son identifiant."""
+add_connecteur(id_logiciel, id_passerelle, is_source):
+    """Ajoute un connecteur avec les identifiants logiciel et passerelle spécifiés."""
+delete_connecteur(id_logiciel, id_passerelle):
+    """Supprime un connecteur spécifique en fonction de son identifiant."""
+add_champ_passerelle(id_passerelle_client, id_champ, valeur):
+    """Ajoute un champ passerelle avec l'identifiant, la valeur et IdChamp spécifiés."""
+get_all_champ_passerelle_by_passerelle_client(id_passerelle_client):
+    """Récupère tous les champs passerelle associés à une passerelle client spécifique."""
+get_all_champ_passerelle_by_passerelle_client_with_lib_champ(id_passerelle_client):
+    """Récupère tous les champs passerelle associés à une passerelle client spécifique avec le libellé du champ."""
+update_champ_passerelle(id_passerelle_client, id_champ, valeur):
+    """Met à jour un champ passerelle spécifique en fonction de son identifiant."""
+get_all_champ_passerelle():
+    """Récupère tous les champs passerelle de la base de données."""
+get_champ_passerelle_by_id(id_champ, id_passerelle_client):
+    """Récupère un champ passerelle spécifique en fonction de son identifiant."""
+get_champ_passerelle_by_lib_champ(id_passerelle_client, lib_champ):
+    """Récupère un champ passerelle spécifique en fonction du libellé du champ."""
+get_champ_passerelle_by_passerelle_client_and_lib_champ(id_passerelle_client, lib_champ):
+    """Récupère un champ passerelle spécifique en fonction du libellé du champ et de l'identifiant de la passerelle client."""
+delete_champ_passerelle(id_champ, id_passerelle_client):
+    """Supprime un champ passerelle spécifique en fonction de son identifiant."""
+get_champ_passerelle_client_by_client(id_client):
+    """Récupère tous les champs passerelle associés à un client spécifique."""
+get_champ_passerelle_client_by_client_with_lib_champ(id_client):
+    """Récupère tous les champs passerelle associés à un client spécifique avec le libellé du champ."""
+add_multiple_champ_passerelle(id_passerelle_client, champs):
+    """Ajoute plusieurs champs passerelle à un client spécifique."""
+add_or_update_champ_passerelle(id_passerelle_client, champs):
+    """Ajoute ou met à jour plusieurs champs passerelle à un client spécifique."""
+add_passerelle_client(id_passerelle, id_client):
+    """Ajoute une entrée dans la table PASSERELLE_CLIENT."""
+get_all_passerelle_client():
+    """Récupère toutes les entrées de la table PASSERELLE_CLIENT."""
+get_all_passerelle_client_with_lib_passerelle():
+    """Récupère toutes les entrées de la table PASSERELLE_CLIENT avec le libellé de la passerelle."""
+get_passerelle_client_by_ids(id_passerelle, id_client):
+    """Récupère une entrée spécifique de la table PASSERELLE_CLIENT."""
+get_passerelle_client_by_client(id_client):
+    """Récupère toutes les passerelles associées à un client spécifique."""
+get_passerelle_client_with_lib_passerelle(id_client):
+    """Récupère toutes les passerelles associées à un client spécifique avec le libellé de la passerelle."""
+delete_passerelle_client(id_passerelle, id_client):
+    """Supprime une entrée spécifique de la table PASSERELLE_CLIENT."""
+add_passerelle_logiciel(id_passerelle, id_logiciel):
+    """Ajoute une entrée dans la table CONNECT_LOGICIEL."""
+get_clients_with_passerelles_and_champs():
+    """
+drop_all_tables():
+    """Supprime toutes les tables de la base de données."""

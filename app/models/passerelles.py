@@ -34,42 +34,39 @@ def P_remonte_paiement(IdPasserelleClient):
 
     datas = database.get_all_champ_passerelle_by_passerelle_client_with_lib_champ(IdPasserelleClient)
 
-    print("Datas: ", datas)
     # connexion à EBP
     ebp = EBP(IdPasserelleClient)
     ebp.login()
 
-    print("EBP login success")
 
     # connexion à Zeendoc
     zeendoc = Zeendoc(IdPasserelleClient)
 
+    # recupération de l'index de paiement
+    indexPaiement = database.get_champ_passerelle_by_lib_champ(IdPasserelleClient, "INDEX_STATUT_PAIEMENT")
+    indexPaiement = indexPaiement['Valeur']
     # on récupère les documents payés dans EBP
     paiddoc = ebp.get_paid_documents()
 
-    print(paiddoc)
 
     paiddoc = json.loads(paiddoc)
 
-    output_index = database.get_champ_passerelle_by_lib_champ(IdPasserelleClient, "OUTPUT_INDEX")['Valeur']
 
-    # print(output_index)
-
-
-    # print(zeendoc.getAllDoc())
 
     for doc in paiddoc['results']:
         # on récupère le numéro de document
-        document_number = doc[output_index]
+        document_number = doc['DocumentNumber']
+
+        print("document_number: ", document_number)
+
+        print("indexPaiement: ", indexPaiement)
+
+        # on modifie le document dans zeendoc
+        res = zeendoc.update_doc_paiement_by_ref(ref=document_number, index=indexPaiement)
+
+        print("res: ", res)
 
 
-        # on vérifie si le document existe dans zeendoc
-        if zeendoc.GetDocRef(document_number) == 0:
-            # on recupère l'index a modifier
-            index = database.get_champ_passerelle_by_lib_champ(IdPasserelleClient, "INPUT_INDEX")['Valeur']
-
-            # on passe l'index a payé
-            zeendoc.SetDocRef(document_number, index)
 
 
 

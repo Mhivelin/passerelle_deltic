@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block title %}Remplissage des champs requis{%
 endblock %} {% block content %}
+
 <br />
 <h1>Remplissage des champs requis</h1>
 
@@ -11,24 +12,23 @@ endblock %} {% block content %}
   <div class="form-group">
     {% for field in fields %} {% if field.LibChamp == "EBP_FOLDER_ID" %} {% if
     not liste_ebp_folder %}
-
     <p>La connexion à EBP n'est pas configurée</p>
     <p>
-      Se connecter à EBP : <a href="{{ url_for('ebp.login_ebp', id=id_client) }}"
-        >Connexion</a>
+      Se connecter à EBP :
+      <a href="{{ url_for('ebp.login_ebp', id=id_client) }}">Connexion</a>
     </p>
-
-       {% else %} {% with
-      liste_ebp_folder=liste_ebp_folder %} {% include
-      'logiciel/ebp/folder_select.html' %} {% endwith %} {% endif %} {% elif
-      field.LibChamp == "Zeendoc_CLASSEUR" %} {% if not liste_zeendoc_classeur
-      %}
-    </p>
-
+    {% else %} {% with liste_ebp_folder=liste_ebp_folder, field=field %} {%
+    include 'logiciel/ebp/folder_select.html' %} {% endwith %} {% endif %} {%
+    elif field.LibChamp == "Zeendoc_CLASSEUR" %} {% if not
+    liste_zeendoc_classeur %}
     <p>La connexion à Zeendoc n'est pas configurée</p>
-
-    {% else %} {% with liste_zeendoc_classeur=liste_zeendoc_classeur %} {%
-    include 'logiciel/zeendoc/classeur_select.html' %} {% endwith %} {% endif %}
+    {% else %} {% with liste_zeendoc_classeur=liste_zeendoc_classeur,
+    field=field %} {% include 'logiciel/zeendoc/classeur_select.html' %} {%
+    endwith %} {% endif %} {% elif field.LibChamp == "INDEX_STATUT_PAIEMENT" %}
+    {% if not liste_zeendoc_index %}
+    <p>La connexion à Zeendoc n'est pas configurée</p>
+    {% else %} {% with liste_zeendoc_index=liste_zeendoc_index, field=field %}
+    {% include 'logiciel/zeendoc/index_select.html' %} {% endwith %} {% endif %}
     {% else %}
     <label for="LibChamp_{{ loop.index }}">{{ field.LibChamp }}</label>
     <input type="hidden" name="IdChamp[]" value="{{ field.IdChamp }}" />
@@ -38,7 +38,7 @@ endblock %} {% block content %}
       id="LibChamp_{{ loop.index }}"
       name="LibChamp[]"
       placeholder="Entrer la valeur"
-      value="{% for champ in fields %}{% if champ.IdChamp == field.IdChamp %}{{ champ.Valeur }}{% endif %}{% endfor %}"
+      value="{{ field.Valeur }}"
     />
     {% endif %}
     <br />
@@ -52,7 +52,7 @@ endblock %} {% block content %}
   document
     .getElementById("addMultipleChampPasserelleClientForm")
     .addEventListener("submit", function (event) {
-      event.preventDefault(); // Empêche le comportement par défaut du formulaire
+      event.preventDefault();
       const form = event.target;
       const formData = new FormData(form);
 
@@ -62,7 +62,7 @@ endblock %} {% block content %}
       })
         .then((response) => {
           if (response.ok) {
-            window.location.href = "{{ url_for('v_interface.home') }}"; // Redirection après succès
+            window.location.href = "{{ url_for('v_interface.home') }}";
           } else {
             return response.json().then((data) => {
               console.error("Error:", data);

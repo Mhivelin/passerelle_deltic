@@ -12,6 +12,7 @@ v_interface_bp = Blueprint("v_interface", __name__)
 @v_interface_bp.route("/")
 @login_required
 def home():
+    """Route pour la page d'accueil avec les clients"""
     try:
         clients_data = database.get_clients_with_passerelles_and_champs()
 
@@ -52,4 +53,5 @@ def home():
 
 @v_interface_bp.route("/documentation")
 def documentation():
+    """Route pour la documentation"""
     return render_template("documentation.html")

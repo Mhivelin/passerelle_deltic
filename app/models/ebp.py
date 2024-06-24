@@ -4,6 +4,7 @@ import datetime
 import urllib.parse
 
 import requests
+from requests.exceptions import HTTPError
 from flask import jsonify, url_for
 import time
 from oauthlib.oauth2 import InvalidClientError, TokenExpiredError, BackendApplicationClient
@@ -24,16 +25,22 @@ class EBP:
         self.databaseId = id
         infos = db.get_all_champ_passerelle_by_passerelle_client_with_lib_champ(id)
 
+
         for info in infos:
             if info["LibChamp"] == "EBP_Client_ID":
+                print("Client ID:", info["Valeur"])
                 self.client_id = info["Valeur"]
             elif info["LibChamp"] == "EBP_Client_Secret":
+                print("Client Secret:", info["Valeur"])
                 self.client_secret = info["Valeur"]
             elif info["LibChamp"] == "EBP_Subscription_Key":
+                print("Subscription Key:", info["Valeur"])
                 self.ebp_subscription_key = info["Valeur"]
             elif info["LibChamp"] == "EBP_FOLDER_ID":
+                print("Folder ID:", info["Valeur"])
                 self.folder_id = info["Valeur"]
             elif info["LibChamp"] == "EBP_token":
+                print("Token:", info["Valeur"])
                 self.token = json.loads(info["Valeur"])
                 self.refresh_token_value = self.token["refresh_token"]
 
@@ -72,18 +79,24 @@ class EBP:
             'refresh_token': self.refresh_token_value
         }
 
-        response = requests.post(url, headers=headers, data=urllib.parse.urlencode(body))
+        try:
+            response = requests.post(url, headers=headers, data=urllib.parse.urlencode(body))
 
-        if response.status_code == 200:
-            new_token = response.json()
-            self.Bdtoken_saver(new_token)
-            return new_token
-        else:
-            print(f"Failed to refresh token. Status Code: {response.status_code}")
-            print(f"Response Text: {response.text}")
-            print(f"Request Body: {body}")
-            print(f"Request Headers: {headers}")
-            response.raise_for_status()
+            if response.status_code == 200:
+                new_token = response.json()
+                self.Bdtoken_saver(new_token)
+                return new_token
+            else:
+                print(f"Failed to refresh token. Status Code: {response.status_code}")
+                print(f"Response Text: {response.text}")
+                print(f"Request Body: {body}")
+                print(f"Request Headers: {headers}")
+                response.raise_for_status()
+
+        except HTTPError as http_err:
+            print(f"HTTP error occurred: {http_err}")
+        except Exception as err:
+            print(f"Other error occurred: {err}")
 
     def login(self):
         print("Début du login")
@@ -181,6 +194,8 @@ class EBP:
             params = {}
         if data is None:
             data = {}
+
+
 
         access_token = self.token["Valeur"]
         access_token = json.loads(access_token)

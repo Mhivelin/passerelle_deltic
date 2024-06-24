@@ -23,7 +23,7 @@ def form_add_client():
 def form_add_multiple_requiert(id_client):
     """Route pour afficher le formulaire d'ajout de plusieurs clients"""
     filled_fields = database.get_champ_passerelle_client_by_client_with_lib_champ(id_client)
-    fields = database.get_champ_by_client_with_lib_champ(id_client)
+    fields = database.get_all_champs_for_client(id_client)
 
     # on verifie si EBP_FOLDER_ID est dans les champs requis
     liste_ebp_folder = []
@@ -47,7 +47,25 @@ def form_add_multiple_requiert(id_client):
             except:
                 liste_zeendoc_classeur = []
 
+        if field["LibChamp"] == "INDEX_STATUT_PAIEMENT":
+            try:
+                instance_zeendoc = zeendoc.Zeendoc(id_client)
+                liste_zeendoc_index = instance_zeendoc.get_index()
+
+            except:
+                liste_zeendoc_index = ['test']
+
+
+    # on ajoute les valeurs de filled_fields dans fields
+    for field in fields:
+        for filled_field in filled_fields:
+            if field["IdChamp"] == filled_field["IdChamp"]:
+                field["Valeur"] = filled_field["Valeur"]
 
 
 
-    return render_template("client/add_multiple_requiert.html", fields=fields, id_client=id_client, liste_ebp_folder=liste_ebp_folder, liste_zeendoc_classeur=liste_zeendoc_classeur)
+
+
+
+
+    return render_template("client/add_multiple_requiert.html", fields=fields, id_client=id_client, liste_ebp_folder=liste_ebp_folder, liste_zeendoc_classeur=liste_zeendoc_classeur, liste_zeendoc_index=liste_zeendoc_index)

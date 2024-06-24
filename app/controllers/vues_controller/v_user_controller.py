@@ -16,7 +16,7 @@ v_user_bp = Blueprint("user", __name__)
 
 @v_user_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    """Route pour afficher le formulaire de connexion"""
+    """Route pour afficher le formulaire de connexion et gérer la connexion"""
     # si le formulaire est soumis
     if request.method == 'POST':
         username = request.form['username']
@@ -55,7 +55,7 @@ def app_login():
 @v_user_bp.route("/register", methods=["GET", "POST"])
 @login_required
 def register():
-    """Route pour afficher le formulaire d'inscription"""
+    """Route pour afficher le formulaire d'inscription et gérer l'inscription"""
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
@@ -73,6 +73,7 @@ def register():
 @v_user_bp.route("/logout")
 @login_required
 def logout():
+    """Route pour déconnecter l'utilisateur"""
     logout_user()
     return redirect(url_for("user.login"))
 
