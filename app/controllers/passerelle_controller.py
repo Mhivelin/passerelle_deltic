@@ -2,16 +2,15 @@
 Ce module contient les routes pour les différentes entités du modèle Passerelle.
 """
 
-from flask_jwt_extended import jwt_required
-from flask import Blueprint, jsonify, request, redirect, url_for
+from flask import Blueprint
 from flask_login import login_required
 import logging
 from app.models import passerelles
 
 # Création d'un Blueprint pour le controller
-passerelle_controller = Blueprint('passerelle_controller', __name__)
+passerelle_bp = Blueprint('passerelle_controller', __name__)
 
-@passerelle_controller.route('/routine', methods=['GET'])
+@passerelle_bp.route('/routine', methods=['GET'])
 @login_required
 def routine():
     """

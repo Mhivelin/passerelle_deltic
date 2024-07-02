@@ -40,16 +40,23 @@ class TestModels(unittest.TestCase):
 
 
 
-    # def test_routine(self):
-    #     """
-    #     Test de la fonction routine.
-    #     """
-    #     result = passerelles.routine()
+    def test_routine(self):
+        """
+        Test de la fonction routine.
+        """
+        result = passerelles.routine()
 
 
-    def test_P_remonte_paiement(self):
-        """
-        Test de la fonction P_remonte_paiement.
-        """
-        passerelles.P_remonte_paiement(1)
+    # def test_P_remonte_paiement(self):
+    #     """
+    #     Test de la fonction P_remonte_paiement.
+    #     """
+    #     passerelles.P_remonte_paiement(1)
+
+
+    # def test_P_remonte_fournisseur(self):
+    #     """
+    #     Test de la fonction P_remonte_fournisseur.
+    #     """
+    #     passerelles.P_remonte_fournisseur(2)
 

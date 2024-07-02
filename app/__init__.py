@@ -2,7 +2,7 @@ import logging
 import socket
 from logging.handlers import RotatingFileHandler
 import sys
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_login import LoginManager
 from flask_jwt_extended import JWTManager
 import os
@@ -32,8 +32,6 @@ def configure_logs(app):
 
     app.logger.info("Configuration des logs terminée.")
 
-
-
 def get_ip_address():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
@@ -46,12 +44,9 @@ def get_ip_address():
         s.close()
     return ip_address
 
-
 def create_app():
     app = Flask(__name__)
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
-    # app.config['SERVER_NAME'] = 'localhost:5000'
-
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
     db.init_app(app)
 
@@ -64,6 +59,13 @@ def create_app():
 
     app.logger.setLevel(logging.DEBUG)
 
+    # Middleware to handle the override method
+    @app.before_request
+    def override_method():
+        if '_method' in request.form:
+            method = request.form['_method'].upper()
+            if method in ['PUT', 'DELETE']:
+                request.environ['REQUEST_METHOD'] = method
 
     # initialisation du JWT
     app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
@@ -71,25 +73,19 @@ def create_app():
     app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
     jwt = JWTManager(app)
 
-
     if os.getenv("IP") is not None:
         ip = os.getenv("IP")
     else:
         ip = get_ip_address()
 
-
     app.config['SERVER_NAME'] = f"{ip}:5000"
     app.config['APPLICATION_ROOT'] = '/'
     app.config['PREFERRED_URL_SCHEME'] = 'https'
 
-
-
     # création de la base de données
-
     with app.app_context():
         db.create_all()
         create_database()
-
 
     @login_manager.user_loader
     def load_user(user_id):
@@ -102,6 +98,8 @@ def create_app():
     from app.controllers.ebp_controller import ebp_bp
     from app.controllers.zeendoc_controller import zeendoc_bp
     from app.controllers.database_controller import database_bp
+    from app.controllers.passerelle_controller import passerelle_bp
+    from app.controllers.sellsy_controller import sellsy_bp
 
     # vues
     from app.controllers.vues_controller.v_interface_controller import v_interface_bp
@@ -114,14 +112,14 @@ def create_app():
     app.register_blueprint(ebp_bp)
     app.register_blueprint(zeendoc_bp)
     app.register_blueprint(database_bp)
+    app.register_blueprint(passerelle_bp)
+    app.register_blueprint(sellsy_bp)
 
     app.register_blueprint(v_interface_bp)
     app.register_blueprint(v_client_bp)
     app.register_blueprint(v_logiciel_bp)
     app.register_blueprint(v_passerelle_bp)
     app.register_blueprint(v_user_bp)
-
-
 
     # ajout d'un utilisateur
     with app.app_context():
@@ -139,11 +137,4 @@ def create_app():
             db.session.commit()
             app.logger.info("Nouvel utilisateur admin ajouté avec succès.")
 
-
-
-
-
-
     return app
-
-

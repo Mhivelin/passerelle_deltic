@@ -41,7 +41,7 @@ def login_ebp(id):
 
     # Vérifier si un token valide existe déjà
     if client.is_authenticated():
-        return redirect(url_for("v_interface.dashboard"))
+        return redirect(url_for("v_interface.home"))
 
 
     # Initialiser le processus OAuth si aucune session valide n'est trouvée

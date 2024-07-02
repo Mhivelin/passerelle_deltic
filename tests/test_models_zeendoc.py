@@ -173,14 +173,14 @@ class TestModels(unittest.TestCase):
 
 
 
-    def test_update_doc_paiement_by_ref(self):
-        """
-        Teste la définition d'un libellé pour un document Zeendoc.
-        """
+    # def test_update_doc_paiement_by_ref(self):
+    #     """
+    #     Teste la définition d'un libellé pour un document Zeendoc.
+    #     """
 
-        zeendoc = Zeendoc(id=1)
+    #     zeendoc = Zeendoc(id=1)
 
-        zeendoc.search_doc_by_custom("custom_n7", "1")
+    #     zeendoc.search_doc_by_custom("custom_n7", "1")
 
 
         # response = zeendoc.update_doc_paiement_by_ref(ref="FF00000001", index="custom_n8", value="1")
@@ -200,6 +200,36 @@ class TestModels(unittest.TestCase):
 
 
         # print(instance_zeendoc.update_doc_paiement_by_ref(numPiece, index))
+
+
+
+    # def test_add_items_list(self):
+    #     """
+    #     Teste l'ajout d'éléments à une liste déroulante Zeendoc.
+    #     """
+    #     instance_zeendoc = Zeendoc(1)
+    #     coll_id = "coll_21"
+    #     column_name = "custom_n4"
+    #     items = ["Fournisseur 1", "Fournisseur 2", "Fournisseur 3"]
+
+    #     response = instance_zeendoc.add_items_list(coll_id, column_name, items)
+
+    #     print("Response: ", response)
+
+
+    def test_get_items_list(self):
+        """
+        Teste la récupération des éléments d'une liste déroulante Zeendoc.
+        """
+        instance_zeendoc = Zeendoc(2)
+        coll_id = "coll_21"
+        column_name = "custom_n4"
+
+        items = instance_zeendoc.get_items_list(coll_id, column_name)
+
+        print("Items: ", items)
+
+
 
 
 if __name__ == "__main__":

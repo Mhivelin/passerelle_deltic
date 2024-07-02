@@ -9,6 +9,7 @@
   <tbody>
     {% for client in clients %}
     <tr>
+
       <td>{{ client.IdClient }}</td>
       <td>{{ client.Username }}</td>
       <td>
@@ -55,20 +56,8 @@
         </br>
 
 
-        {% with champs=client.all_champs %}
-            {% include 'champ/tableau_champs.html' %}
-        {% endwith %}
 
 
-
-
-        <div>
-          <a
-            href="{{ url_for('v_client.form_add_multiple_requiert', id_client=client.IdClient) }}"
-            class="btn btn-primary"
-            >Ajouter/modifier des champs requis</a
-          >
-        </div>
       </td>
     </tr>
     {% endfor %}
@@ -107,8 +96,8 @@
 
       var form = $(this); // Le formulaire qui a été soumis
       var IdClient = form.find('input[name="IdClient"]').val(); // Récupère l'ID du client
-      var idPasserelle = form.find('input[name="IdPasserelle"]').val(); // Récupère l'ID de la passerelle
-      var url = `/database/passerelle_client${IdClient}/${idPasserelle}`; // Construit l'URL pour la requête DELETE
+      var IdPasserelle = form.find('input[name="IdPasserelle"]').val(); // Récupère l'ID de la passerelle
+      var url = `/database/passerelle_client/${IdPasserelle}/${IdClient}`; // Construit l'URL pour la requête DELETE
 
       // Envoie une requête AJAX
       $.ajax({
@@ -124,5 +113,6 @@
       });
     });
   });
+
 
 </script>

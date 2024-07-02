@@ -228,3 +228,4 @@ class EBP:
         headers = {"ebp-subscription-key": self.ebp_subscription_key}
         response = self.make_request('GET', url, headers=headers)
         return response.text
+

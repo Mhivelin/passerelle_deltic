@@ -113,12 +113,24 @@ class TestModels(unittest.TestCase):
     #         print(champ)
 
 
-    def test_zeendoc_get_index(self):
-        """
-        Test de la fonction get_index de la classe Zeendoc
-        """
-        id_client = 1
-        instance_zeendoc = zeendoc.Zeendoc(id_client)
-        instance_zeendoc.get_rights()
-        index = instance_zeendoc.get_index()
-        print("liste des index: ", index)
+    # def test_zeendoc_get_index(self):
+    #     """
+    #     Test de la fonction get_index de la classe Zeendoc
+    #     """
+    #     id_client = 1
+    #     instance_zeendoc = zeendoc.Zeendoc(id_client)
+    #     instance_zeendoc.get_rights()
+    #     index = instance_zeendoc.get_index()
+    #     print("liste des index: ", index)
+
+
+
+    # def test_get_champ_passerelle_required_by_passerelle_client(self):
+    #     """
+    #     Test de la fonction get_champ_passerelle_required_by_passerelle_client
+    #     """
+    #     champs = database.get_champ_by_passerelle_and_logiciel_passerelle(1)
+    #     print(champs)
+
+
+

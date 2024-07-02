@@ -1,7 +1,5 @@
 {% extends 'base.html' %} {% block title %}Remplissage des champs requis{%
 endblock %} {% block content %}
-
-<br />
 <h1>Remplissage des champs requis</h1>
 
 <form
@@ -10,25 +8,23 @@ endblock %} {% block content %}
   method="post"
 >
   <div class="form-group">
-    {% for field in fields %} {% if field.LibChamp == "EBP_FOLDER_ID" %} {% if
-    not liste_ebp_folder %}
-    <p>La connexion à EBP n'est pas configurée</p>
-    <p>
-      Se connecter à EBP :
-      <a href="{{ url_for('ebp.login_ebp', id=id_client) }}">Connexion</a>
-    </p>
-    {% else %} {% with liste_ebp_folder=liste_ebp_folder, field=field %} {%
-    include 'logiciel/ebp/folder_select.html' %} {% endwith %} {% endif %} {%
-    elif field.LibChamp == "Zeendoc_CLASSEUR" %} {% if not
-    liste_zeendoc_classeur %}
-    <p>La connexion à Zeendoc n'est pas configurée</p>
-    {% else %} {% with liste_zeendoc_classeur=liste_zeendoc_classeur,
-    field=field %} {% include 'logiciel/zeendoc/classeur_select.html' %} {%
-    endwith %} {% endif %} {% elif field.LibChamp == "INDEX_STATUT_PAIEMENT" %}
-    {% if not liste_zeendoc_index %}
-    <p>La connexion à Zeendoc n'est pas configurée</p>
-    {% else %} {% with liste_zeendoc_index=liste_zeendoc_index, field=field %}
-    {% include 'logiciel/zeendoc/index_select.html' %} {% endwith %} {% endif %}
+    {% for field in fields %} {% if field.TypeChamp == "masqué" %}
+    <label for="LibChamp_{{ loop.index }}">{{ field.LibChamp }}</label>
+    <input
+      type="password"
+      class="form-control"
+      id="LibChamp_{{ loop.index }}"
+      name="Valeur[]"
+      placeholder="Entrer la valeur"
+      value="{{ field.Valeur }}"
+    />
+    {% elif field.TypeChamp == "caché" %}
+    <!-- Champ caché, ne rien afficher -->
+    {% elif field.TypeChamp == "select_ebp_folder" %} {% include
+    'logiciel/ebp/folder_select.html' %} {% elif field.TypeChamp ==
+    "select_zeendoc_classeur" %} {% include
+    'logiciel/zeendoc/classeur_select.html' %} {% elif field.TypeChamp ==
+    "select_zeendoc_index" %} {% include 'logiciel/zeendoc/index_select.html' %}
     {% else %}
     <label for="LibChamp_{{ loop.index }}">{{ field.LibChamp }}</label>
     <input type="hidden" name="IdChamp[]" value="{{ field.IdChamp }}" />
@@ -36,7 +32,7 @@ endblock %} {% block content %}
       type="text"
       class="form-control"
       id="LibChamp_{{ loop.index }}"
-      name="LibChamp[]"
+      name="Valeur[]"
       placeholder="Entrer la valeur"
       value="{{ field.Valeur }}"
     />
@@ -45,6 +41,7 @@ endblock %} {% block content %}
     {% endfor %}
   </div>
   <input type="hidden" name="id_client" value="{{ id_client }}" />
+  <input type="hidden" name="id_passerelle" value="{{ id_passerelle }}" />
   <button type="submit" class="btn btn-primary">Ajouter</button>
 </form>
 
@@ -66,7 +63,7 @@ endblock %} {% block content %}
           } else {
             return response.json().then((data) => {
               console.error("Error:", data);
-              alert("Erreur lors de l'ajout des champs requis.");
+              alert("Erreur lors de l'ajout des champs requis : " + data.error);
             });
           }
         })
@@ -76,5 +73,4 @@ endblock %} {% block content %}
         });
     });
 </script>
-
 {% endblock %}

@@ -1,8 +1,20 @@
-<label for="ebp_folder">Dossier EBP</label>
-<select id="ebp_folder" name="LibChamp[]" class="form-control">
-  <option value="">Sélectionner un dossier</option>
-  {% for ebp_folder in liste_ebp_folder %}
-  <option value="{{ ebp_folder.id }}">{{ ebp_folder.name }}</option>
-  {% endfor %}
+{% if not liste_ebp_folder %}
+<p>La connexion à EBP n'est pas configurée</p>
+<p>
+  Se connecter à EBP :
+  <a href="{{ url_for('ebp.login_ebp', id=id_client) }}">Connexion</a>
+</p>
+{% else %}
+<label for="LibChamp_{{ field.IdChamp }}">{{ field.LibChamp }}</label>
+<select
+  class="form-control"
+  id="LibChamp_{{ field.IdChamp }}"
+  name="LibChamp[]"
+>
+  {% for folder in liste_ebp_folder %} {% if field.Valeur == folder.id %}
+  <option value="{{ folder.id }}" selected>{{ folder.name }}</option>
+  {% else %}
+  <option value="{{ folder.id }}">{{ folder.name }}</option>
+  {% endif %} {% endfor %}
 </select>
-<input type="hidden" name="IdChamp[]" value="{{field.IdChamp}}" />
+{% endif %}

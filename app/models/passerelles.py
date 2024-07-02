@@ -18,6 +18,8 @@ def routine():
 
         if passerelle['LibPasserelle'] == "remontée de paiement":
             P_remonte_paiement(IdPasserelleClient)
+        if passerelle['LibPasserelle'] == "remontée de fournisseur":
+            P_remonte_fournisseur(IdPasserelleClient)
 
 
     return "Routine terminée avec succès."
@@ -68,9 +70,59 @@ def P_remonte_paiement(IdPasserelleClient):
 
 
 
+def P_remonte_fournisseur(IdPasserelleClient):
+    """
+    Fonction pour la passerelle remontée de fournisseur.
+    """
+
+    print("P_remonte_fournisseur - IdPasserelleClient: ", IdPasserelleClient)
+
+    # Extraction correcte des valeurs de coll_id et column_name
+    coll_id_data = database.get_champ_passerelle_by_lib_champ(IdPasserelleClient, "Zeendoc_CLASSEUR")
+    column_name_data = database.get_champ_passerelle_by_lib_champ(IdPasserelleClient, "INDEX_FOURNISSEUR")
+
+    coll_id = coll_id_data['Valeur']
+    column_name = column_name_data['Valeur']
+
+    # Connexion à EBP
+    ebp = EBP(IdPasserelleClient)
+    ebp.login()
+
+    # Connexion à Zeendoc
+    zeendoc = Zeendoc(IdPasserelleClient)
+
+    # Récupération de la liste des fournisseurs
+    suppliers = ebp.get_suppliers()
+    suppliers = json.loads(suppliers)
+
+    print("suppliers: ", suppliers)
+    # suppliers:  {'results': [{'name': 'lana', 'Id': 'FR00001'}], 'paging': {'total': 1, 'returned': 1, 'offset': 0, 'limit': 500}}
+
+    items = [supplier['name'] for supplier in suppliers['results']]
+
+    # Récupérer les fournisseurs deja existants dans la liste déroulante
+    existing_items = zeendoc.get_items_list(coll_id, column_name)
+
+    # [{'Id': '17', 'Label': 'lana'}]
+
+    existing_items = [item['Label'] for item in existing_items]
+
+    # Ajouter les fournisseurs qui ne sont pas déjà dans la liste déroulante
+    items = list(set(items) - set(existing_items))
 
 
 
+
+
+    # Ajouter les fournisseurs à la liste déroulante dans Zeendoc
+    response = zeendoc.add_items_list(coll_id, column_name, items)
+
+    if response and response.get('Result') == 0:
+        print("Ajout des fournisseurs réussi.")
+    else:
+        print(f"Erreur lors de l'ajout des fournisseurs: {response}")
+
+    return response
 
 
 

@@ -254,4 +254,57 @@ class Zeendoc:
             print(f"Erreur lors de la mise à jour du document par référence: {e}")
             return None
 
+    def get_items_list(self, coll_id, column_name, only_deletable=50):
+        """Méthode pour obtenir des éléments d'une liste déroulante"""
+        body = f'''
+        <getItemsList>
+          <Coll_Id>{coll_id}</Coll_Id>
+          <Column_Name>{column_name}</Column_Name>
+          <Only_Deletable>{only_deletable}</Only_Deletable>
+          <ArrayOfListItemsIdOnly/>
+          <Access_token></Access_token>
+        </getItemsList>'''
+
+        try:
+            print("Request Body: ", body)  # Debug: afficher le corps de la requête pour débogage
+            response_text = self._post_request(body, "getItemsList")
+            print("Response Text: ", response_text)  # Debug: afficher le texte de la réponse pour débogage
+            root = ET.fromstring(response_text)
+            json_response = root.find(".//jsonResponse").text
+
+            return json.loads(json_response)["Items_List"]
+        except (requests.RequestException, ET.ParseError, json.JSONDecodeError) as e:
+            print(f"Erreur lors de la récupération des éléments de la liste déroulante: {e}")
+            return None
+
+
+
+
+    def add_items_list(self, coll_id, column_name, items):
+        """Méthode pour ajouter des éléments à une liste déroulante"""
+        items_xml = ''.join([f'''
+            <List_Item>
+                <Id></Id>
+                <Label>{item}</Label>
+            </List_Item>''' for item in items])
+
+        body = f'''
+        <AddItemsList xmlns="urn:Zeendoc">
+            <Coll_Id>{coll_id}</Coll_Id>
+            <Column_Name>{column_name}</Column_Name>
+            <Items_List>
+                {items_xml}
+            </Items_List>
+        </AddItemsList>'''
+
+        try:
+            print("Request Body: ", body)  # Debug: afficher le corps de la requête pour débogage
+            response_text = self._post_request(body, "AddItemsList")
+            root = ET.fromstring(response_text)
+            json_response = root.find(".//jsonResponse").text
+            return json.loads(json_response)
+        except (requests.RequestException, ET.ParseError, json.JSONDecodeError) as e:
+            print(f"Erreur lors de l'ajout des éléments à la liste déroulante: {e}")
+            return None
+
 

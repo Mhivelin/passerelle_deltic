@@ -63,16 +63,16 @@ class TestModels(unittest.TestCase):
 
 
 
-    def test_get_folders(self):
-        """
-        Teste la récupération des dossiers EBP.
-        """
+    # def test_get_folders(self):
+    #     """
+    #     Teste la récupération des dossiers EBP.
+    #     """
 
-        # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+    #     # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
-        ebp = EBP(1)
-        folders = ebp.get_folders()
-        print("Folders: ", folders)
+    #     ebp = EBP(1)
+    #     folders = ebp.get_folders()
+    #     print("Folders: ", folders)
 
 
     # def test_get_suppliers(self):
@@ -86,16 +86,29 @@ class TestModels(unittest.TestCase):
     #     suppliers = ebp.get_suppliers()
     #     print("Suppliers: ", suppliers)
 
-    def test_get_paid_documents(self):
+    # def test_get_paid_documents(self):
+    #     """
+    #     Teste la récupération des documents payés EBP.
+    #     """
+
+    #     # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+
+    #     ebp = EBP(1)
+    #     paid_documents = ebp.get_paid_documents()
+    #     print("Paid documents: ", paid_documents)
+
+
+
+    def test_get_fournisseur(self):
         """
-        Teste la récupération des documents payés EBP.
+        Teste la récupération d'un fournisseur EBP.
         """
 
-        # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+        os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
         ebp = EBP(1)
-        paid_documents = ebp.get_paid_documents()
-        print("Paid documents: ", paid_documents)
+        fournisseur = ebp.get_suppliers()
+        print("Fournisseur: ", fournisseur)
 
 
 

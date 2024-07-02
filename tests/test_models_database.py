@@ -231,21 +231,23 @@ def test_get_passerelle_client_with_lib_passerelle(db_connection):
     assert passerelle_clients[0]['LibPasserelle'] == "test_passerelle"
 
 
-def test_get_champ_by_client_with_lib_champ(db_connection):
+
+def test_get_champ_passerelle_client_by_passerelle_with_lib_champ(db_connection):
     """
-    Test de récupération des champs associés à un client spécifique avec le libellé du champ.
-    Vérifie que les champs sont correctement récupérés avec leur libellé.
+    Test de récupération des champs passerelles associés à une passerelle spécifique avec le libellé du champ.
+    Vérifie que les champs passerelles sont correctement récupérés avec leur libellé.
     """
     database.add_client("test_user")
     database.add_passerelle("test_passerelle")
     id_client = database.get_id_client_by_lib_client("test_user")
     id_passerelle = database.get_id_passerelle_by_lib_passerelle("test_passerelle")
-    database.add_champ_to_passerelle("test_champ", "test_table", id_passerelle)
-
     database.add_passerelle_client(id_passerelle, id_client)
     database.add_champ("test_champ", "test_table")
     id_champ = database.get_id_champ_by_lib_champ("test_champ")
     database.add_champ_passerelle(id_passerelle, id_champ, "test_value")
-    champs = database.get_champ_by_client_with_lib_champ(id_client)
+    champ_passerelles = database.get_champ_passerelle_client_by_passerelle_with_lib_champ(id_passerelle)
+    assert len(champ_passerelles) == 1
+    assert champ_passerelles[0]['LibChamp'] == "test_champ"
 
-    print(champs)
+
+

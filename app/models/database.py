@@ -1,4 +1,5 @@
 import sqlite3
+import logging
 
 #########################################################################################
 #                            Connexion à la base de données                             #
@@ -59,21 +60,24 @@ def create_database():
             NomTable TEXT NOT NULL,
             IdPasserelle INTEGER,
             IdLogiciel INTEGER,
+            TypeChamp TEXT NOT NULL CHECK(TypeChamp IN ('caché', 'masqué', 'visible', 'select_zeendoc_index', 'select_zeendoc_classeur', 'select_ebp_folder')),
             FOREIGN KEY(IdPasserelle) REFERENCES PASSERELLE(IdPasserelle),
             FOREIGN KEY(IdLogiciel) REFERENCES LOGICIEL(IdLogiciel)
         );"""
     )
 
+
     # PASSERELLE_CLIENT
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS PASSERELLE_CLIENT(
-            IdPasserelleClient INTEGER PRIMARY KEY,
+            IdPasserelleClient INTEGER PRIMARY KEY AUTOINCREMENT,
             IdPasserelle INTEGER NOT NULL,
             IdClient INTEGER NOT NULL,
             FOREIGN KEY(IdPasserelle) REFERENCES PASSERELLE(IdPasserelle),
             FOREIGN KEY(IdClient) REFERENCES CLIENT(IdClient)
-        );"""
+        );
+        """
     )
 
     # CONNECT_LOGICIEL
@@ -82,7 +86,7 @@ def create_database():
         CREATE TABLE IF NOT EXISTS CONNECT_LOGICIEL(
             IdLogiciel INTEGER,
             IdPasserelle INTEGER,
-            IsSource NUMERIC,
+            IsSource INTEGER,
             PRIMARY KEY(IdLogiciel, IdPasserelle),
             FOREIGN KEY(IdLogiciel) REFERENCES LOGICIEL(IdLogiciel),
             FOREIGN KEY(IdPasserelle) REFERENCES PASSERELLE(IdPasserelle)
@@ -106,7 +110,7 @@ def create_database():
     conn.close()
 
 #########################################################################################
-#                              FONCTIONS D'EXECUTION DE REQUÊTES                         #
+#                              FONCTIONS D'EXECUTION DE REQUÊTES                        #
 #########################################################################################
 
 def execute_query(query, params=None):
@@ -172,6 +176,8 @@ def drop_table(table_name):
     query = f"DROP TABLE IF EXISTS {table_name}"
     return execute_query(query)
 
+
+
 ###################################################################################################
 #                                        PASSERELLE                                              #
 ###################################################################################################
@@ -188,6 +194,19 @@ def get_id_passerelle_by_lib_passerelle(lib_passerelle):
     """Récupère une passerelle spécifique en fonction de son libellé."""
     query = """SELECT IdPasserelle FROM PASSERELLE WHERE LibPasserelle = ?"""
     return execute_query_single(query, (lib_passerelle, ))["IdPasserelle"]
+
+
+def get_id_passerelle_by_id_passerelle_client(id_passerelle_client):
+    """Récupère une passerelle spécifique en fonction de l'ID de passerelle client."""
+    query = "SELECT IdPasserelle FROM PASSERELLE_CLIENT WHERE IdPasserelleClient = ?"
+    result = execute_query_single(query, (id_passerelle_client,))
+
+    if result and 'IdPasserelle' in result:
+        return result['IdPasserelle']
+    return None
+
+
+
 
 def delete_passerelle(id_passerelle):
     """Supprime une passerelle spécifique en fonction de son identifiant."""
@@ -309,10 +328,35 @@ def get_id_champ_by_lib_champ(lib_champ):
 
     return res["IdChamp"]
 
-def add_champ(lib_champ, nom_table, id_passerelle=None, id_logiciel=None):
-    """Ajoute un champ avec le libellé et le nom de table spécifiés."""
-    columns = ["LibChamp", "NomTable"]
-    values = [lib_champ, nom_table]
+def get_champ_by_passerelle(passerelle_id):
+    """Récupère tous les champs associés à une passerelle spécifique."""
+    query = "SELECT * FROM CHAMPS WHERE IdPasserelle = ?"
+    return execute_query(query, (passerelle_id, ))
+
+def get_champ_by_logiciel(logiciel_id):
+    """Récupère tous les champs associés à un logiciel spécifique."""
+    query = "SELECT * FROM CHAMPS WHERE IdLogiciel = ?"
+    return execute_query(query, (logiciel_id, ))
+
+def get_champ_by_passerelle_and_logiciel_passerelle(passerelle_id):
+    """Récupère tous les champs associés à une passerelle spécifique et à un logiciel passerelle."""
+    logiciels = get_logiciels_by_passerelles([passerelle_id])
+    if not logiciels:
+        return []
+
+    logiciels_ids = [l["IdLogiciel"] for l in logiciels]
+    champs_logiciels = get_champs_by_logiciels(logiciels_ids)
+    champs_passerelles = get_champs_by_passerelles([passerelle_id])
+
+    return champs_logiciels + champs_passerelles
+
+
+
+
+def add_champ(lib_champ, nom_table, type_champ, id_passerelle=None, id_logiciel=None):
+    """Ajoute un champ avec le libellé, le nom de table et le type spécifiés."""
+    columns = ["LibChamp", "NomTable", "TypeChamp"]
+    values = [lib_champ, nom_table, type_champ]
 
     if id_passerelle:
         columns.append("IdPasserelle")
@@ -324,16 +368,17 @@ def add_champ(lib_champ, nom_table, id_passerelle=None, id_logiciel=None):
 
     return add_record("CHAMPS", columns, values)
 
-
-def add_champ_to_passerelle(lib_champ, nom_table, lib_passerelle):
+def add_champ_to_passerelle(lib_champ, nom_table, type_champ, lib_passerelle):
     """Ajoute un champ à une passerelle spécifique."""
     id_passerelle = get_id_passerelle_by_lib_passerelle(lib_passerelle)
-    return add_champ(lib_champ, nom_table, id_passerelle)
+    return add_champ(lib_champ, nom_table, type_champ, id_passerelle)
 
-def add_champ_to_logiciel(lib_champ, nom_table, lib_logiciel):
+
+def add_champ_to_logiciel(lib_champ, nom_table, type_champ, lib_logiciel):
     """Ajoute un champ à un logiciel spécifique."""
     id_logiciel = get_id_logiciel_by_lib_logiciel(lib_logiciel)
-    return add_champ(lib_champ, nom_table, id_logiciel=id_logiciel)
+    return add_champ(lib_champ, nom_table, type_champ, id_logiciel=id_logiciel)
+
 
 def delete_champ(id_champ):
     """Supprime un champ spécifique en fonction de son identifiant."""
@@ -359,6 +404,9 @@ def get_logiciels_by_passerelles(passerelles_ids):
     if not passerelles_ids:
         return []
 
+    if isinstance(passerelles_ids, int):
+        passerelles_ids = [passerelles_ids]
+
     query = """
         SELECT DISTINCT L.IdLogiciel, L.LibLogiciel
         FROM CONNECT_LOGICIEL CL
@@ -383,6 +431,12 @@ def get_champs_by_passerelles(passerelles_ids):
     return execute_query(query, passerelles_ids)
 
 def get_champs_by_logiciels(logiciels_ids):
+    if not logiciels_ids:
+        return []
+
+    if isinstance(logiciels_ids, int):
+        logiciels_ids = [logiciels_ids]
+
     query = """
         SELECT CH.*
         FROM CHAMPS CH
@@ -391,6 +445,16 @@ def get_champs_by_logiciels(logiciels_ids):
     return execute_query(query, logiciels_ids)
 
 
+
+
+def get_all_champs_for_passerelle_client(id_passerelle_client):
+    query = """
+        SELECT CP.*, CH.LibChamp
+        FROM CHAMP_PASSERELLE CP
+        JOIN CHAMPS CH ON CP.IdChamp = CH.IdChamp
+        WHERE CP.IdPasserelleClient = ?
+    """
+    return execute_query(query, (id_passerelle_client, ))
 
 def get_all_champs_for_client(id_client):
     # Étape 1: Récupérer les ID des passerelles liées au client
@@ -416,6 +480,9 @@ def get_all_champs_for_client(id_client):
     all_champs = champs_logiciels + champs_passerelles
 
     return all_champs
+
+
+
 
 
 
@@ -447,7 +514,11 @@ def delete_connecteur(id_logiciel, id_passerelle):
 
 def add_champ_passerelle(id_passerelle_client, id_champ, valeur):
     """Ajoute un champ passerelle avec l'identifiant, la valeur et IdChamp spécifiés."""
-    return add_record("CHAMP_PASSERELLE", ["IdPasserelleClient", "IdChamp", "Valeur"], [id_passerelle_client, id_champ, valeur])
+    return add_record("CHAMP_PASSERELLE", ["IdChamp", "IdPasserelleClient", "Valeur"], [id_champ, id_passerelle_client, valeur])
+
+
+
+
 
 def get_all_champ_passerelle_by_passerelle_client(id_passerelle_client):
     """Récupère tous les champs passerelle associés à une passerelle client spécifique."""
@@ -478,6 +549,8 @@ def get_champ_passerelle_by_id(id_champ, id_passerelle_client):
     """Récupère un champ passerelle spécifique en fonction de son identifiant."""
     query = "SELECT * FROM CHAMP_PASSERELLE WHERE IdChamp = ? AND IdPasserelleClient = ?"
     return execute_query_single(query, (id_champ, id_passerelle_client))
+
+
 
 def get_champ_passerelle_by_lib_champ(id_passerelle_client, lib_champ):
     """Récupère un champ passerelle spécifique en fonction du libellé du champ."""
@@ -528,21 +601,79 @@ def get_champ_passerelle_client_by_client_with_lib_champ(id_client):
     """
     return execute_query(query, (id_client, ))
 
-def add_multiple_champ_passerelle(id_passerelle_client, champs):
+
+def get_champ_passerelle_client_by_passerelle_with_lib_champ(id_passerelle_client):
+    """Récupère tous les champs passerelle associés à une passerelle client spécifique avec le libellé du champ."""
+    query = """
+        SELECT CH.IdChamp, CH.LibChamp, CP.Valeur
+        FROM CHAMPS CH
+        JOIN CHAMP_PASSERELLE CP ON CH.IdChamp = CP.IdChamp
+        WHERE CP.IdPasserelleClient = ?
+    """
+    try:
+        result = execute_query(query, (id_passerelle_client, ))
+        logging.debug(f"Résultat de la requête pour id_passerelle_client={id_passerelle_client}: {result}")
+        return result
+    except Exception as e:
+        logging.error(f"Erreur lors de l'exécution de la requête pour id_passerelle_client={id_passerelle_client}: {e}")
+        return None
+
+
+def get_champ_passerelle_client_by_ids_with_lib_champ(id_passerelle_client):
+    """Récupère tous les champs passerelle associés à une passerelle client spécifique avec le libellé du champ."""
+    query = """
+        SELECT CH.*, CP.Valeur
+        FROM CHAMPS CH
+        JOIN CHAMP_PASSERELLE CP ON CH.IdChamp = CP.IdChamp
+        WHERE CP.IdPasserelleClient = ?
+    """
+    return execute_query(query, (id_passerelle_client,))
+
+
+
+
+
+
+def get_champ_passerelle_required_by_passerelle_client(id_passerelle_client):
+    """Récupère tous les champs passerelle requis associés à une passerelle client spécifique."""
+    # Etape 2: recuperer l'id de la passerelle
+    passerelle = get_passerelle_client_by_id(id_passerelle_client)
+    id = passerelle["IdPasserelle"]
+
+    # Etape 3: recuperer les logiciels associés à la passerelle
+    logiciels = get_logiciels_by_passerelles([id])
+
+
+    # Etape 4: recuperer les champs requis pour les logiciels
+    champs_logiciels = get_champs_by_logiciels([l["IdLogiciel"] for l in logiciels])
+
+    # Etape 5: recuperer les champs requis pour la passerelle
+    champs_passerelles = get_champs_by_passerelles([id])
+
+    # Combiner les résultats des champs
+    all_champs = champs_logiciels + champs_passerelles
+
+    return all_champs
+
+
+
+
+def add_multiple_champ_passerelle(id_passerelle_client, champs, id_client):
     """Ajoute plusieurs champs passerelle à un client spécifique."""
     for champ in champs:
         print("Champ à ajouter: ", champ)
-        # {'id_champ': 1, 'valeur': 'valeur1'}
-        add_or_update_champ_passerelle(id_passerelle_client, champ)
+
+        add_or_update_champ_passerelle(id_passerelle_client, [champ])
+
 
 
 def add_or_update_champ_passerelle(id_passerelle_client, champs):
-    """Ajoute ou met à jour plusieurs champs passerelle à un client spécifique."""
-    print("Champs à ajouter ou mettre à jour: ", champs)
+    """
+    Ajoute ou met à jour plusieurs champs passerelle pour un client spécifique.
+    """
     for champ in champs:
         if champ["Valeur"] == "":
             continue
-
 
         champ_passerelle = get_champ_passerelle_by_id(champ["id_champ"], id_passerelle_client)
         if champ_passerelle:
@@ -553,13 +684,49 @@ def add_or_update_champ_passerelle(id_passerelle_client, champs):
 
 
 
+
+def get_or_create_passerelle_client(id_passerelle, id_client):
+    """
+    Récupère ou crée une entrée dans la table PASSERELLE_CLIENT.
+    """
+    logging.debug(f"get_or_create_passerelle_client called with id_passerelle: {id_passerelle}, id_client: {id_client}")
+    passerelle_client = get_passerelle_client_by_ids(id_passerelle, id_client)
+    if passerelle_client:
+        logging.debug(f"Passerelle client found: {passerelle_client}")
+        return passerelle_client["IdPasserelleClient"]
+
+    id_passerelle_client = add_passerelle_client(id_passerelle, id_client)
+    logging.debug(f"New passerelle client created with id: {id_passerelle_client}")
+    return id_passerelle_client
+
+
+
+
+
+
+
+
+
+
 ##########################################################################################
 #                               PASSERELLE_CLIENT                                       #
 ##########################################################################################
 
 def add_passerelle_client(id_passerelle, id_client):
-    """Ajoute une entrée dans la table PASSERELLE_CLIENT."""
-    return add_record("PASSERELLE_CLIENT", ["IdPasserelle", "IdClient"], [id_passerelle, id_client])
+    """Ajoute une entrée dans la table PASSERELLE_CLIENT et retourne l'ID généré."""
+    logging.debug(f"add_passerelle_client called with id_passerelle: {id_passerelle}, id_client: {id_client}")
+    add_record("PASSERELLE_CLIENT", ["IdPasserelle", "IdClient"], [id_passerelle, id_client])
+    query = "SELECT IdPasserelleClient FROM PASSERELLE_CLIENT WHERE IdPasserelle = ? AND IdClient = ?"
+    result = execute_query_single(query, (id_passerelle, id_client))
+    logging.debug(f"Result from add_passerelle_client: {result}")
+    return result["IdPasserelleClient"] if result else None
+
+
+
+
+
+
+
 
 def get_all_passerelle_client():
     """Récupère toutes les entrées de la table PASSERELLE_CLIENT."""
@@ -574,10 +741,19 @@ def get_all_passerelle_client_with_lib_passerelle():
     """
     return execute_query(query)
 
+def get_passerelle_client_by_id(id_passerelle_client):
+    """Récupère une entrée spécifique de la table PASSERELLE_CLIENT."""
+    return get_record_by_id("PASSERELLE_CLIENT", "IdPasserelleClient", id_passerelle_client)
+
 def get_passerelle_client_by_ids(id_passerelle, id_client):
     """Récupère une entrée spécifique de la table PASSERELLE_CLIENT."""
+    logging.debug(f"get_passerelle_client_by_ids called with id_passerelle: {id_passerelle}, id_client: {id_client}")
     query = "SELECT * FROM PASSERELLE_CLIENT WHERE IdPasserelle = ? AND IdClient = ?"
-    return execute_query_single(query, (id_passerelle, id_client))
+    result = execute_query_single(query, (id_passerelle, id_client))
+    logging.debug(f"Result from get_passerelle_client_by_ids: {result}")
+    return result
+
+
 
 def get_passerelle_client_by_client(id_client):
     """Récupère toutes les passerelles associées à un client spécifique."""

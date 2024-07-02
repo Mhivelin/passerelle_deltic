@@ -193,6 +193,20 @@ def delete_logiciel(id_logiciel):
         logging.error(f"Error deleting logiciel: {e}")
         return jsonify({"error": str(e)}), 500
 
+
+
+
+@database_bp.route("/database/get_logiciels_by_passerelles/<int:id_passerelle>", methods=["GET"])
+@login_required
+def get_logiciels_by_passerelles(id_passerelle):
+    """
+    Obtient tous les logiciels associés à une passerelle spécifique.
+    """
+
+    logiciels = database.get_logiciels_by_passerelles(id_passerelle)
+    return jsonify(logiciels)
+
+
 ###################################################################################################
 #                                        CHAMPS                                                  #
 ###################################################################################################
@@ -209,6 +223,20 @@ def get_all_champs():
     except Exception as e:
         logging.error(f"Error fetching champs: {e}")
         return jsonify({"error": str(e)}), 500
+
+
+
+@database_bp.route("/database/get_champs_by_logiciels/<int:id_logiciel>", methods=["GET"])
+@login_required
+def get_champs_by_logiciels(id_logiciel):
+    """
+    Obtient tous les champs associés à un logiciel spécifique.
+    """
+
+    champs = database.get_champs_by_logiciels(id_logiciel)
+    return jsonify(champs)
+
+
 
 @database_bp.route("/database/champ", methods=["POST"])
 @login_required
@@ -388,7 +416,7 @@ def add_passerelle_client():
         logging.error(f"Error adding passerelle client: {e}")
         return jsonify({"error": str(e)}), 500
 
-@database_bp.route("/database/passerelle_client/<int:id_passerelle>/<int:id_client>", methods=["DELETE"])
+@database_bp.route("/database/passerelle_client/<int:id_passerelle>/<int:id_client>", methods=["DELETE", "POST"])
 @login_required
 def delete_passerelle_client(id_passerelle, id_client):
     """
@@ -416,6 +444,22 @@ def get_passerelle_client_with_lib_passerelle(id_client):
 
 
 
+@database_bp.route("/database/get_id_passerelle_by_id_passerelle_client/<int:id_passerelle_client>", methods=["GET"])
+@login_required
+def get_id_passerelle_by_id_passerelle_client(id_passerelle_client):
+    """
+    Obtient l'ID de la passerelle par ID passerelle client.
+    """
+    try:
+        id_passerelle = database.get_id_passerelle_by_id_passerelle_client(id_passerelle_client)
+        return jsonify(id_passerelle)
+    except Exception as e:
+        logging.error(f"Error fetching passerelle id: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+
+
 @database_bp.route("/database/passerelle_client/<int:id_client>/champ", methods=["GET"])
 @login_required
 def get_champ_passerelle_client_by_client_with_lib_champ(id_client):
@@ -430,6 +474,16 @@ def get_champ_passerelle_client_by_client_with_lib_champ(id_client):
         return jsonify({"error": str(e)}), 500
 
 
+@database_bp.route("/database/get_champ_by_passerelle_and_logiciel_passerelle/<int:id_passerelle>", methods=["GET"])
+@login_required
+def get_champ_by_passerelle_and_logiciel_passerelle(id_passerelle):
+    """
+    Obtient tous les champs associés à une passerelle spécifique.
+    """
+
+    champs = database.get_champ_by_passerelle_and_logiciel_passerelle(id_passerelle)
+    return jsonify(champs)
+
 
 @database_bp.route("/database/add_multiple_champ_passerelle/", methods=["POST"])
 @login_required
@@ -437,42 +491,94 @@ def add_multiple_champ_passerelle():
     """
     Ajoute plusieurs champs passerelle client pour un client spécifique.
     """
-    # try:
-    data = request.form
+    try:
+        data = request.form
 
-    # Log pour déboguer le contenu de data
-    logging.debug(f"Request data: {data}")
+        # Log pour déboguer le contenu de data
+        logging.debug(f"Request data: {data}")
 
-    # Convertir les données du formulaire en une liste de dictionnaires
-    champs = []
-    id_champs = data.getlist('IdChamp[]')
-    valeurs = data.getlist('LibChamp[]')
-    id_client = data.get('id_client')
+        # Convertir les données du formulaire en une liste de dictionnaires
+        champs = []
+        id_champs = data.getlist('IdChamp[]')
+        valeurs = data.getlist('Valeur[]')  # Assuming the values are passed in 'Valeur[]'
+        id_client = data.get('id_client')
+        id_passerelle = data.get('id_passerelle')
 
-    logging.debug(f"id_champs: {id_champs}")
-    logging.debug(f"valeurs: {valeurs}")
-    logging.debug(f"id_client: {id_client}")
+        logging.debug(f"id_champs: {id_champs}")
+        logging.debug(f"valeurs: {valeurs}")
+        logging.debug(f"id_client: {id_client}")
+        logging.debug(f"id_passerelle: {id_passerelle}")
 
-    if not id_champs or not valeurs or not id_client:
-        return jsonify({"error": "Missing data"}), 400
+        if not id_champs or not valeurs or not id_client or not id_passerelle:
+            return jsonify({"error": "Données manquantes"}), 400
 
-    for id_champ, valeur in zip(id_champs, valeurs):
-        champ = {
-            'id_champ': id_champ,
-            'Valeur': valeur,
-            'id_client': id_client
-        }
-        champs.append(champ)
+        # Récupérer ou créer IdPasserelleClient
+        id_passerelle_client = database.get_or_create_passerelle_client(id_passerelle, id_client)
+        if id_passerelle_client is None:
+            return jsonify({"error": "Impossible de créer ou récupérer IdPasserelleClient"}), 500
 
-    database.add_or_update_champ_passerelle(id_client, champs)
+        for id_champ, valeur in zip(id_champs, valeurs):
+            champ = {
+                'id_champ': id_champ,
+                'Valeur': valeur
+            }
+            champs.append(champ)
 
-    return jsonify({"message": "Champ Passerelle added successfully"}), 201
+        logging.debug(f"Champs to add: {champs}")
 
-    # except Exception as e:
-    #     logging.error(f"Error adding champ passerelle: {e}")
-    #     return jsonify({"error": str(e)}), 500
+        # Ajouter ou mettre à jour les champs passerelle
+        database.add_or_update_champ_passerelle(id_passerelle_client, champs)
+
+        return jsonify({"message": "Champ Passerelle ajouté avec succès"}), 201
+
+    except Exception as e:
+        logging.error(f"Error adding champ passerelle: {e}")
+        return jsonify({"error": str(e)}), 500
 
 
+
+
+@database_bp.route("/database/get_passerelle_client_by_ids/<int:id_passerelle>/<int:id_client>", methods=["GET"])
+@login_required
+def get_passerelle_client_by_ids(id_passerelle, id_client):
+    """
+    Obtient une passerelle client pour un client et une passerelle spécifiques.
+    """
+    try:
+        passerelle_client = database.get_passerelle_client_by_ids(id_passerelle, id_client)
+        return jsonify(passerelle_client)
+    except Exception as e:
+        logging.error(f"Error fetching passerelle client: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+
+@database_bp.route("/database/get_champ_passerelle_client_by_passerelle_with_lib_champ/<int:id_passerelle>", methods=["GET"])
+@login_required
+def get_champ_passerelle_client_by_passerelle_with_lib_champ(id_passerelle):
+    """
+    Obtient tous les champs passerelle client pour une passerelle spécifique.
+    """
+    try:
+        champ_passerelle_client = database.get_champ_passerelle_client_by_passerelle_with_lib_champ(id_passerelle)
+        return jsonify(champ_passerelle_client)
+    except Exception as e:
+        logging.error(f"Error fetching champ passerelle client: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+@database_bp.route("/database/get_champ_passerelle_client_by_ids_with_lib_champ/<int:id_passerelle>", methods=["GET"])
+@login_required
+def get_champ_passerelle_client_by_ids_with_lib_champ(id_passerelle):
+    """
+    Obtient tous les champs passerelle client pour un client et une passerelle spécifiques.
+    """
+    try:
+        champ_passerelle_client = database.get_champ_passerelle_client_by_ids_with_lib_champ(id_passerelle)
+        return jsonify(champ_passerelle_client)
+    except Exception as e:
+        logging.error(f"Error fetching champ passerelle client: {e}")
+        return jsonify({"error": str(e)}), 500
 
 
 
@@ -581,4 +687,7 @@ def delete_client_app(id_client):
     except Exception as e:
         logging.error(f"Error deleting client: {e}")
         return jsonify({"error": str(e)}), 500
+
+
+
 
