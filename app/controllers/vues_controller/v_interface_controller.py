@@ -19,7 +19,7 @@ def home():
         for client in clients:
             client['passerellesClient'] = database.get_passerelle_client_with_lib_passerelle(client['IdClient'])
             for passerelle in client['passerellesClient']:
-                passerelle['champs'] = database.get_champ_passerelle_client_by_ids_with_lib_champ(passerelle['IdPasserelle'])
+                passerelle['champs'] = database.get_champ_passerelle_client_by_ids_with_lib_champ(passerelle['IdPasserelleClient'])
 
 
         return render_template("clients.html", clients=clients)

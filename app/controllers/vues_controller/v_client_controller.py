@@ -53,9 +53,9 @@ def form_add_requiert_passerelle(id_passerelle_client, id_client):
 
         # Gestion des différents types de champs
         try:
-            liste_ebp_folder = fetch_ebp_folders(id_client, fields)
-            liste_zeendoc_classeur = fetch_zeendoc_classeurs(id_client, fields)
-            liste_zeendoc_index = fetch_zeendoc_indexes(id_client, fields)
+            liste_ebp_folder = fetch_ebp_folders(id_passerelle_client, fields)
+            liste_zeendoc_classeur = fetch_zeendoc_classeurs(id_passerelle_client, fields)
+            liste_zeendoc_index = fetch_zeendoc_indexes(id_passerelle_client, fields)
         except Exception as e:
             logging.error(f"Erreur lors de la récupération des listes: {e}")
 
@@ -69,7 +69,8 @@ def form_add_requiert_passerelle(id_passerelle_client, id_client):
             id_passerelle=id_passerelle,
             liste_ebp_folder=liste_ebp_folder,
             liste_zeendoc_classeur=liste_zeendoc_classeur,
-            liste_zeendoc_index=liste_zeendoc_index
+            liste_zeendoc_index=liste_zeendoc_index,
+            id_passerelle_client=id_passerelle_client
         )
     except Exception as e:
         logging.error(f"Erreur lors de la récupération des champs: {e}")
@@ -78,11 +79,11 @@ def form_add_requiert_passerelle(id_passerelle_client, id_client):
 
 
 
-def fetch_ebp_folders(id_client, fields):
+def fetch_ebp_folders(id_passerelle_client, fields):
     for field in fields:
         if field.get("TypeChamp") == "select_ebp_folder":
             try:
-                instance_ebp = ebp.EBP(id_client)
+                instance_ebp = ebp.EBP(id_passerelle_client)
                 return instance_ebp.get_folders()
             except Exception as e:
                 logging.warning(f"Erreur EBP: {e}")
@@ -90,11 +91,11 @@ def fetch_ebp_folders(id_client, fields):
     return []
 
 
-def fetch_zeendoc_classeurs(id_client, fields):
+def fetch_zeendoc_classeurs(id_passerelle_client, fields):
     for field in fields:
         if field.get("TypeChamp") == "select_zeendoc_classeur":
             try:
-                instance_zeendoc = zeendoc.Zeendoc(id_client)
+                instance_zeendoc = zeendoc.Zeendoc(id_passerelle_client)
                 return instance_zeendoc.get_classeurs()
             except Exception as e:
                 logging.warning(f"Erreur Zeendoc Classeur: {e}")
@@ -102,11 +103,11 @@ def fetch_zeendoc_classeurs(id_client, fields):
     return []
 
 
-def fetch_zeendoc_indexes(id_client, fields):
+def fetch_zeendoc_indexes(id_passerelle_client, fields):
     for field in fields:
         if field.get("TypeChamp") == "select_zeendoc_index":
             try:
-                instance_zeendoc = zeendoc.Zeendoc(id_client)
+                instance_zeendoc = zeendoc.Zeendoc(id_passerelle_client)
                 return instance_zeendoc.get_index()
             except Exception as e:
                 logging.warning(f"Erreur Zeendoc Index: {e}")

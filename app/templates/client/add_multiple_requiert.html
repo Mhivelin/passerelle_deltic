@@ -8,7 +8,9 @@ endblock %} {% block content %}
   method="post"
 >
   <div class="form-group">
-    {% for field in fields %} {% if field.TypeChamp == "masqué" %}
+    {% for field in fields %}
+    </br>
+    {% if field.TypeChamp == "masqué" %}
     <label for="LibChamp_{{ loop.index }}">{{ field.LibChamp }}</label>
     <input
       type="password"
@@ -18,8 +20,10 @@ endblock %} {% block content %}
       placeholder="Entrer la valeur"
       value="{{ field.Valeur }}"
     />
+    <input type="hidden" name="IdChamp[]" value="{{ field.IdChamp }}" />
     {% elif field.TypeChamp == "caché" %}
-    <!-- Champ caché, ne rien afficher -->
+    <input type="hidden" name="IdChamp[]" value="{{ field.IdChamp }}" />
+    <input type="hidden" name="Valeur[]" value="{{ field.Valeur }}" />
     {% elif field.TypeChamp == "select_ebp_folder" %} {% include
     'logiciel/ebp/folder_select.html' %} {% elif field.TypeChamp ==
     "select_zeendoc_classeur" %} {% include
@@ -36,9 +40,7 @@ endblock %} {% block content %}
       placeholder="Entrer la valeur"
       value="{{ field.Valeur }}"
     />
-    {% endif %}
-    <br />
-    {% endfor %}
+    {% endif %} {% endfor %}
   </div>
   <input type="hidden" name="id_client" value="{{ id_client }}" />
   <input type="hidden" name="id_passerelle" value="{{ id_passerelle }}" />
@@ -59,7 +61,8 @@ endblock %} {% block content %}
       })
         .then((response) => {
           if (response.ok) {
-            window.location.href = "{{ url_for('v_interface.home') }}";
+            window.location.href =
+              "{{ url_for('v_client.form_add_requiert_passerelle', id_client=id_client, id_passerelle_client=id_passerelle_client) }}";
           } else {
             return response.json().then((data) => {
               console.error("Error:", data);

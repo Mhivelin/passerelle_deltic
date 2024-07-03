@@ -2,15 +2,12 @@
 <p>La connexion à Zeendoc n'est pas configurée</p>
 {% else %}
 <label for="LibChamp_{{ field.IdChamp }}">{{ field.LibChamp }}</label>
-<select
-  class="form-control"
-  id="LibChamp_{{ field.IdChamp }}"
-  name="LibChamp[]"
->
+<select class="form-control" id="LibChamp_{{ field.IdChamp }}" name="Valeur[]">
   {% for index in liste_zeendoc_index %} {% if field.Valeur == index.Index_Id %}
   <option value="{{ index.Index_Id }}" selected>{{ index.Label }}</option>
   {% else %}
   <option value="{{ index.Index_Id }}">{{ index.Label }}</option>
   {% endif %} {% endfor %}
 </select>
+<input type="hidden" name="IdChamp[]" value="{{ field.IdChamp }}" />
 {% endif %}

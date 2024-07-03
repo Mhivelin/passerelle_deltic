@@ -94,6 +94,7 @@ def create_app():
     app.register_error_handler(404, lambda error: (render_template("error/404.html"), 404))
     app.register_error_handler(500, lambda error: (render_template("error/500.html"), 500))
 
+    from app.controllers.main_controller import main_bp
     from app.controllers.client_controller import client_bp
     from app.controllers.ebp_controller import ebp_bp
     from app.controllers.zeendoc_controller import zeendoc_bp
@@ -108,6 +109,7 @@ def create_app():
     from app.controllers.vues_controller.v_passerelle_controller import v_passerelle_bp
     from app.controllers.vues_controller.v_user_controller import v_user_bp
 
+    app.register_blueprint(main_bp)
     app.register_blueprint(client_bp)
     app.register_blueprint(ebp_bp)
     app.register_blueprint(zeendoc_bp)

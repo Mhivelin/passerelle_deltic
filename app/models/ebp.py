@@ -102,7 +102,7 @@ class EBP:
         print("Début du login")
         authorization_base_url = 'https://api-login.ebp.com/connect/authorize'
         token_url = 'https://api-login.ebp.com/connect/token'
-        redirect_uri = url_for('ebp.SignInRedirect', id=self.client_id, _external=True)
+        redirect_uri = url_for('ebp.SignInRedirect', IdPasserelleClient=self.client_id, _external=True)
         scope = ["openid", "profile", "offline_access"]
 
         token = None
@@ -129,7 +129,7 @@ class EBP:
 
     def callback(self, code, IdClient):
         print("Début du callback")
-        redirect_uri = url_for("ebp.SignInRedirect", id=IdClient, _external=True)
+        redirect_uri = url_for("ebp.SignInRedirect", IdPasserelleClient=IdClient, _external=True)
         token_url = "https://api-login.ebp.com/connect/token"
 
         try:

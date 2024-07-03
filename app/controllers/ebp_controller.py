@@ -10,10 +10,10 @@ from requests_oauthlib import OAuth2Session
 ebp_bp = Blueprint("ebp", __name__)
 
 
-@ebp_bp.route("/get_folders_ebp/<id>", methods=["GET"])
+@ebp_bp.route("/get_folders_ebp/<IdPasserelleClient>", methods=["GET"])
 @login_required
-def get_folder_ebp(id):
-    client = EBP(id)
+def get_folder_ebp(IdPasserelleClient):
+    client = EBP(IdPasserelleClient)
 
     return jsonify({"folder_id": client.get_folders()})
 
@@ -33,11 +33,11 @@ def set_folder_ebp():
     return jsonify({"message": "Dossier EBP mis à jour avec succès"})
 
 
-@ebp_bp.route("/login_ebp/<id>", methods=["GET"])
+@ebp_bp.route("/login_ebp/<IdPasserelleClient>", methods=["GET"])
 @login_required
-def login_ebp(id):
+def login_ebp(IdPasserelleClient):
     print("login_ebp")
-    client = EBP(id)
+    client = EBP(IdPasserelleClient)
 
     # Vérifier si un token valide existe déjà
     if client.is_authenticated():
@@ -45,7 +45,7 @@ def login_ebp(id):
 
 
     # Initialiser le processus OAuth si aucune session valide n'est trouvée
-    redirect_uri = url_for("ebp.SignInRedirect", id=id, _external=True)
+    redirect_uri = url_for("ebp.SignInRedirect", IdPasserelleClient=IdPasserelleClient, _external=True)
     authorization_base_url = "https://api-login.ebp.com/connect/authorize"
     scope = ["openid", "profile", "offline_access"]
     client_id = client.client_id
@@ -59,16 +59,16 @@ def login_ebp(id):
 
 
 
-@ebp_bp.route("/SignInRedirect/<id>", methods=["GET"])
-def SignInRedirect(id):
+@ebp_bp.route("/SignInRedirect/<IdPasserelleClient>", methods=["GET"])
+def SignInRedirect(IdPasserelleClient):
     print("Redirection reçue")
     code = request.args.get("code")
     if not code:
         print("Code d'autorisation manquant")
         return redirect(url_for("v_interface.home"))  # Redirection vers une page d'erreur
 
-    instance_client_ebp = EBP(id)
-    if instance_client_ebp.callback(code, id) is None:
+    instance_client_ebp = EBP(IdPasserelleClient)
+    if instance_client_ebp.callback(code, IdPasserelleClient) is None:
         print("Erreur lors de la récupération du token")
         return redirect(url_for("v_interface.home"))  # Gestion d'erreur
 

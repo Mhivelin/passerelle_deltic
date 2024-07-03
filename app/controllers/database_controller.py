@@ -395,6 +395,23 @@ def get_all_passerelle_client():
         logging.error(f"Error fetching passerelle clients: {e}")
         return jsonify({"error": str(e)}), 500
 
+
+
+@database_bp.route("/database/get_all_passerelle_client_with_lib_passerelle", methods=["GET"])
+@login_required
+def get_all_passerelle_client_with_lib_passerelle():
+    """
+    Obtient toutes les passerelles client avec libellé de la passerelle.
+    """
+    try:
+        passerelle_clients = database.get_all_passerelle_client_with_lib_passerelle()
+        return jsonify(passerelle_clients)
+    except Exception as e:
+        logging.error(f"Error fetching passerelle clients: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+
 @database_bp.route("/database/passerelle_client", methods=["POST"])
 @login_required
 def add_passerelle_client():

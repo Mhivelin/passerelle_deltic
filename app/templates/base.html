@@ -39,16 +39,6 @@
             <li class="nav-item">
               <a class="nav-link" href="/form_add_client">Ajouter un client</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/form_add_logiciel"
-                >Ajouter un logiciel</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/form_add_passerelle"
-                >Ajouter une passerelle
-              </a>
-            </li>
 
             <li class="nav-item">
               <a class="nav-link" href="/documentation">Documentation</a>
@@ -60,6 +50,14 @@
               src="{{ url_for('static', filename='img/logout.png') }}"
               alt="logout"
               class="navbar-logo logout-icon"
+            />
+          </a>
+
+          <a href="/parametres" class="btn btn-outline-light param-btn">
+            <img
+              src="{{ url_for('static', filename='img/params.png') }}"
+              alt="parametres"
+              class="navbar-logo param-icon"
             />
           </a>
 
