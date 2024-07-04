@@ -52,11 +52,14 @@ class TestModels(unittest.TestCase):
         database.add_champ_to_logiciel("EBP_Client_Secret", "Credentials", "masqué", "EBP")
         database.add_champ_to_logiciel("EBP_Subscription_Key", "Credentials", "masqué", "EBP")
         database.add_champ_to_logiciel("EBP_token", "Credentials", "caché", "EBP")
+        database.add_champ_to_logiciel("EBP_FOLDER_ID", "Credentials", "select_ebp_folder", "EBP")
+
 
         database.add_champ_to_logiciel("Zeendoc_Login", "Credentials", "visible", "Zeendoc")
         database.add_champ_to_logiciel("Zeendoc_URL_Client", "Credentials", "visible", "Zeendoc")
         database.add_champ_to_logiciel("Zeendoc_CPassword", "Credentials", "masqué", "Zeendoc")
         database.add_champ_to_logiciel("Zeendoc_CLASSEUR", "Credentials", "select_zeendoc_classeur", "Zeendoc")
+
 
         database.add_champ_to_logiciel("Sellsy_Client_ID", "Credentials", "visible", "Sellsy")
         database.add_champ_to_logiciel("Sellsy_Client_Secret", "Credentials", "masqué", "Sellsy")
@@ -68,7 +71,7 @@ class TestModels(unittest.TestCase):
 
 
         # ajout des passerelles
-        database.add_passerelle("remontée de paiement")
+        database.add_passerelle("remontée de paiement date EBP --> Zeendoc")
 
         # connexion des logiciels aux passerelles
         id_logiciel_source = database.get_id_logiciel_by_lib_logiciel("EBP")
@@ -78,9 +81,8 @@ class TestModels(unittest.TestCase):
         database.add_passerelle_logiciel(id_passerelle=1, id_logiciel=id_logiciel_destination)
 
         # ajout des champs requis pour les passerelles
-        database.add_champ_to_passerelle("EBP_FOLDER_ID", "Credentials", "select_ebp_folder", "remontée de paiement")
-        database.add_champ_to_passerelle("INDEX_STATUT_PAIEMENT", "Credentials", "select_zeendoc_index", "remontée de paiement")
-        database.add_champ_to_passerelle("INDEX_NUM_PIECE", "Credentials", "select_zeendoc_index", "remontée de paiement")
+        database.add_champ_to_passerelle("INDEX_STATUT_PAIEMENT", "Credentials", "select_zeendoc_index", "remontée de paiement date EBP --> Zeendoc")
+        database.add_champ_to_passerelle("INDEX_NUM_PIECE", "Credentials", "select_zeendoc_index", "remontée de paiement date EBP --> Zeendoc")
 
         # # ajout du client
         # database.add_client("client1")
@@ -165,4 +167,21 @@ class TestModels(unittest.TestCase):
 
         # id_champ = database.get_id_champ_by_lib_champ("INDEX_FOURNISSEUR")
         # database.add_champ_passerelle(id_passerelle_client=id_passerelle_client, id_champ=id_champ, valeur="custom_n4")
+
+
+        # ajout de passerelle
+        database.add_passerelle("remontée de paiement statut EBP --> Zeendoc")
+
+        # connexion des logiciels aux passerelles
+        id_logiciel_source = database.get_id_logiciel_by_lib_logiciel("EBP")
+        database.add_passerelle_logiciel(id_passerelle=3, id_logiciel=id_logiciel_source)
+
+        id_logiciel_destination = database.get_id_logiciel_by_lib_logiciel("Zeendoc")
+        database.add_passerelle_logiciel(id_passerelle=3, id_logiciel=id_logiciel_destination)
+
+        # ajout des champs requis pour les passerelles
+        database.add_champ_to_passerelle("INDEX_STATUT_PAIEMENT", "Credentials", "select_zeendoc_index", "remontée de paiement statut EBP --> Zeendoc")
+        database.add_champ_to_passerelle("INDEX_NUM_PIECE", "Credentials", "select_zeendoc_index", "remontée de paiement statut EBP --> Zeendoc")
+
+
 

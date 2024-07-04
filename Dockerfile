@@ -14,24 +14,31 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copier le reste de l'application dans le conteneur
 COPY . .
 
+# Créer un répertoire pour les logs et donner les droits d'accès
+RUN mkdir -p /app/logs && chmod 0777 /app/logs
+
+# Assurer que le répertoire de la base de données a les bonnes permissions
+RUN mkdir -p /app/instance && chmod -R 0777 /app/instance
+
 # Copier le fichier crontab et donner les droits d'exécution
 COPY crontab /etc/cron.d/my-cron-job
 RUN chmod 0644 /etc/cron.d/my-cron-job
 
-# Appliquer la crontab et lancer le service cron
+# Appliquer la crontab
 RUN crontab /etc/cron.d/my-cron-job
+
+# Copier et donner les droits d'exécution au script de démarrage
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
 # Exposer le port sur lequel l'application va s'exécuter
 EXPOSE 5000
 
-# Définir la variable d'environnement FLASK_APP ("__init__.py" par défaut)
+# Définir les variables d'environnement
 ENV FLASK_APP=app:create_app
-
-# Définir la variable d'environnement FLASK_ENV (production par défaut)
 ENV FLASK_ENV=development
-
-# Définir la variable d'environnement OAUTHLIB_INSECURE_TRANSPORT à 1 pour désactiver la vérification SSL
 ENV OAUTHLIB_INSECURE_TRANSPORT=1
+ENV PYTHONPATH=/app
 
-# Commande pour exécuter l'application
-CMD ["sh", "-c", "service cron start && flask run --host=0.0.0.0"]
+# Utiliser le script de démarrage
+CMD ["/start.sh"]

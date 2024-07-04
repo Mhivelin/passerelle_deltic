@@ -134,3 +134,13 @@ class TestModels(unittest.TestCase):
 
 
 
+
+
+    def test_update_date_synchronisation_passerelle_client(self):
+        """
+        Test de la fonction update_date_synchronisation_passerelle_client
+        """
+        id_passerelle_client = 1
+        database.update_date_synchronisation_passerelle_client(id_passerelle_client)
+
+

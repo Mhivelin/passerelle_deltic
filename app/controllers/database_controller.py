@@ -520,19 +520,16 @@ def add_multiple_champ_passerelle():
         valeurs = data.getlist('Valeur[]')  # Assuming the values are passed in 'Valeur[]'
         id_client = data.get('id_client')
         id_passerelle = data.get('id_passerelle')
+        id_passerelle_client = data.get('id_passerelle_client')
 
         logging.debug(f"id_champs: {id_champs}")
         logging.debug(f"valeurs: {valeurs}")
         logging.debug(f"id_client: {id_client}")
         logging.debug(f"id_passerelle: {id_passerelle}")
 
-        if not id_champs or not valeurs or not id_client or not id_passerelle:
+        if not id_champs or not valeurs or not id_client or not id_passerelle or not id_passerelle_client:
             return jsonify({"error": "Données manquantes"}), 400
 
-        # Récupérer ou créer IdPasserelleClient
-        id_passerelle_client = database.get_or_create_passerelle_client(id_passerelle, id_client)
-        if id_passerelle_client is None:
-            return jsonify({"error": "Impossible de créer ou récupérer IdPasserelleClient"}), 500
 
         for id_champ, valeur in zip(id_champs, valeurs):
             champ = {

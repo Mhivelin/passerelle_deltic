@@ -16,10 +16,17 @@ def routine():
         # on récupère l'id de la passerelle
         IdPasserelleClient = passerelle['IdPasserelleClient']
 
-        if passerelle['LibPasserelle'] == "remontée de paiement":
-            P_remonte_paiement(IdPasserelleClient)
-        if passerelle['LibPasserelle'] == "remontée de fournisseur":
+        if passerelle['LibPasserelle'] == "remontée de paiement date EBP --> Zeendoc":
+            value = datetime.datetime.now().strftime("%Y-%m-%d")
+            P_remonte_paiement(IdPasserelleClient, value)
+        if passerelle['LibPasserelle'] == "remontée de fournisseur EBP --> Zeendoc":
             P_remonte_fournisseur(IdPasserelleClient)
+        if passerelle['LibPasserelle'] == "remontée de paiement statut EBP --> Zeendoc":
+            P_remonte_paiement(IdPasserelleClient, "1")
+
+
+        print("mise à jour de la date de synchronisation de la passerelle: ", passerelle['IdPasserelleClient'])
+        database.update_date_synchronisation_passerelle_client(passerelle['IdPasserelleClient'])
 
 
     return "Routine terminée avec succès."
@@ -27,12 +34,12 @@ def routine():
 
 
 
-def P_remonte_paiement(IdPasserelleClient):
+def P_remonte_paiement(IdPasserelleClient, value):
     """
     Fonction pour la passerelle remontée de paiement.
     """
 
-    print("P_remonte_paiement - IdPasserelleClient: ", IdPasserelleClient)
+    # print("P_remonte_paiement - IdPasserelleClient: ", IdPasserelleClient)
 
     datas = database.get_all_champ_passerelle_by_passerelle_client_with_lib_champ(IdPasserelleClient)
 
@@ -64,7 +71,7 @@ def P_remonte_paiement(IdPasserelleClient):
         print("indexPaiement: ", indexPaiement)
 
         # on modifie le document dans zeendoc
-        res = zeendoc.update_doc_paiement_by_ref(ref=document_number, index=indexPaiement)
+        res = zeendoc.update_doc_paiement_by_ref(ref=document_number, index=indexPaiement, value=value)
 
         print("res: ", res)
 
@@ -96,9 +103,18 @@ def P_remonte_fournisseur(IdPasserelleClient):
     suppliers = json.loads(suppliers)
 
     print("suppliers: ", suppliers)
-    # suppliers:  {'results': [{'name': 'lana', 'Id': 'FR00001'}], 'paging': {'total': 1, 'returned': 1, 'offset': 0, 'limit': 500}}
+    # suppliers:  {'results': [{'name': 'lana', 'Id': 'FR00001', "Accounts_Account": "401FR00001"}], 'paging': {'total': 1, 'returned': 1, 'offset': 0, 'limit': 500}}
+
+    for supplier in suppliers['results']:
+        # concatener le nom et le compte du fournisseur sous la forme : 401FOURN - NOM DU FOURNISSEUR
+        supplier['name'] = f"{supplier['Accounts_Account']} - {supplier['name']}"
+
 
     items = [supplier['name'] for supplier in suppliers['results']]
+
+
+
+
 
     # Récupérer les fournisseurs deja existants dans la liste déroulante
     existing_items = zeendoc.get_items_list(coll_id, column_name)

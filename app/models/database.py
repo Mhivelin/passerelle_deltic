@@ -1,5 +1,7 @@
 import sqlite3
 import logging
+import datetime
+import os
 
 #########################################################################################
 #                            Connexion à la base de données                             #
@@ -10,6 +12,12 @@ def get_db_connexion():
     conn = sqlite3.connect("instance/database.db")
     conn.row_factory = sqlite3.Row
     return conn
+
+
+
+
+
+
 
 #############################################################################################
 #                                        CREATE DATABASE                                    #
@@ -74,6 +82,7 @@ def create_database():
             IdPasserelleClient INTEGER PRIMARY KEY AUTOINCREMENT,
             IdPasserelle INTEGER NOT NULL,
             IdClient INTEGER NOT NULL,
+            DateDerSynchronisation DATETIME DEFAULT '1970-01-01',
             FOREIGN KEY(IdPasserelle) REFERENCES PASSERELLE(IdPasserelle),
             FOREIGN KEY(IdClient) REFERENCES CLIENT(IdClient)
         );
@@ -483,6 +492,12 @@ def get_all_champs_for_client(id_client):
 
 
 
+def update_date_synchronisation_passerelle_client(id_passerelle_client):
+    """Met à jour la date de synchronisation d'une passerelle client spécifique sous la forme "YYYY-MM-DD"."""
+    query = "UPDATE PASSERELLE_CLIENT SET DateDerSynchronisation = ? WHERE IdPasserelleClient = ?"
+    return execute_query(query, (datetime.datetime.now().strftime("%Y-%m-%d"), id_passerelle_client))
+
+
 
 
 
@@ -752,6 +767,12 @@ def get_passerelle_client_by_ids(id_passerelle, id_client):
     result = execute_query_single(query, (id_passerelle, id_client))
     logging.debug(f"Result from get_passerelle_client_by_ids: {result}")
     return result
+
+
+def get_date_synchronisation_passerelle_client(id_passerelle_client):
+    """Récupère la date de synchronisation d'une passerelle client spécifique sous la forme "YYYY-MM-DD"."""
+    query = "SELECT DateDerSynchronisation FROM PASSERELLE_CLIENT WHERE IdPasserelleClient = ?"
+    return execute_query_single(query, (id_passerelle_client, ))["DateDerSynchronisation"]
 
 
 

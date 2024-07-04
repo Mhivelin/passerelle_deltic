@@ -3,6 +3,7 @@ import sys
 import xml.etree.ElementTree as ET
 import app.models.database as db
 import requests
+import datetime
 
 class Zeendoc:
     """Classe qui permet de gérer les requêtes vers l'API Zeendoc"""
@@ -218,6 +219,9 @@ class Zeendoc:
             response_text = self._post_request(body, "updateDoc")
             root = ET.fromstring(response_text)
             json_response = root.find(".//jsonResponse").text
+
+            print("json_response: ", json_response)
+
             return json.loads(json_response)
         except (requests.RequestException, ET.ParseError, json.JSONDecodeError) as e:
             print(f"Erreur lors de la mise à jour du document: {e}")
@@ -233,10 +237,22 @@ class Zeendoc:
         value: La valeur de l'index à mettre à jour (par défaut "1")
         """
         try:
+            # Vérifier que les paramètres critiques ne sont pas None
+            if self.indexNumPiece is None or ref is None or self.classeur is None:
+                raise ValueError("Un des paramètres critiques est None")
+
             # Recherche du document par référence
             res = self.search_doc_by_custom(self.indexNumPiece, ref)
+            if not res or "Document" not in res:
+                raise ValueError("Document non trouvé avec la référence fournie")
+
             doc = res["Document"]
+            if not doc or "Res_Id" not in doc[0]:
+                raise ValueError("Aucun Res_Id trouvé dans le document")
+
             res_id = doc[0]["Res_Id"]
+            if res_id is None:
+                raise ValueError("Le Res_Id est None")
             res_id = str(res_id)
 
             print("res_id: ", res_id)
@@ -250,9 +266,10 @@ class Zeendoc:
             update_response = self.update_doc(coll_id=self.classeur, res_id=res_id, index_list=index_list)
 
             return update_response
-        except (KeyError, IndexError, TypeError) as e:
+        except (KeyError, IndexError, TypeError, ValueError) as e:
             print(f"Erreur lors de la mise à jour du document par référence: {e}")
             return None
+
 
     def get_items_list(self, coll_id, column_name, only_deletable=50):
         """Méthode pour obtenir des éléments d'une liste déroulante"""

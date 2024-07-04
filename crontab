@@ -1,3 +1,4 @@
-# crontab
-# Exécute le script Python toutes les heures
-* * * * * root /usr/local/bin/python /app/run_cron_task.py >> /var/log/cron.log 2>&1
+# crontab d'origine
+* * * * * cd /app && echo "Cron job started" >> /app/logs/cron_debug.log 2>&1
+* * * * * cd /app && /usr/local/bin/python /app/app/run_cron_task.py >> /app/logs/cron.log 2>&1
+* * * * * cd /app && echo "Cron job finished" >> /app/logs/cron_debug.log 2>&1

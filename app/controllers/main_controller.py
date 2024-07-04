@@ -6,6 +6,7 @@ from flask import Blueprint, send_file, request, render_template, jsonify
 from flask_login import login_required
 import os
 import logging
+from datetime import datetime
 from app.models import database
 
 # Création d'un Blueprint pour le controller
@@ -19,7 +20,16 @@ DATABASE_PATH = os.path.join(os.getcwd(), "instance", "database.db")
 @login_required
 def export_db():
     try:
-        return send_file(DATABASE_PATH, as_attachment=True)
+        # Générer le nom de fichier avec la date actuelle
+        date_str = datetime.now().strftime("%Y-%m-%d")
+        filename = f"database_backup_{date_str}.db"
+
+        # Envoyer le fichier
+        response = send_file(DATABASE_PATH, as_attachment=True)
+
+        # Modifier les en-têtes pour définir le nom de fichier de l'attachement
+        response.headers["Content-Disposition"] = f"attachment; filename={filename}"
+        return response
     except Exception as e:
         return str(e), 500
 

@@ -25,22 +25,23 @@ class EBP:
         self.databaseId = id
         infos = db.get_all_champ_passerelle_by_passerelle_client_with_lib_champ(id)
 
+        self.DateDerSynchronisation = db.get_date_synchronisation_passerelle_client(id)
 
         for info in infos:
             if info["LibChamp"] == "EBP_Client_ID":
-                print("Client ID:", info["Valeur"])
+                # print("Client ID:", info["Valeur"])
                 self.client_id = info["Valeur"]
             elif info["LibChamp"] == "EBP_Client_Secret":
-                print("Client Secret:", info["Valeur"])
+                # print("Client Secret:", info["Valeur"])
                 self.client_secret = info["Valeur"]
             elif info["LibChamp"] == "EBP_Subscription_Key":
-                print("Subscription Key:", info["Valeur"])
+                # print("Subscription Key:", info["Valeur"])
                 self.ebp_subscription_key = info["Valeur"]
             elif info["LibChamp"] == "EBP_FOLDER_ID":
-                print("Folder ID:", info["Valeur"])
+                # print("Folder ID:", info["Valeur"])
                 self.folder_id = info["Valeur"]
             elif info["LibChamp"] == "EBP_token":
-                print("Token:", info["Valeur"])
+                # print("Token:", info["Valeur"])
                 self.token = json.loads(info["Valeur"])
                 self.refresh_token_value = self.token["refresh_token"]
 
@@ -48,18 +49,18 @@ class EBP:
         """Valide si le token est encore valide."""
         valeur = token.get('Valeur')
         if not valeur:
-            print("Le token n'a pas de champ 'Valeur' !!!!!!!!!!!!!!!!!")
+            # print("Le token n'a pas de champ 'Valeur' !!!!!!!!!!!!!!!!!")
             return False
 
         valeur_dict = json.loads(valeur)
         expiration = valeur_dict.get("expires_at")
         if expiration is None:
-            print("Le champ 'expires_at' n'est pas présent dans le token !!!!!!!!!!!!!!!!!")
+            # print("Le champ 'expires_at' n'est pas présent dans le token !!!!!!!!!!!!!!!!!")
             return False
 
         now = datetime.datetime.now().timestamp()
         if expiration < now:
-            print("Le token a expiré !!!!!!!!!!!!!!!!!")
+            # print("Le token a expiré !!!!!!!!!!!!!!!!!")
             return False
         return True
 
@@ -99,7 +100,7 @@ class EBP:
             print(f"Other error occurred: {err}")
 
     def login(self):
-        print("Début du login")
+        # print("Début du login")
         authorization_base_url = 'https://api-login.ebp.com/connect/authorize'
         token_url = 'https://api-login.ebp.com/connect/token'
         redirect_uri = url_for('ebp.SignInRedirect', IdPasserelleClient=self.client_id, _external=True)
@@ -128,7 +129,7 @@ class EBP:
         return token
 
     def callback(self, code, IdClient):
-        print("Début du callback")
+        # print("Début du callback")
         redirect_uri = url_for("ebp.SignInRedirect", IdPasserelleClient=IdClient, _external=True)
         token_url = "https://api-login.ebp.com/connect/token"
 
@@ -218,13 +219,13 @@ class EBP:
         return res
 
     def get_suppliers(self):
-        url = f"https://api-developpeurs.ebp.com/gescom/api/v1/Folders/{self.folder_id}/GenericQuery?TableName=supplier&Columns=name, Id&=2020-11-06"
+        url = f"https://api-developpeurs.ebp.com/gescom/api/v1/Folders/{self.folder_id}/GenericQuery?TableName=supplier&Columns=name, Id, Accounts_Account&=2020-11-06"
         headers = {"ebp-subscription-key": self.ebp_subscription_key}
         response = self.make_request('GET', url, headers=headers)
         return response.text
 
     def get_paid_documents(self):
-        url = f"https://api-developpeurs.ebp.com/gescom/api/v1/Folders/{self.folder_id}/Documents/PurchaseDocument?Duration=30&DocumentType=null&ToDate=1999-01-01&Columns=DocumentNumber, Reference, CommitmentsBalanceDue&WhereCondition=%20%20type%3A%20CustomFilter%0A%20%20column%3A%20CommitmentsBalanceDue%0A%20%20operator%3A%20Equal%0A%20%20valueType%20%3A%20Decimal%0A%20%20value%3A%0A%20%20-%200"
+        url = f"https://api-developpeurs.ebp.com/gescom/api/v1/Folders/{self.folder_id}/Documents/PurchaseDocument?Duration=30&DocumentType=null&ToDate={self.DateDerSynchronisation}&Columns=DocumentNumber, Reference, CommitmentsBalanceDue&WhereCondition=%20%20type%3A%20CustomFilter%0A%20%20column%3A%20CommitmentsBalanceDue%0A%20%20operator%3A%20Equal%0A%20%20valueType%20%3A%20Decimal%0A%20%20value%3A%0A%20%20-%200"
         headers = {"ebp-subscription-key": self.ebp_subscription_key}
         response = self.make_request('GET', url, headers=headers)
         return response.text
