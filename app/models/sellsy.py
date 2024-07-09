@@ -1,137 +1,184 @@
-import json
-import datetime
-import urllib.parse
 import requests
-import base64
-import hashlib
-import os
-from flask import Flask, request, redirect, jsonify, url_for
-
-app = Flask(__name__)
+import json
+from requests.auth import HTTPBasicAuth
+from app.models import database as db
+import time
 
 class Sellsy:
-    def __init__(self, client_id, client_secret, redirect_uri) -> None:
-        self.client_id = client_id
-        self.client_secret = client_secret
-        self.redirect_uri = redirect_uri
+    def __init__(self, passerelle_client_id, scope="all"):
+        infos = db.get_all_champ_passerelle_by_passerelle_client_with_lib_champ(passerelle_client_id)
+
         self.token = None
-        self.code_verifier = self.generate_code_verifier()
-        self.code_challenge = self.generate_code_challenge(self.code_verifier)
 
-    def generate_code_verifier(self):
-        return base64.urlsafe_b64encode(os.urandom(40)).rstrip(b'=').decode('utf-8')
+        for info in infos:
+            if info["LibChamp"] == "Sellsy_Client_ID":
+                self.client_id = info["Valeur"]
+            elif info["LibChamp"] == "Sellsy_Client_Secret":
+                self.client_secret = info["Valeur"]
+            elif info["LibChamp"] == "Sellsy_token":
+                token_info = json.loads(info["Valeur"])
+                self.token = token_info.get("access_token")
+                self.token_expiry = token_info.get("expires_in") + time.time()
 
-    def generate_code_challenge(self, verifier):
-        return base64.urlsafe_b64encode(hashlib.sha256(verifier.encode('utf-8')).digest()).rstrip(b'=').decode('utf-8')
+        self.databaseId = passerelle_client_id
+        self.auth_host = "https://login.sellsy.com"
+        self.api_host = "https://api.sellsy.com"
+        self.scope = scope
 
-    def get_authorization_url(self):
-        authorization_base_url = 'https://login.sellsy.com/oauth2/authorization'
-        params = {
-            'response_type': 'code',
-            'client_id': self.client_id,
-            'redirect_uri': self.redirect_uri,
-            'code_challenge': self.code_challenge,
-            'code_challenge_method': 'S256'
-        }
-        url = f"{authorization_base_url}?{urllib.parse.urlencode(params)}"
-        return url
 
-    def fetch_token(self, authorization_response):
-        token_url = 'https://login.sellsy.com/oauth2/access-tokens'
-        code = urllib.parse.parse_qs(urllib.parse.urlparse(authorization_response).query).get('code')[0]
-        body = {
-            'grant_type': 'authorization_code',
-            'client_id': self.client_id,
-            'redirect_uri': self.redirect_uri,
-            'code_verifier': self.code_verifier,
-            'code': code
-        }
-        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-        response = requests.post(token_url, headers=headers, data=urllib.parse.urlencode(body))
 
-        if response.status_code == 200:
-            self.token = response.json()
-            self.token['expires_at'] = datetime.datetime.now().timestamp() + self.token['expires_in']
-            self.save_token(self.token)
+        if not self.token or self.token_is_expired():
+            print("Token non trouvé ou expiré, on en génère un nouveau.")
+            self.get_token()
+
+    def Bdtoken_saver(self, token):
+        print("Début de l'enregistrement du token")
+        token_json = json.dumps(token)
+
+        # on vérifie si le token existe déjà
+        token_db = db.get_champ_passerelle_by_passerelle_client_and_lib_champ(self.databaseId, "Sellsy_token")
+        print("Token de la base de données:", token_db)
+        if token_db:
+            try:
+                idChamp = db.get_id_champ_by_lib_champ("Sellsy_token")
+                db.update_champ_passerelle(self.databaseId, idChamp, token_json)
+                print("Token mis à jour avec succès.")
+            except Exception as e:
+                print("Erreur lors de la mise à jour du token:", e)
         else:
-            print(f"Failed to fetch token. Status Code: {response.status_code}")
-            print(f"Response Text: {response.text}")
-            print(f"Request Body: {body}")
-            print(f"Request Headers: {headers}")
-            response.raise_for_status()
+            try:
+                idChamp = db.get_id_champ_by_lib_champ("Sellsy_token")
+                db.add_champ_passerelle(self.databaseId, idChamp, token_json)
+                print("Token enregistré avec succès.")
+            except Exception as e:
+                print("Erreur lors de l'enregistrement du token:", e)
 
-    def save_token(self, token):
-        with open('sellsy_token.json', 'w') as f:
-            json.dump(token, f)
+    def token_is_expired(self):
+        return time.time() > self.token_expiry
 
-    def load_token(self):
-        try:
-            with open('sellsy_token.json', 'r') as f:
-                self.token = json.load(f)
-        except FileNotFoundError:
-            return None
-
-    def validate_token(self):
-        if not self.token:
-            self.load_token()
-        if not self.token:
-            return False
-
-        expiration = self.token.get('expires_at')
-        if not expiration:
-            return False
-
-        now = datetime.datetime.now().timestamp()
-        if expiration < now:
-            return False
-        return True
-
-    def refresh_token(self):
-        token_url = 'https://login.sellsy.com/oauth2/access-tokens'
-        body = {
-            'grant_type': 'refresh_token',
+    def get_token(self):
+        url = f"{self.auth_host}/oauth2/access-tokens"
+        print(f"Getting token from URL: {url}")
+        data = {
+            'grant_type': 'client_credentials',
             'client_id': self.client_id,
             'client_secret': self.client_secret,
-            'refresh_token': self.token['refresh_token']
+            'scope': self.scope
         }
-        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-        response = requests.post(token_url, headers=headers, data=urllib.parse.urlencode(body))
+        response = requests.post(url, data=data, auth=HTTPBasicAuth(self.client_id, self.client_secret))
+        print(f"Response status code: {response.status_code}")
+        print(f"Response text: {response.text}")
 
-        if response.status_code == 200:
-            self.token = response.json()
-            self.token['expires_at'] = datetime.datetime.now().timestamp() + self.token['expires_in']
-            self.save_token(self.token)
+        if response.status_code != 200:
+            raise Exception(f"Failed to get token: {response.status_code} - {response.text}")
+
+        response_data = response.json()
+        self.token = response_data['access_token']
+        self.token_expiry = response_data['expires_in'] + time.time()
+        self.Bdtoken_saver(response_data)
+
+        return self.token
+
+    def make_request(self, endpoint, method='GET', data=None):
+        if not self.token or self.token_is_expired():
+            self.get_token()
+
+        url = f"{self.api_host}/{endpoint}"
+        headers = {
+            'Authorization': f"Bearer {self.token}",
+            'Content-Type': 'application/json'
+        }
+
+        if method.upper() == 'GET':
+            response = requests.get(url, headers=headers, params=data)
+        elif method.upper() == 'POST':
+            response = requests.post(url, headers=headers, json=data)
+        elif method.upper() == 'PUT':
+            response = requests.put(url, headers=headers, json=data)
+        elif method.upper() == 'DELETE':
+            response = requests.delete(url, headers=headers, json=data)
         else:
-            print(f"Failed to refresh token. Status Code: {response.status_code}")
-            print(f"Response Text: {response.text}")
-            response.raise_for_status()
+            raise ValueError(f"HTTP method {method} is not supported")
 
-    def get_access_token(self):
-        if not self.validate_token():
-            self.refresh_token()
-        return self.token['access_token']
+        if response.status_code == 401:
+            print("Token expiré ou invalide, régénération du token.")
+            self.get_token()
+            headers['Authorization'] = f"Bearer {self.token}"
+            if method.upper() == 'GET':
+                response = requests.get(url, headers=headers, params=data)
+            elif method.upper() == 'POST':
+                response = requests.post(url, headers=headers, json=data)
+            elif method.upper() == 'PUT':
+                response = requests.put(url, headers=headers, json=data)
+            elif method.upper() == 'DELETE':
+                response = requests.delete(url, headers=headers, json=data)
 
-    def make_request(self, method, url, headers=None, params=None, data=None):
-        if not self.token or not self.validate_token():
-            print("Authenticating...")
-            authorization_url = self.get_authorization_url()
-            print(f"Go to the following URL and authorize access: {authorization_url}")
-            return redirect(authorization_url)
+        if response.status_code >= 400:
+            raise Exception(f"API request failed: {response.status_code} - {response.text}")
 
-        if headers is None:
-            headers = {}
-        if params is None:
-            params = {}
-        if data is None:
-            data = {}
-
-        access_token = self.get_access_token()
-        headers['Authorization'] = f'Bearer {access_token}'
-
-        response = requests.request(method, url, headers=headers, params=params, data=data)
-        return response
-
-    def get_teams(self):
-        url = "https://api.sellsy.com/v2/teams"
-        response = self.make_request('GET', url)
         return response.json()
+
+    def get_invoices(self, limit=100):
+        endpoint = "v2/invoices"
+        params = {
+            'field[]': ['id', 'number', 'status', 'date', 'amount'],
+            'order': 'date',
+            'limit': limit
+        }
+
+        try:
+            response = self.make_request(endpoint, method='GET', data=params)
+            return response['data']
+        except Exception as e:
+            print(f"Erreur lors de la récupération des factures: {e}")
+            return None
+
+
+
+
+    def get_paid_invoices(self):
+        invoices = self.get_invoices()
+
+        if not invoices:
+            return None
+
+        paid_invoices = [invoice for invoice in invoices if invoice.get('status') == 'paid']
+
+        return paid_invoices
+
+
+
+    def get_invoice_payments(self, invoice_id):
+        endpoint = f"v2/invoices/{invoice_id}/payments"
+        try:
+            response = self.make_request(endpoint, method='GET')
+            return response
+        except Exception as e:
+            print(f"Erreur lors de la récupération des paiements pour la facture {invoice_id}: {e}")
+            return None
+
+
+    def get_paid_invoices_with_last_payment(self):
+        paid_invoices = self.get_paid_invoices()
+        if not paid_invoices:
+            return None
+
+        for invoice in paid_invoices:
+            payments = self.get_invoice_payments(invoice['id'])
+
+            # {'data': [{'id': 28098129, 'number': 'test', 'paid_at': '2024-07-03T11:00:48+02:00', 'status': 'confirmed', 'payment_method_id': 5694078, 'type': 'credit', 'amount': {'value': '64.80', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 51134735}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNzE5OTk3MjQ4Il0='}}
+
+            if payments:
+                # récuperer le paiement avec la date la plus récente
+                last_payment = max(payments['data'], key=lambda x: x['paid_at'])
+                invoice['last_payment'] = last_payment
+
+        return paid_invoices
+
+
+
+
+
+
+
+
