@@ -4,7 +4,7 @@ Controlleur pour les routes des vue liées aux passerelles
 
 from flask import Blueprint,  render_template, request
 from flask_login import login_required
-from app.models import database
+from app.models import database    # pylint: disable=E0401
 
 # Création d'un Blueprint pour le passerelle controller
 v_passerelle_bp = Blueprint("passerelle", __name__)

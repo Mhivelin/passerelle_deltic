@@ -1,9 +1,15 @@
-import json
-import sys
+"""
+Ce module contient la classe Zeendoc qui permet de gérer les requêtes vers l'API Zeendoc
+"""
+
 import xml.etree.ElementTree as ET
-import app.models.database as db
+
+import json
 import requests
-import datetime
+
+# import sys
+import app.models.database as db   # pylint: disable=E0401
+# import datetime
 
 class Zeendoc:
     """Classe qui permet de gérer les requêtes vers l'API Zeendoc"""
@@ -91,7 +97,8 @@ class Zeendoc:
         """Fonction qui permet de récupérer les noms et id des classeurs de l'utilisateur"""
         if not self.right:
             self.get_rights()
-        return [{"Coll_Id": collection["Coll_Id"], "Label": collection["Label"]} for collection in self.right["Collections"]]
+        return [{"Coll_Id": collection["Coll_Id"],
+                 "Label": collection["Label"]} for collection in self.right["Collections"]]
 
     def get_index(self):
         """Fonction qui permet de récupérer les index de l'utilisateur"""
@@ -101,7 +108,10 @@ class Zeendoc:
         return self.right["Collections"][0]["Index"] if self.right else None
 
     def get_id_index(self, index_libelle):
-        """Fonction qui permet de récupérer l'id d'un index dans right en parcourant les collections puis les index"""
+        """
+        Fonction qui permet de récupérer l'id d'un index dans right
+        en parcourant les collections puis les index
+        """
         if not self.right:
             self.get_rights()
         for collection in self.right["Collections"]:
@@ -266,7 +276,10 @@ class Zeendoc:
             ]
 
             # Mise à jour du document
-            update_response = self.update_doc(coll_id=self.classeur, res_id=res_id, index_list=index_list)
+            update_response = self.update_doc(
+                coll_id=self.classeur,
+                res_id=res_id,
+                index_list=index_list)
 
             return update_response
         except (KeyError, IndexError, TypeError, ValueError) as e:
@@ -320,7 +333,10 @@ class Zeendoc:
             ]
 
             # Mise à jour du document
-            update_response = self.update_doc(coll_id=self.classeur, res_id=res_id, index_list=index_list)
+            update_response = self.update_doc(
+                coll_id=self.classeur,
+                res_id=res_id,
+                index_list=index_list)
 
             return update_response
         except (KeyError, IndexError, TypeError, ValueError) as e:
@@ -343,9 +359,7 @@ class Zeendoc:
         </getItemsList>'''
 
         try:
-            print("Request Body: ", body)  # Debug: afficher le corps de la requête pour débogage
             response_text = self._post_request(body, "getItemsList")
-            print("Response Text: ", response_text)  # Debug: afficher le texte de la réponse pour débogage
             root = ET.fromstring(response_text)
             json_response = root.find(".//jsonResponse").text
 
@@ -383,5 +397,3 @@ class Zeendoc:
         except (requests.RequestException, ET.ParseError, json.JSONDecodeError) as e:
             print(f"Erreur lors de l'ajout des éléments à la liste déroulante: {e}")
             return None
-
-

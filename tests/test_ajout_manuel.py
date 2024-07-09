@@ -197,8 +197,7 @@ class TestModels(unittest.TestCase):
         database.add_champ_to_passerelle("INDEX_STATUT_PAIEMENT", "Credentials", "select_zeendoc_index", "remontée de paiement date Sellsy --> Zeendoc")
         database.add_champ_to_passerelle("INDEX_NUM_FACTURE", "Credentials", "select_zeendoc_index", "remontée de paiement date Sellsy --> Zeendoc")
 
-        client_id = "007f266f-a9bf-4d13-a170-3a23caeab6f7"
-        client_secret = "47ad22ee1876b0558d283f02522b32c71d17d3cca0cb7bbb0de9aa6ff3669081"
+
 
 
         # # ajout du client

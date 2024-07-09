@@ -1,6 +1,13 @@
-from app.extensions import db
+"""
+Ce module contient la classe User qui permet de gérer les utilisateurs de l'application.
+"""
+
+
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+
+from app.extensions import db  # pylint: disable=E0401
+
 
 
 class User(db.Model, UserMixin):
@@ -16,14 +23,16 @@ class User(db.Model, UserMixin):
 
     def set_password(self, password):
         """
-        Méthode qui permet de hasher le mot de passe de l'utilisateur avant de le stocker en base de données.
+        Méthode qui permet de hasher le mot de passe de
+        l'utilisateur avant de le stocker en base de données.
         """
         self.password = generate_password_hash(password)
 
 
     def verify_password(self, password):
         """
-        Méthode qui permet de vérifier si le mot de passe donné correspond au mot de passe stocké en base de données.
+        Méthode qui permet de vérifier si le mot de passe donné
+        correspond au mot de passe stocké en base de données.
         si le mot de passe correspond, la méthode retourne True, sinon elle retourne False.
         """
         return check_password_hash(self.password, password)

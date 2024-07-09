@@ -166,7 +166,6 @@ class Sellsy:
         for invoice in paid_invoices:
             payments = self.get_invoice_payments(invoice['id'])
 
-            # {'data': [{'id': 28098129, 'number': 'test', 'paid_at': '2024-07-03T11:00:48+02:00', 'status': 'confirmed', 'payment_method_id': 5694078, 'type': 'credit', 'amount': {'value': '64.80', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 51134735}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNzE5OTk3MjQ4Il0='}}
 
             if payments:
                 # récuperer le paiement avec la date la plus récente

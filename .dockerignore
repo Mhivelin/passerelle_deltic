@@ -7,4 +7,5 @@ __pycache__
 .env
 .git
 .gitignore
+./tests\test_ajout_manuel.py
 npm-debug.log

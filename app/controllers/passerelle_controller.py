@@ -1,11 +1,12 @@
 """
 Ce module contient les routes pour les différentes entités du modèle Passerelle.
 """
+import logging
 
 from flask import Blueprint
 from flask_login import login_required
-import logging
-from app.models import passerelles
+
+from app.models import passerelles    # pylint: disable=E0401
 
 # Création d'un Blueprint pour le controller
 passerelle_bp = Blueprint('passerelle_controller', __name__)

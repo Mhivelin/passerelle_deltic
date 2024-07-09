@@ -3,6 +3,7 @@ version: '3.1'
 services:
   flask-app:
     build: .
+    container_name: Passerelle_Deltic_flask
     ports:
       - "5000:5000"
     environment:
@@ -12,34 +13,34 @@ services:
     networks:
       - monitoring
 
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: prometheus
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
-    depends_on:
-      - flask-app
-    networks:
-      - monitoring
+#   prometheus:
+#     image: prom/prometheus:latest
+#     container_name: prometheus
+#     volumes:
+#       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+#     ports:
+#       - "9090:9090"
+#     depends_on:
+#       - flask-app
+#     networks:
+#       - monitoring
 
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
-    ports:
-      - "3000:3000"
-    volumes:
-      - grafana-storage:/var/lib/grafana
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-    depends_on:
-      - prometheus
-    networks:
-      - monitoring
+#   grafana:
+#     image: grafana/grafana:latest
+#     container_name: grafana
+#     ports:
+#       - "3000:3000"
+#     volumes:
+#       - grafana-storage:/var/lib/grafana
+#     environment:
+#       - GF_SECURITY_ADMIN_PASSWORD=admin
+#     depends_on:
+#       - prometheus
+#     networks:
+#       - monitoring
 
-volumes:
-  grafana-storage:
+# volumes:
+#   grafana-storage:
 
 networks:
   monitoring:
