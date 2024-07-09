@@ -63,7 +63,6 @@ class TestModels(unittest.TestCase):
 
         database.add_champ_to_logiciel("Sellsy_Client_ID", "Credentials", "visible", "Sellsy")
         database.add_champ_to_logiciel("Sellsy_Client_Secret", "Credentials", "masqué", "Sellsy")
-        database.add_champ_to_logiciel("Sellsy_Redirect_URI", "Credentials", "visible", "Sellsy")
         database.add_champ_to_logiciel("Sellsy_token", "Credentials", "caché", "Sellsy")
 
 
@@ -181,7 +180,60 @@ class TestModels(unittest.TestCase):
 
         # ajout des champs requis pour les passerelles
         database.add_champ_to_passerelle("INDEX_STATUT_PAIEMENT", "Credentials", "select_zeendoc_index", "remontée de paiement statut EBP --> Zeendoc")
-        database.add_champ_to_passerelle("INDEX_NUM_PIECE", "Credentials", "select_zeendoc_index", "remontée de paiement statut EBP --> Zeendoc")
+        database.add_champ_to_passerelle("INDEX_NUM_FACTURE", "Credentials", "select_zeendoc_index", "remontée de paiement statut EBP --> Zeendoc")
+
+
+        # ajout de passerelle
+        database.add_passerelle("remontée de paiement date Sellsy --> Zeendoc")
+
+        # connexion des logiciels aux passerelles
+        id_logiciel_source = database.get_id_logiciel_by_lib_logiciel("Sellsy")
+        database.add_passerelle_logiciel(id_passerelle=4, id_logiciel=id_logiciel_source)
+
+        id_logiciel_destination = database.get_id_logiciel_by_lib_logiciel("Zeendoc")
+        database.add_passerelle_logiciel(id_passerelle=4, id_logiciel=id_logiciel_destination)
+
+        # ajout des champs requis pour les passerelles
+        database.add_champ_to_passerelle("INDEX_STATUT_PAIEMENT", "Credentials", "select_zeendoc_index", "remontée de paiement date Sellsy --> Zeendoc")
+        database.add_champ_to_passerelle("INDEX_NUM_FACTURE", "Credentials", "select_zeendoc_index", "remontée de paiement date Sellsy --> Zeendoc")
+
+        client_id = "007f266f-a9bf-4d13-a170-3a23caeab6f7"
+        client_secret = "47ad22ee1876b0558d283f02522b32c71d17d3cca0cb7bbb0de9aa6ff3669081"
+
+
+        # # ajout du client
+        # database.add_client("client3")
+        # id_client = database.get_id_client_by_lib_client("client3")
+
+        # id_passerelle = database.get_id_passerelle_by_lib_passerelle("remontée de paiement date Sellsy --> Zeendoc")
+        # id_passerelle_client = database.add_passerelle_client(id_passerelle, id_client)
+        # print ("id_passerelle_client", id_passerelle_client)
+        # print ("client_id", client_id)
+
+        # # ajout des champs du client
+        # id_champ = database.get_id_champ_by_lib_champ("Sellsy_Client_ID")
+        # database.add_champ_passerelle(id_passerelle_client=id_passerelle_client, id_champ=id_champ, valeur=client_id)
+
+        # id_champ = database.get_id_champ_by_lib_champ("Sellsy_Client_Secret")
+        # database.add_champ_passerelle(id_passerelle_client=id_passerelle_client, id_champ=id_champ, valeur=client_secret)
+
+        # id_champ = database.get_id_champ_by_lib_champ("Zeendoc_Login")
+        # database.add_champ_passerelle(id_passerelle_client=id_passerelle_client, id_champ=id_champ, valeur="marius.hivelin@gmail.com")
+
+        # id_champ = database.get_id_champ_by_lib_champ("Zeendoc_URL_Client")
+        # database.add_champ_passerelle(id_passerelle_client=id_passerelle_client, id_champ=id_champ, valeur="deltic_demo")
+
+        # id_champ = database.get_id_champ_by_lib_champ("Zeendoc_CPassword")
+        # database.add_champ_passerelle(id_passerelle_client=id_passerelle_client, id_champ=id_champ, valeur="X?BSh:R92EmyDKi")
+
+        # id_champ = database.get_id_champ_by_lib_champ("Zeendoc_CLASSEUR")
+        # database.add_champ_passerelle(id_passerelle_client=id_passerelle_client, id_champ=id_champ, valeur="coll_21")
+
+        # id_champ = database.get_id_champ_by_lib_champ("INDEX_STATUT_PAIEMENT")
+        # database.add_champ_passerelle(id_passerelle_client=id_passerelle_client, id_champ=id_champ, valeur="custom_d2")
+
+        # id_champ = database.get_id_champ_by_lib_champ("INDEX_NUM_FACTURE")
+        # database.add_champ_passerelle(id_passerelle_client=id_passerelle_client, id_champ=id_champ, valeur="custom_t8")
 
 
 

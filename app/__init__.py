@@ -1,18 +1,38 @@
+from flask import Flask, render_template, request
+from flask_login import LoginManager
+from flask_jwt_extended import JWTManager
+from prometheus_flask_exporter import PrometheusMetrics
+from prometheus_client import make_wsgi_app, Counter
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
+import os
+import dotenv
 import logging
 import socket
 from logging.handlers import RotatingFileHandler
 import sys
-from flask import Flask, render_template, request
-from flask_login import LoginManager
-from flask_jwt_extended import JWTManager
-import os
-import dotenv
 from datetime import timedelta
 from app.extensions import db
 from app.models.user import User
 from app.models.database import create_database
 
 dotenv.load_dotenv(dotenv.find_dotenv())
+
+
+# Define Prometheus counters for logs
+INFO_LOG_COUNT = Counter('info_log_count', 'Number of info log entries')
+WARNING_LOG_COUNT = Counter('warning_log_count', 'Number of warning log entries')
+ERROR_LOG_COUNT = Counter('error_log_count', 'Number of error log entries')
+
+class PrometheusLoggingHandler(logging.Handler):
+    def emit(self, record):
+        if record.levelno == logging.INFO:
+            INFO_LOG_COUNT.inc()
+        elif record.levelno == logging.WARNING:
+            WARNING_LOG_COUNT.inc()
+        elif record.levelno == logging.ERROR:
+            ERROR_LOG_COUNT.inc()
+
+
 
 def configure_logs(app):
     # Formatter pour les logs
@@ -29,6 +49,11 @@ def configure_logs(app):
     file_handler.setFormatter(formatter)
     file_handler.setLevel(logging.INFO)
     app.logger.addHandler(file_handler)
+
+    # Add Prometheus logging handler
+    prometheus_handler = PrometheusLoggingHandler()
+    prometheus_handler.setFormatter(formatter)
+    app.logger.addHandler(prometheus_handler)
 
     app.logger.info("Configuration des logs terminée.")
 
@@ -49,6 +74,14 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
     db.init_app(app)
+
+
+    # Configure Prometheus metrics exporter
+    metrics = PrometheusMetrics(app)
+
+    app.wsgi_app = DispatcherMiddleware(app.wsgi_app, {
+        '/metrics': make_wsgi_app()
+    })
 
     # Configurer les logs
     configure_logs(app)

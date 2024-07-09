@@ -28,17 +28,49 @@ class TestModels(unittest.TestCase):
         """
         Teste l'initialisation de l'objet Sellsy.
         """
-        client_id = "580e4e47-2095-49ab-b0a5-afb7f0419901"
-        client_secret = "cfb45ad9d142eb0ea13ff24d8b7b1e53f4d5a7698abeec1ff4b0ae19846c4473"
-        redirect_uri = "http://localhost:5000/sellsy/callback"
 
-        sellsy = Sellsy(client_id, client_secret, redirect_uri)
-
-        redirect_url = sellsy.get_authorization_url()
-
-        print(redirect_url)
+        # Test
+        sellsy = Sellsy(1)
+        self.assertEqual(sellsy.databaseId, 1)
 
 
+    # def test_get_invoice(self):
+    #     """
+    #     Teste la récupération des factures.
+    #     """
+    #     sellsy = Sellsy(1)
+    #     print(sellsy.get_invoices())
+
+
+    # def test_get_paid_invoices(self):
+    #     """
+    #     Teste la récupération des factures payées.
+    #     """
+    #     sellsy = Sellsy(1)
+    #     print(sellsy.get_paid_invoices())
+
+    # def test_get_invoice_payments(self):
+    #     """
+    #     Teste la récupération des paiements d'une facture.
+    #     """
+    #     sellsy = Sellsy(1)
+    #     print("Payments:", sellsy.get_invoice_payments(51134735))
+
+
+    def test_get_paid_invoices_with_last_payment(self):
+        """
+        Teste la récupération des factures payées avec leur dernier paiement.
+        """
+        sellsy = Sellsy(1)
+        print("test_get_paid_invoices_with_last_payment", sellsy.get_paid_invoices_with_last_payment())
+
+
+
+
+
+
+        # Example usage
+        # sellsy_api = Sellsy(client_id, client_secret)
 
 
 

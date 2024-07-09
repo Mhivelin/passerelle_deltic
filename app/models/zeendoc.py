@@ -19,6 +19,7 @@ class Zeendoc:
         self.indexPaiement = self._get_info_value(infos, "EBP_PAIEMENT")
         self.indexStatutPaiement = self._get_info_value(infos, "INDEX_STATUT_PAIEMENT")
         self.indexNumPiece = self._get_info_value(infos, "INDEX_NUM_PIECE")
+        self.indexNumFacture = self._get_info_value(infos, "INDEX_NUM_FACTURE")
         self.right = None
         self.login()
 
@@ -126,6 +127,8 @@ class Zeendoc:
           <Saved_Query_Name>{save_query_name}</Saved_Query_Name>
           <Wanted_Columns>{wanted_columns}</Wanted_Columns>
         </searchDoc>'''
+
+
         try:
             response_text = self._post_request(body, "searchDoc")
             root = ET.fromstring(response_text)
@@ -212,7 +215,7 @@ class Zeendoc:
         </updateDoc>'''
 
 
-        print("body: ", body)
+        # print("body: ", body)
 
 
         try:
@@ -269,6 +272,63 @@ class Zeendoc:
         except (KeyError, IndexError, TypeError, ValueError) as e:
             print(f"Erreur lors de la mise à jour du document par référence: {e}")
             return None
+
+
+    def update_doc_paiement_by_num_facture(self, num_facture, index, value="1"):
+        """Fonction qui permet de mettre à jour un document de paiement par numéro de facture
+        num_facture: Numéro de la facture
+        index: L'index à mettre à jour
+        value: La valeur de l'index à mettre à jour (par défaut "1")
+        """
+
+        print("update_doc_paiement_by_num_facture")
+        print("num_facture: ", num_facture)
+        print("index: ", index)
+        print("value: ", value)
+        print("self.indexNumFacture: ", self.indexNumFacture)
+        print("self.classeur: ", self.classeur)
+
+
+
+        try:
+            # Vérifier que les paramètres critiques ne sont pas None
+            if self.indexNumFacture is None or num_facture is None or self.classeur is None:
+                raise ValueError("Un des paramètres critiques est None")
+
+            # Recherche du document par numéro de facture
+            res = self.search_doc_by_custom(self.indexNumFacture, num_facture)
+
+            # print("self.indexNumFacture: ", self.indexNumFacture)
+            # print("num_facture: ", num_facture)
+            # print("res: ", res)
+
+            if not res or "Document" not in res:
+                raise ValueError("Document non trouvé avec le numéro de facture fourni")
+
+            doc = res["Document"]
+            if not doc or "Res_Id" not in doc[0]:
+                raise ValueError("Aucun Res_Id trouvé dans le document")
+
+            res_id = doc[0]["Res_Id"]
+            if res_id is None:
+                raise ValueError("Le Res_Id est None")
+            res_id = str(res_id)
+
+            # Création de la liste des index à mettre à jour
+            index_list = [
+                {"Id": res_id, "Label": index, "Value": value}
+            ]
+
+            # Mise à jour du document
+            update_response = self.update_doc(coll_id=self.classeur, res_id=res_id, index_list=index_list)
+
+            return update_response
+        except (KeyError, IndexError, TypeError, ValueError) as e:
+            print(f"Erreur lors de la mise à jour du document par numéro de facture: {e}")
+            return None
+
+
+
 
 
     def get_items_list(self, coll_id, column_name, only_deletable=50):

@@ -60,3 +60,10 @@ class TestModels(unittest.TestCase):
     #     """
     #     passerelles.P_remonte_fournisseur(2)
 
+
+    # def test_P_remonte_paiement_Sellsy_Zeendoc(self):
+    #     """
+    #     Test de la fonction P_remonte_paiement_Sellsy_Zeendoc.
+    #     """
+    #     passerelles.P_remonte_paiement_Sellsy_Zeendoc(1)
+
