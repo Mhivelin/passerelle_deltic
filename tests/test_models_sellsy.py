@@ -1,8 +1,9 @@
-import unittest
-from app import create_app
-from app.models.sellsy import Sellsy
 import os
+import unittest
+
+from app import create_app
 from app.models import database
+from app.models.sellsy import Sellsy
 
 
 class TestModels(unittest.TestCase):
@@ -33,14 +34,12 @@ class TestModels(unittest.TestCase):
         sellsy = Sellsy(1)
         self.assertEqual(sellsy.databaseId, 1)
 
-
     # def test_get_invoice(self):
     #     """
     #     Teste la récupération des factures.
     #     """
     #     sellsy = Sellsy(1)
     #     print(sellsy.get_invoices())
-
 
     # def test_get_paid_invoices(self):
     #     """
@@ -56,21 +55,15 @@ class TestModels(unittest.TestCase):
     #     sellsy = Sellsy(1)
     #     print("Payments:", sellsy.get_invoice_payments(51134735))
 
-
     def test_get_paid_invoices_with_last_payment(self):
         """
         Teste la récupération des factures payées avec leur dernier paiement.
         """
         sellsy = Sellsy(1)
-        print("test_get_paid_invoices_with_last_payment", sellsy.get_paid_invoices_with_last_payment())
-
-
-
-
-
+        print(
+            "test_get_paid_invoices_with_last_payment",
+            sellsy.get_paid_invoices_with_last_payment(),
+        )
 
         # Example usage
         # sellsy_api = Sellsy(client_id, client_secret)
-
-
-

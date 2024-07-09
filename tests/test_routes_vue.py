@@ -1,5 +1,6 @@
-from app import create_app
 from flask_testing import TestCase
+
+from app import create_app
 
 
 class TestRoutes(TestCase):
@@ -14,15 +15,6 @@ class TestRoutes(TestCase):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)
         self.assertIn("Liste des Clients", response.data.decode())
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":

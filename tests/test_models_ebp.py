@@ -1,8 +1,9 @@
-import unittest
-from app import create_app
-from app.models.ebp import EBP
 import os
+import unittest
+
+from app import create_app
 from app.models import database
+from app.models.ebp import EBP
 
 
 class TestModels(unittest.TestCase):
@@ -24,16 +25,12 @@ class TestModels(unittest.TestCase):
         """
         self.app_context.pop()
 
-
-
-
     def test_login(self):
         """
         Teste la connexion à l'API EBP.
         """
 
-        os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-
+        os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
         ebp = EBP(1)
         ebp.login()
@@ -42,8 +39,6 @@ class TestModels(unittest.TestCase):
 
         if not ebp.is_authenticated():
             ebp.refresh_token()
-
-
 
         # suppression du token pour les prochains tests
         # database.delete_champ_client_libelle("EBP_token", 1)
@@ -60,9 +55,6 @@ class TestModels(unittest.TestCase):
 
     #     print("Token: ", ebp.token)
 
-
-
-
     # def test_get_folders(self):
     #     """
     #     Teste la récupération des dossiers EBP.
@@ -73,7 +65,6 @@ class TestModels(unittest.TestCase):
     #     ebp = EBP(1)
     #     folders = ebp.get_folders()
     #     print("Folders: ", folders)
-
 
     # def test_get_suppliers(self):
     #     """
@@ -97,22 +88,17 @@ class TestModels(unittest.TestCase):
     #     paid_documents = ebp.get_paid_documents()
     #     print("Paid documents: ", paid_documents)
 
-
-
     def test_get_fournisseur(self):
         """
         Teste la récupération d'un fournisseur EBP.
         """
 
-        os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+        os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
         ebp = EBP(1)
         fournisseur = ebp.get_suppliers()
         print("Fournisseur: ", fournisseur)
 
 
-
-
 if __name__ == "__main__":
     unittest.main()
-

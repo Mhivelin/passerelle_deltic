@@ -1,17 +1,17 @@
-import json
 # import sys
 import datetime
+import json
 import urllib.parse
 
 import requests
-from requests.exceptions import HTTPError
 from flask import url_for
+from requests.exceptions import HTTPError
 # import time
 # from oauthlib.oauth2 import InvalidClientError, TokenExpiredError, BackendApplicationClient
 from requests_oauthlib import OAuth2Session
-from app.models import database as db
 
 import app.models.database as db
+from app.models import database as db
 
 
 class EBP:
@@ -20,7 +20,7 @@ class EBP:
     """
 
     def __init__(self, id) -> None:
-        """ Constructeur de la classe EBP. """
+        """Constructeur de la classe EBP."""
 
         self.database_Id = id
         infos = db.get_all_champ_passerelle_by_passerelle_client_with_lib_champ(id)
@@ -47,7 +47,7 @@ class EBP:
 
     def validate_token(self, token):
         """Valide si le token est encore valide."""
-        valeur = token.get('Valeur')
+        valeur = token.get("Valeur")
         if not valeur:
             return False
 
@@ -66,8 +66,8 @@ class EBP:
         Vérifie si l'utilisateur est déjà authentifié.
         """
         token = db.get_champ_passerelle_by_passerelle_client_and_lib_champ(
-            self.database_Id,
-            "EBP_token")
+            self.database_Id, "EBP_token"
+        )
         if token and self.validate_token(token):
             return True
         return False
@@ -78,16 +78,18 @@ class EBP:
         """
 
         url = "https://api-login.ebp.com/connect/token"
-        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+        headers = {"Content-Type": "application/x-www-form-urlencoded"}
         body = {
-            'grant_type': 'refresh_token',
-            'client_id': self.client_id,
-            'client_secret': self.client_secret,
-            'refresh_token': self.refresh_token_value
+            "grant_type": "refresh_token",
+            "client_id": self.client_id,
+            "client_secret": self.client_secret,
+            "refresh_token": self.refresh_token_value,
         }
 
         try:
-            response = requests.post(url, headers=headers, data=urllib.parse.urlencode(body))
+            response = requests.post(
+                url, headers=headers, data=urllib.parse.urlencode(body)
+            )
 
             if response.status_code == 200:
                 new_token = response.json()
@@ -110,31 +112,34 @@ class EBP:
         Gère le processus de connexion à l'API EBP.
         """
         # print("Début du login")
-        authorization_base_url = 'https://api-login.ebp.com/connect/authorize'
-        token_url = 'https://api-login.ebp.com/connect/token'
+        authorization_base_url = "https://api-login.ebp.com/connect/authorize"
+        token_url = "https://api-login.ebp.com/connect/token"
         redirect_uri = url_for(
-            'ebp.SignInRedirect',
-            IdPasserelleClient=self.client_id,
-            _external=True)
+            "ebp.SignInRedirect", IdPasserelleClient=self.client_id, _external=True
+        )
         scope = ["openid", "profile", "offline_access"]
 
         token = None
 
         try:
             token = db.get_champ_passerelle_by_passerelle_client_and_lib_champ(
-                self.database_Id,
-                "EBP_token")
+                self.database_Id, "EBP_token"
+            )
         except Exception as e:
             print("Erreur lors de la récupération du token de la base de données:", e)
 
         if not token:
-            oauth = OAuth2Session(self.client_id, redirect_uri=redirect_uri, scope=scope)
+            oauth = OAuth2Session(
+                self.client_id, redirect_uri=redirect_uri, scope=scope
+            )
             authorization_url, state = oauth.authorization_url(authorization_base_url)
-            print('Aller à %s et autoriser l\'accès.' % authorization_url)
-            authorization_response = input('Entrez l\'URL de redirection: ')
-            token = oauth.fetch_token(token_url,
-                                      authorization_response=authorization_response,
-                                      client_secret=self.client_secret)
+            print("Aller à %s et autoriser l'accès." % authorization_url)
+            authorization_response = input("Entrez l'URL de redirection: ")
+            token = oauth.fetch_token(
+                token_url,
+                authorization_response=authorization_response,
+                client_secret=self.client_secret,
+            )
             if token:
                 self.Bdtoken_saver(token)
         elif not self.validate_token(token):
@@ -144,24 +149,27 @@ class EBP:
         self.token = token
         return token
 
-    def callback(self, code, IdClient):   # pylint: disable=C0103
+    def callback(self, code, IdClient):  # pylint: disable=C0103
         """
         Fonction de rappel pour gérer le code d'autorisation
         """
         # print("Début du callback")
-        redirect_uri = url_for("ebp.SignInRedirect", IdPasserelleClient=IdClient, _external=True)
+        redirect_uri = url_for(
+            "ebp.SignInRedirect", IdPasserelleClient=IdClient, _external=True
+        )
         token_url = "https://api-login.ebp.com/connect/token"
 
         try:
             oauth = OAuth2Session(self.client_id, redirect_uri=redirect_uri)
-            token = oauth.fetch_token(token_url, client_secret=self.client_secret, code=code)
+            token = oauth.fetch_token(
+                token_url, client_secret=self.client_secret, code=code
+            )
             if token:
                 print(f"Token récupéré avec succès : {token}")
             else:
                 print("Aucun token récupéré")
 
             self.Bdtoken_saver(token)
-
 
             return self.create_oauth_session(token)
         except Exception as e:
@@ -184,7 +192,7 @@ class EBP:
             token_updater=self.Bdtoken_saver,
         )
 
-    def Bdtoken_saver(self, token):   # pylint: disable=C0103
+    def Bdtoken_saver(self, token):  # pylint: disable=C0103
         """
         Enregistre le token dans la base de données.
         """
@@ -193,27 +201,28 @@ class EBP:
 
         # on vérifie si le token existe déjà
         token_db = db.get_champ_passerelle_by_passerelle_client_and_lib_champ(
-            self.database_Id,
-            "EBP_token")
+            self.database_Id, "EBP_token"
+        )
         print("Token de la base de données:", token_db)
         if token_db:
             try:
-                id_champ  = db.get_id_champ_by_lib_champ("EBP_token")
-                db.update_champ_passerelle(self.database_Id, id_champ , token_json)
+                id_champ = db.get_id_champ_by_lib_champ("EBP_token")
+                db.update_champ_passerelle(self.database_Id, id_champ, token_json)
                 print("Token mis à jour avec succès.")
             except Exception as e:
                 print("Erreur lors de la mise à jour du token:", e)
 
-
         else:
             try:
-                id_champ  = db.get_id_champ_by_lib_champ("EBP_token")
-                db.add_champ_passerelle(self.database_Id, id_champ , token_json)
+                id_champ = db.get_id_champ_by_lib_champ("EBP_token")
+                db.add_champ_passerelle(self.database_Id, id_champ, token_json)
                 print("Token enregistré avec succès.")
             except Exception as e:
                 print("Erreur lors de l'enregistrement du token:", e)
 
-    def make_request(self, method, url, headers=None, params=None, data=None):   # pylint: disable=R0913
+    def make_request(
+        self, method, url, headers=None, params=None, data=None
+    ):  # pylint: disable=R0913
         """
         Effectue une requête HTTP à l'API EBP.
         """
@@ -226,17 +235,17 @@ class EBP:
         if data is None:
             data = {}
 
-
-
         access_token = self.token["Valeur"]
         access_token = json.loads(access_token)
         access_token = access_token["access_token"]
         if access_token:
-            headers['Authorization'] = f'Bearer {access_token}'
+            headers["Authorization"] = f"Bearer {access_token}"
         else:
             raise ValueError("Access token is missing or expired")
 
-        response = requests.request(method, url, headers=headers, params=params, data=data, timeout=10)
+        response = requests.request(
+            method, url, headers=headers, params=params, data=data, timeout=10
+        )
         return response
 
     def get_folders(self):
@@ -245,7 +254,7 @@ class EBP:
         """
         url = "https://api-developpeurs.ebp.com/gescom/api/v1/Folders?Offset=0&Limit=100&Accept-Language=fr-FR"
         headers = {"ebp-subscription-key": self.ebp_subscription_key}
-        response = self.make_request('GET', url, headers=headers)
+        response = self.make_request("GET", url, headers=headers)
         res = response.text
         res = json.loads(res)
         res = res["folders"]
@@ -257,7 +266,7 @@ class EBP:
         """
         url = f"https://api-developpeurs.ebp.com/gescom/api/v1/Folders/{self.folder_id}/GenericQuery?TableName=supplier&Columns=name, Id, Accounts_Account&=2020-11-06"
         headers = {"ebp-subscription-key": self.ebp_subscription_key}
-        response = self.make_request('GET', url, headers=headers)
+        response = self.make_request("GET", url, headers=headers)
         return response.text
 
     def get_paid_documents(self):
@@ -266,5 +275,5 @@ class EBP:
         """
         url = f"https://api-developpeurs.ebp.com/gescom/api/v1/Folders/{self.folder_id}/Documents/PurchaseDocument?Duration=30&DocumentType=null&ToDate={self.DateDerSynchronisation}&Columns=DocumentNumber, Reference, CommitmentsBalanceDue&WhereCondition=%20%20type%3A%20CustomFilter%0A%20%20column%3A%20CommitmentsBalanceDue%0A%20%20operator%3A%20Equal%0A%20%20valueType%20%3A%20Decimal%0A%20%20value%3A%0A%20%20-%200"
         headers = {"ebp-subscription-key": self.ebp_subscription_key}
-        response = self.make_request('GET', url, headers=headers)
+        response = self.make_request("GET", url, headers=headers)
         return response.text

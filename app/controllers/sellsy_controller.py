@@ -2,10 +2,9 @@
 Ce module contient le controller pour l'API Sellsy.
 """
 
-
-
 # from app.models.sellsy import Sellsy
 from flask import Blueprint
+
 # from requests_oauthlib import OAuth2Session
 
 # Création d'un Blueprint pour le sellsy controller

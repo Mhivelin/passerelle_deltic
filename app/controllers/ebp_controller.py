@@ -8,10 +8,8 @@ from flask import Blueprint, jsonify, redirect, request, url_for
 from flask_login import login_required
 from requests_oauthlib import OAuth2Session
 
-
 # from app.models.database import get_db_connection
-from app.models.ebp import EBP    # pylint: disable=E0401
-
+from app.models.ebp import EBP  # pylint: disable=E0401
 
 # Création d'un Blueprint pour le ebp controller
 ebp_bp = Blueprint("ebp", __name__)
@@ -59,23 +57,22 @@ def login_ebp(IdPasserelleClient):
     if client.is_authenticated():
         return redirect(url_for("v_interface.home"))
 
-
     # Initialiser le processus OAuth si aucune session valide n'est trouvée
     redirect_uri = url_for(
-        "ebp.SignInRedirect",
-        IdPasserelleClient=IdPasserelleClient,
-        _external=True)
+        "ebp.SignInRedirect", IdPasserelleClient=IdPasserelleClient, _external=True
+    )
     authorization_base_url = "https://api-login.ebp.com/connect/authorize"
     scope = ["openid", "profile", "offline_access"]
     client_id = client.client_id
 
     oauth = OAuth2Session(client_id, redirect_uri=redirect_uri, scope=scope)
-    authorization_url, state = oauth.authorization_url(authorization_base_url)    # pylint: disable=W0612
+    authorization_url, state = oauth.authorization_url(
+        authorization_base_url
+    )  # pylint: disable=W0612
     print(authorization_url)
 
     # Rediriger l'utilisateur vers l'URL de connexion
     return redirect(authorization_url)
-
 
 
 @ebp_bp.route("/SignInRedirect/<IdPasserelleClient>", methods=["GET"])
@@ -87,7 +84,9 @@ def SignInRedirect(IdPasserelleClient):
     code = request.args.get("code")
     if not code:
         print("Code d'autorisation manquant")
-        return redirect(url_for("v_interface.home"))  # Redirection vers une page d'erreur
+        return redirect(
+            url_for("v_interface.home")
+        )  # Redirection vers une page d'erreur
 
     instance_client_ebp = EBP(IdPasserelleClient)
     if instance_client_ebp.callback(code, IdPasserelleClient) is None:

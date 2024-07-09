@@ -2,14 +2,16 @@
 Ce module contient la classe Zeendoc qui permet de gérer les requêtes vers l'API Zeendoc
 """
 
+import json
 import xml.etree.ElementTree as ET
 
-import json
 import requests
 
 # import sys
-import app.models.database as db   # pylint: disable=E0401
+import app.models.database as db  # pylint: disable=E0401
+
 # import datetime
+
 
 class Zeendoc:
     """Classe qui permet de gérer les requêtes vers l'API Zeendoc"""
@@ -36,23 +38,23 @@ class Zeendoc:
         return None
 
     def _create_soap_envelope(self, body):
-        return f'''<?xml version="1.0" encoding="utf-8"?>
+        return f"""<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Body>
     {body}
   </soap:Body>
-</soap:Envelope>'''
+</soap:Envelope>"""
 
     def login(self):
         """Fonction qui permet de se connecter à l'API Zeendoc"""
         url = f"https://armoires.zeendoc.com/{self.urlclient}/ws/3_0/Zeendoc.php"
-        body = f'''
+        body = f"""
         <login>
           <Login>{self.log}</Login>
           <Password></Password>
           <CPassword>{self.cpassword}</CPassword>
           <Access_token></Access_token>
-        </login>'''
+        </login>"""
         payload = self._create_soap_envelope(body)
         headers = {
             "Content-Type": "text/xml; charset=utf-8",
@@ -78,11 +80,11 @@ class Zeendoc:
 
     def get_rights(self):
         """Fonction qui permet de récupérer les droits de l'utilisateur"""
-        body = '''
+        body = """
         <getRights>
           <Get_ConfigSets></Get_ConfigSets>
           <Access_token></Access_token>
-        </getRights>'''
+        </getRights>"""
         try:
             response_text = self._post_request(body, "getRights")
             root = ET.fromstring(response_text)
@@ -97,8 +99,10 @@ class Zeendoc:
         """Fonction qui permet de récupérer les noms et id des classeurs de l'utilisateur"""
         if not self.right:
             self.get_rights()
-        return [{"Coll_Id": collection["Coll_Id"],
-                 "Label": collection["Label"]} for collection in self.right["Collections"]]
+        return [
+            {"Coll_Id": collection["Coll_Id"], "Label": collection["Label"]}
+            for collection in self.right["Collections"]
+        ]
 
     def get_index(self):
         """Fonction qui permet de récupérer les index de l'utilisateur"""
@@ -120,10 +124,12 @@ class Zeendoc:
                     return index["Index_Id"]
         return None
 
-    def search_doc_by_custom(self, index_id, index_value, save_query_name="", wanted_columns=""):
+    def search_doc_by_custom(
+        self, index_id, index_value, save_query_name="", wanted_columns=""
+    ):
         """Fonction qui permet de chercher un document par un index custom"""
         wanted_columns += index_id
-        body = f'''
+        body = f"""
         <searchDoc>
           <Coll_Id>{self.classeur}</Coll_Id>
           <IndexList xsi:type="ArrayOfIndexDefinition">
@@ -136,8 +142,7 @@ class Zeendoc:
           </IndexList>
           <Saved_Query_Name>{save_query_name}</Saved_Query_Name>
           <Wanted_Columns>{wanted_columns}</Wanted_Columns>
-        </searchDoc>'''
-
+        </searchDoc>"""
 
         try:
             response_text = self._post_request(body, "searchDoc")
@@ -150,13 +155,13 @@ class Zeendoc:
 
     def get_all_doc(self):
         """Fonction qui permet de récupérer tous les documents de l'utilisateur"""
-        body = f'''
+        body = f"""
         <searchDoc>
           <Coll_Id>{self.classeur}</Coll_Id>
           <IndexList/>
           <Saved_Query_Name></Saved_Query_Name>
           <Wanted_Columns>custom_n7</Wanted_Columns>
-        </searchDoc>'''
+        </searchDoc>"""
         try:
             return self._post_request(body, "searchDoc")
         except requests.RequestException as e:
@@ -165,7 +170,7 @@ class Zeendoc:
 
     def search_doc_by_id(self, doc_id):
         """Fonction qui permet de récupérer un document à partir de son id"""
-        body = f'''
+        body = f"""
         <searchDoc>
           <Coll_Id>{self.classeur}</Coll_Id>
           <IndexList>
@@ -177,7 +182,7 @@ class Zeendoc:
           </IndexList>
           <Saved_Query_Name></Saved_Query_Name>
           <Wanted_Columns>custom_n7</Wanted_Columns>
-        </searchDoc>'''
+        </searchDoc>"""
         try:
             return self._post_request(body, "searchDoc")
         except requests.RequestException as e:
@@ -206,14 +211,19 @@ class Zeendoc:
 
     def update_doc(self, coll_id, res_id, index_list, mode="UpdateGiven"):
         """Fonction qui permet de mettre à jour un document"""
-        index_xml = ''.join([f'''
+        index_xml = "".join(
+            [
+                f"""
             <Index>
                 <Id>{index['Id']}</Id>
                 <Label>{index['Label']}</Label>
                 <Value>{index['Value']}</Value>
-            </Index>''' for index in index_list])
+            </Index>"""
+                for index in index_list
+            ]
+        )
 
-        body = f'''
+        body = f"""
         <updateDoc>
           <Coll_Id>{coll_id}</Coll_Id>
           <Res_Id>{res_id}</Res_Id>
@@ -222,11 +232,9 @@ class Zeendoc:
           </IndexList>
           <Mode>{mode}</Mode>
           <Access_token></Access_token>
-        </updateDoc>'''
-
+        </updateDoc>"""
 
         # print("body: ", body)
-
 
         try:
             response_text = self._post_request(body, "updateDoc")
@@ -239,9 +247,6 @@ class Zeendoc:
         except (requests.RequestException, ET.ParseError, json.JSONDecodeError) as e:
             print(f"Erreur lors de la mise à jour du document: {e}")
             return None
-
-
-
 
     def update_doc_paiement_by_ref(self, ref, index, value="1"):
         """Fonction qui permet de mettre à jour un document de paiement par référence
@@ -271,21 +276,17 @@ class Zeendoc:
             print("res_id: ", res_id)
 
             # Création de la liste des index à mettre à jour
-            index_list = [
-                {"Id": res_id, "Label": index, "Value": value}
-            ]
+            index_list = [{"Id": res_id, "Label": index, "Value": value}]
 
             # Mise à jour du document
             update_response = self.update_doc(
-                coll_id=self.classeur,
-                res_id=res_id,
-                index_list=index_list)
+                coll_id=self.classeur, res_id=res_id, index_list=index_list
+            )
 
             return update_response
         except (KeyError, IndexError, TypeError, ValueError) as e:
             print(f"Erreur lors de la mise à jour du document par référence: {e}")
             return None
-
 
     def update_doc_paiement_by_num_facture(self, num_facture, index, value="1"):
         """Fonction qui permet de mettre à jour un document de paiement par numéro de facture
@@ -301,11 +302,13 @@ class Zeendoc:
         print("self.indexNumFacture: ", self.indexNumFacture)
         print("self.classeur: ", self.classeur)
 
-
-
         try:
             # Vérifier que les paramètres critiques ne sont pas None
-            if self.indexNumFacture is None or num_facture is None or self.classeur is None:
+            if (
+                self.indexNumFacture is None
+                or num_facture is None
+                or self.classeur is None
+            ):
                 raise ValueError("Un des paramètres critiques est None")
 
             # Recherche du document par numéro de facture
@@ -328,35 +331,30 @@ class Zeendoc:
             res_id = str(res_id)
 
             # Création de la liste des index à mettre à jour
-            index_list = [
-                {"Id": res_id, "Label": index, "Value": value}
-            ]
+            index_list = [{"Id": res_id, "Label": index, "Value": value}]
 
             # Mise à jour du document
             update_response = self.update_doc(
-                coll_id=self.classeur,
-                res_id=res_id,
-                index_list=index_list)
+                coll_id=self.classeur, res_id=res_id, index_list=index_list
+            )
 
             return update_response
         except (KeyError, IndexError, TypeError, ValueError) as e:
-            print(f"Erreur lors de la mise à jour du document par numéro de facture: {e}")
+            print(
+                f"Erreur lors de la mise à jour du document par numéro de facture: {e}"
+            )
             return None
-
-
-
-
 
     def get_items_list(self, coll_id, column_name, only_deletable=50):
         """Méthode pour obtenir des éléments d'une liste déroulante"""
-        body = f'''
+        body = f"""
         <getItemsList>
           <Coll_Id>{coll_id}</Coll_Id>
           <Column_Name>{column_name}</Column_Name>
           <Only_Deletable>{only_deletable}</Only_Deletable>
           <ArrayOfListItemsIdOnly/>
           <Access_token></Access_token>
-        </getItemsList>'''
+        </getItemsList>"""
 
         try:
             response_text = self._post_request(body, "getItemsList")
@@ -365,31 +363,37 @@ class Zeendoc:
 
             return json.loads(json_response)["Items_List"]
         except (requests.RequestException, ET.ParseError, json.JSONDecodeError) as e:
-            print(f"Erreur lors de la récupération des éléments de la liste déroulante: {e}")
+            print(
+                f"Erreur lors de la récupération des éléments de la liste déroulante: {e}"
+            )
             return None
-
-
-
 
     def add_items_list(self, coll_id, column_name, items):
         """Méthode pour ajouter des éléments à une liste déroulante"""
-        items_xml = ''.join([f'''
+        items_xml = "".join(
+            [
+                f"""
             <List_Item>
                 <Id></Id>
                 <Label>{item}</Label>
-            </List_Item>''' for item in items])
+            </List_Item>"""
+                for item in items
+            ]
+        )
 
-        body = f'''
+        body = f"""
         <AddItemsList xmlns="urn:Zeendoc">
             <Coll_Id>{coll_id}</Coll_Id>
             <Column_Name>{column_name}</Column_Name>
             <Items_List>
                 {items_xml}
             </Items_List>
-        </AddItemsList>'''
+        </AddItemsList>"""
 
         try:
-            print("Request Body: ", body)  # Debug: afficher le corps de la requête pour débogage
+            print(
+                "Request Body: ", body
+            )  # Debug: afficher le corps de la requête pour débogage
             response_text = self._post_request(body, "AddItemsList")
             root = ET.fromstring(response_text)
             json_response = root.find(".//jsonResponse").text

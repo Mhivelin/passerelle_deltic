@@ -2,14 +2,14 @@
 Ce module contient les routes pour les différentes entités de l'applications
 """
 
-import os
 import logging
+import os
 from datetime import datetime
 
-from flask import Blueprint, send_file, request, render_template, jsonify
+from flask import Blueprint, jsonify, render_template, request, send_file
 from flask_login import login_required
 
-from app.models import database   # pylint: disable=E0401
+from app.models import database  # pylint: disable=E0401
 
 # Création d'un Blueprint pour le controller
 main_bp = Blueprint("main", __name__)
@@ -17,6 +17,7 @@ main_bp = Blueprint("main", __name__)
 
 # chemin de la base de données : instance\database.db
 DATABASE_PATH = os.path.join(os.getcwd(), "instance", "database.db")
+
 
 @main_bp.route("/export_db", methods=["GET"])
 @login_required
@@ -45,6 +46,7 @@ def export_db():
         logging.error("Unexpected error: %s", str(e))
         return jsonify({"success": False, "message": str(e)}), 500
 
+
 @main_bp.route("/import_db", methods=["POST", "GET"])
 @login_required
 def import_db():
@@ -65,11 +67,9 @@ def import_db():
     except PermissionError as e:
         logging.error("Permission error: %s", str(e))
         return jsonify({"success": False, "message": "Permission error"}), 403
-    except Exception as e:   # pylint: disable=W0703
+    except Exception as e:  # pylint: disable=W0703
         logging.error("Unexpected error: %s", str(e))
         return jsonify({"success": False, "message": str(e)}), 500
-
-
 
 
 @main_bp.route("/parametres", methods=["GET"])

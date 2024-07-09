@@ -2,21 +2,18 @@
 Ce fichier contient les routes pour les clients
 """
 
-
 # import json
 # import sqlite3
 from flask import Blueprint, redirect, request
 from flask_login import login_required
 
 # from app.models.database import get_db_connection
-from app.models.client import Client    # pylint: disable=E0401
+from app.models.client import Client  # pylint: disable=E0401
 
 # from app.models import database
 
 # Création d'un Blueprint pour le client controller
 client_bp = Blueprint("client", __name__)
-
-
 
 
 # route pour récupérer les données d'un client par son id
@@ -33,7 +30,6 @@ client_bp = Blueprint("client", __name__)
 #     zeendoc = client.clientZeendoc.BdGetClientZeendoc(client_id)
 
 #     return jsonify({"clientId": client_id, "ebp": ebp, "zeendoc": zeendoc})
-
 
 
 @client_bp.route("/launch_routine", methods=["POST"])

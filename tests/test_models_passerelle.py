@@ -2,11 +2,11 @@
 Ce fichier contient les tests unitaires pour faire les tests de l'oject passerelle.
 """
 
-
-
 import unittest
+
 from app import create_app
-from app.models import passerelles, database
+from app.models import database, passerelles
+
 
 class TestModels(unittest.TestCase):
     """
@@ -31,14 +31,10 @@ class TestModels(unittest.TestCase):
         """
         self.app_context.pop()
 
-
-
     # def test_login(self):
     #     """
     #     Test de la fonction login du model zeendoc.
     #     """
-
-
 
     def test_routine(self):
         """
@@ -46,13 +42,11 @@ class TestModels(unittest.TestCase):
         """
         result = passerelles.routine()
 
-
     # def test_P_remonte_paiement(self):
     #     """
     #     Test de la fonction P_remonte_paiement.
     #     """
     #     passerelles.P_remonte_paiement(1)
-
 
     # def test_P_remonte_fournisseur(self):
     #     """
@@ -60,10 +54,8 @@ class TestModels(unittest.TestCase):
     #     """
     #     passerelles.P_remonte_fournisseur(2)
 
-
     # def test_P_remonte_paiement_Sellsy_Zeendoc(self):
     #     """
     #     Test de la fonction P_remonte_paiement_Sellsy_Zeendoc.
     #     """
     #     passerelles.P_remonte_paiement_Sellsy_Zeendoc(1)
-

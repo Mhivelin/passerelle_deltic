@@ -2,11 +2,11 @@
 Ce fichier contient des tests temporaires pour les opérations de la base de données.
 """
 
-
-
 import unittest
+
 from app import create_app
 from app.models import database, zeendoc
+
 
 class TestModels(unittest.TestCase):
     """
@@ -31,7 +31,6 @@ class TestModels(unittest.TestCase):
         """
         self.app_context.pop()
 
-
     # def test_get_champs_by_logiciels(self):
     #     """
     #     Test de la fonction get_champs_by_logiciels
@@ -40,7 +39,6 @@ class TestModels(unittest.TestCase):
     #     champs = database.get_champs_by_logiciels(logiciels)
 
     #     print(champs)
-
 
     # def test_get_champ_by_client_with_lib_champ(self):
     #     """
@@ -60,7 +58,6 @@ class TestModels(unittest.TestCase):
     #     for passerelle in passerelles:
     #         print(passerelle)
 
-
     # def test_get_logiciels_by_passerelles(self):
     #     """
     #     Test de la fonction get_logiciels_by_passerelles
@@ -69,7 +66,6 @@ class TestModels(unittest.TestCase):
     #     logiciels = database.get_logiciels_by_passerelles(id_passerelle)
     #     for logiciel in logiciels:
     #         print(logiciel)
-
 
     # def test_add_multiple_champ_passerelle(self):
     #     """
@@ -92,8 +88,6 @@ class TestModels(unittest.TestCase):
     #     ]
     #     database.add_or_update_champ_passerelle(id_passerelle, champs)
 
-
-
     # def test_get_champ_passerelle_client_by_client_with_lib_champ(self):
     #     """
     #     Test de la fonction get_champ_passerelle_client_by_client_with_lib_champ
@@ -112,7 +106,6 @@ class TestModels(unittest.TestCase):
     #     for champ in champs:
     #         print(champ)
 
-
     # def test_zeendoc_get_index(self):
     #     """
     #     Test de la fonction get_index de la classe Zeendoc
@@ -123,8 +116,6 @@ class TestModels(unittest.TestCase):
     #     index = instance_zeendoc.get_index()
     #     print("liste des index: ", index)
 
-
-
     # def test_get_champ_passerelle_required_by_passerelle_client(self):
     #     """
     #     Test de la fonction get_champ_passerelle_required_by_passerelle_client
@@ -132,15 +123,9 @@ class TestModels(unittest.TestCase):
     #     champs = database.get_champ_by_passerelle_and_logiciel_passerelle(1)
     #     print(champs)
 
-
-
-
-
     def test_update_date_synchronisation_passerelle_client(self):
         """
         Test de la fonction update_date_synchronisation_passerelle_client
         """
         id_passerelle_client = 1
         database.update_date_synchronisation_passerelle_client(id_passerelle_client)
-
-
