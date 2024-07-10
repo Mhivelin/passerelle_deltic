@@ -1,0 +1,21 @@
+﻿Problème,Étiquettes,Description,Solution
+Docker non installé,installation,Docker n'est pas installé sur votre machine.,"1. Rendez-vous sur le site officiel de Docker
+2. Téléchargez et installez Docker Desktop pour votre système d'exploitation.
+3. Suivez les instructions d'installation fournies par Docker."
+Git non installé,installation,Git n'est pas installé sur votre machine.,"1. Rendez-vous sur le site officiel de Git : https://git-scm.com/
+2. Téléchargez et installez Git pour votre système d'exploitation.
+3. Vérifiez l'installation en ouvrant une ligne de commande et en tapant :
+git --version"
+Problème de permissions Docker,installation,Vous recevez une erreur de permission lorsque vous essayez de lancer Docker.,"1. sudo usermod -aG docker $USER
+2. Redémarrez votre machine ou votre session utilisateur."
+Variables d'environnement manquantes ou incorrectes,installation,Les variables d'environnement dans le fichier .env ne sont pas correctement configurées.,"Ouvrez le fichier .env avec un éditeur de texte :
+
+nano app/.env
+Vérifiez que toutes les variables nécessaires sont présentes et correctement configurées :
+ADMIN_USERNAME=nomadmin
+ADMIN_PASSWORD=motdepasseadmin
+SECRET_KEY=cléesecurisée
+JWT_SECRET_KEY=cléesecurisée
+IP=adresseipdelhote"
+,,,
+,,,

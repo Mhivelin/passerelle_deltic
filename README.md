@@ -69,7 +69,7 @@ L’application as pour but de gérer les liens entre les logiciels des clients 
 
 Voila votre application est lancée ✅ vous pouvez la retrouver sur le port 5000 de votre serveur.
 
-- en cas de problème, défilez ce menu ou vérifiez si une solution n’est pas apporté dans [Problèmes Courants et Solutions](Documentation%20de%20l%E2%80%99application%20Passerelle%20DELTIC%20081440cb0d7044f6ae0f008c22b04ed3/%F0%9F%9A%A8%20Proble%CC%80mes%20Courants%20et%20Solutions%2088ff8eb43e1543299fe700ac8c96bcf5.md)
+- en cas de problème, défilez ce menu ou vérifiez si une solution n’est pas apporté dans [Problèmes Courants et Solutions](csv_readme/%F0%9F%9A%A8%20Proble%CC%80mes%20Courants%20et%20Solutions%2088ff8eb43e1543299fe700ac8c96bcf5.md)
 
     ### 1. Mise à Jour du Système
 
@@ -206,7 +206,7 @@ Voila votre application est lancée ✅ vous pouvez la retrouver sur le port 500
 
 ### 🚨 Problèmes Courants et Solutions
 
-[🚨 Problèmes Courants et Solutions](Documentation%20de%20l%E2%80%99application%20Passerelle%20DELTIC%20081440cb0d7044f6ae0f008c22b04ed3/%F0%9F%9A%A8%20Proble%CC%80mes%20Courants%20et%20Solutions%2088ff8eb43e1543299fe700ac8c96bcf5.csv)
+[🚨 Problèmes Courants et Solutions](csv_readme/%F0%9F%9A%A8%20Proble%CC%80mes%20Courants%20et%20Solutions%2088ff8eb43e1543299fe700ac8c96bcf5.csv)
 
 ### ⌨️ Utilisation du serveur DELTIC
 
@@ -420,7 +420,7 @@ sequenceDiagram
 
 # Models
 
-[Points de terminaison (1)](Documentation%20de%20l%E2%80%99application%20Passerelle%20DELTIC%20081440cb0d7044f6ae0f008c22b04ed3/Points%20de%20terminaison%20(1)%2071171e08c975430baebc1adaa53cb3be.csv)
+[Points de terminaison (1)](csv_readme/Points%20de%20terminaison%20(1)%2071171e08c975430baebc1adaa53cb3be.csv)
 
 # 🔌 Points de terminaison
 
@@ -430,7 +430,7 @@ DEF :
 
 </aside>
 
-[Points de terminaison](Documentation%20de%20l%E2%80%99application%20Passerelle%20DELTIC%20081440cb0d7044f6ae0f008c22b04ed3/Points%20de%20terminaison%20a8900f9335b44afcab8efefb8af663e8.csv)
+[Points de terminaison](csv_readme/Points%20de%20terminaison%20a8900f9335b44afcab8efefb8af663e8.csv)
 
 # Base de donnée
 

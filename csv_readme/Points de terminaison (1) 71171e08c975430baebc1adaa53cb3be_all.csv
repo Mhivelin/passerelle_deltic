@@ -1,0 +1,8 @@
+﻿Méthode,Description,Catégorie,Paramètres,Texte
+get_db_connexion(),Retourne une connexion à la base de données SQLite.,database,,
+create_database(),Crée la base de données.,database,,
+execute_query(),Exécute une requête SQL et retourne les résultats si la requête est un SELECT.,database,"params, query",
+execute_query_single(),Exécute une requête SQL et retourne un seul résultat si la requête est un SELECT.,database,"params, query",
+add_record(),Ajoute un enregistrement à la table spécifiée.,database,"columns, table_name, values",
+delete_record(),Supprime un enregistrement de la table spécifiée.,database,"condition, params, table_name",
+,,,,

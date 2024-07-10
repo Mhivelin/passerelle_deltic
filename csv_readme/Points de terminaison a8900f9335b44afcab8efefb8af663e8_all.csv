@@ -1,0 +1,12 @@
+﻿Nom,Catégorie,Type,URL,Description,login_required
+form_add_client,Vue,GET,/form_add_client,Route pour afficher le formulaire d'ajout d'un client,✅
+fill_requiert,Vue,GET,/fill_requiert/<int:id_client>,Route pour afficher le formulaire d'ajout de plusieurs clients,✅
+accueil,Vue,GET,/,Route pour la page d'accueil avec les clients,✅
+documentation,Vue,GET,/documentation,Route pour la documentation,🚫
+form_add_logiciel,Vue,GET,/form_add_logiciel,Route pour afficher le formulaire d'ajout d'un logiciel,✅
+form_add_passerelle,Vue,GET,/form_add_passerelle,Route pour afficher le formulaire d'ajout d'une passerelle,✅
+form_connect_passerelle,Vue,GET,/form_connect_passerelle,Route pour afficher le formulaire de connexion d'une passerelle,✅
+,Vue,,,,
+login,Authentification,"GET, POST",/login,Route pour afficher le formulaire de connexion et gérer la connexion,🚫
+register,Authentification,"GET, POST",/register,Route pour afficher le formulaire d'inscription et gérer l'inscription,✅
+logout,Authentification,,/logout,Route pour déconnecter l'utilisateur,✅
