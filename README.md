@@ -1,175 +1,504 @@
-# Passerelle DELTIC
+# Documentation de l’application Passerelle DELTIC
 
-## Description
-La passerelle DELTIC est un projet qui permettra de faire communiquer plusieurs applications entre elles. Elle est basée sur les différentes API des applications à connecter. ce projet as donc pour but de faciliter la communication ainsi que la mise en place des différentes communications entre les applications.
+<aside>
+❗ Cette documentation est destinée aux administrateurs de l’application passerelle DELTIC
 
-## Installation
+</aside>
 
-### Etape 1 : Clonez le projet
-```bash
-git clone https://github.com/Mhivelin/passerelleV2.git
+# Général
+
+## Introduction
+
+> Bienvenue dans la documentation utilisateur de la plateforme de la passerelle DELTIC. Cette plateforme permet de gérer les passerelles entre les solutions utilisées par l'entreprise DELTIC.
+>
+
+### 🥅 Objectifs de l'application
+
+L’application as pour but de gérer les liens entre les logiciels des clients de la société DELTIC
+
+<aside>
+💡 GitHub : [ici](https://github.com/Mhivelin/passerelle_deltic)
+
+</aside>
+
+## ⚙️ Installation
+
+1. Se connecter sur l’invite de commande du serveur (cf :  [👀](https://www.notion.so/Documentation-de-l-application-Passerelle-DELTIC-081440cb0d7044f6ae0f008c22b04ed3?pvs=21))
+2. Cloner le dépôt :
+
+    ```bash
+    git clone https://github.com/Mhivelin/passerelle_deltic
+    ```
+
+3. Changer de répertoire courant pour aller dans le dépôt :
+
+    ```bash
+    cd passerelle_deltic
+    ```
+
+4. Créer un fichier .env ✏️
+
+    ```bash
+    nano app/.env
+    ```
+
+    Avec les valeurs suivantes :
+
+    🚨 **Remplacer** les valeurs temporaires par les bonnes informations puis sauvegarder (ctrl + s) puis fermer (ctrl + x)
+
+    ```bash
+    ADMIN_USERNAME=nomadmin
+    ADMIN_PASSWORD=motdepasseadmin
+    SECRET_KEY=cléesecurisée
+    JWT_SECRET_KEY=cléesecurisée
+    IP=adresseipdelhote
+    ```
+
+    <aside>
+    💡 comment trouver l’adresse IP ?
+    `ip a`
+
+    </aside>
+
+5. Lancer le container docker
+
+    ```bash
+    sudo docker compose up -d
+    ```
+
+
+Voila votre application est lancée ✅ vous pouvez la retrouver sur le port 5000 de votre serveur.
+
+- en cas de problème, défilez ce menu ou vérifiez si une solution n’est pas apporté dans [Problèmes Courants et Solutions](Documentation%20de%20l%E2%80%99application%20Passerelle%20DELTIC%20081440cb0d7044f6ae0f008c22b04ed3/%F0%9F%9A%A8%20Proble%CC%80mes%20Courants%20et%20Solutions%2088ff8eb43e1543299fe700ac8c96bcf5.md)
+
+    ### 1. Mise à Jour du Système
+
+    Avant d'installer des logiciels, il est important de mettre à jour les paquets de votre système Debian.
+
+    ```bash
+    bashCopy code
+    sudo apt update
+    sudo apt upgrade -y
+
+    ```
+
+    ### 2. Installation de Git
+
+    Git est nécessaire pour cloner le dépôt du projet.
+
+    ```bash
+    bashCopy code
+    sudo apt install git -y
+
+    ```
+
+    ### 3. Installation de Docker
+
+    Docker est utilisé pour exécuter l'application dans un container.
+
+    ### Installation des prérequis
+
+    ```bash
+    bashCopy code
+    sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release -y
+
+    ```
+
+    ### Ajout de la clé GPG de Docker
+
+    ```bash
+    bashCopy code
+    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+    ```
+
+    ### Ajout du dépôt Docker
+
+    ```bash
+    bashCopy code
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+    ```
+
+    ### Installation de Docker Engine
+
+    ```bash
+    bashCopy code
+    sudo apt update
+    sudo apt install docker-ce docker-ce-cli containerd.io -y
+
+    ```
+
+    ### Vérification de l'installation de Docker
+
+    ```bash
+    bashCopy code
+    sudo docker run hello-world
+
+    ```
+
+    ### 4. Installation de Docker Compose
+
+    Docker Compose est utilisé pour gérer les services de l'application.
+
+    ```bash
+    bashCopy code
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+
+    ```
+
+    ### Vérification de l'installation de Docker Compose
+
+    ```bash
+    bashCopy code
+    docker-compose --version
+
+    ```
+
+    ### 5. Clonage du Dépôt du Projet
+
+    Clonez le dépôt contenant le code source de l'application.
+
+    ```bash
+    bashCopy code
+    git clone https://github.com/Mhivelin/passerelle_deltic
+    cd passerelle_deltic
+
+    ```
+
+    ### 6. Configuration des Variables d'Environnement
+
+    Créez un fichier `.env` avec les variables nécessaires.
+
+    ```bash
+    bashCopy code
+    nano app/.env
+
+    ```
+
+    Ajoutez les valeurs suivantes dans le fichier `.env` :
+
+    ```bash
+    bashCopy code
+    ADMIN_USERNAME=nomadmin
+    ADMIN_PASSWORD=motdepasseadmin
+    SECRET_KEY=cléesecurisée
+    JWT_SECRET_KEY=cléesecurisée
+    IP=adresseipdelhote
+
+    ```
+
+    Sauvegardez (Ctrl + S) et fermez (Ctrl + X) l'éditeur.
+
+    ### 7. Lancement de l'Application
+
+    Utilisez Docker Compose pour lancer l'application.
+
+    ```bash
+    bashCopy code
+    docker-compose up -d
+
+    ```
+
+    Voilà, votre application est maintenant configurée et en cours d'exécution sur une machine Debian. Vous pouvez accéder à l'application via l'adresse IP spécifiée.
+
+
+### 🚨 Problèmes Courants et Solutions
+
+[🚨 Problèmes Courants et Solutions](Documentation%20de%20l%E2%80%99application%20Passerelle%20DELTIC%20081440cb0d7044f6ae0f008c22b04ed3/%F0%9F%9A%A8%20Proble%CC%80mes%20Courants%20et%20Solutions%2088ff8eb43e1543299fe700ac8c96bcf5.csv)
+
+### ⌨️ Utilisation du serveur DELTIC
+
+<aside>
+💡 Comment se connecter au serveur OVH ?
+
+</aside>
+
+1. **Obtenir les Informations de Connexion 🔐**
+
+    Vous aurez besoin des informations suivantes pour vous connecter au serveur Debian :
+
+    - L'adresse IP : `vps-43199aa1.vps.ovh.net`
+    - Le nom d'utilisateur : `debian`
+    - Le mot de passe de l'utilisateur ou la clé SSH privée si vous utilisez l'authentification par clé publique. disponible sur `LastPass`
+2. **Installer un Client SSH 🧑‍💻**
+
+    ### Sur Windows
+
+    - Vous pouvez utiliser PuTTY, un client SSH populaire pour Windows.
+    - Téléchargez PuTTY depuis [le site officiel](https://www.putty.org/).
+    - Installez PuTTY en suivant les instructions d'installation.
+
+3. **Se connecter au la VM 🔌**
+    1. Ouvrez PuTTY.
+    2. Dans `Host Name (or IP address)` entrer `debian@vps-43199aa1.vps.ovh.net`
+    3. cliquer sur `open`  (puis sur `Accept` seulement pour la première  utilisation)
+    4. entrer le mot de passe (trouvé sur LastPass) 🚨 Attention, pour des raison de sécurité, les caractères tapé ne s’affichent pas 🚨
+
+| Catégorie                | Commande                                                            | Description                                                                    |
+| ------------------------ | ------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Mise à jour du système   | sudo apt update                                                     | Met à jour la liste des paquets disponibles                                    |
+|                          | sudo apt upgrade -y                                                 | Installe les mises à jour des paquets déjà installés                           |
+| Gestion des paquets      | sudo apt install <package> -y                                       | Installe un paquet spécifié                                                    |
+|                          | sudo apt remove <package> -y                                        | Supprime un paquet spécifié                                                    |
+|                          | dpkg -i <package.deb>                                               | Installe un paquet .deb téléchargé manuellement                                |
+| Gestion des services     | sudo systemctl start <service>                                      | Démarre un service                                                             |
+|                          | sudo systemctl stop <service>                                       | Arrête un service                                                              |
+|                          | sudo systemctl restart <service>                                    | Redémarre un service                                                           |
+|                          | sudo systemctl status <service>                                     | Affiche l'état d'un service                                                    |
+|                          | sudo systemctl enable <service>                                     | Active un service pour qu'il démarre au démarrage du système                   |
+| Gestion des utilisateurs | sudo adduser <username>                                             | Ajoute un nouvel utilisateur                                                   |
+|                          | sudo deluser <username>                                             | Supprime un utilisateur                                                        |
+|                          | sudo passwd <username>                                              | Change le mot de passe d'un utilisateur                                        |
+|                          | sudo usermod -aG <group> <username>                                 | Ajoute un utilisateur à un groupe                                              |
+| Gestion des fichiers     | ls                                                                  | Liste les fichiers et répertoires dans le répertoire courant                   |
+|                          | cd <directory>                                                      | Change de répertoire                                                           |
+|                          | cp <source> <destination>                                           | Copie des fichiers ou répertoires                                              |
+|                          | mv <source> <destination>                                           | Déplace ou renomme des fichiers ou répertoires                                 |
+|                          | rm <file>                                                           | Supprime un fichier                                                            |
+|                          | rm -r <directory>                                                   | Supprime un répertoire et son contenu                                          |
+| Gestion des processus    | ps aux                                                              | Affiche les processus en cours d'exécution                                     |
+|                          | htop                                                                | Version améliorée de top (nécessite l'installation : sudo apt install htop -y) |
+|                          | kill <PID>                                                          | Termine un processus en utilisant son ID de processus                          |
+| Réseau                   | ifconfig                                                            | Affiche les configurations réseau                                              |
+|                          | ping <host>                                                         | Envoie des paquets ICMP ECHO_REQUEST à un hôte                                 |
+|                          | wget <url>                                                          | Télécharge des fichiers depuis le web                                          |
+|                          | ssh <user>@<host>                                                   | Se connecte à un hôte distant via SSH                                          |
+| Docker                   | sudo systemctl start docker                                         | Démarre le service Docker                                                      |
+|                          | sudo systemctl stop docker                                          | Arrête le service Docker                                                       |
+|                          | sudo systemctl enable docker                                        | Active Docker au démarrage du système                                          |
+|                          | docker build -t <name> .                                            | Construit une image Docker à partir d'un Dockerfile                            |
+|                          | docker run -d -p <host_port>:<container_port> --name <name> <image> | Exécute un container en arrière-plan                                           |
+|                          | docker ps                                                           | Affiche les containers Docker en cours d'exécution (avec container_id)         |
+|                          | docker run -d -p <host_port>:<container_port> --name <name> <image> | Exécute un container en arrière-plan                                           |
+|                          | docker ps                                                           | Affiche les containers Docker en cours d'exécution                             |
+|                          | docker stop <container_id>                                          | Arrête un container Docker                                                     |
+|                          | docker rm <container_id>                                            | Supprime un container Docker                                                   |
+|                          | docker-compose up -d                                                | Démarre les services définis dans un fichier docker-compose.yml                |
+|                          | docker-compose down                                                 | Arrête et supprime les containers définis dans un fichier docker-compose.yml   |
+|                          | docker logs <container_id>                                          | Affiche les logs d'un container Docker                                         |
+| Git                      | git clone <repository_url>                                          | Clone un dépôt Git vers le répertoire courant                                  |
+|                          | git status                                                          | Affiche l'état des modifications dans le dépôt                                 |
+
+## Utilisation de base
+
+### Ajout d’administrateur :
+
+1. Se rendre dans les paramètres en haut a droite ⚙️
+2. Cliquer sur [`Ajouter un utilisateur`](http://localhost:5000/register)  dans `Gestion des utilisateurs` ➕
+3. Entrer le nouveau nom d’utilisateur et le mot de passe 🖍️
+4. Se reconnecter a l’application (avec l’ancien ou le nouvel utilisateur) 🔓
+
+### Connection d’une nouvelle passerelle
+
+# 🧑‍💻 Les logiciels
+
+## 📄 Zeendoc
+
+| Nom                | ❔Comment l’obtenir ? |
+| ------------------ | -------------------- |
+| Zeendoc_Login      |                      |
+| Zeendoc_URL_Client |                      |
+| Zeendoc_CPassword  |                      |
+| Zeendoc_CLASSEUR   |                      |
+
+## 💵 EBP
+
+| Nom                                             | ❔Comment l’obtenir ?                                                         |
+| ----------------------------------------------- | ---------------------------------------------------------------------------- |
+| Client ID                                       | Option 1 : Obtenu par le client lors de la mise en place de son logiciel EBP |
+| Option 2 : Demander a l’intégrateur             |
+| Client Secret                                   | Option 1 : Obtenu par le client lors de la mise en place de son logiciel EBP |
+| Option 2 : Demander a l’intégrateur             |
+| Subscription Key                                | Disponible sur le lien suivant : https://developpeurs.ebp.com/profile        |
+| Se connecter avec le compte du client           |
+| identifiants de connexion                       |
+| (mail + mot de passe)                           | Option 1 : Le client fournis ces identifiants                                |
+| Option 2 : le client participe à l’installation |
+
+## ☁️ Sellsy
+
+| Nom | ❔Comment l’obtenir ? |
+| --- | -------------------- |
+|     |
+
+Sellsy Client ID
+
+_____________________
+
+Sellsy Client Secret | 1. 👀 Se rendre sur  https://www.sellsy.com/developer/api-v2
+2. ➕ Créer un nouvel accès API de type Personnel (le nom de l’accès n’impactera pas la suite).
+3. ❌ Ne pas cocher l’accès délégué.
+4. ✅ laisser toutes les autorisation cochée
+5. 🛟 Enregistrer.
+🚨Attention, les information qui s’affiche maintenant ne seront plus visible par la suite donc penser a bien les enregistrer dans LastPass par exemple🚨 |
+
+# 🤖 Les passerelles
+
+## 💸 passerelle remontée de paiement **Sellsy --> Zeendoc**
+
+> Il existe deux version de cette Passerelle, la version `Date` qui remonte la date 📆 du dernier  paiement et la version `statut` qui remonte simplement l’information de paiement ✅
+>
+
+### Prérequis
+
+<aside>
+💡 pour ajouter un client a la passerelle, vous aurez besoin de quelques informations au préalable.
+
+</aside>
+
+
+
+### **⚙️ Configuration d’un nouveau client**
+
+1. Cliquer sur  “Ajouter un client” pour se rendre sur la page d’ajout d’un client.
+2. Entrer le nom du client et valider en cliquant sur ajouter.
+3. Sur la page d’accueil, cliquer sur détail puis sur “connecter une passerelle”.
+4. choisir la passerelle “remontée de paiement” et cliquer sur ajouter.
+5. Sur la page d’accueil, cliquer sur détail puis sur "Ajouter/modifier des champs requis”.
+6. remplir les champs  `EBP_Client_ID`  `EBP_Client_Secret` `EBP_Subscription_Key` `Zeendoc_Login` `Zeendoc_URL_Client` `Zeendoc_CPassword` puis cliquer sur ajouter.
+7. retourner sur “Ajouter/modifier des champs requis” et cliquer sur “Se connecter à EBP : `Connexion`”
+8. Apres la redirection :
+    - OPTION 1 : **Page de connexion d’ebp** : se connecter avec les identifiants de connexion du client
+    - OPTION 2 : **Page d’erreur 404** : les information renseigné dans  `EBP_Client_ID` ou `EBP_Client_Secret` ou  `EBP_Subscription_Key` sont erronée.
+    - OPTION 3 : connexion au mauvais compte : en cas de connexion automatique a un autre compte EBP, refaire la manip en navigation privée
+9. retourner sur “Ajouter/modifier des champs requis” et sélectionner `Dossier EBP` `Classeur Zeendoc` `INDEX_STATUT_PAIEMENT` et `INDEX_NUM_PIECE` puis ajouter.
+10. Vérifier le bon fonctionnement sur le logiciel zeendoc
+11. Bravo 😀 !!
+
+### 🖍️ Schéma explicatif
+
+```mermaid
+sequenceDiagram
+    participant Passerelle
+    participant EBP
+    participant Zeendoc
+
+    Passerelle->>EBP: Se connecter à l'API EBP
+    EBP-->>Passerelle: Authentification réussie
+    Passerelle->>EBP: Récupérer les documents payés
+    EBP-->>Passerelle: Document payé
+    Passerelle->>Zeendoc: Se connecter à l'API Zeendoc
+    Zeendoc-->>Passerelle: Authentification réussie
+    loop Pour chaque document payé
+        Passerelle->>Zeendoc: Rechercher le document par référence
+        Zeendoc-->>Passerelle: Détails du document
+        Passerelle->>Zeendoc: Mettre à jour l'index de paiement à "payé"
+        Zeendoc-->>Passerelle: Confirmation de mise à jour
+    end
+
 ```
 
-### Etape 2 : Créez les variables d'environnement
-> Créez un fichier .env dans /app et ajoutez les variables d'environnement suivantes :
-> remplacer les ********* par les valeurs correspondantes
+## 👤Passerelle remontée de fournisseur
 
-```bash
-ADMIN_USERNAME=*********
-ADMIN_PASSWORD=*********
-SECRET_KEY=*********
-JWT_SECRET_KEY=*********
-```
+## Passerelle remontée de paiement Sellsy —> Zeendoc
 
+```mermaid
+sequenceDiagram
+    participant Passerelle
+    participant Sellsy
+    participant Zeendoc
 
-* pour les tests en local, vous pouvez ajouter la variable suivante
-```bash
-IP=localhost
-```
+    Passerelle->>Sellsy: Se connecter à l'API Sellsy
+    Sellsy-->>Passerelle: Authentification réussie
+    Passerelle->>Sellsy: Récupérer les documents payés
+    Sellsy-->>Passerelle: Document payé
+    loop Pour chaque document payé
+		    Passerelle->>Sellsy: Récuperer les information de paiement
+		    Sellsy-->>Passerelle: information de paiement
+		    Passerelle->>Zeendoc: Se connecter à l'API Zeendoc
+		    Zeendoc-->>Passerelle: Authentification réussie
 
-
-### Etape 3 : Lancez le projet
-> Pour lancer le projet, vous avez besoin de docker et docker-compose
-
-si vous n'avez pas docker : [Installer Docker](https://docs.docker.com/get-docker/)
-
-```bash
-docker build -t passerelle_deltic .
-docker run -p 5000:5000 -d --name passerelle_deltic passerelle_deltic
-```
-
-## Utilisation
-Pour utiliser la passerelle DELTIC, il suffit d'avoir les différentes informations de connexion des applications à connecter. ensuite, il suffit de les renseigner dans le formulaire de configuration de la passerelle. Puis, le l'application se chargera de faire la communication entre les applications en suivant sa routine.
-
-## Les différentes passerelles
-### Passerelle 1 : Remontée de paiement (EBP --> Zeendoc)
-
-#### Objectif :
-Remonter les paiements effectués dans EBP vers Zeendoc afin de faciliter cette démarche pour les utilisateurs, automatiser le processus et éviter les erreurs de saisie.
-
-
-#### Paramétrage  :
-créer un index de paiement dans Zeendoc
-
-informations requises pour la configuration :
-Les informations de connexion à l'API EBP
-L'id (EBP Client ID)
-Le client secret (EBP Client Secret)
-La clé d'abonnement (EBP Subscription Key)ici
-Les informations de connexion à l'API Zeendoc
-Le login (Zeendoc login)
-L'url du client (Zeendoc URL Client)
-Le mot de passe (Zeendoc CPassword)
-
-#### Configuration :
-Se rendre sur cette page pour ajouter un nouveau client
-Remplir les informations requises
-Valider le formulaire
-Se rendre sur la page de configuration du client
-Se connecter à l'API EBP grace au bouton
-selectionner les champs requis
-EBP_FOLDER_ID : l'identifiant du dossier EBP
-ZEENDOC_CLASSEUR : l'identifiant du classeur Zeendoc
-Enregistrer les modifications
-Tester la configuration en lançant une routine
-
-### base de données
-
-```sql
-
-CLIENT {
-    idClient integer PK
-    username string "NOT NULL"
-}
-LOGICIEL {
-    IdLogiciel integer PK
-    LibLogiciel string "NOT NULL"
-}
-PASSERELLE {
-    IdPasserelle integer PK
-    LibPasserelle string "NOT NULL"
-}
-LOGICIEL_CLIENT {
-    idLogicielClient integer PK
-    IdLogiciel integer
-    idClient integer
-}
-LOGICIEL_CLIENT_EBP {
-    idLogicielClient integer PK
-    Folder_Id string "NOT NULL"
-    Client_Id string "NOT NULL"
-    Client_Secret string "NOT NULL"
-    Subscription_Key string "NOT NULL"
-    Token string
-}
-LOGICIEL_CLIENT_ZEENDOC {
-    idLogicielClient integer PK
-    Index_Statut_Paiement string
-    Index_Ref_Doc string
-    Classeur string
-    Login string "NOT NULL"
-    Password string "NOT NULL"
-    UrlClient string "NOT NULL"
-}
-CONNECTE_LOGICIEL_SOURCE {
-    IdPasserelle integer PK
-    IdLogiciel integer
-}
-CONNECTE_LOGICIEL_DESTINATION {
-    IdPasserelle integer PK
-    IdLogiciel integer
-}
-CLIENT_PASSERELLE {
-    idClient integer PK
-    IdPasserelle integer PK
-}
+        Passerelle->>Zeendoc: Rechercher le document par référence facture
+        Zeendoc-->>Passerelle: Détails du document
+        Passerelle->>Zeendoc: Mettre à jour l'index de paiement à la date récuperée
+        Zeendoc-->>Passerelle: Confirmation de mise à jour
+    end
 
 ```
 
+# Models
 
+[Points de terminaison (1)](Documentation%20de%20l%E2%80%99application%20Passerelle%20DELTIC%20081440cb0d7044f6ae0f008c22b04ed3/Points%20de%20terminaison%20(1)%2071171e08c975430baebc1adaa53cb3be.csv)
 
+# 🔌 Points de terminaison
 
-# EXPLICATION BDD
+<aside>
+💡 les points de terminaison sont les url utilisé par l’application pour faire les appels aux APIs et à la base de donnée
+DEF :
 
-## CLIENT
-Le client est la personne qui utilise la passerelle. Il peut avoir plusieurs logiciels et plusieurs passerelles.
+</aside>
 
-## LOGICIEL
-Le logiciel correspond a une catégorie de logiciel, il permet de regrouper les logiciel client
+[Points de terminaison](Documentation%20de%20l%E2%80%99application%20Passerelle%20DELTIC%20081440cb0d7044f6ae0f008c22b04ed3/Points%20de%20terminaison%20a8900f9335b44afcab8efefb8af663e8.csv)
 
-## LOGICIEL_CLIENT
-La table LOGICIEL_CLIENT permet de stocker les informations des clients pour chaque logiciel (id de connexion, etc)
-l'heritage de la table LOGICIEL_CLIENT (pour l'instant LOGICIEL_CLIENT_EBP et LOGICIEL_CLIENT_ZEENDOC) permet de stocker les informations spécifiques a chaque logiciel par exemple, on ne retrouve pas les mêmes informations pour EBP et Zeendoc
+# Base de donnée
 
-## PASSERELLE
-La table PASSERELLE permet de stocker les type de passerelle existant ( pour rappel, une passerelle correspond a une communication entre deux logiciels faites par le code de l'app)
+```mermaid
+classDiagram
+    class CLIENT {
+        INTEGER idClient
+        TEXT Username
+        PRIMARY KEY(idClient)
+    }
 
-## PASSERELLE_CLIENT
-La table PASSERELLE_CLIENT permet de dire quels clients utilisent quelles passerelles
+    class LOGICIEL {
+        INTEGER IdLogiciel
+        TEXT LibLogiciel
+        PRIMARY KEY(IdLogiciel)
+    }
 
+    class PASSERELLE {
+        INTEGER IdPasserelle
+        TEXT LibPasserelle
+        PRIMARY KEY(IdPasserelle)
+    }
 
-# probleme
+    class CHAMPS {
+        INTEGER IdChamp
+        TEXT lib_champ
+        TEXT nomTable
+        INTEGER IdPasserelle
+        INTEGER IdLogiciel
+        PRIMARY KEY(IdChamp)
+        FOREIGN KEY(IdPasserelle) REFERENCES PASSERELLE(IdPasserelle)
+        FOREIGN KEY(IdLogiciel) REFERENCES LOGICIEL(IdLogiciel)
+    }
 
-## probleme 1
-> token de connexion a EBP
+    class PASSERELLE_CLIENT {
+        INTEGER IdPasserelleClient
+        INTEGER IdPasserelle
+        INTEGER idClient
+        PRIMARY KEY(IdPasserelleClient)
+        FOREIGN KEY(IdPasserelle) REFERENCES PASSERELLE(IdPasserelle)
+        FOREIGN KEY(idClient) REFERENCES CLIENT(idClient)
+    }
 
+    class CONNECT_LOGICIEL {
+        INTEGER IdLogiciel
+        INTEGER IdPasserelle
+        NUMERIC IsSource
+        PRIMARY KEY(IdLogiciel, IdPasserelle)
+        FOREIGN KEY(IdLogiciel) REFERENCES LOGICIEL(IdLogiciel)
+        FOREIGN KEY(IdPasserelle) REFERENCES PASSERELLE(IdPasserelle)
+    }
 
-* token 1 :
-{'id_token': '',
-'access_token': '',
-'expires_in': 3600,
-'token_type': 'Bearer',
-'refresh_token': '',
-'scope': ['openid', 'profile', 'offline_access'],
-'expires_at': 1717584392.457478}
+    class CHAMP_PASSERELLE {
+        INTEGER IdChamp
+        INTEGER IdPasserelleClient
+        TEXT Valeur
+        PRIMARY KEY(IdChamp, IdPasserelleClient)
+        FOREIGN KEY(IdChamp) REFERENCES CHAMPS(IdChamp)
+        FOREIGN KEY(IdPasserelleClient) REFERENCES PASSERELLE_CLIENT(IdPasserelleClient)
+    }
 
+    CLIENT --> PASSERELLE_CLIENT : idClient
+    LOGICIEL --> CHAMPS : IdLogiciel
+    PASSERELLE --> CHAMPS : IdPasserelle
+    PASSERELLE --> PASSERELLE_CLIENT : IdPasserelle
+    LOGICIEL --> CONNECT_LOGICIEL : IdLogiciel
+    PASSERELLE --> CONNECT_LOGICIEL : IdPasserelle
+    CHAMPS --> CHAMP_PASSERELLE : IdChamp
+    PASSERELLE_CLIENT --> CHAMP_PASSERELLE : IdPasserelleClient
 
-* token 2 :
-{'id_token': '',
-'access_token': '',
-'expires_in': 3600,
-'token_type': 'Bearer',
-'refresh_token': '',
-'scope': 'openid profile offline_access'}
-
-
+```
