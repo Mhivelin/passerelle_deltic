@@ -1,0 +1,49 @@
+<form
+  id="importDbForm"
+  action="{{ url_for('main.import_db') }}"
+  method="post"
+  enctype="multipart/form-data"
+>
+  <div class="form-group">
+    <label for="file">Fichier :</label>
+    <input type="file" class="form-control" id="file" name="file" />
+  </div>
+  <button type="submit" class="btn btn-primary">Importer</button>
+</form>
+
+<div id="confirmationMessage" style="display: none" class="alert alert-success">
+  Importation réussie
+</div>
+
+<script>
+  document
+    .getElementById("importDbForm")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const fileInput = document.getElementById("file");
+      const file = fileInput.files[0];
+
+      if (file && file.name.endsWith(".db")) {
+        const formData = new FormData(this);
+        fetch(this.action, {
+          method: this.method,
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              document.getElementById("confirmationMessage").style.display =
+                "block";
+              setTimeout(() => {
+                window.location.href = '{{ url_for("main.parametres") }}';
+              }, 2000);
+            } else {
+              alert(data.message);
+            }
+          });
+      } else {
+        alert("Veuillez sélectionner un fichier .db");
+      }
+    });
+</script>

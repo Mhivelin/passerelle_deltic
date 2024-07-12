@@ -1,0 +1,19 @@
+{% if not liste %}
+<p>La connexion à {{ field.LibChamp }} n'est pas configurée</p>
+{% if connection_url %}
+<p>
+  Se connecter à {{ field.LibChamp }} :
+  <a href="{{ connection_url }}">Connexion</a>
+</p>
+{% endif %} {% else %}
+<label for="LibChamp_{{ field.IdChamp }}">{{ field.LibChamp }}</label>
+<select
+  class="form-control"
+  id="LibChamp_{{ field.IdChamp }}"
+  name="LibChamp[]"
+>
+  {% for item in liste %}
+  <option value="{{ item.id }}">{{ item.name }}</option>
+  {% endfor %}
+</select>
+{% endif %}

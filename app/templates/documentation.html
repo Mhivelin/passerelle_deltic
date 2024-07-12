@@ -1,0 +1,3376 @@
+{% extends 'base.html' %} {% block title %}Documentation de l’application
+Passerelle DELTIC{% endblock %} {% block content %}
+
+  <style>
+    /* cspell:disable-file */
+    /* webkit printing magic: print all background colors */
+    html {
+      -webkit-print-color-adjust: exact;
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    @media only screen {
+      body {
+        margin: 2em auto;
+        max-width: 900px;
+        color: rgb(55, 53, 47);
+      }
+    }
+
+    body {
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    a,
+    a.visited {
+      color: inherit;
+      text-decoration: underline;
+    }
+
+    .pdf-relative-link-path {
+      font-size: 80%;
+      color: #444;
+    }
+
+    h1,
+    h2,
+    h3 {
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-top: 0;
+      margin-bottom: 0.75em;
+    }
+
+    h1 {
+      font-size: 1.875rem;
+      margin-top: 1.875rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      margin-top: 1.25rem;
+    }
+
+    .source {
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 1.5em;
+      word-break: break-all;
+    }
+
+    .callout {
+      border-radius: 3px;
+      padding: 1rem;
+    }
+
+    figure {
+      margin: 1.25em 0;
+      page-break-inside: avoid;
+    }
+
+    figcaption {
+      opacity: 0.5;
+      font-size: 85%;
+      margin-top: 0.5em;
+    }
+
+    mark {
+      background-color: transparent;
+    }
+
+    .indented {
+      padding-left: 1.5em;
+    }
+
+    hr {
+      background: transparent;
+      display: block;
+      width: 100%;
+      height: 1px;
+      visibility: visible;
+      border: none;
+      border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    @media only print {
+      img {
+        max-height: 100vh;
+        object-fit: contain;
+      }
+    }
+
+    @page {
+      margin: 1in;
+    }
+
+    .collection-content {
+      font-size: 0.875rem;
+    }
+
+    .column-list {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .column {
+      padding: 0 1em;
+    }
+
+    .column:first-child {
+      padding-left: 0;
+    }
+
+    .column:last-child {
+      padding-right: 0;
+    }
+
+    .table_of_contents-item {
+      display: block;
+      font-size: 0.875rem;
+      line-height: 1.3;
+      padding: 0.125rem;
+    }
+
+    .table_of_contents-indent-1 {
+      margin-left: 1.5rem;
+    }
+
+    .table_of_contents-indent-2 {
+      margin-left: 3rem;
+    }
+
+    .table_of_contents-indent-3 {
+      margin-left: 4.5rem;
+    }
+
+    .table_of_contents-link {
+      text-decoration: none;
+      opacity: 0.7;
+      border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid rgba(55, 53, 47, 0.09);
+      border-collapse: collapse;
+    }
+
+    table {
+      border-left: none;
+      border-right: none;
+    }
+
+    th,
+    td {
+      font-weight: normal;
+      padding: 0.25em 0.5em;
+      line-height: 1.5;
+      min-height: 1.5em;
+      text-align: left;
+    }
+
+    th {
+      color: rgba(55, 53, 47, 0.6);
+    }
+
+    ol,
+    ul {
+      margin: 0;
+      margin-block-start: 0.6em;
+      margin-block-end: 0.6em;
+    }
+
+    li > ol:first-child,
+    li > ul:first-child {
+      margin-block-start: 0.6em;
+    }
+
+    ul > li {
+      list-style: disc;
+    }
+
+    ul.to-do-list {
+      padding-inline-start: 0;
+    }
+
+    ul.to-do-list > li {
+      list-style: none;
+    }
+
+    .to-do-children-checked {
+      text-decoration: line-through;
+      opacity: 0.375;
+    }
+
+    ul.toggle > li {
+      list-style: none;
+    }
+
+    ul {
+      padding-inline-start: 1.7em;
+    }
+
+    ul > li {
+      padding-left: 0.1em;
+    }
+
+    ol {
+      padding-inline-start: 1.6em;
+    }
+
+    ol > li {
+      padding-left: 0.2em;
+    }
+
+    .mono ol {
+      padding-inline-start: 2em;
+    }
+
+    .mono ol > li {
+      text-indent: -0.4em;
+    }
+
+    .toggle {
+      padding-inline-start: 0em;
+      list-style-type: none;
+    }
+
+    /* Indent toggle children */
+    .toggle > li > details {
+      padding-left: 1.7em;
+    }
+
+    .toggle > li > details > summary {
+      margin-left: -1.1em;
+    }
+
+    .selected-value {
+      display: inline-block;
+      padding: 0 0.5em;
+      background: rgba(206, 205, 202, 0.5);
+      border-radius: 3px;
+      margin-right: 0.5em;
+      margin-top: 0.3em;
+      margin-bottom: 0.3em;
+      white-space: nowrap;
+    }
+
+    .collection-title {
+      display: inline-block;
+      margin-right: 1em;
+    }
+
+    .page-description {
+      margin-bottom: 2em;
+    }
+
+    .simple-table {
+      margin-top: 1em;
+      font-size: 0.875rem;
+      empty-cells: show;
+    }
+    .simple-table td {
+      height: 29px;
+      min-width: 120px;
+    }
+
+    .simple-table th {
+      height: 29px;
+      min-width: 120px;
+    }
+
+    .simple-table-header-color {
+      background: rgb(247, 246, 243);
+      color: black;
+    }
+    .simple-table-header {
+      font-weight: 500;
+    }
+
+    time {
+      opacity: 0.5;
+    }
+
+    .icon {
+      display: inline-block;
+      max-width: 1.2em;
+      max-height: 1.2em;
+      text-decoration: none;
+      vertical-align: text-bottom;
+      margin-right: 0.5em;
+    }
+
+    img.icon {
+      border-radius: 3px;
+    }
+
+    .user-icon {
+      width: 1.5em;
+      height: 1.5em;
+      border-radius: 100%;
+      margin-right: 0.5rem;
+    }
+
+    .user-icon-inner {
+      font-size: 0.8em;
+    }
+
+    .text-icon {
+      border: 1px solid #000;
+      text-align: center;
+    }
+
+    .page-cover-image {
+      display: block;
+      object-fit: cover;
+      width: 100%;
+      max-height: 30vh;
+    }
+
+    .page-header-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .page-header-icon-with-cover {
+      margin-top: -0.72em;
+      margin-left: 0.07em;
+    }
+
+    .page-header-icon img {
+      border-radius: 3px;
+    }
+
+    .link-to-page {
+      margin: 1em 0;
+      padding: 0;
+      border: none;
+      font-weight: 500;
+    }
+
+    p > .user {
+      opacity: 0.5;
+    }
+
+    td > .user,
+    td > time {
+      white-space: nowrap;
+    }
+
+    input[type="checkbox"] {
+      transform: scale(1.5);
+      margin-right: 0.6em;
+      vertical-align: middle;
+    }
+
+    p {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+    }
+
+    .image {
+      border: none;
+      margin: 1.5em 0;
+      padding: 0;
+      border-radius: 0;
+      text-align: center;
+    }
+
+    .code,
+    code {
+      background: rgba(135, 131, 120, 0.15);
+      border-radius: 3px;
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+      font-size: 85%;
+      tab-size: 2;
+    }
+
+    code {
+      color: #eb5757;
+    }
+
+    .code {
+      padding: 1.5em 1em;
+    }
+
+    .code-wrap {
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .code > code {
+      background: none;
+      padding: 0;
+      font-size: 100%;
+      color: inherit;
+    }
+
+    blockquote {
+      font-size: 1.25em;
+      margin: 1em 0;
+      padding-left: 1em;
+      border-left: 3px solid rgb(55, 53, 47);
+    }
+
+    .bookmark {
+      text-decoration: none;
+      max-height: 8em;
+      padding: 0;
+      display: flex;
+      width: 100%;
+      align-items: stretch;
+    }
+
+    .bookmark-title {
+      font-size: 0.85em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      height: 1.75em;
+      white-space: nowrap;
+    }
+
+    .bookmark-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bookmark-info {
+      flex: 4 1 180px;
+      padding: 12px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .bookmark-image {
+      width: 33%;
+      flex: 1 1 180px;
+      display: block;
+      position: relative;
+      object-fit: cover;
+      border-radius: 1px;
+    }
+
+    .bookmark-description {
+      color: rgba(55, 53, 47, 0.6);
+      font-size: 0.75em;
+      overflow: hidden;
+      max-height: 4.5em;
+      word-break: break-word;
+    }
+
+    .bookmark-href {
+      font-size: 0.75em;
+      margin-top: 0.25em;
+    }
+
+    .sans {
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont,
+        "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji",
+        Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    .code {
+      font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono",
+        "Liberation Mono", Courier, monospace;
+    }
+    .serif {
+      font-family: Lyon-Text, Georgia, ui-serif, serif;
+    }
+    .mono {
+      font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+    }
+    .pdf .sans {
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+        "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji",
+        Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", "Twemoji",
+        "Noto Color Emoji", "Noto Sans CJK JP";
+    }
+    .pdf:lang(zh-CN) .sans {
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+        "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji",
+        Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", "Twemoji",
+        "Noto Color Emoji", "Noto Sans CJK SC";
+    }
+    .pdf:lang(zh-TW) .sans {
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+        "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji",
+        Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", "Twemoji",
+        "Noto Color Emoji", "Noto Sans CJK TC";
+    }
+    .pdf:lang(ko-KR) .sans {
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+        "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji",
+        Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", "Twemoji",
+        "Noto Color Emoji", "Noto Sans CJK KR";
+    }
+    .pdf .code {
+      font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono",
+        "Liberation Mono", Courier, monospace, "Twemoji", "Noto Color Emoji",
+        "Noto Sans Mono CJK JP";
+    }
+    .pdf:lang(zh-CN) .code {
+      font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono",
+        "Liberation Mono", Courier, monospace, "Twemoji", "Noto Color Emoji",
+        "Noto Sans Mono CJK SC";
+    }
+    .pdf:lang(zh-TW) .code {
+      font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono",
+        "Liberation Mono", Courier, monospace, "Twemoji", "Noto Color Emoji",
+        "Noto Sans Mono CJK TC";
+    }
+    .pdf:lang(ko-KR) .code {
+      font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono",
+        "Liberation Mono", Courier, monospace, "Twemoji", "Noto Color Emoji",
+        "Noto Sans Mono CJK KR";
+    }
+    .pdf .serif {
+      font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, "Twemoji",
+        "Noto Color Emoji", "Noto Serif CJK JP";
+    }
+    .pdf:lang(zh-CN) .serif {
+      font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, "Twemoji",
+        "Noto Color Emoji", "Noto Serif CJK SC";
+    }
+    .pdf:lang(zh-TW) .serif {
+      font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, "Twemoji",
+        "Noto Color Emoji", "Noto Serif CJK TC";
+    }
+    .pdf:lang(ko-KR) .serif {
+      font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, "Twemoji",
+        "Noto Color Emoji", "Noto Serif CJK KR";
+    }
+    .pdf .mono {
+      font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+        "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK JP";
+    }
+    .pdf:lang(zh-CN) .mono {
+      font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+        "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK SC";
+    }
+    .pdf:lang(zh-TW) .mono {
+      font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+        "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK TC";
+    }
+    .pdf:lang(ko-KR) .mono {
+      font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+        "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK KR";
+    }
+    .highlight-default {
+      color: rgba(55, 53, 47, 1);
+    }
+    .highlight-gray {
+      color: rgba(120, 119, 116, 1);
+      fill: rgba(120, 119, 116, 1);
+    }
+    .highlight-brown {
+      color: rgba(159, 107, 83, 1);
+      fill: rgba(159, 107, 83, 1);
+    }
+    .highlight-orange {
+      color: rgba(217, 115, 13, 1);
+      fill: rgba(217, 115, 13, 1);
+    }
+    .highlight-yellow {
+      color: rgba(203, 145, 47, 1);
+      fill: rgba(203, 145, 47, 1);
+    }
+    .highlight-teal {
+      color: rgba(68, 131, 97, 1);
+      fill: rgba(68, 131, 97, 1);
+    }
+    .highlight-blue {
+      color: rgba(51, 126, 169, 1);
+      fill: rgba(51, 126, 169, 1);
+    }
+    .highlight-purple {
+      color: rgba(144, 101, 176, 1);
+      fill: rgba(144, 101, 176, 1);
+    }
+    .highlight-pink {
+      color: rgba(193, 76, 138, 1);
+      fill: rgba(193, 76, 138, 1);
+    }
+    .highlight-red {
+      color: rgba(212, 76, 71, 1);
+      fill: rgba(212, 76, 71, 1);
+    }
+    .highlight-gray_background {
+      background: rgba(241, 241, 239, 1);
+    }
+    .highlight-brown_background {
+      background: rgba(244, 238, 238, 1);
+    }
+    .highlight-orange_background {
+      background: rgba(251, 236, 221, 1);
+    }
+    .highlight-yellow_background {
+      background: rgba(251, 243, 219, 1);
+    }
+    .highlight-teal_background {
+      background: rgba(237, 243, 236, 1);
+    }
+    .highlight-blue_background {
+      background: rgba(231, 243, 248, 1);
+    }
+    .highlight-purple_background {
+      background: rgba(244, 240, 247, 0.8);
+    }
+    .highlight-pink_background {
+      background: rgba(249, 238, 243, 0.8);
+    }
+    .highlight-red_background {
+      background: rgba(253, 235, 236, 1);
+    }
+    .block-color-default {
+      color: inherit;
+      fill: inherit;
+    }
+    .block-color-gray {
+      color: rgba(120, 119, 116, 1);
+      fill: rgba(120, 119, 116, 1);
+    }
+    .block-color-brown {
+      color: rgba(159, 107, 83, 1);
+      fill: rgba(159, 107, 83, 1);
+    }
+    .block-color-orange {
+      color: rgba(217, 115, 13, 1);
+      fill: rgba(217, 115, 13, 1);
+    }
+    .block-color-yellow {
+      color: rgba(203, 145, 47, 1);
+      fill: rgba(203, 145, 47, 1);
+    }
+    .block-color-teal {
+      color: rgba(68, 131, 97, 1);
+      fill: rgba(68, 131, 97, 1);
+    }
+    .block-color-blue {
+      color: rgba(51, 126, 169, 1);
+      fill: rgba(51, 126, 169, 1);
+    }
+    .block-color-purple {
+      color: rgba(144, 101, 176, 1);
+      fill: rgba(144, 101, 176, 1);
+    }
+    .block-color-pink {
+      color: rgba(193, 76, 138, 1);
+      fill: rgba(193, 76, 138, 1);
+    }
+    .block-color-red {
+      color: rgba(212, 76, 71, 1);
+      fill: rgba(212, 76, 71, 1);
+    }
+    .block-color-gray_background {
+      background: rgba(241, 241, 239, 1);
+    }
+    .block-color-brown_background {
+      background: rgba(244, 238, 238, 1);
+    }
+    .block-color-orange_background {
+      background: rgba(251, 236, 221, 1);
+    }
+    .block-color-yellow_background {
+      background: rgba(251, 243, 219, 1);
+    }
+    .block-color-teal_background {
+      background: rgba(237, 243, 236, 1);
+    }
+    .block-color-blue_background {
+      background: rgba(231, 243, 248, 1);
+    }
+    .block-color-purple_background {
+      background: rgba(244, 240, 247, 0.8);
+    }
+    .block-color-pink_background {
+      background: rgba(249, 238, 243, 0.8);
+    }
+    .block-color-red_background {
+      background: rgba(253, 235, 236, 1);
+    }
+    .select-value-color-uiBlue {
+      background-color: rgba(35, 131, 226, 0.07);
+    }
+    .select-value-color-pink {
+      background-color: rgba(245, 224, 233, 1);
+    }
+    .select-value-color-purple {
+      background-color: rgba(232, 222, 238, 1);
+    }
+    .select-value-color-green {
+      background-color: rgba(219, 237, 219, 1);
+    }
+    .select-value-color-gray {
+      background-color: rgba(227, 226, 224, 1);
+    }
+    .select-value-color-transparentGray {
+      background-color: rgba(227, 226, 224, 0);
+    }
+    .select-value-color-translucentGray {
+      background-color: rgba(0, 0, 0, 0.06);
+    }
+    .select-value-color-orange {
+      background-color: rgba(250, 222, 201, 1);
+    }
+    .select-value-color-brown {
+      background-color: rgba(238, 224, 218, 1);
+    }
+    .select-value-color-red {
+      background-color: rgba(255, 226, 221, 1);
+    }
+    .select-value-color-yellow {
+      background-color: rgba(253, 236, 200, 1);
+    }
+    .select-value-color-blue {
+      background-color: rgba(211, 229, 239, 1);
+    }
+    .select-value-color-pageGlass {
+      background-color: undefined;
+    }
+    .select-value-color-washGlass {
+      background-color: undefined;
+    }
+
+    .checkbox {
+      display: inline-flex;
+      vertical-align: text-bottom;
+      width: 16;
+      height: 16;
+      background-size: 16px;
+      margin-left: 2px;
+      margin-right: 5px;
+    }
+
+    .checkbox-on {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+    }
+
+    .checkbox-off {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+    }
+  </style>
+</head>
+<body>
+  <article id="081440cb-0d70-44f6-ae0f-008c22b04ed3" class="page sans">
+    <header>
+      <div class="page-header-icon undefined">
+        <span class="icon">🔗</span>
+      </div>
+      <h1 class="page-title">
+        Documentation de l’application Passerelle DELTIC
+      </h1>
+      <p class="page-description"></p>
+    </header>
+    <div class="page-body">
+      <figure
+        class="block-color-gray_background callout"
+        style="white-space: pre-wrap; display: flex"
+        id="b453b340-c0da-407c-ae14-f5c13f86a47c"
+      >
+        <div style="font-size: 1.5em"><span class="icon">❗</span></div>
+        <div style="width: 100%">
+          Cette documentation est destinée aux administrateurs de l’application
+          passerelle DELTIC
+        </div>
+      </figure>
+      <div id="1470a99c-ef1f-49bb-8c4e-e1971963be25" class="column-list">
+        <div
+          id="6c438dc2-7950-49c5-8b6e-70ec924b7218"
+          style="width: 18.75%"
+          class="column"
+        >
+          <nav
+            id="0c1acd38-b7ea-4598-8f7d-c1f7ecab6b88"
+            class="block-color-gray table_of_contents"
+          >
+            <div class="table_of_contents-item table_of_contents-indent-0">
+              <a
+                class="table_of_contents-link"
+                href="#7204fe84-1cf3-4295-a27b-a47ba10db17a"
+                >Général</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-1">
+              <a
+                class="table_of_contents-link"
+                href="#6de6e5e6-a0fc-4569-859e-df8936fa9b05"
+                >Introduction</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-2">
+              <a
+                class="table_of_contents-link"
+                href="#18fcdc52-c5fb-4c14-a51d-2abd06bc8971"
+                >🥅 Objectifs de l&#x27;application</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-1">
+              <a
+                class="table_of_contents-link"
+                href="#7ddddb3a-4325-4238-8d7e-a71749f2d829"
+                >⚙️ Installation</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-2">
+              <a
+                class="table_of_contents-link"
+                href="#dfbb2b9e-da39-42af-bf3e-c96476ef3fea"
+                >🚨 Problèmes Courants et Solutions</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-2">
+              <a
+                class="table_of_contents-link"
+                href="#11a58891-a0b4-45cb-8cdd-7fb036d98d77"
+                >⌨️ Utilisation du serveur DELTIC</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-1">
+              <a
+                class="table_of_contents-link"
+                href="#0814b449-c0e6-4edb-87b0-fc4041ca7f95"
+                >Utilisation de base</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-2">
+              <a
+                class="table_of_contents-link"
+                href="#16027979-1aee-46ea-991a-22c6291d7a9e"
+                >Ajout d’administrateur :</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-2">
+              <a
+                class="table_of_contents-link"
+                href="#aa08327b-6aec-4b3f-abff-b12545867419"
+                >Connection d’une nouvelle passerelle</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-0">
+              <a
+                class="table_of_contents-link"
+                href="#4522fda0-3c45-435e-8919-dd3fa1056917"
+                >🧑‍💻 Les logiciels</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-1">
+              <a
+                class="table_of_contents-link"
+                href="#71397048-1f8b-4186-b3e6-f45896f96f6e"
+                >📄 Zeendoc</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-1">
+              <a
+                class="table_of_contents-link"
+                href="#693e96ce-4c3b-450b-a32b-e107410a6b1d"
+                >💵 EBP</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-1">
+              <a
+                class="table_of_contents-link"
+                href="#cb03b2bd-c958-4d83-9846-92584557a877"
+                >☁️ Sellsy</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-0">
+              <a
+                class="table_of_contents-link"
+                href="#2273bcae-23d1-4e5f-8434-f7fcf56b4f1e"
+                >🤖 Les passerelles</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-1">
+              <a
+                class="table_of_contents-link"
+                href="#66115113-3784-4dd9-9761-f01e097a68ef"
+                >💸 passerelle remontée de paiement
+                <strong>Sellsy --&gt; Zeendoc</strong></a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-2">
+              <a
+                class="table_of_contents-link"
+                href="#d718778c-0f80-4e27-80f9-cc93355a477b"
+                >Prérequis</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-2">
+              <a
+                class="table_of_contents-link"
+                href="#43ececd2-e30f-4f9d-9f62-1a98cf0add7d"
+                ><strong>⚙️ Configuration d’un nouveau client</strong></a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-2">
+              <a
+                class="table_of_contents-link"
+                href="#a9cba9a5-d154-4040-bc77-d1cfe2fad9cb"
+                >🖍️ Schéma explicatif</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-1">
+              <a
+                class="table_of_contents-link"
+                href="#a8146c85-5620-4375-8090-6182659e01e1"
+                >👤Passerelle remontée de fournisseur</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-1">
+              <a
+                class="table_of_contents-link"
+                href="#b404c129-9a19-4659-ac38-59b530031db2"
+                >Passerelle remontée de paiement Sellsy —&gt; Zeendoc</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-0">
+              <a
+                class="table_of_contents-link"
+                href="#554bb4f6-b054-4dd4-890c-8ebd6bdde9a8"
+                >Models</a
+              >
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-0">
+              <a
+                class="table_of_contents-link"
+                href="#66721320-1622-4dff-af7e-7753ab6c8008"
+                >🔌 Points de terminaison
+              </a>
+            </div>
+            <div class="table_of_contents-item table_of_contents-indent-0">
+              <a
+                class="table_of_contents-link"
+                href="#3dd3b4be-da70-41e4-8be8-9b4aada4461f"
+                >Base de donnée</a
+              >
+            </div>
+          </nav>
+          <p id="e6366a55-a319-46b2-bc22-38d2326e9e38" class=""></p>
+        </div>
+        <div
+          id="7ff91c2f-2517-4418-914e-f79d162f7eeb"
+          style="width: 81.25%"
+          class="column"
+        >
+          <h1 id="7204fe84-1cf3-4295-a27b-a47ba10db17a" class="">Général</h1>
+          <h2 id="6de6e5e6-a0fc-4569-859e-df8936fa9b05" class="">
+            Introduction
+          </h2>
+          <blockquote id="e4149579-64a3-469b-a5a4-fd361cac2b95" class="">
+            Bienvenue dans la documentation utilisateur de la plateforme de la
+            passerelle DELTIC. Cette plateforme permet de gérer les passerelles
+            entre les solutions utilisées par l&#x27;entreprise DELTIC.
+          </blockquote>
+          <h3 id="18fcdc52-c5fb-4c14-a51d-2abd06bc8971" class="">
+            🥅 Objectifs de l&#x27;application
+          </h3>
+          <p id="9809aef4-66b1-4b94-b923-42ef0d9c5ea2" class="">
+            L’application as pour but de gérer les liens entre les logiciels des
+            clients de la société DELTIC
+          </p>
+          <p id="b3576e9b-b4de-4646-85fe-15509e567147" class=""></p>
+          <figure
+            class="block-color-gray_background callout"
+            style="white-space: pre-wrap; display: flex"
+            id="9270de8e-23e3-4fd2-8ca2-8c2f6c5839a0"
+          >
+            <div style="font-size: 1.5em"><span class="icon">💡</span></div>
+            <div style="width: 100%">
+              GitHub :
+              <a href="https://github.com/Mhivelin/passerelle_deltic">ici</a>
+            </div>
+          </figure>
+          <h2 id="7ddddb3a-4325-4238-8d7e-a71749f2d829" class="">
+            ⚙️ Installation
+          </h2>
+          <ol
+            type="1"
+            id="5d13e49d-9c1d-496a-a832-a91cbe9d7ea9"
+            class="numbered-list"
+            start="1"
+          >
+            <li>
+              Se connecter sur l’invite de commande du serveur (cf :
+              <a
+                href="https://www.notion.so/Documentation-de-l-application-Passerelle-DELTIC-081440cb0d7044f6ae0f008c22b04ed3?pvs=21"
+                >👀</a
+              >)
+            </li>
+          </ol>
+          <ol
+            type="1"
+            id="6e7e602b-41be-4735-998a-5c855f54b2f9"
+            class="numbered-list"
+            start="2"
+          >
+            <li>
+              Cloner le dépôt :
+              <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                crossorigin="anonymous"
+                referrerpolicy="no-referrer"
+              ></script>
+              <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                crossorigin="anonymous"
+                referrerpolicy="no-referrer"
+              />
+              <pre
+                id="5d24bbe6-fa09-4b42-843d-c5f3ab231040"
+                class="code"
+              ><code class="language-Bash">git clone https://github.com/Mhivelin/passerelle_deltic</code></pre>
+            </li>
+          </ol>
+          <ol
+            type="1"
+            id="fcb6a9d1-d266-48b0-ba3c-97ee403d14a7"
+            class="numbered-list"
+            start="3"
+          >
+            <li>
+              Changer de répertoire courant pour aller dans le dépôt :
+              <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                crossorigin="anonymous"
+                referrerpolicy="no-referrer"
+              ></script>
+              <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                crossorigin="anonymous"
+                referrerpolicy="no-referrer"
+              />
+              <pre
+                id="444cc727-61da-4bfc-aa80-a3f2e0ee1d8d"
+                class="code"
+              ><code class="language-Bash">cd passerelle_deltic</code></pre>
+            </li>
+          </ol>
+          <ol
+            type="1"
+            id="5a59bdc6-b820-4a8c-b656-67be1ca8442c"
+            class="numbered-list"
+            start="4"
+          >
+            <li>
+              Créer un fichier .env ✏️
+              <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                crossorigin="anonymous"
+                referrerpolicy="no-referrer"
+              ></script>
+              <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                crossorigin="anonymous"
+                referrerpolicy="no-referrer"
+              />
+              <pre
+                id="aecaa48a-40c1-4485-a9bf-e5cfc80c6d5f"
+                class="code"
+              ><code class="language-Bash">nano app/.env</code></pre>
+              <p id="58b09e82-51e9-4b3a-b7ec-87f99367e6f1" class="">
+                Avec les valeurs suivantes :
+              </p>
+              <p id="5fb306f3-cf38-4ae9-98b8-af2287f062f9" class="">
+                🚨
+                <mark class="highlight-red_background"
+                  ><strong>Remplacer</strong></mark
+                >
+                les
+                <mark class="highlight-blue"
+                  ><span style="border-bottom: 0.05em solid"
+                    >valeurs temporaires</span
+                  ></mark
+                >
+                par les bonnes informations puis sauvegarder (ctrl + s) puis
+                fermer (ctrl + x)
+              </p>
+              <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                crossorigin="anonymous"
+                referrerpolicy="no-referrer"
+              ></script>
+              <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                crossorigin="anonymous"
+                referrerpolicy="no-referrer"
+              />
+              <pre
+                id="0c1dd474-f262-48b6-be47-ab075c63eaf4"
+                class="code"
+              ><code class="language-Bash">ADMIN_USERNAME=nomadmin
+ADMIN_PASSWORD=motdepasseadmin
+SECRET_KEY=cléesecurisée
+JWT_SECRET_KEY=cléesecurisée
+IP=adresseipdelhote</code></pre>
+              <p id="38eda064-39c4-4263-82b3-ad36a48c3a9e" class=""></p>
+              <figure
+                class="block-color-gray_background callout"
+                style="white-space: pre-wrap; display: flex"
+                id="b1919a6a-437a-46ee-842a-f41e268f78a0"
+              >
+                <div style="font-size: 1.5em">
+                  <span class="icon">💡</span>
+                </div>
+                <div style="width: 100%">
+                  comment trouver l’adresse IP ? <br /><br /><code>ip a</code>
+                </div>
+              </figure>
+            </li>
+          </ol>
+          <ol
+            type="1"
+            id="0725a0c1-4541-4289-85ae-0c2c9be21390"
+            class="numbered-list"
+            start="5"
+          >
+            <li>
+              Lancer le container docker
+              <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                crossorigin="anonymous"
+                referrerpolicy="no-referrer"
+              ></script>
+              <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                crossorigin="anonymous"
+                referrerpolicy="no-referrer"
+              />
+              <pre
+                id="3773f67c-e83d-48b3-87c0-9ddeb8917ade"
+                class="code"
+              ><code class="language-Bash">sudo docker compose up -d</code></pre>
+            </li>
+          </ol>
+          <p id="87a173b3-a4a5-4830-b3c6-afaa14d8d76b" class=""></p>
+          <p id="7fcf6705-93ab-4bcf-a0b5-6100a641ad4e" class="">
+            Voila votre application est lancée ✅ vous pouvez la retrouver sur
+            le port 5000 de votre serveur.
+          </p>
+          <ul id="e65ce7f3-a2d4-433b-84ac-5801fd6bb3d8" class="toggle">
+            <li>
+              <details open="">
+                <summary>
+                  en cas de problème, défilez ce menu ou vérifiez si une
+                  solution n’est pas apporté dans
+                  <a
+                    href="https://www.notion.so/88ff8eb43e1543299fe700ac8c96bcf5?pvs=21"
+                    >Problèmes Courants et Solutions</a
+                  >
+                </summary>
+                <h3 id="780767f7-95bf-469f-a3b9-9ffb34728de0" class="">
+                  1. Mise à Jour du Système
+                </h3>
+                <p id="b7fd47d0-947c-4569-87ec-9c37df039be2" class="">
+                  Avant d&#x27;installer des logiciels, il est important de
+                  mettre à jour les paquets de votre système Debian.
+                </p>
+                <script
+                  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                  integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                ></script>
+                <link
+                  rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                  integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                />
+                <pre
+                  id="057da4a9-b4bb-4321-bcbf-a48877d141a9"
+                  class="code"
+                ><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+sudo apt update
+sudo apt upgrade -y
+
+</code></pre>
+                <h3 id="774e3a77-2971-4d88-a219-f13d7b57bbbb" class="">
+                  2. Installation de Git
+                </h3>
+                <p id="1cc140c2-18d0-4ecb-a066-9fd5d68579a2" class="">
+                  Git est nécessaire pour cloner le dépôt du projet.
+                </p>
+                <script
+                  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                  integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                ></script>
+                <link
+                  rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                  integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                />
+                <pre
+                  id="8b012638-906f-4a7e-bbb7-ee66b21c8f5e"
+                  class="code"
+                ><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+sudo apt install git -y
+
+</code></pre>
+                <h3 id="7afa24b4-f45a-4b56-a8a6-c34ed047bfc6" class="">
+                  3. Installation de Docker
+                </h3>
+                <p id="244439f2-9c57-4d60-b9c8-331654dfcaa4" class="">
+                  Docker est utilisé pour exécuter l&#x27;application dans un
+                  container.
+                </p>
+                <h3 id="b631cf68-6aaf-442d-a7c8-f7ee23734642" class="">
+                  Installation des prérequis
+                </h3>
+                <script
+                  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                  integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                ></script>
+                <link
+                  rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                  integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                />
+                <pre
+                  id="d9296eb5-c224-4759-ae83-b7b92269fa54"
+                  class="code"
+                ><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release -y
+
+</code></pre>
+                <h3 id="23735f6d-83ac-4594-816f-9a52aa638caa" class="">
+                  Ajout de la clé GPG de Docker
+                </h3>
+                <script
+                  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                  integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                ></script>
+                <link
+                  rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                  integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                />
+                <pre
+                  id="3c023e57-771b-4e43-9619-6db990055bf7"
+                  class="code"
+                ><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+</code></pre>
+                <h3 id="53d8b1e2-2d44-40e3-a3e1-d21e5508efbb" class="">
+                  Ajout du dépôt Docker
+                </h3>
+                <script
+                  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                  integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                ></script>
+                <link
+                  rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                  integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                />
+                <pre
+                  id="b3e3e9c6-8435-4c6e-9739-99277487d995"
+                  class="code"
+                ><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+echo &quot;deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable&quot; | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+
+</code></pre>
+                <h3 id="f8e9288d-318b-493d-a509-1162f995a6e7" class="">
+                  Installation de Docker Engine
+                </h3>
+                <script
+                  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                  integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                ></script>
+                <link
+                  rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                  integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                />
+                <pre
+                  id="9eb54b37-58c6-408f-b1fc-4859b0bab8f6"
+                  class="code"
+                ><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io -y
+
+</code></pre>
+                <h3 id="acb8c3a5-abe5-405a-aef1-5430ba10bd23" class="">
+                  Vérification de l&#x27;installation de Docker
+                </h3>
+                <script
+                  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                  integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                ></script>
+                <link
+                  rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                  integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                />
+                <pre
+                  id="74385c00-f183-4e42-9f74-8d752f6dbda2"
+                  class="code"
+                ><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+sudo docker run hello-world
+
+</code></pre>
+                <h3 id="68501080-e0a4-428a-88d0-3df62352e6f5" class="">
+                  4. Installation de Docker Compose
+                </h3>
+                <p id="52093d6d-16e1-43c5-8369-7879cb91fa6c" class="">
+                  Docker Compose est utilisé pour gérer les services de
+                  l&#x27;application.
+                </p>
+                <script
+                  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                  integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                ></script>
+                <link
+                  rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                  integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                />
+                <pre
+                  id="03bd8d58-97e0-471e-8dc7-0291b1aaf818"
+                  class="code"
+                ><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+</code></pre>
+                <h3 id="dfd3c235-cc3c-4e20-b758-23f30e34b0dd" class="">
+                  Vérification de l&#x27;installation de Docker Compose
+                </h3>
+                <script
+                  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                  integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                ></script>
+                <link
+                  rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                  integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                />
+                <pre
+                  id="8efc74b3-1e03-4b3c-92a4-42f5595bfd2d"
+                  class="code"
+                ><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+docker-compose --version
+
+</code></pre>
+                <h3 id="aad07d5d-8892-4775-842e-563faf948871" class="">
+                  5. Clonage du Dépôt du Projet
+                </h3>
+                <p id="68156331-6518-4e67-8408-1355bd797826" class="">
+                  Clonez le dépôt contenant le code source de
+                  l&#x27;application.
+                </p>
+                <script
+                  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                  integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                ></script>
+                <link
+                  rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                  integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                />
+                <pre
+                  id="6e51cf98-1a7a-491b-9390-7bd631bc8c93"
+                  class="code"
+                ><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+git clone https://github.com/Mhivelin/passerelle_deltic
+cd passerelle_deltic
+
+</code></pre>
+                <h3 id="6e1b7597-0f7a-4fa9-884d-a064cf2c6a5e" class="">
+                  6. Configuration des Variables d&#x27;Environnement
+                </h3>
+                <p id="53fd8013-9180-4d26-9ac6-74a1605a60a1" class="">
+                  Créez un fichier <code>.env</code> avec les variables
+                  nécessaires.
+                </p>
+                <script
+                  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                  integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                ></script>
+                <link
+                  rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                  integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                />
+                <pre
+                  id="076756d3-de85-46bc-9887-df41858660c5"
+                  class="code"
+                ><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+nano app/.env
+
+</code></pre>
+                <p id="f508470d-85d8-4c42-92a7-e10fc30ed78d" class="">
+                  Ajoutez les valeurs suivantes dans le fichier
+                  <code>.env</code> :
+                </p>
+                <script
+                  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                  integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                ></script>
+                <link
+                  rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                  integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                />
+                <pre
+                  id="9d0e931e-da91-4b67-96f4-4779a8db59b6"
+                  class="code"
+                ><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+ADMIN_USERNAME=nomadmin
+ADMIN_PASSWORD=motdepasseadmin
+SECRET_KEY=cléesecurisée
+JWT_SECRET_KEY=cléesecurisée
+IP=adresseipdelhote
+
+</code></pre>
+                <p id="45018b53-e5cf-472d-817b-1124b5bbf212" class="">
+                  Sauvegardez (Ctrl + S) et fermez (Ctrl + X) l&#x27;éditeur.
+                </p>
+                <h3 id="05ef67ad-3444-4ead-81ff-c18dad93732a" class="">
+                  7. Lancement de l&#x27;Application
+                </h3>
+                <p id="a41a96ca-219f-499b-8e64-d4816fcd124b" class="">
+                  Utilisez Docker Compose pour lancer l&#x27;application.
+                </p>
+                <script
+                  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+                  integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                ></script>
+                <link
+                  rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+                  integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"
+                />
+                <pre
+                  id="c3aaf1f2-306e-4492-bc3e-94f02ebefd13"
+                  class="code"
+                ><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+docker-compose up -d
+
+</code></pre>
+                <p id="b472e1a3-59b5-47f2-97c4-b79338e782ed" class="">
+                  Voilà, votre application est maintenant configurée et en cours
+                  d&#x27;exécution sur une machine Debian. Vous pouvez accéder à
+                  l&#x27;application via l&#x27;adresse IP spécifiée.
+                </p>
+              </details>
+            </li>
+          </ul>
+          <h3 id="dfbb2b9e-da39-42af-bf3e-c96476ef3fea" class="">
+            🚨 Problèmes Courants et Solutions
+          </h3>
+          <div
+            id="88ff8eb4-3e15-4329-9fe7-00ac8c96bcf5"
+            class="collection-content"
+          >
+            <h4 class="collection-title">🚨 Problèmes Courants et Solutions</h4>
+            <table class="collection-content">
+              <thead>
+                <tr>
+                  <th>
+                    <span class="icon property-icon"
+                      ><img
+                        src="https://www.notion.so/icons/report_gray.svg"
+                        style="width: 14px; height: 14px" /></span
+                    >Problème
+                  </th>
+                  <th>
+                    <span class="icon property-icon"
+                      ><img
+                        src="https://www.notion.so/icons/info-alternate_gray.svg"
+                        style="width: 14px; height: 14px" /></span
+                    >Description
+                  </th>
+                  <th>
+                    <span class="icon property-icon"
+                      ><img
+                        src="https://www.notion.so/icons/checkmark_gray.svg"
+                        style="width: 14px; height: 14px" /></span
+                    >Solution
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="9f4d8dd8-3301-4171-af58-729512cb6f56">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/Docker-non-install-9f4d8dd833014171af58729512cb6f56?pvs=21"
+                      >Docker non installé</a
+                    >
+                  </td>
+                  <td class="cell-AYgw">
+                    Docker n&#x27;est pas installé sur votre machine.
+                  </td>
+                  <td class="cell-deQU">
+                    1. Rendez-vous sur le site officiel de Docker<br />2.
+                    Téléchargez et installez Docker Desktop pour votre système
+                    d&#x27;exploitation.<br />3. Suivez les instructions
+                    d&#x27;installation fournies par Docker.<br />
+                  </td>
+                </tr>
+                <tr id="b24ab5d6-2f2c-4d99-99aa-c934a9c442ea">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/Git-non-install-b24ab5d62f2c4d9999aac934a9c442ea?pvs=21"
+                      >Git non installé</a
+                    >
+                  </td>
+                  <td class="cell-AYgw">
+                    Git n&#x27;est pas installé sur votre machine.
+                  </td>
+                  <td class="cell-deQU">
+                    1. Rendez-vous sur le site officiel de Git :
+                    <a href="https://git-scm.com/">Git</a><br />2. Téléchargez
+                    et installez Git pour votre système d&#x27;exploitation.<br />3.
+                    Vérifiez l&#x27;installation en ouvrant une ligne de
+                    commande et en tapant :<br /><br /><code
+                      >git --version</code
+                    >
+                  </td>
+                </tr>
+                <tr id="6836348b-c877-40a9-986d-ad419c242e6a">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/Probl-me-de-permissions-Docker-6836348bc87740a9986dad419c242e6a?pvs=21"
+                      >Problème de permissions Docker</a
+                    >
+                  </td>
+                  <td class="cell-AYgw">
+                    Vous recevez une erreur de permission lorsque vous essayez
+                    de lancer Docker.
+                  </td>
+                  <td class="cell-deQU">
+                    1. <code>sudo usermod -aG docker $USER</code><br />2.
+                    Redémarrez votre machine ou votre session utilisateur.<br />
+                  </td>
+                </tr>
+                <tr id="bcf72027-b0e1-4646-8a76-e5e3d0e21133">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/Variables-d-environnement-manquantes-ou-incorrectes-bcf72027b0e146468a76e5e3d0e21133?pvs=21"
+                      >Variables d&#x27;environnement manquantes ou
+                      incorrectes</a
+                    >
+                  </td>
+                  <td class="cell-AYgw">
+                    Les variables d&#x27;environnement dans le fichier
+                    <code>.env</code> ne sont pas correctement configurées.
+                  </td>
+                  <td class="cell-deQU">
+                    Ouvrez le fichier <code>.env</code> avec un éditeur de texte
+                    :<br /><br /><br /><code>nano app/.env<br /><br /></code
+                    >Vérifiez que toutes les variables nécessaires sont
+                    présentes et correctement configurées :<br /><br /><code
+                      >ADMIN_USERNAME=nomadmin<br />ADMIN_PASSWORD=motdepasseadmin<br />SECRET_KEY=cléesecurisée<br />JWT_SECRET_KEY=cléesecurisée<br />IP=adresseipdelhote<br
+                    /></code>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br /><br />
+          </div>
+          <h3 id="11a58891-a0b4-45cb-8cdd-7fb036d98d77" class="">
+            ⌨️ Utilisation du serveur DELTIC
+          </h3>
+          <figure
+            class="block-color-gray_background callout"
+            style="white-space: pre-wrap; display: flex"
+            id="4398609e-326d-4593-97a8-83f559372d81"
+          >
+            <div style="font-size: 1.5em"><span class="icon">💡</span></div>
+            <div style="width: 100%">Comment se connecter au serveur OVH ?</div>
+          </figure>
+          <ol
+            type="1"
+            id="e2ec87c4-6ea3-4487-ab7b-48188572e695"
+            class="numbered-list"
+            start="1"
+          >
+            <li>
+              <strong
+                ><span style="border-bottom: 0.05em solid"
+                  >Obtenir les Informations de Connexion 🔐</span
+                ></strong
+              >
+              <p id="c14e91e3-545a-4d75-971a-07d52353ead5" class="">
+                Vous aurez besoin des informations suivantes pour vous connecter
+                au serveur Debian :
+              </p>
+              <ul
+                id="b17d250b-64cd-4af9-83eb-0baad635080b"
+                class="bulleted-list"
+              >
+                <li style="list-style-type: disc">
+                  L&#x27;adresse IP : <code>vps-43199aa1.vps.ovh.net</code>
+                </li>
+              </ul>
+              <ul
+                id="eabb3df5-d0d6-4098-a63c-b7853213596c"
+                class="bulleted-list"
+              >
+                <li style="list-style-type: disc">
+                  Le nom d&#x27;utilisateur : <code>debian</code>
+                </li>
+              </ul>
+              <ul
+                id="efee5281-77b0-4d06-add6-3886f048e857"
+                class="bulleted-list"
+              >
+                <li style="list-style-type: disc">
+                  Le mot de passe de l&#x27;utilisateur ou la clé SSH privée si
+                  vous utilisez l&#x27;authentification par clé publique.
+                  <mark class="highlight-yellow_background"
+                    >disponible sur </mark
+                  ><mark class="highlight-yellow_background"
+                    ><code>LastPass</code></mark
+                  >
+                </li>
+              </ul>
+            </li>
+          </ol>
+          <ol
+            type="1"
+            id="8a773624-8e75-4dae-bbac-8647e07d72fb"
+            class="numbered-list"
+            start="2"
+          >
+            <li>
+              <strong
+                ><span style="border-bottom: 0.05em solid"
+                  >Installer un Client SSH 🧑‍💻</span
+                ></strong
+              >
+              <h3 id="969099e8-3ac7-43ea-bf2b-aeabb6cae9f6" class="">
+                Sur Windows
+              </h3>
+              <ul
+                id="a4c44937-3d22-41ce-9d2e-15dff3ab9e40"
+                class="bulleted-list"
+              >
+                <li style="list-style-type: disc">
+                  Vous pouvez utiliser PuTTY, un client SSH populaire pour
+                  Windows.
+                </li>
+              </ul>
+              <ul
+                id="453743ed-269a-44a4-b430-bd503a6e5d46"
+                class="bulleted-list"
+              >
+                <li style="list-style-type: disc">
+                  Téléchargez PuTTY depuis
+                  <a href="https://www.putty.org/">le site officiel</a>.
+                </li>
+              </ul>
+              <ul
+                id="40c2905a-d7f7-4e17-ba44-cf07fa28ff20"
+                class="bulleted-list"
+              >
+                <li style="list-style-type: disc">
+                  Installez PuTTY en suivant les instructions
+                  d&#x27;installation.
+                </li>
+              </ul>
+              <p id="d62337bf-14fc-46d0-9bb9-9828a35f3ef9" class=""></p>
+            </li>
+          </ol>
+          <ol
+            type="1"
+            id="1bb5a486-79eb-48e3-91cb-be388a868b0a"
+            class="numbered-list"
+            start="3"
+          >
+            <li>
+              <strong
+                ><span style="border-bottom: 0.05em solid"
+                  >Se connecter au la VM 🔌</span
+                ></strong
+              >
+              <ol
+                type="a"
+                id="87a8a2fc-5703-4666-a859-dd1d91ee1c81"
+                class="numbered-list"
+                start="1"
+              >
+                <li>Ouvrez PuTTY.</li>
+              </ol>
+              <ol
+                type="a"
+                id="385d99a4-1bad-43b1-aec4-59d73fbf0879"
+                class="numbered-list"
+                start="2"
+              >
+                <li>
+                  Dans <code>Host Name (or IP address)</code> entrer
+                  <code>debian@vps-43199aa1.vps.ovh.net</code>
+                </li>
+              </ol>
+              <ol
+                type="a"
+                id="6f90f85a-e3cc-4c48-a11f-4814d463dafb"
+                class="numbered-list"
+                start="3"
+              >
+                <li>
+                  cliquer sur <code>open</code> (puis sur
+                  <code>Accept</code> seulement pour la première utilisation)
+                </li>
+              </ol>
+              <ol
+                type="a"
+                id="18666130-6a0c-406f-b27f-8b41f7c0be79"
+                class="numbered-list"
+                start="4"
+              >
+                <li>
+                  entrer le mot de passe (trouvé sur LastPass)
+                  <mark class="highlight-orange_background"
+                    >🚨 Attention, pour des raison de sécurité, les caractères
+                    tapé ne s’affichent pas 🚨</mark
+                  >
+                </li>
+              </ol>
+            </li>
+          </ol>
+          <p id="c3f2c542-c374-480d-acff-6d627b241d80" class=""></p>
+          <table id="907960d1-cbf3-41a9-9a90-d094102fc471" class="simple-table">
+            <tbody>
+              <tr id="2b046034-12b5-4f10-bc19-f664ef9807e5">
+                <td id="]Y[c" class=""><strong>Catégorie</strong></td>
+                <td id="eTg?" class=""><strong>Commande</strong></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  <strong>Description</strong>
+                </td>
+              </tr>
+              <tr id="4dce97c6-727a-439f-8a98-c55db252cd0d">
+                <td id="]Y[c" class="">
+                  <strong>Mise à jour du système</strong>
+                </td>
+                <td id="eTg?" class=""><code>sudo apt update</code></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Met à jour la liste des paquets disponibles
+                </td>
+              </tr>
+              <tr id="be6502e6-6aa4-44f4-a0f7-acd5ca73da87">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class=""><code>sudo apt upgrade -y</code></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Installe les mises à jour des paquets déjà installés
+                </td>
+              </tr>
+              <tr id="b4dad44d-d8fc-4a08-884c-dc9e61d1f3a8">
+                <td id="]Y[c" class="">
+                  <strong>Gestion des paquets</strong>
+                </td>
+                <td id="eTg?" class="">
+                  <code>sudo apt install &lt;package&gt; -y</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Installe un paquet spécifié
+                </td>
+              </tr>
+              <tr id="8a76fd48-ceed-48d7-9bed-25c95f6a38c7">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>sudo apt remove &lt;package&gt; -y</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Supprime un paquet spécifié
+                </td>
+              </tr>
+              <tr id="c6c22235-ecbf-4ab0-96b1-12743ee6cb79">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>dpkg -i &lt;package.deb&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Installe un paquet <code>.deb</code> téléchargé manuellement
+                </td>
+              </tr>
+              <tr id="4b1763da-83df-4519-afcd-6ebdc99745af">
+                <td id="]Y[c" class="">
+                  <strong>Gestion des services</strong>
+                </td>
+                <td id="eTg?" class="">
+                  <code>sudo systemctl start &lt;service&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Démarre un service
+                </td>
+              </tr>
+              <tr id="fb2414e7-0650-4af2-ac26-fcb1d41d51f7">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>sudo systemctl stop &lt;service&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Arrête un service
+                </td>
+              </tr>
+              <tr id="b9820b28-a6cf-4e8d-a9fe-e7b5395374b6">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>sudo systemctl restart &lt;service&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Redémarre un service
+                </td>
+              </tr>
+              <tr id="52a6e056-97ef-4e80-ab08-917d67ef675b">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>sudo systemctl status &lt;service&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Affiche l&#x27;état d&#x27;un service
+                </td>
+              </tr>
+              <tr id="b85fc319-3244-4e7a-b737-0a3988a2780b">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>sudo systemctl enable &lt;service&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Active un service pour qu&#x27;il démarre au démarrage du
+                  système
+                </td>
+              </tr>
+              <tr id="1ae731d0-2617-4b86-98bc-dc8b21c47ca1">
+                <td id="]Y[c" class="">
+                  <strong>Gestion des utilisateurs</strong>
+                </td>
+                <td id="eTg?" class="">
+                  <code>sudo adduser &lt;username&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Ajoute un nouvel utilisateur
+                </td>
+              </tr>
+              <tr id="0a680492-7845-49b0-aa11-4e3b6ef65d02">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>sudo deluser &lt;username&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Supprime un utilisateur
+                </td>
+              </tr>
+              <tr id="37daefa5-8b64-4db2-833b-4cf91439a84c">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>sudo passwd &lt;username&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Change le mot de passe d&#x27;un utilisateur
+                </td>
+              </tr>
+              <tr id="7992f02f-e00c-4a57-8f23-68bd2989bfdf">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>sudo usermod -aG &lt;group&gt; &lt;username&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Ajoute un utilisateur à un groupe
+                </td>
+              </tr>
+              <tr id="a387ff32-353f-42c7-8f7d-e79152faf31d">
+                <td id="]Y[c" class="">
+                  <strong>Gestion des fichiers</strong>
+                </td>
+                <td id="eTg?" class=""><code>ls</code></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Liste les fichiers et répertoires dans le répertoire courant
+                </td>
+              </tr>
+              <tr id="74c629d0-2d80-4865-bc1d-63554b6d75fc">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class=""><code>cd &lt;directory&gt;</code></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Change de répertoire
+                </td>
+              </tr>
+              <tr id="50908be1-2f98-4995-aee3-350c5cb43452">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>cp &lt;source&gt; &lt;destination&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Copie des fichiers ou répertoires
+                </td>
+              </tr>
+              <tr id="1d35f545-5d09-47c7-9fee-2b60acdf00a8">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>mv &lt;source&gt; &lt;destination&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Déplace ou renomme des fichiers ou répertoires
+                </td>
+              </tr>
+              <tr id="eda055d2-ae81-4b94-b8cf-53a88186d9c7">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class=""><code>rm &lt;file&gt;</code></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Supprime un fichier
+                </td>
+              </tr>
+              <tr id="3f5dcba7-66bb-45ef-b48b-8a425509af22">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>rm -r &lt;directory&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Supprime un répertoire et son contenu
+                </td>
+              </tr>
+              <tr id="a07bd21d-3383-4515-baea-7b9248666282">
+                <td id="]Y[c" class="">
+                  <strong>Gestion des processus</strong>
+                </td>
+                <td id="eTg?" class=""><code>ps aux</code></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Affiche les processus en cours d&#x27;exécution
+                </td>
+              </tr>
+              <tr id="b9b110ce-7520-4ba5-923a-22f9c7774822">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class=""><code>htop</code></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Version améliorée de <code>top</code> (nécessite
+                  l&#x27;installation : <code>sudo apt install htop -y</code>)
+                </td>
+              </tr>
+              <tr id="524a9db7-00ee-4b38-802e-e7905dc5c677">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class=""><code>kill &lt;PID&gt;</code></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Termine un processus en utilisant son ID de processus
+                </td>
+              </tr>
+              <tr id="4cb11330-e796-47dc-84f1-6dd7ed667cda">
+                <td id="]Y[c" class=""><strong>Réseau</strong></td>
+                <td id="eTg?" class=""><code>ifconfig</code></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Affiche les configurations réseau
+                </td>
+              </tr>
+              <tr id="9287f506-3bc9-4d71-9e5c-329c0d35f65e">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class=""><code>ping &lt;host&gt;</code></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Envoie des paquets ICMP ECHO_REQUEST à un hôte
+                </td>
+              </tr>
+              <tr id="cbae27cc-abbc-4bd0-bbe3-cbd5cf6cea79">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class=""><code>wget &lt;url&gt;</code></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Télécharge des fichiers depuis le web
+                </td>
+              </tr>
+              <tr id="db266450-5789-4b41-92fd-f75faedf5854">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>ssh &lt;user&gt;@&lt;host&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Se connecte à un hôte distant via SSH
+                </td>
+              </tr>
+              <tr id="9d615c41-98a2-4c84-bfed-c10159904733">
+                <td id="]Y[c" class=""><strong>Docker</strong></td>
+                <td id="eTg?" class="">
+                  <code>sudo systemctl start docker</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Démarre le service Docker
+                </td>
+              </tr>
+              <tr id="a34c54ca-ba68-469b-b6f2-ae1bcc7e372c">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>sudo systemctl stop docker</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Arrête le service Docker
+                </td>
+              </tr>
+              <tr id="688e64be-ea13-4b9a-9709-42e04017e448">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>sudo systemctl enable docker</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Active Docker au démarrage du système
+                </td>
+              </tr>
+              <tr id="3d6aaff3-ef72-4c28-95f0-4c580739dfee">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>docker build -t &lt;name&gt; .</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Construit une image Docker à partir d&#x27;un Dockerfile
+                </td>
+              </tr>
+              <tr id="cc5e3b71-8e87-407e-9265-269a83d7c492">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code
+                    >docker run -d -p &lt;host_port&gt;:&lt;container_port&gt;
+                    --name &lt;name&gt; &lt;image&gt;</code
+                  >
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Exécute un container en arrière-plan
+                </td>
+              </tr>
+              <tr id="65f97c2a-0ec8-4e29-a69e-be0e63776463">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class=""><code>docker ps</code></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Affiche les containers Docker en cours d&#x27;exécution (avec
+                  <code>container_id</code>)
+                </td>
+              </tr>
+              <tr id="609e70d6-ecca-4cb0-9f79-6d0e41917764">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code
+                    >docker run -d -p &lt;host_port&gt;:&lt;container_port&gt;
+                    --name &lt;name&gt; &lt;image&gt;</code
+                  >
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Exécute un container en arrière-plan
+                </td>
+              </tr>
+              <tr id="050ad174-8c2e-4f40-a851-8d5be3d34c13">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class=""><code>docker ps</code></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Affiche les containers Docker en cours d&#x27;exécution
+                </td>
+              </tr>
+              <tr id="712d7c2a-6012-4a46-b276-75fb45bd745e">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>docker stop &lt;container_id&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Arrête un container Docker
+                </td>
+              </tr>
+              <tr id="366ce3cb-e756-4b38-a4d0-8db5671c4ca5">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>docker rm &lt;container_id&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Supprime un container Docker
+                </td>
+              </tr>
+              <tr id="abef9cd0-a494-43f6-a577-58dd5426e67f">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class=""><code>docker-compose up -d</code></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Démarre les services définis dans un fichier
+                  <code>docker-compose.yml</code>
+                </td>
+              </tr>
+              <tr id="5546c365-c774-49d7-af90-1007c598ec8c">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class=""><code>docker-compose down</code></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Arrête et supprime les containers définis dans un fichier
+                  <code>docker-compose.yml</code>
+                </td>
+              </tr>
+              <tr id="0a6c8fc0-6de7-4401-92d7-d17b232abf63">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class="">
+                  <code>docker logs &lt;container_id&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Affiche les logs d&#x27;un container Docker
+                </td>
+              </tr>
+              <tr id="1067d858-5cfa-4abe-b19e-8dccf95387ef">
+                <td id="]Y[c" class=""><strong>Git</strong></td>
+                <td id="eTg?" class="">
+                  <code>git clone &lt;repository_url&gt;</code>
+                </td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Clone un dépôt Git vers le répertoire courant
+                </td>
+              </tr>
+              <tr id="5efe38db-9376-4fa5-a444-cc8c02cab579">
+                <td id="]Y[c" class=""></td>
+                <td id="eTg?" class=""><code>git status</code></td>
+                <td id="H;&lt;t" class="" style="width: 317px">
+                  Affiche l&#x27;état des modifications dans le dépôt
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <h2 id="0814b449-c0e6-4edb-87b0-fc4041ca7f95" class="">
+            Utilisation de base
+          </h2>
+          <h3 id="16027979-1aee-46ea-991a-22c6291d7a9e" class="">
+            Ajout d’administrateur :
+          </h3>
+          <ol
+            type="1"
+            id="5c6895dd-9368-4611-80ae-27b563783f0f"
+            class="numbered-list"
+            start="1"
+          >
+            <li>Se rendre dans les paramètres en haut a droite ⚙️</li>
+          </ol>
+          <ol
+            type="1"
+            id="bbe9aeb0-fa03-4b51-8d94-7a50c155fbb2"
+            class="numbered-list"
+            start="2"
+          >
+            <li>
+              Cliquer sur
+              <code
+                ><a href="http://localhost:5000/register"
+                  >Ajouter un utilisateur</a
+                ></code
+              >
+              dans <code>Gestion des utilisateurs</code> ➕
+            </li>
+          </ol>
+          <ol
+            type="1"
+            id="45f6548f-c859-46e1-81c1-00911b787866"
+            class="numbered-list"
+            start="3"
+          >
+            <li>Entrer le nouveau nom d’utilisateur et le mot de passe 🖍️</li>
+          </ol>
+          <ol
+            type="1"
+            id="2b6d7dd2-922f-4bd8-bb80-9db1a2711e07"
+            class="numbered-list"
+            start="4"
+          >
+            <li>
+              Se reconnecter a l’application (avec l’ancien ou le nouvel
+              utilisateur) 🔓
+            </li>
+          </ol>
+          <p id="0d52c757-898d-4f8f-b1a3-55a7df37988a" class=""></p>
+          <h3 id="aa08327b-6aec-4b3f-abff-b12545867419" class="">
+            Connection d’une nouvelle passerelle
+          </h3>
+          <p id="208433d1-f127-4e31-a9a1-8adea658e453" class=""></p>
+          <h1 id="4522fda0-3c45-435e-8919-dd3fa1056917" class="">
+            🧑‍💻 Les logiciels
+          </h1>
+          <h2 id="71397048-1f8b-4186-b3e6-f45896f96f6e" class="">📄 Zeendoc</h2>
+          <table id="3242ab00-35ab-426e-ad89-d012ddb2aa2f" class="simple-table">
+            <thead class="simple-table-header">
+              <tr id="09215a36-5a4b-4ee6-a5c3-8df3bb7517d0">
+                <th
+                  id="fIy|"
+                  class="simple-table-header-color simple-table-header"
+                >
+                  Nom
+                </th>
+                <th
+                  id="bkSy"
+                  class="simple-table-header-color simple-table-header"
+                  style="width: 337.234375px"
+                >
+                  ❔Comment l’obtenir ?
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="b4e2dc97-163f-48ac-8d26-758245839288">
+                <td id="fIy|" class="">Zeendoc_Login</td>
+                <td id="bkSy" class="" style="width: 337.234375px"></td>
+              </tr>
+              <tr id="b7929fc5-d5aa-483e-9cb6-71de60a72a8d">
+                <td id="fIy|" class="">Zeendoc_URL_Client</td>
+                <td id="bkSy" class="" style="width: 337.234375px"></td>
+              </tr>
+              <tr id="3b909ca9-ba93-4771-87a1-9c0063378f72">
+                <td id="fIy|" class="">Zeendoc_CPassword</td>
+                <td id="bkSy" class="" style="width: 337.234375px"></td>
+              </tr>
+              <tr id="67621ad1-4977-4bee-ad10-f512595e27f4">
+                <td id="fIy|" class="">Zeendoc_CLASSEUR</td>
+                <td id="bkSy" class="" style="width: 337.234375px"></td>
+              </tr>
+            </tbody>
+          </table>
+          <h2 id="693e96ce-4c3b-450b-a32b-e107410a6b1d" class="">💵 EBP</h2>
+          <table id="adf41114-3fc2-49f2-a814-970bd209de29" class="simple-table">
+            <thead class="simple-table-header">
+              <tr id="271614b6-6deb-425e-aad5-7587134e2cc9">
+                <th
+                  id="fIy|"
+                  class="simple-table-header-color simple-table-header"
+                >
+                  Nom
+                </th>
+                <th
+                  id="bkSy"
+                  class="simple-table-header-color simple-table-header"
+                  style="width: 337.234375px"
+                >
+                  ❔Comment l’obtenir ?
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="06862026-8518-41e6-86e4-afb5fb99d22b">
+                <td id="fIy|" class="">Client ID</td>
+                <td id="bkSy" class="" style="width: 337.234375px">
+                  Option 1 : Obtenu par le client lors de la mise en place de
+                  son logiciel EBP<br />Option 2 : Demander a l’intégrateur
+                  <br />
+                </td>
+              </tr>
+              <tr id="9e66d34b-38e3-4ce8-907d-1faa8fdf3181">
+                <td id="fIy|" class="">Client Secret</td>
+                <td id="bkSy" class="" style="width: 337.234375px">
+                  Option 1 : Obtenu par le client lors de la mise en place de
+                  son logiciel EBP<br />Option 2 : Demander a l’intégrateur
+                  <br />
+                </td>
+              </tr>
+              <tr id="a4abf7a5-f0ab-472e-ae23-bc362aa1aa1a">
+                <td id="fIy|" class="">Subscription Key</td>
+                <td id="bkSy" class="" style="width: 337.234375px">
+                  Disponible sur le lien suivant :
+                  <a href="https://developpeurs.ebp.com/profile"
+                    >https://developpeurs.ebp.com/profile</a
+                  ><br />Se connecter avec le compte du client<br />
+                </td>
+              </tr>
+              <tr id="2baf31d8-9cc7-46c2-8d15-b1deb1e65e5b">
+                <td id="fIy|" class="">
+                  identifiants de connexion<br />(mail + mot de passe) <br />
+                </td>
+                <td id="bkSy" class="" style="width: 337.234375px">
+                  Option 1 : Le client fournis ces identifiants<br />Option 2 :
+                  le client participe à l’installation<br />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <h2 id="cb03b2bd-c958-4d83-9846-92584557a877" class="">☁️ Sellsy</h2>
+          <table id="54a6cb71-7ca8-4dad-b82d-a906ca745505" class="simple-table">
+            <thead class="simple-table-header">
+              <tr id="bd4e2f8a-c1ad-499a-bf41-fb4923b1f8f0">
+                <th
+                  id="fIy|"
+                  class="simple-table-header-color simple-table-header"
+                >
+                  Nom
+                </th>
+                <th
+                  id="bkSy"
+                  class="simple-table-header-color simple-table-header"
+                  style="width: 337.234375px"
+                >
+                  ❔Comment l’obtenir ?
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="98914538-6f84-4ab3-a7eb-2e4ced267459">
+                <td id="fIy|" class="">
+                  <br /><br />Sellsy Client ID<br /><br />_____________________<br /><br />Sellsy
+                  Client Secret<br />
+                </td>
+                <td id="bkSy" class="" style="width: 337.234375px">
+                  <strong
+                    ><span style="border-bottom: 0.05em solid">1.</span></strong
+                  >
+                  👀 Se rendre sur
+                  <a href="https://www.sellsy.com/developer/api-v2"
+                    >https://www.sellsy.com/developer/api-v2</a
+                  ><br /><br /><strong
+                    ><span style="border-bottom: 0.05em solid">2.</span></strong
+                  >
+                  ➕ Créer un nouvel accès API de type Personnel (le nom de
+                  l’accès n’impactera pas la suite).<br /><br /><strong
+                    ><span style="border-bottom: 0.05em solid">3.</span></strong
+                  >
+                  ❌ Ne
+                  <strong
+                    ><span style="border-bottom: 0.05em solid"
+                      >pas</span
+                    ></strong
+                  >
+                  cocher l’accès délégué.<br /><br /><strong
+                    ><span style="border-bottom: 0.05em solid">4.</span></strong
+                  >
+                  ✅ laisser toutes les autorisation cochée<br /><br /><strong
+                    ><span style="border-bottom: 0.05em solid">5.</span></strong
+                  >
+                  🛟 Enregistrer.<br /><br /><mark
+                    class="highlight-yellow_background"
+                    >🚨</mark
+                  ><mark class="highlight-yellow_background"
+                    ><code>Attention</code></mark
+                  ><mark class="highlight-yellow_background"
+                    >, les information qui s’affiche maintenant ne seront plus
+                    visible par la suite donc penser a bien les enregistrer dans </mark
+                  ><mark class="highlight-yellow_background"
+                    ><code>LastPass</code></mark
+                  ><mark class="highlight-yellow_background">
+                    par exemple🚨</mark
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <h1 id="2273bcae-23d1-4e5f-8434-f7fcf56b4f1e" class="">
+            🤖 Les passerelles
+          </h1>
+          <h2 id="66115113-3784-4dd9-9761-f01e097a68ef" class="">
+            💸 passerelle remontée de paiement
+            <strong>Sellsy --&gt; Zeendoc</strong>
+          </h2>
+          <blockquote id="b130273c-2428-440f-a06f-291b1d56671e" class="">
+            Il existe deux version de cette Passerelle, la version
+            <code>Date</code> qui remonte la date 📆 du dernier paiement et la
+            version <code>statut</code> qui remonte simplement l’information de
+            paiement ✅
+          </blockquote>
+          <h3 id="d718778c-0f80-4e27-80f9-cc93355a477b" class="">Prérequis</h3>
+          <figure
+            class="block-color-gray_background callout"
+            style="white-space: pre-wrap; display: flex"
+            id="7610803e-adb5-40a2-8edd-8871d8d44893"
+          >
+            <div style="font-size: 1.5em"><span class="icon">💡</span></div>
+            <div style="width: 100%">
+              pour ajouter un client a la passerelle, vous aurez besoin de
+              quelques informations au préalable.
+            </div>
+          </figure>
+          <p id="d3a5e4f3-0c0e-4a95-96cb-d614e3c6cac2" class=""></p>
+          <h3 id="43ececd2-e30f-4f9d-9f62-1a98cf0add7d" class="">
+            <strong>⚙️ Configuration d’un nouveau client</strong>
+          </h3>
+          <ol
+            type="1"
+            id="31de6fac-cbb1-4a2f-9b5a-52f128396e6c"
+            class="numbered-list"
+            start="1"
+          >
+            <li>
+              Cliquer sur “Ajouter un client” pour se rendre sur la page d’ajout
+              d’un client.
+            </li>
+          </ol>
+          <ol
+            type="1"
+            id="0de2ff13-8548-40ac-9da2-8e7741436f2d"
+            class="numbered-list"
+            start="2"
+          >
+            <li>Entrer le nom du client et valider en cliquant sur ajouter.</li>
+          </ol>
+          <ol
+            type="1"
+            id="8402bbb6-8463-46ed-b73b-e479186be37b"
+            class="numbered-list"
+            start="3"
+          >
+            <li>
+              Sur la page d’accueil, cliquer sur détail puis sur “connecter une
+              passerelle”.
+            </li>
+          </ol>
+          <ol
+            type="1"
+            id="9f39696b-e561-4122-8418-0aedb4a594f7"
+            class="numbered-list"
+            start="4"
+          >
+            <li>
+              choisir la passerelle “remontée de paiement” et cliquer sur
+              ajouter.
+            </li>
+          </ol>
+          <ol
+            type="1"
+            id="9d6b681f-6428-4f43-a338-9a31bcf0d3bf"
+            class="numbered-list"
+            start="5"
+          >
+            <li>
+              Sur la page d’accueil, cliquer sur détail puis sur
+              &quot;Ajouter/modifier des champs requis”.
+            </li>
+          </ol>
+          <ol
+            type="1"
+            id="eb3c4d8d-74d9-4ae5-b14c-3d087666db01"
+            class="numbered-list"
+            start="6"
+          >
+            <li>
+              remplir les champs <code>EBP_Client_ID</code>
+              <code>EBP_Client_Secret</code>
+              <code>EBP_Subscription_Key</code> <code>Zeendoc_Login</code>
+              <code>Zeendoc_URL_Client</code>
+              <code>Zeendoc_CPassword</code> puis cliquer sur ajouter.
+            </li>
+          </ol>
+          <ol
+            type="1"
+            id="7d91cae8-4d10-4cdc-a514-2d0cf8d9a9fe"
+            class="numbered-list"
+            start="7"
+          >
+            <li>
+              retourner sur “Ajouter/modifier des champs requis” et cliquer sur
+              “Se connecter à EBP : <code>Connexion</code>”
+            </li>
+          </ol>
+          <ol
+            type="1"
+            id="ca6e2679-54b6-4d34-9ffa-843ba717492e"
+            class="numbered-list"
+            start="8"
+          >
+            <li>
+              Apres la redirection :
+              <ul
+                id="874fee7d-cb08-41e0-bbfc-a4d4a6a2a9ba"
+                class="bulleted-list"
+              >
+                <li style="list-style-type: disc">
+                  OPTION 1 : <strong>Page de connexion d’ebp</strong> : se
+                  connecter avec les identifiants de connexion du client
+                </li>
+              </ul>
+              <ul
+                id="07bc7f59-6e81-4e06-bcb9-8b81682c323e"
+                class="bulleted-list"
+              >
+                <li style="list-style-type: disc">
+                  OPTION 2 : <strong>Page d’erreur 404</strong> : les
+                  information renseigné dans <code>EBP_Client_ID</code> ou
+                  <code>EBP_Client_Secret</code> ou
+                  <code>EBP_Subscription_Key</code> sont erronée.
+                </li>
+              </ul>
+              <ul
+                id="ac37f973-df3e-4647-90c2-125c51a8069a"
+                class="bulleted-list"
+              >
+                <li style="list-style-type: disc">
+                  OPTION 3 : connexion au mauvais compte : en cas de connexion
+                  automatique a un autre compte EBP, refaire la manip en
+                  navigation privée
+                </li>
+              </ul>
+            </li>
+          </ol>
+          <ol
+            type="1"
+            id="d91dded2-31dc-41fa-82cb-cc126ddd3ee1"
+            class="numbered-list"
+            start="9"
+          >
+            <li>
+              retourner sur “Ajouter/modifier des champs requis” et sélectionner
+              <code>Dossier EBP</code>
+              <code>Classeur Zeendoc</code>
+              <code>INDEX_STATUT_PAIEMENT</code> et
+              <code>INDEX_NUM_PIECE</code> puis ajouter.
+            </li>
+          </ol>
+          <ol
+            type="1"
+            id="52f74131-15d8-41ea-84db-bf33ac6d2a67"
+            class="numbered-list"
+            start="10"
+          >
+            <li>Vérifier le bon fonctionnement sur le logiciel zeendoc</li>
+          </ol>
+          <ol
+            type="1"
+            id="bbbf1329-f090-4d4f-a12d-07b54d41bbbe"
+            class="numbered-list"
+            start="11"
+          >
+            <li>Bravo 😀 !!</li>
+          </ol>
+          <p id="22f26341-18b5-4091-a25a-414fcc1e1ef6" class=""></p>
+          <h3 id="a9cba9a5-d154-4040-bc77-d1cfe2fad9cb" class="">
+            🖍️ Schéma explicatif
+          </h3>
+          <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+            integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+          ></script>
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+            integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+          />
+          <pre
+            id="c2ef276f-7461-40c1-bd6d-a14247b75acb"
+            class="code"
+          ><code class="language-Mermaid">sequenceDiagram
+    participant Passerelle
+    participant EBP
+    participant Zeendoc
+
+    Passerelle-&gt;&gt;EBP: Se connecter à l&#x27;API EBP
+    EBP--&gt;&gt;Passerelle: Authentification réussie
+    Passerelle-&gt;&gt;EBP: Récupérer les documents payés
+    EBP--&gt;&gt;Passerelle: Document payé
+    Passerelle-&gt;&gt;Zeendoc: Se connecter à l&#x27;API Zeendoc
+    Zeendoc--&gt;&gt;Passerelle: Authentification réussie
+    loop Pour chaque document payé
+        Passerelle-&gt;&gt;Zeendoc: Rechercher le document par référence
+        Zeendoc--&gt;&gt;Passerelle: Détails du document
+        Passerelle-&gt;&gt;Zeendoc: Mettre à jour l&#x27;index de paiement à &quot;payé&quot;
+        Zeendoc--&gt;&gt;Passerelle: Confirmation de mise à jour
+    end
+</code></pre>
+          <h2 id="a8146c85-5620-4375-8090-6182659e01e1" class="">
+            👤Passerelle remontée de fournisseur
+          </h2>
+          <h2 id="b404c129-9a19-4659-ac38-59b530031db2" class="">
+            Passerelle remontée de paiement Sellsy —&gt; Zeendoc
+          </h2>
+          <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+            integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+          ></script>
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+            integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+          />
+          <pre
+            id="e0ddfb0e-39cf-4c31-a535-2bac5047f427"
+            class="code"
+          ><code class="language-Mermaid">sequenceDiagram
+    participant Passerelle
+    participant Sellsy
+    participant Zeendoc
+
+    Passerelle-&gt;&gt;Sellsy: Se connecter à l&#x27;API Sellsy
+    Sellsy--&gt;&gt;Passerelle: Authentification réussie
+    Passerelle-&gt;&gt;Sellsy: Récupérer les documents payés
+    Sellsy--&gt;&gt;Passerelle: Document payé
+    loop Pour chaque document payé
+		    Passerelle-&gt;&gt;Sellsy: Récuperer les information de paiement
+		    Sellsy--&gt;&gt;Passerelle: information de paiement
+		    Passerelle-&gt;&gt;Zeendoc: Se connecter à l&#x27;API Zeendoc
+		    Zeendoc--&gt;&gt;Passerelle: Authentification réussie
+
+        Passerelle-&gt;&gt;Zeendoc: Rechercher le document par référence facture
+        Zeendoc--&gt;&gt;Passerelle: Détails du document
+        Passerelle-&gt;&gt;Zeendoc: Mettre à jour l&#x27;index de paiement à la date récuperée
+        Zeendoc--&gt;&gt;Passerelle: Confirmation de mise à jour
+    end
+</code></pre>
+          <h1 id="554bb4f6-b054-4dd4-890c-8ebd6bdde9a8" class="">Models</h1>
+          <p id="4d82b9f0-e939-4139-ae46-20e180aff68f" class=""></p>
+          <div
+            id="71171e08-c975-430b-aebc-1adaa53cb3be"
+            class="collection-content"
+          >
+            <h4 class="collection-title">Points de terminaison (1)</h4>
+            <table class="collection-content">
+              <thead>
+                <tr>
+                  <th>
+                    <span class="icon property-icon"
+                      ><svg
+                        role="graphics-symbol"
+                        viewBox="0 0 16 16"
+                        style="
+                          width: 14px;
+                          height: 14px;
+                          display: block;
+                          fill: rgba(55, 53, 47, 0.45);
+                          flex-shrink: 0;
+                        "
+                        class="typesTitle"
+                      >
+                        <path
+                          d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"
+                        ></path></svg></span
+                    >Méthode
+                  </th>
+                  <th>
+                    <span class="icon property-icon"
+                      ><svg
+                        role="graphics-symbol"
+                        viewBox="0 0 16 16"
+                        style="
+                          width: 14px;
+                          height: 14px;
+                          display: block;
+                          fill: rgba(55, 53, 47, 0.45);
+                          flex-shrink: 0;
+                        "
+                        class="typesText"
+                      >
+                        <path
+                          d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"
+                        ></path></svg></span
+                    >Description
+                  </th>
+                  <th>
+                    <span class="icon property-icon"
+                      ><svg
+                        role="graphics-symbol"
+                        viewBox="0 0 16 16"
+                        style="
+                          width: 14px;
+                          height: 14px;
+                          display: block;
+                          fill: rgba(55, 53, 47, 0.45);
+                          flex-shrink: 0;
+                        "
+                        class="typesMultipleSelect"
+                      >
+                        <path
+                          d="M1.91602 4.83789C2.44238 4.83789 2.87305 4.40723 2.87305 3.87402C2.87305 3.34766 2.44238 2.91699 1.91602 2.91699C1.38281 2.91699 0.952148 3.34766 0.952148 3.87402C0.952148 4.40723 1.38281 4.83789 1.91602 4.83789ZM5.1084 4.52344H14.3984C14.7607 4.52344 15.0479 4.23633 15.0479 3.87402C15.0479 3.51172 14.7607 3.22461 14.3984 3.22461H5.1084C4.74609 3.22461 4.45898 3.51172 4.45898 3.87402C4.45898 4.23633 4.74609 4.52344 5.1084 4.52344ZM1.91602 9.03516C2.44238 9.03516 2.87305 8.60449 2.87305 8.07129C2.87305 7.54492 2.44238 7.11426 1.91602 7.11426C1.38281 7.11426 0.952148 7.54492 0.952148 8.07129C0.952148 8.60449 1.38281 9.03516 1.91602 9.03516ZM5.1084 8.7207H14.3984C14.7607 8.7207 15.0479 8.43359 15.0479 8.07129C15.0479 7.70898 14.7607 7.42188 14.3984 7.42188H5.1084C4.74609 7.42188 4.45898 7.70898 4.45898 8.07129C4.45898 8.43359 4.74609 8.7207 5.1084 8.7207ZM1.91602 13.2324C2.44238 13.2324 2.87305 12.8018 2.87305 12.2686C2.87305 11.7422 2.44238 11.3115 1.91602 11.3115C1.38281 11.3115 0.952148 11.7422 0.952148 12.2686C0.952148 12.8018 1.38281 13.2324 1.91602 13.2324ZM5.1084 12.918H14.3984C14.7607 12.918 15.0479 12.6309 15.0479 12.2686C15.0479 11.9062 14.7607 11.6191 14.3984 11.6191H5.1084C4.74609 11.6191 4.45898 11.9062 4.45898 12.2686C4.45898 12.6309 4.74609 12.918 5.1084 12.918Z"
+                        ></path></svg></span
+                    >Paramètres
+                  </th>
+                  <th>
+                    <span class="icon property-icon"
+                      ><svg
+                        role="graphics-symbol"
+                        viewBox="0 0 16 16"
+                        style="
+                          width: 14px;
+                          height: 14px;
+                          display: block;
+                          fill: rgba(55, 53, 47, 0.45);
+                          flex-shrink: 0;
+                        "
+                        class="typesText"
+                      >
+                        <path
+                          d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"
+                        ></path></svg></span
+                    >Texte
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="f479f1e9-99c7-4fdb-bc86-adae6fdd563c">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/get_db_connexion-f479f1e999c74fdbbc86adae6fdd563c?pvs=21"
+                      >get_db_connexion()</a
+                    >
+                  </td>
+                  <td class="cell-&lt;cN;">
+                    Retourne une connexion à la base de données SQLite.
+                  </td>
+                  <td class="cell-Q&gt;pk"></td>
+                  <td class="cell-eW^k"></td>
+                </tr>
+                <tr id="f7c9b939-d343-4c27-9874-6a082627b7b3">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/create_database-f7c9b939d3434c2798746a082627b7b3?pvs=21"
+                      >create_database()</a
+                    >
+                  </td>
+                  <td class="cell-&lt;cN;">Crée la base de données.</td>
+                  <td class="cell-Q&gt;pk"></td>
+                  <td class="cell-eW^k"></td>
+                </tr>
+                <tr id="d015438a-0c1e-4fd8-84fd-368db866cb56">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/execute_query-d015438a0c1e4fd884fd368db866cb56?pvs=21"
+                      >execute_query()</a
+                    >
+                  </td>
+                  <td class="cell-&lt;cN;">
+                    Exécute une requête SQL et retourne les résultats si la
+                    requête est un SELECT.
+                  </td>
+                  <td class="cell-Q&gt;pk">
+                    <span class="selected-value select-value-color-default"
+                      >params</span
+                    ><span class="selected-value select-value-color-purple"
+                      >query</span
+                    >
+                  </td>
+                  <td class="cell-eW^k"></td>
+                </tr>
+                <tr id="f37c7715-d821-44c1-a085-a7f12a5bac82">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/execute_query_single-f37c7715d82144c1a085a7f12a5bac82?pvs=21"
+                      >execute_query_single()</a
+                    >
+                  </td>
+                  <td class="cell-&lt;cN;">
+                    Exécute une requête SQL et retourne un seul résultat si la
+                    requête est un SELECT.
+                  </td>
+                  <td class="cell-Q&gt;pk">
+                    <span class="selected-value select-value-color-default"
+                      >params</span
+                    ><span class="selected-value select-value-color-purple"
+                      >query</span
+                    >
+                  </td>
+                  <td class="cell-eW^k"></td>
+                </tr>
+                <tr id="67cb0139-9a37-4209-88bf-f544f785094a">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/add_record-67cb01399a37420988bff544f785094a?pvs=21"
+                      >add_record()</a
+                    >
+                  </td>
+                  <td class="cell-&lt;cN;">
+                    Ajoute un enregistrement à la table spécifiée.
+                  </td>
+                  <td class="cell-Q&gt;pk">
+                    <span class="selected-value select-value-color-orange"
+                      >columns</span
+                    ><span class="selected-value select-value-color-green"
+                      >table_name</span
+                    ><span class="selected-value select-value-color-red"
+                      >values</span
+                    >
+                  </td>
+                  <td class="cell-eW^k"></td>
+                </tr>
+                <tr id="498e7bed-881c-4668-99f0-2e9a425f01be">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/delete_record-498e7bed881c466899f02e9a425f01be?pvs=21"
+                      >delete_record()</a
+                    >
+                  </td>
+                  <td class="cell-&lt;cN;">
+                    Supprime un enregistrement de la table spécifiée.
+                  </td>
+                  <td class="cell-Q&gt;pk">
+                    <span class="selected-value select-value-color-brown"
+                      >condition</span
+                    ><span class="selected-value select-value-color-default"
+                      >params</span
+                    ><span class="selected-value select-value-color-green"
+                      >table_name</span
+                    >
+                  </td>
+                  <td class="cell-eW^k"></td>
+                </tr>
+                <tr id="32dfd8bb-a43a-4e63-8e42-ee6b5778810c">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/32dfd8bba43a4e638e42ee6b5778810c?pvs=21"
+                      >Sans titre</a
+                    >
+                  </td>
+                  <td class="cell-&lt;cN;"></td>
+                  <td class="cell-Q&gt;pk"></td>
+                  <td class="cell-eW^k"></td>
+                </tr>
+              </tbody>
+            </table>
+            <br /><br />
+          </div>
+          <h1 id="66721320-1622-4dff-af7e-7753ab6c8008" class="">
+            🔌 Points de terminaison
+          </h1>
+          <figure
+            class="block-color-gray_background callout"
+            style="white-space: pre-wrap; display: flex"
+            id="c6e6dcf0-e18f-4090-9ce2-c4b40375fb0f"
+          >
+            <div style="font-size: 1.5em"><span class="icon">💡</span></div>
+            <div style="width: 100%">
+              les points de terminaison sont les url utilisé par l’application
+              pour faire les appels aux APIs et à la base de donnée<br />DEF
+              :<br />
+            </div>
+          </figure>
+          <div
+            id="a8900f93-35b4-4afc-ab8e-fefb8af663e8"
+            class="collection-content"
+          >
+            <h4 class="collection-title">Points de terminaison</h4>
+            <table class="collection-content">
+              <thead>
+                <tr>
+                  <th>
+                    <span class="icon property-icon"
+                      ><svg
+                        role="graphics-symbol"
+                        viewBox="0 0 16 16"
+                        style="
+                          width: 14px;
+                          height: 14px;
+                          display: block;
+                          fill: rgba(55, 53, 47, 0.45);
+                          flex-shrink: 0;
+                        "
+                        class="typesTitle"
+                      >
+                        <path
+                          d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"
+                        ></path></svg></span
+                    >Nom
+                  </th>
+                  <th>
+                    <span class="icon property-icon"
+                      ><img
+                        src="https://www.notion.so/icons/branch-merge_gray.svg"
+                        style="width: 14px; height: 14px" /></span
+                    >Type
+                  </th>
+                  <th>
+                    <span class="icon property-icon"
+                      ><svg
+                        role="graphics-symbol"
+                        viewBox="0 0 16 16"
+                        style="
+                          width: 14px;
+                          height: 14px;
+                          display: block;
+                          fill: rgba(55, 53, 47, 0.45);
+                          flex-shrink: 0;
+                        "
+                        class="typesUrl"
+                      >
+                        <path
+                          d="M7.69922 10.8945L8.73828 9.84863C7.91797 9.77344 7.34375 9.51367 6.91992 9.08984C5.76465 7.93457 5.76465 6.29395 6.91309 5.14551L9.18262 2.87598C10.3379 1.7207 11.9717 1.7207 13.127 2.87598C14.2891 4.04492 14.2822 5.67188 13.1338 6.82031L11.958 7.99609C12.1768 8.49512 12.2451 9.10352 12.1289 9.62988L14.0908 7.6748C15.7725 6 15.7793 3.62109 14.084 1.92578C12.3887 0.223633 10.0098 0.237305 8.33496 1.91211L5.95605 4.29785C4.28125 5.97266 4.26758 8.35156 5.96289 10.0469C6.36621 10.4434 6.90625 10.7441 7.69922 10.8945ZM8.30078 5.13184L7.26855 6.17773C8.08203 6.25293 8.66309 6.51953 9.08008 6.93652C10.2422 8.09863 10.2422 9.73242 9.08691 10.8809L6.81738 13.1504C5.66211 14.3057 4.03516 14.3057 2.87305 13.1504C1.71094 11.9883 1.71777 10.3545 2.87305 9.20605L4.04199 8.03027C3.83008 7.53125 3.75488 6.92969 3.87109 6.39648L1.91602 8.35156C0.234375 10.0264 0.227539 12.4121 1.92285 14.1074C3.61816 15.8027 5.99707 15.7891 7.67188 14.1143L10.0439 11.7354C11.7256 10.0537 11.7324 7.6748 10.0371 5.98633C9.64062 5.58301 9.10059 5.28223 8.30078 5.13184Z"
+                        ></path></svg></span
+                    >URL
+                  </th>
+                  <th>
+                    <span class="icon property-icon"
+                      ><svg
+                        role="graphics-symbol"
+                        viewBox="0 0 16 16"
+                        style="
+                          width: 14px;
+                          height: 14px;
+                          display: block;
+                          fill: rgba(55, 53, 47, 0.45);
+                          flex-shrink: 0;
+                        "
+                        class="typesText"
+                      >
+                        <path
+                          d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"
+                        ></path></svg></span
+                    >Description
+                  </th>
+                  <th>
+                    <span class="icon property-icon"
+                      ><svg
+                        role="graphics-symbol"
+                        viewBox="0 0 16 16"
+                        style="
+                          width: 14px;
+                          height: 14px;
+                          display: block;
+                          fill: rgba(55, 53, 47, 0.45);
+                          flex-shrink: 0;
+                        "
+                        class="typesSelect"
+                      >
+                        <path
+                          d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM7.62402 10.6348C7.79492 10.915 8.20508 10.9287 8.37598 10.6348L10.666 6.73145C10.8574 6.41016 10.7002 6.04102 10.3652 6.04102H5.62793C5.29297 6.04102 5.14941 6.43066 5.32031 6.73145L7.62402 10.6348Z"
+                        ></path></svg></span
+                    >login_required
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="585bed5d-abab-4867-aa56-1c61bf6fd963">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/form_add_client-585bed5dabab4867aa561c61bf6fd963?pvs=21"
+                      >form_add_client</a
+                    >
+                  </td>
+                  <td class="cell-Zv&gt;`">
+                    <span class="selected-value select-value-color-pink"
+                      >GET</span
+                    >
+                  </td>
+                  <td class="cell-n=DM">
+                    <a href="/form_add_client" class="url-value"
+                      >/form_add_client</a
+                    >
+                  </td>
+                  <td class="cell-&lt;cN;">
+                    Route pour afficher le formulaire d&#x27;ajout d&#x27;un
+                    client
+                  </td>
+                  <td class="cell-onH=">
+                    <span class="selected-value select-value-color-gray"
+                      >✅</span
+                    >
+                  </td>
+                </tr>
+                <tr id="1685c0cc-fc38-4952-8048-126b6e129c07">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/fill_requiert-1685c0ccfc3849528048126b6e129c07?pvs=21"
+                      >fill_requiert</a
+                    >
+                  </td>
+                  <td class="cell-Zv&gt;`">
+                    <span class="selected-value select-value-color-pink"
+                      >GET</span
+                    >
+                  </td>
+                  <td class="cell-n=DM">
+                    <a
+                      href="/fill_requiert/&lt;int:id_client&gt;"
+                      class="url-value"
+                      >/fill_requiert/&lt;int:id_client&gt;</a
+                    >
+                  </td>
+                  <td class="cell-&lt;cN;">
+                    Route pour afficher le formulaire d&#x27;ajout de plusieurs
+                    clients
+                  </td>
+                  <td class="cell-onH=">
+                    <span class="selected-value select-value-color-gray"
+                      >✅</span
+                    >
+                  </td>
+                </tr>
+                <tr id="2102bb21-cb3d-43f4-bc43-53a05476c558">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/accueil-2102bb21cb3d43f4bc4353a05476c558?pvs=21"
+                      >accueil</a
+                    >
+                  </td>
+                  <td class="cell-Zv&gt;`">
+                    <span class="selected-value select-value-color-pink"
+                      >GET</span
+                    >
+                  </td>
+                  <td class="cell-n=DM">
+                    <a href="/" class="url-value">/</a>
+                  </td>
+                  <td class="cell-&lt;cN;">
+                    Route pour la page d&#x27;accueil avec les clients
+                  </td>
+                  <td class="cell-onH=">
+                    <span class="selected-value select-value-color-gray"
+                      >✅</span
+                    >
+                  </td>
+                </tr>
+                <tr id="39fa0121-b41d-4670-8d18-0758ff59d7f5">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/documentation-39fa0121b41d46708d180758ff59d7f5?pvs=21"
+                      >documentation</a
+                    >
+                  </td>
+                  <td class="cell-Zv&gt;`">
+                    <span class="selected-value select-value-color-pink"
+                      >GET</span
+                    >
+                  </td>
+                  <td class="cell-n=DM">
+                    <a href="/documentation" class="url-value"
+                      >/documentation</a
+                    >
+                  </td>
+                  <td class="cell-&lt;cN;">Route pour la documentation</td>
+                  <td class="cell-onH=">
+                    <span class="selected-value select-value-color-pink"
+                      >🚫</span
+                    >
+                  </td>
+                </tr>
+                <tr id="7fd744d2-0033-49d8-9850-46f7fc5d7d58">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/form_add_logiciel-7fd744d2003349d8985046f7fc5d7d58?pvs=21"
+                      >form_add_logiciel</a
+                    >
+                  </td>
+                  <td class="cell-Zv&gt;`">
+                    <span class="selected-value select-value-color-pink"
+                      >GET</span
+                    >
+                  </td>
+                  <td class="cell-n=DM">
+                    <a href="/form_add_logiciel" class="url-value"
+                      >/form_add_logiciel</a
+                    >
+                  </td>
+                  <td class="cell-&lt;cN;">
+                    Route pour afficher le formulaire d&#x27;ajout d&#x27;un
+                    logiciel
+                  </td>
+                  <td class="cell-onH=">
+                    <span class="selected-value select-value-color-gray"
+                      >✅</span
+                    >
+                  </td>
+                </tr>
+                <tr id="670c1263-8249-4d56-b978-167a8b3a455d">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/form_add_passerelle-670c126382494d56b978167a8b3a455d?pvs=21"
+                      >form_add_passerelle</a
+                    >
+                  </td>
+                  <td class="cell-Zv&gt;`">
+                    <span class="selected-value select-value-color-pink"
+                      >GET</span
+                    >
+                  </td>
+                  <td class="cell-n=DM">
+                    <a href="/form_add_passerelle" class="url-value"
+                      >/form_add_passerelle</a
+                    >
+                  </td>
+                  <td class="cell-&lt;cN;">
+                    Route pour afficher le formulaire d&#x27;ajout d&#x27;une
+                    passerelle
+                  </td>
+                  <td class="cell-onH=">
+                    <span class="selected-value select-value-color-gray"
+                      >✅</span
+                    >
+                  </td>
+                </tr>
+                <tr id="41cd163f-672f-44dd-a7e8-60dec08ca58e">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/form_connect_passerelle-41cd163f672f44dda7e860dec08ca58e?pvs=21"
+                      >form_connect_passerelle</a
+                    >
+                  </td>
+                  <td class="cell-Zv&gt;`">
+                    <span class="selected-value select-value-color-pink"
+                      >GET</span
+                    >
+                  </td>
+                  <td class="cell-n=DM">
+                    <a href="/form_connect_passerelle" class="url-value"
+                      >/form_connect_passerelle</a
+                    >
+                  </td>
+                  <td class="cell-&lt;cN;">
+                    Route pour afficher le formulaire de connexion d&#x27;une
+                    passerelle
+                  </td>
+                  <td class="cell-onH=">
+                    <span class="selected-value select-value-color-gray"
+                      >✅</span
+                    >
+                  </td>
+                </tr>
+                <tr id="8df9e943-e56b-492b-a91f-7a1978c3c115">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/8df9e943e56b492ba91f7a1978c3c115?pvs=21"
+                      >Sans titre</a
+                    >
+                  </td>
+                  <td class="cell-Zv&gt;`"></td>
+                  <td class="cell-n=DM"></td>
+                  <td class="cell-&lt;cN;"></td>
+                  <td class="cell-onH="></td>
+                </tr>
+                <tr id="e0a93964-7516-45a1-b53c-a0728ee6b536">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/login-e0a93964751645a1b53ca0728ee6b536?pvs=21"
+                      >login</a
+                    >
+                  </td>
+                  <td class="cell-Zv&gt;`">
+                    <span class="selected-value select-value-color-pink"
+                      >GET</span
+                    ><span class="selected-value select-value-color-green"
+                      >POST</span
+                    >
+                  </td>
+                  <td class="cell-n=DM">
+                    <a href="/login" class="url-value">/login</a>
+                  </td>
+                  <td class="cell-&lt;cN;">
+                    Route pour afficher le formulaire de connexion et gérer la
+                    connexion
+                  </td>
+                  <td class="cell-onH=">
+                    <span class="selected-value select-value-color-pink"
+                      >🚫</span
+                    >
+                  </td>
+                </tr>
+                <tr id="e3d7c6a6-5777-4ea5-b200-734bdf81b1cc">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/register-e3d7c6a657774ea5b200734bdf81b1cc?pvs=21"
+                      >register</a
+                    >
+                  </td>
+                  <td class="cell-Zv&gt;`">
+                    <span class="selected-value select-value-color-pink"
+                      >GET</span
+                    ><span class="selected-value select-value-color-green"
+                      >POST</span
+                    >
+                  </td>
+                  <td class="cell-n=DM">
+                    <a href="/register" class="url-value">/register</a>
+                  </td>
+                  <td class="cell-&lt;cN;">
+                    Route pour afficher le formulaire d&#x27;inscription et
+                    gérer l&#x27;inscription
+                  </td>
+                  <td class="cell-onH=">
+                    <span class="selected-value select-value-color-gray"
+                      >✅</span
+                    >
+                  </td>
+                </tr>
+                <tr id="f8d0d625-6d77-45a4-b7cd-3895d7598f83">
+                  <td class="cell-title">
+                    <a
+                      href="https://www.notion.so/logout-f8d0d6256d7745a4b7cd3895d7598f83?pvs=21"
+                      >logout</a
+                    >
+                  </td>
+                  <td class="cell-Zv&gt;`"></td>
+                  <td class="cell-n=DM">
+                    <a href="/logout" class="url-value">/logout</a>
+                  </td>
+                  <td class="cell-&lt;cN;">
+                    Route pour déconnecter l&#x27;utilisateur
+                  </td>
+                  <td class="cell-onH=">
+                    <span class="selected-value select-value-color-gray"
+                      >✅</span
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br /><br />
+          </div>
+          <p id="59be2cb1-0b44-4d29-989b-4f5e48b0c373" class=""></p>
+          <h1 id="3dd3b4be-da70-41e4-8be8-9b4aada4461f" class="">
+            Base de donnée
+          </h1>
+          <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+            integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+          ></script>
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+            integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+          />
+          <pre
+            id="66d7a900-bbb1-4e07-81ba-7e63b18fa927"
+            class="code"
+          ><code class="language-Mermaid">classDiagram
+    class CLIENT {
+        INTEGER idClient
+        TEXT Username
+        PRIMARY KEY(idClient)
+    }
+
+    class LOGICIEL {
+        INTEGER IdLogiciel
+        TEXT LibLogiciel
+        PRIMARY KEY(IdLogiciel)
+    }
+
+    class PASSERELLE {
+        INTEGER IdPasserelle
+        TEXT LibPasserelle
+        PRIMARY KEY(IdPasserelle)
+    }
+
+    class CHAMPS {
+        INTEGER IdChamp
+        TEXT lib_champ
+        TEXT nomTable
+        INTEGER IdPasserelle
+        INTEGER IdLogiciel
+        PRIMARY KEY(IdChamp)
+        FOREIGN KEY(IdPasserelle) REFERENCES PASSERELLE(IdPasserelle)
+        FOREIGN KEY(IdLogiciel) REFERENCES LOGICIEL(IdLogiciel)
+    }
+
+    class PASSERELLE_CLIENT {
+        INTEGER IdPasserelleClient
+        INTEGER IdPasserelle
+        INTEGER idClient
+        PRIMARY KEY(IdPasserelleClient)
+        FOREIGN KEY(IdPasserelle) REFERENCES PASSERELLE(IdPasserelle)
+        FOREIGN KEY(idClient) REFERENCES CLIENT(idClient)
+    }
+
+    class CONNECT_LOGICIEL {
+        INTEGER IdLogiciel
+        INTEGER IdPasserelle
+        NUMERIC IsSource
+        PRIMARY KEY(IdLogiciel, IdPasserelle)
+        FOREIGN KEY(IdLogiciel) REFERENCES LOGICIEL(IdLogiciel)
+        FOREIGN KEY(IdPasserelle) REFERENCES PASSERELLE(IdPasserelle)
+    }
+
+    class CHAMP_PASSERELLE {
+        INTEGER IdChamp
+        INTEGER IdPasserelleClient
+        TEXT Valeur
+        PRIMARY KEY(IdChamp, IdPasserelleClient)
+        FOREIGN KEY(IdChamp) REFERENCES CHAMPS(IdChamp)
+        FOREIGN KEY(IdPasserelleClient) REFERENCES PASSERELLE_CLIENT(IdPasserelleClient)
+    }
+
+    CLIENT --&gt; PASSERELLE_CLIENT : idClient
+    LOGICIEL --&gt; CHAMPS : IdLogiciel
+    PASSERELLE --&gt; CHAMPS : IdPasserelle
+    PASSERELLE --&gt; PASSERELLE_CLIENT : IdPasserelle
+    LOGICIEL --&gt; CONNECT_LOGICIEL : IdLogiciel
+    PASSERELLE --&gt; CONNECT_LOGICIEL : IdPasserelle
+    CHAMPS --&gt; CHAMP_PASSERELLE : IdChamp
+    PASSERELLE_CLIENT --&gt; CHAMP_PASSERELLE : IdPasserelleClient
+</code></pre>
+          <p id="bdcac806-724b-43da-9cc2-10bb61eaa570" class=""></p>
+          <p id="3d668dec-e92b-45fd-b6fe-32b115c465b4" class=""></p>
+        </div>
+      </div>
+      <p id="01cde9f0-7d5f-4fce-9446-ec3b4305ca58" class=""></p>
+    </div>
+  </article>
+  <span class="sans" style="font-size: 14px; padding-top: 2em"></span>
+</body>
+
+
+
+
+{% endblock %}

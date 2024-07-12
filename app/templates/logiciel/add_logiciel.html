@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% block title %}Ajout logiciel{% endblock %} {% block
+content %}
+
+<br />
+
+<h1>Ajout logiciel</h1>
+
+<form
+  id="addLogicielForm"
+  action="{{ url_for('database.add_logiciel') }}"
+  method="post"
+>
+  <div class="form-group">
+    <label for="lib_logiciel">Nom</label>
+    <input
+      type="text"
+      class="form-control"
+      id="lib_logiciel"
+      name="lib_logiciel"
+      placeholder="Nom"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+
+<script>
+  document
+    .getElementById("addLogicielForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault(); // Empêche le comportement par défaut du formulaire
+      const form = event.target;
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: form.method,
+        body: formData,
+      })
+        .then((response) => {
+          if (response.ok) {
+            window.location.href = "{{ url_for('v_interface.home') }}"; // Redirection après succès
+          } else {
+            return response.json().then((data) => {
+              console.error("Error:", data);
+              alert("Erreur lors de l'ajout du logiciel.");
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Fetch error:", error);
+          alert("Erreur lors de l'ajout du logiciel.");
+        });
+    });
+</script>
+
+{% endblock %}

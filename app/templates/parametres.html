@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% block title %} Paramètres {% endblock %} {% block
+content %}
+
+<h1>Paramètres</h1>
+<div class="card">
+  <div class="card-header">
+    <h2>Gestion de la base de données</h2>
+  </div>
+  <div class="card-body">
+    <div class="card">
+        <div class="card-header">
+            <h3>Importer une base de données</h3>
+        </div>
+        <div class="card-body">
+
+            {% include 'import_db.html' %}
+
+        </div>
+    </div>
+
+
+
+    </br>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Exporter une base de données</h3>
+        </div>
+        <div class="card-body">
+            Télécharger ici : <a href="{{ url_for('main.export_db') }}" class="btn btn-primary">Exporter</a>
+        </div>
+    </div>
+    </div>
+</div>
+
+</br>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Gestion des utilisateurs</h2>
+  </div>
+  <div class="card-body">
+    <a href="{{ url_for('user.register') }}" class="btn btn-primary">Ajouter un utilisateur</a>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

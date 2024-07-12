@@ -1,0 +1,72 @@
+<div class="card">
+  <div class="card-header">
+    <h2>Liste des passerelles</h2>
+  </div>
+  <div class="card-body">
+    {% for passerelle in passerelles %}
+    <div class="card mb-3">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">{{ passerelle.LibPasserelle }}</h3>
+          <div>
+            <form
+              id="editChampsPasserelleForm"
+              action="{{ url_for('v_client.form_add_requiert_passerelle', id_passerelle_client=passerelle.IdPasserelleClient, id_client=client.IdClient) }}"
+              method="GET"
+              class="d-inline"
+            >
+              <button type="submit" class="btn btn-primary">🖊️</button>
+            </form>
+
+            <form
+              id="deleteClientPasserelleForm"
+              action="#"
+              method="POST"
+              onsubmit="return false;"
+              class="d-inline"
+            >
+              <input
+                type="hidden"
+                name="IdClient"
+                value="{{ client.IdClient }}"
+              />
+              <input
+                type="hidden"
+                name="IdPasserelle"
+                value="{{ passerelle.IdPasserelle }}"
+              />
+              <button type="submit" class="btn btn-danger">🗑️</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>LibChamp</th>
+              <th>Valeur</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for champ in passerelle.champs %} {% if champ.TypeChamp ==
+            "caché" %}
+            <!-- Skip the hidden fields -->
+            {% elif champ.TypeChamp == "masqué" %}
+            <tr>
+              <td>{{ champ.LibChamp }}</td>
+              <td>********</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td>{{ champ.LibChamp }}</td>
+              <td>{{ champ.Valeur }}</td>
+            </tr>
+            {% endif %} {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,12 @@
+# Fichier de configuration pour OneDrive
+
+# Répertoire de synchronisation
+sync_dir = "/app/onedrive"
+
+# Identifiants de l'application OneDrive
+client_id = "YOUR_CLIENT_ID"
+client_secret = "YOUR_CLIENT_SECRET"
+
+# Fichier de configuration
+
+skip_files = "Desktop.ini|Thumbs.db|.DS_Store"

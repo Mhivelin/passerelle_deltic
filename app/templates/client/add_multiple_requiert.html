@@ -1,0 +1,80 @@
+{% extends 'base.html' %} {% block title %}Remplissage des champs requis{%
+endblock %} {% block content %}
+<h1>Remplissage des champs requis</h1>
+
+<form
+  id="addMultipleChampPasserelleClientForm"
+  action="{{ url_for('database.add_multiple_champ_passerelle') }}"
+  method="post"
+>
+  <div class="form-group">
+    {% for field in fields %}
+    </br>
+    {% if field.TypeChamp == "masqué" %}
+    <label for="LibChamp_{{ loop.index }}">{{ field.LibChamp }}</label>
+    <input
+      type="password"
+      class="form-control"
+      id="LibChamp_{{ loop.index }}"
+      name="Valeur[]"
+      placeholder="Entrer la valeur"
+      value="{{ field.Valeur }}"
+    />
+    <input type="hidden" name="IdChamp[]" value="{{ field.IdChamp }}" />
+    {% elif field.TypeChamp == "caché" %}
+    <input type="hidden" name="IdChamp[]" value="{{ field.IdChamp }}" />
+    <input type="hidden" name="Valeur[]" value="{{ field.Valeur }}" />
+    {% elif field.TypeChamp == "select_ebp_folder" %} {% include
+    'logiciel/ebp/folder_select.html' %} {% elif field.TypeChamp ==
+    "select_zeendoc_classeur" %} {% include
+    'logiciel/zeendoc/classeur_select.html' %} {% elif field.TypeChamp ==
+    "select_zeendoc_index" %} {% include 'logiciel/zeendoc/index_select.html' %}
+    {% else %}
+    <label for="LibChamp_{{ loop.index }}">{{ field.LibChamp }}</label>
+    <input type="hidden" name="IdChamp[]" value="{{ field.IdChamp }}" />
+    <input
+      type="text"
+      class="form-control"
+      id="LibChamp_{{ loop.index }}"
+      name="Valeur[]"
+      placeholder="Entrer la valeur"
+      value="{{ field.Valeur }}"
+    />
+    {% endif %} {% endfor %}
+  </div>
+  <input type="hidden" name="id_client" value="{{ id_client }}" />
+  <input type="hidden" name="id_passerelle" value="{{ id_passerelle }}" />
+  <input type="hidden" name="id_passerelle_client" value="{{ id_passerelle_client }}" />
+  <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+
+<script>
+  document
+    .getElementById("addMultipleChampPasserelleClientForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: form.method,
+        body: formData,
+      })
+        .then((response) => {
+          if (response.ok) {
+            window.location.href =
+              "{{ url_for('v_client.form_add_requiert_passerelle', id_client=id_client, id_passerelle_client=id_passerelle_client) }}";
+          } else {
+            return response.json().then((data) => {
+              console.error("Error:", data);
+              alert("Erreur lors de l'ajout des champs requis : " + data.error);
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Fetch error:", error);
+          alert("Erreur lors de l'ajout des champs requis.");
+        });
+    });
+</script>
+{% endblock %}
