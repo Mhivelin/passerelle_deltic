@@ -1,8 +1,6 @@
-import os
 import unittest
 
 from app import create_app
-from app.models import database
 from app.models.sellsy import Sellsy
 
 
@@ -48,6 +46,22 @@ class TestModels(unittest.TestCase):
     #     sellsy = Sellsy(1)
     #     print(sellsy.get_paid_invoices())
 
+
+    def test_update_invoice_smart_tags(self):
+        """
+        Teste la mise à jour des tags d'une facture.
+        """
+        sellsy = Sellsy(1)
+        tags = [{"value": "paiement exporté"}]  # Tags formatés correctement
+        print(
+            "update_invoice_smart_tags",
+            sellsy.update_invoice_smart_tags(51134735, tags),
+        )
+
+
+
+
+
     # def test_get_invoice_payments(self):
     #     """
     #     Teste la récupération des paiements d'une facture.
@@ -55,15 +69,15 @@ class TestModels(unittest.TestCase):
     #     sellsy = Sellsy(1)
     #     print("Payments:", sellsy.get_invoice_payments(51134735))
 
-    def test_get_paid_invoices_with_last_payment(self):
-        """
-        Teste la récupération des factures payées avec leur dernier paiement.
-        """
-        sellsy = Sellsy(1)
-        print(
-            "test_get_paid_invoices_with_last_payment",
-            sellsy.get_paid_invoices_with_last_payment(),
-        )
+    # def test_get_paid_invoices_with_last_payment(self):
+    #     """
+    #     Teste la récupération des factures payées avec leur dernier paiement.
+    #     """
+    #     sellsy = Sellsy(1)
+    #     print(
+    #         "test_get_paid_invoices_with_last_payment",
+    #         sellsy.get_paid_invoices_with_last_payment(),
+    #     )
 
-        # Example usage
-        # sellsy_api = Sellsy(client_id, client_secret)
+    #     # Example usage
+    #     # sellsy_api = Sellsy(client_id, client_secret)

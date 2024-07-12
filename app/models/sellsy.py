@@ -9,6 +9,9 @@ from app.models import database as db
 
 class Sellsy:
     def __init__(self, passerelle_client_id, scope="all"):
+        """
+        Initialisation de la classe Sellsy.
+        """
         infos = db.get_all_champ_passerelle_by_passerelle_client_with_lib_champ(
             passerelle_client_id
         )
@@ -35,6 +38,9 @@ class Sellsy:
             self.get_token()
 
     def Bdtoken_saver(self, token):
+        """
+        Enregistre le token dans la base de données.
+        """
         print("Début de l'enregistrement du token")
         token_json = json.dumps(token)
 
@@ -59,9 +65,15 @@ class Sellsy:
                 print("Erreur lors de l'enregistrement du token:", e)
 
     def token_is_expired(self):
+        """
+        Vérifie si le token est expiré.
+        """
         return time.time() > self.token_expiry
 
     def get_token(self):
+        """
+        Récupère un token d'accès à l'API Sellsy.
+        """
         url = f"{self.auth_host}/oauth2/access-tokens"
         print(f"Getting token from URL: {url}")
         data = {
@@ -89,6 +101,9 @@ class Sellsy:
         return self.token
 
     def make_request(self, endpoint, method="GET", data=None):
+        """
+        Effectue une requête à l'API Sellsy.
+        """
         if not self.token or self.token_is_expired():
             self.get_token()
 
@@ -130,6 +145,9 @@ class Sellsy:
         return response.json()
 
     def get_invoices(self, limit=100):
+        """
+        Récupère les factures de l'API Sellsy.
+        """
         endpoint = "v2/invoices"
         params = {
             "field[]": ["id", "number", "status", "date", "amount"],
@@ -145,18 +163,50 @@ class Sellsy:
             return None
 
     def get_paid_invoices(self):
-        invoices = self.get_invoices()
+        """
+        Récupère les factures payées de l'API Sellsy.
+        """
+        endpoint = "v2/invoices/search"
+        data = {
+            "direction": "desc",
+            "limit": 100,
+            "field": ["number", "status", "date", "_embed.smart_tags"],
+            "embed": ["smart_tags"],
+            "filters": {
+                "favourite_filter": 599129
+            }
+        }
 
-        if not invoices:
+        try:
+            response = self.make_request(endpoint, method="POST", data=data)
+            return response.get('data')  # Assurez-vous que cette clé est correcte selon la structure de la réponse de votre API.
+        except Exception as e:
+            print(f"Erreur lors de la récupération des factures payées: {e}")
             return None
 
-        paid_invoices = [
-            invoice for invoice in invoices if invoice.get("status") == "paid"
-        ]
 
-        return paid_invoices
+    def update_invoice_smart_tags(self, invoice_id, tags):
+        """
+        Met à jour les smart-tags d'une facture.
+        """
+        endpoint = f"v2/invoices/{invoice_id}/smart-tags"
+        data = tags  # Les tags doivent être une liste de dictionnaires
+
+        try:
+            response = self.make_request(endpoint, method="POST", data=data)  # Utilise la méthode POST
+            return response  # Retourne la réponse JSON entière pour traitement ultérieur
+        except Exception as e:
+            print(f"Erreur lors de la mise à jour des smart-tags pour la facture {invoice_id}: {e}")
+            return None
+
+
+
+
 
     def get_invoice_payments(self, invoice_id):
+        """
+        Récupère les paiements d'une facture.
+        """
         endpoint = f"v2/invoices/{invoice_id}/payments"
         try:
             response = self.make_request(endpoint, method="GET")
@@ -168,6 +218,9 @@ class Sellsy:
             return None
 
     def get_paid_invoices_with_last_payment(self):
+        """
+        Récupère les factures payées avec le dernier paiement effectué.
+        """
         paid_invoices = self.get_paid_invoices()
         if not paid_invoices:
             return None
@@ -181,3 +234,5 @@ class Sellsy:
                 invoice["last_payment"] = last_payment
 
         return paid_invoices
+
+

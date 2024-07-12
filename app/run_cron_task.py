@@ -1,16 +1,13 @@
-"""
-Ce script exécute une tâche cron pour l'application Flask.
-"""
-
-import logging
 import os
 import sys
+
+# Ajouter le chemin du répertoire de l'application au PYTHONPATH
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from app import create_app
 from app.models import passerelles
 
-# Ajouter le chemin du répertoire de l'application au PYTHONPATH
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+import logging
 
 # Configuration du logger
 logging.basicConfig(
@@ -28,7 +25,6 @@ def run_cron_task():
     """
     Exécute la tâche cron définie dans le module passerelles.
     """
-
     logger.info("Cron task started.")
     passerelles.routine()
     logger.info("Cron task finished.")

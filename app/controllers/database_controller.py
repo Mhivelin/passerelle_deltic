@@ -665,3 +665,20 @@ def get_champ_passerelle_client_by_ids_with_lib_champ(id_passerelle):
     except database.DatabaseError as e:
         logging.error("Error fetching champ passerelle client: %s", str(e))
         return jsonify({"error": str(e)}), 500
+
+
+@database_bp.route(
+    "/database/reset_date_synchronisation_passerelle_client/<int:id_passerelle_client>",
+    methods=["GET"],
+)
+@login_required
+def reset_date_synchronisation_passerelle_client(id_passerelle_client):
+    """
+    Réinitialise la date de synchronisation de la passerelle client.
+    """
+    try:
+        database.reset_date_synchronisation_passerelle_client(id_passerelle_client)
+        return jsonify({"message": "Date de synchronisation réinitialisée avec succès"}), 200
+    except database.DatabaseError as e:
+        logging.error("Error resetting date synchronisation: %s", str(e))
+        return jsonify({"error": str(e)}), 500

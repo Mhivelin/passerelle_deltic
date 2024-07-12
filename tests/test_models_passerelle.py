@@ -3,6 +3,7 @@ Ce fichier contient les tests unitaires pour faire les tests de l'oject passerel
 """
 
 import unittest
+import datetime
 
 from app import create_app
 from app.models import database, passerelles
@@ -36,17 +37,23 @@ class TestModels(unittest.TestCase):
     #     Test de la fonction login du model zeendoc.
     #     """
 
-    def test_routine(self):
-        """
-        Test de la fonction routine.
-        """
-        result = passerelles.routine()
+    # def test_routine(self):
+    #     """
+    #     Test de la fonction routine.
+    #     """
+    #     result = passerelles.routine()
 
-    # def test_P_remonte_paiement(self):
-    #     """
-    #     Test de la fonction P_remonte_paiement.
-    #     """
-    #     passerelles.P_remonte_paiement(1)
+    #     print(result)
+
+    def test_p_remonte_paiement_ebp_zeendoc(self):
+        """
+        Test de la fonction P_remonte_paiement.
+        """
+
+        database.reset_date_synchronisation_passerelle_client(2)
+
+        value = datetime.datetime.now().strftime("%Y-%m-%d")
+        passerelles.p_remonte_paiement_ebp_zeendoc(2, value)
 
     # def test_P_remonte_fournisseur(self):
     #     """

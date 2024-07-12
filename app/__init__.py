@@ -11,10 +11,10 @@ from logging.handlers import RotatingFileHandler
 
 import dotenv
 from flask import Flask, render_template, request
-from flask_jwt_extended import JWTManager
+# from flask_jwt_extended import JWTManager
 from flask_login import LoginManager
 from prometheus_client import Counter, make_wsgi_app
-from prometheus_flask_exporter import PrometheusMetrics
+# from prometheus_flask_exporter import PrometheusMetrics
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 
 from app.extensions import db

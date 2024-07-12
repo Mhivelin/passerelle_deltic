@@ -1,6 +1,6 @@
 import pytest
-from flask import Flask, url_for
-from flask_login import LoginManager, UserMixin, login_user
+from flask import Flask
+from flask_login import LoginManager
 
 from app.models import database, user
 
@@ -11,10 +11,10 @@ def app():
     Fixture pour configurer l'application Flask pour les tests.
     """
     app = Flask(__name__)
-    app.register_blueprint(database_bp)
-    app.register_blueprint(
-        v_user_bp
-    )  # Assurez-vous que le blueprint d'authentification est enregistré
+    # app.register_blueprint(database_bp)
+    # app.register_blueprint(
+    #     v_user_bp
+    # )
     app.config["TESTING"] = True
     app.config["LOGIN_DISABLED"] = False
     app.secret_key = "supersecretkey"  # Nécessaire pour les sessions
@@ -44,7 +44,7 @@ def db_setup():
     """
     database.create_database()
     # Ajout d'un utilisateur de test
-    user = user(username="test", password="")
+    # user = user(username="test", password="")
     user.set_password("test")
     database.db.session.add(user)
     database.db.session.commit()

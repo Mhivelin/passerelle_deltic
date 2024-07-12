@@ -5,7 +5,7 @@ Ce fichier contient des tests temporaires pour les opérations de la base de don
 import unittest
 
 from app import create_app
-from app.models import database, zeendoc
+from app.models import database
 
 
 class TestModels(unittest.TestCase):

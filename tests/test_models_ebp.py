@@ -2,8 +2,8 @@ import os
 import unittest
 
 from app import create_app
-from app.models import database
 from app.models.ebp import EBP
+from app.models import database
 
 
 class TestModels(unittest.TestCase):
@@ -32,10 +32,10 @@ class TestModels(unittest.TestCase):
 
         os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
-        ebp = EBP(1)
+        ebp = EBP(2)
         ebp.login()
 
-        print("Token: ", ebp.token)
+        # print("Token: ", ebp.token)
 
         if not ebp.is_authenticated():
             ebp.refresh_token()
@@ -77,27 +77,29 @@ class TestModels(unittest.TestCase):
     #     suppliers = ebp.get_suppliers()
     #     print("Suppliers: ", suppliers)
 
-    # def test_get_paid_documents(self):
+    def test_get_paid_documents(self):
+        """
+        Teste la récupération des documents payés EBP.
+        """
+
+        # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+
+        database.update_date_synchronisation_passerelle_client(2)
+
+        ebp = EBP(2)
+        paid_documents = ebp.get_paid_documents()
+        print("Paid documents: ", paid_documents)
+
+    # def test_get_fournisseur(self):
     #     """
-    #     Teste la récupération des documents payés EBP.
+    #     Teste la récupération d'un fournisseur EBP.
     #     """
 
-    #     # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+    #     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
     #     ebp = EBP(1)
-    #     paid_documents = ebp.get_paid_documents()
-    #     print("Paid documents: ", paid_documents)
-
-    def test_get_fournisseur(self):
-        """
-        Teste la récupération d'un fournisseur EBP.
-        """
-
-        os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
-
-        ebp = EBP(1)
-        fournisseur = ebp.get_suppliers()
-        print("Fournisseur: ", fournisseur)
+    #     fournisseur = ebp.get_suppliers()
+    #     print("Fournisseur: ", fournisseur)
 
 
 if __name__ == "__main__":

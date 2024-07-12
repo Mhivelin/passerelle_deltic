@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 def routine():
     """
-    Routine de remontée de paiement
+    Routine qui traite les passerelles une par une.
     """
     # on récupère la liste passerelles
     passerelles = database.get_all_passerelle_client_with_lib_passerelle()
@@ -132,6 +132,7 @@ def p_remonte_paiement_ebp_zeendoc(IdPasserelleClient, value):  # pylint: disabl
             ref=document_number, index=index_paiement, value=value
         )
         logger.info("res: %s", res)
+        print("res: ", res)
 
 
 def p_remonte_fournisseur(IdPasserelleClient):  # pylint: disable=C0103
@@ -217,4 +218,9 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):  # pylint: disable=C0
         res = zeendoc.update_doc_paiement_by_num_facture(
             num_facture=doc["number"], index=index, value=paid_at
         )
+
+        # on modifie le document dans Sellsy update_invoice_smart_tags
+        res = sellsy.update_invoice_smart_tags(doc["id"], [{"value": "paiement exporté"}])
+
+
         logger.info("Update response: %s", res)

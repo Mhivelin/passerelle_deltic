@@ -10,7 +10,6 @@ from requests.exceptions import HTTPError
 # from oauthlib.oauth2 import InvalidClientError, TokenExpiredError, BackendApplicationClient
 from requests_oauthlib import OAuth2Session
 
-import app.models.database as db
 from app.models import database as db
 
 
@@ -273,7 +272,29 @@ class EBP:
         """
         Récupère les documents payés.
         """
-        url = f"https://api-developpeurs.ebp.com/gescom/api/v1/Folders/{self.folder_id}/Documents/PurchaseDocument?Duration=30&DocumentType=null&ToDate={self.DateDerSynchronisation}&Columns=DocumentNumber, Reference, CommitmentsBalanceDue&WhereCondition=%20%20type%3A%20CustomFilter%0A%20%20column%3A%20CommitmentsBalanceDue%0A%20%20operator%3A%20Equal%0A%20%20valueType%20%3A%20Decimal%0A%20%20value%3A%0A%20%20-%200"
-        headers = {"ebp-subscription-key": self.ebp_subscription_key}
+        # On enlève un jour pour éviter de récupérer les documents déjà synchronisés
+        date_recherche = self.DateDerSynchronisation
+        date_recherche = datetime.datetime.strptime(date_recherche, "%Y-%m-%d")
+        date_recherche = date_recherche - datetime.timedelta(days=2)
+
+        date_premier_doc = "1990-01-01"
+        date_premier_doc = datetime.datetime.strptime(date_premier_doc, "%Y-%m-%d")
+
+        # On formate la date au format RFC3339
+        date_recherche_str = date_recherche.strftime("%Y-%m-%dT%H:%M:%S")
+
+        url = (f"https://api-developpeurs.ebp.com/gescom/api/v1/Folders/{self.folder_id}/Documents/"
+            f"PurchaseDocument?Duration=30&DocumentType=null&ToDate={date_premier_doc}"
+            f"&Columns=DocumentNumber,Reference,CommitmentsBalanceDue,sysModifiedDate"
+            f"&SysModifiedDate={date_recherche_str}"
+            f"&WhereCondition=%20%20type%3A%20CustomFilter%0A%20%20column%3A%20CommitmentsBalanceDue%0A"
+            f"%20%20operator%3A%20Equal%0A%20%20valueType%20%3A%20Decimal%0A%20%20value%3A%0A%20%20-%200")
+
+        print(url)
+
+        headers = {
+            "ebp-subscription-key": self.ebp_subscription_key
+        }
+
         response = self.make_request("GET", url, headers=headers)
         return response.text

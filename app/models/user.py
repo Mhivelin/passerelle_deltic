@@ -11,8 +11,6 @@ from app.extensions import db  # pylint: disable=E0401
 class User(db.Model, UserMixin):
     """
     Classe User qui permet de gérer les utilisateurs de l'application.
-
-
     """
 
     id = db.Column(db.Integer, primary_key=True)

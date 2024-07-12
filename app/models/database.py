@@ -6,6 +6,7 @@ sur la base de données.
 import datetime
 import logging
 import sqlite3
+import os
 
 # import os
 
@@ -16,7 +17,12 @@ import sqlite3
 
 def get_db_connexion():
     """Retourne une connexion à la base de données SQLite."""
-    conn = sqlite3.connect("instance/database.db")
+    if os.getenv('DOCKER_ENV') == '1':
+        db_path = '/app/instance/database.db'
+    else:
+        db_path = 'instance/database.db'
+
+    conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -413,7 +419,7 @@ def get_champ_by_passerelle_and_logiciel_passerelle(passerelle_id):
     if not logiciels:
         return []
 
-    logiciels_ids = [l["IdLogiciel"] for l in logiciels]
+    logiciels_ids = [logiciel["IdLogiciel"] for logiciel in logiciels]
     champs_logiciels = get_champs_by_logiciels(logiciels_ids)
     champs_passerelles = get_champs_by_passerelles([passerelle_id])
 
@@ -561,7 +567,7 @@ def get_all_champs_for_client(id_client):
 
     # Étape 2: Récupérer les logiciels liés à ces passerelles
     logiciels = get_logiciels_by_passerelles(passerelles_ids)
-    logiciels_ids = [l["IdLogiciel"] for l in logiciels]
+    logiciels_ids = [logiciel["IdLogiciel"] for logiciel in logiciels]
 
     # Étape 3: Récupérer les champs requis pour les logiciels
     champs_logiciels = get_champs_by_logiciels(logiciels_ids)
@@ -583,6 +589,16 @@ def update_date_synchronisation_passerelle_client(id_passerelle_client):
     query = "UPDATE PASSERELLE_CLIENT SET DateDerSynchronisation = ? WHERE IdPasserelleClient = ?"
     return execute_query(
         query, (datetime.datetime.now().strftime("%Y-%m-%d"), id_passerelle_client)
+    )
+
+def reset_date_synchronisation_passerelle_client(id_passerelle_client):
+    """
+    Met à jour la date de synchronisation d'une passerelle
+    client spécifique sous la forme "1970-01-01".
+    """
+    query = "UPDATE PASSERELLE_CLIENT SET DateDerSynchronisation = ? WHERE IdPasserelleClient = ?"
+    return execute_query(
+        query, ("1970-01-01", id_passerelle_client)
     )
 
 
@@ -791,7 +807,7 @@ def get_champ_passerelle_required_by_passerelle_client(id_passerelle_client):
     logiciels = get_logiciels_by_passerelles([id])
 
     # Etape 4: recuperer les champs requis pour les logiciels
-    champs_logiciels = get_champs_by_logiciels([l["IdLogiciel"] for l in logiciels])
+    champs_logiciels = get_champs_by_logiciels([logiciel["IdLogiciel"] for logiciel in logiciels])
 
     # Etape 5: recuperer les champs requis pour la passerelle
     champs_passerelles = get_champs_by_passerelles([id])

@@ -1,6 +1,10 @@
 #!/bin/bash
-# Démarrer cron
+
+# Démarrer le service cron
 service cron start
 
-# Démarrer flask
+# Attendre un moment pour s'assurer que cron a démarré
+sleep 5
+
+# Démarrer Flask
 flask run --host=0.0.0.0

@@ -14,10 +14,14 @@ import app.models.database as db  # pylint: disable=E0401
 
 
 class Zeendoc:
-    """Classe qui permet de gérer les requêtes vers l'API Zeendoc"""
+    """
+    Classe qui permet de gérer les requêtes vers l'API Zeendoc
+    """
 
     def __init__(self, id) -> None:
-        """Constructeur de la classe Zeendoc"""
+        """
+        Constructeur de la classe Zeendoc
+        """
         infos = db.get_all_champ_passerelle_by_passerelle_client_with_lib_champ(id)
         self.log = self._get_info_value(infos, "Zeendoc_Login")
         self.cpassword = self._get_info_value(infos, "Zeendoc_CPassword")
@@ -32,12 +36,18 @@ class Zeendoc:
         self.login()
 
     def _get_info_value(self, infos, key):
+        """
+        Fonction qui permet de récupérer la valeur d'une clé dans la liste des infos
+        """
         for info in infos:
             if info["LibChamp"] == key:
                 return info["Valeur"]
         return None
 
     def _create_soap_envelope(self, body):
+        """
+        Fonction qui permet de créer un enveloppe SOAP pour les requêtes
+        """
         return f"""<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Body>
@@ -46,7 +56,9 @@ class Zeendoc:
 </soap:Envelope>"""
 
     def login(self):
-        """Fonction qui permet de se connecter à l'API Zeendoc"""
+        """
+        Fonction qui permet de se connecter à l'API Zeendoc
+        """
         url = f"https://armoires.zeendoc.com/{self.urlclient}/ws/3_0/Zeendoc.php"
         body = f"""
         <login>
@@ -66,7 +78,9 @@ class Zeendoc:
         return response.text
 
     def _post_request(self, body, action):
-        """Helper function for sending SOAP requests"""
+        """
+        Helper function for sending SOAP requests
+        """
         url = f"https://armoires.zeendoc.com/{self.urlclient}/ws/3_0/Zeendoc.php"
         payload = self._create_soap_envelope(body)
         headers = {
@@ -79,7 +93,9 @@ class Zeendoc:
         return response.text
 
     def get_rights(self):
-        """Fonction qui permet de récupérer les droits de l'utilisateur"""
+        """
+        Fonction qui permet de récupérer les droits de l'utilisateur
+        """
         body = """
         <getRights>
           <Get_ConfigSets></Get_ConfigSets>
@@ -96,7 +112,9 @@ class Zeendoc:
             return None
 
     def get_classeurs(self):
-        """Fonction qui permet de récupérer les noms et id des classeurs de l'utilisateur"""
+        """
+        Fonction qui permet de récupérer les noms et id des classeurs de l'utilisateur
+        """
         if not self.right:
             self.get_rights()
         return [
@@ -105,7 +123,9 @@ class Zeendoc:
         ]
 
     def get_index(self):
-        """Fonction qui permet de récupérer les index de l'utilisateur"""
+        """
+        Fonction qui permet de récupérer les index de l'utilisateur
+        """
         if not self.right:
             self.get_rights()
 
@@ -127,7 +147,9 @@ class Zeendoc:
     def search_doc_by_custom(
         self, index_id, index_value, save_query_name="", wanted_columns=""
     ):
-        """Fonction qui permet de chercher un document par un index custom"""
+        """
+        Fonction qui permet de chercher un document par un index custom
+        """
         wanted_columns += index_id
         body = f"""
         <searchDoc>
@@ -154,7 +176,9 @@ class Zeendoc:
             return None
 
     def get_all_doc(self):
-        """Fonction qui permet de récupérer tous les documents de l'utilisateur"""
+        """
+        Fonction qui permet de récupérer tous les documents de l'utilisateur
+        """
         body = f"""
         <searchDoc>
           <Coll_Id>{self.classeur}</Coll_Id>
@@ -169,7 +193,9 @@ class Zeendoc:
             return None
 
     def search_doc_by_id(self, doc_id):
-        """Fonction qui permet de récupérer un document à partir de son id"""
+        """
+        Fonction qui permet de récupérer un document à partir de son id
+        """
         body = f"""
         <searchDoc>
           <Coll_Id>{self.classeur}</Coll_Id>
@@ -190,15 +216,21 @@ class Zeendoc:
             return None
 
     def get_doc_bap(self):
-        """Fonction qui permet de récupérer les documents BAP"""
+        """
+        Fonction qui permet de récupérer les documents BAP
+        """
         return self.search_doc_by_custom(self.indexBAP, "1")
 
     def get_doc_paiement(self):
-        """Fonction qui permet de récupérer les documents de paiement"""
+        """
+        Fonction qui permet de récupérer les documents de paiement
+        """
         return self.search_doc_by_custom(self.indexPaiement, "0")
 
     def get_doc_ref(self, ref):
-        """Fonction qui permet de récupérer un document par référence"""
+        """
+        Fonction qui permet de récupérer un document par référence
+        """
         try:
             res = self.search_doc_by_custom(self.indexStatutPaiement, ref)
             print(res)
@@ -210,7 +242,9 @@ class Zeendoc:
             return None
 
     def update_doc(self, coll_id, res_id, index_list, mode="UpdateGiven"):
-        """Fonction qui permet de mettre à jour un document"""
+        """
+        Fonction qui permet de mettre à jour un document
+        """
         index_xml = "".join(
             [
                 f"""
@@ -249,7 +283,8 @@ class Zeendoc:
             return None
 
     def update_doc_paiement_by_ref(self, ref, index, value="1"):
-        """Fonction qui permet de mettre à jour un document de paiement par référence
+        """
+        Fonction qui permet de mettre à jour un document de paiement par référence
         ref: Référence du document
         index: L'index à mettre à jour
         value: La valeur de l'index à mettre à jour (par défaut "1")
@@ -289,7 +324,8 @@ class Zeendoc:
             return None
 
     def update_doc_paiement_by_num_facture(self, num_facture, index, value="1"):
-        """Fonction qui permet de mettre à jour un document de paiement par numéro de facture
+        """
+        Fonction qui permet de mettre à jour un document de paiement par numéro de facture
         num_facture: Numéro de la facture
         index: L'index à mettre à jour
         value: La valeur de l'index à mettre à jour (par défaut "1")
@@ -346,7 +382,9 @@ class Zeendoc:
             return None
 
     def get_items_list(self, coll_id, column_name, only_deletable=50):
-        """Méthode pour obtenir des éléments d'une liste déroulante"""
+        """
+        Méthode pour obtenir des éléments d'une liste déroulante
+        """
         body = f"""
         <getItemsList>
           <Coll_Id>{coll_id}</Coll_Id>
@@ -369,7 +407,9 @@ class Zeendoc:
             return None
 
     def add_items_list(self, coll_id, column_name, items):
-        """Méthode pour ajouter des éléments à une liste déroulante"""
+        """
+        Méthode pour ajouter des éléments à une liste déroulante
+        """
         items_xml = "".join(
             [
                 f"""

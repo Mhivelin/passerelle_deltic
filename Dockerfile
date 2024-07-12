@@ -1,5 +1,5 @@
 # Utilisez une image de base Python officielle
-FROM python:3.8
+FROM python:3.9
 
 # Installer cron
 RUN apt-get update && apt-get install -y cron
@@ -39,6 +39,7 @@ ENV FLASK_APP=app:create_app
 ENV FLASK_ENV=development
 ENV OAUTHLIB_INSECURE_TRANSPORT=1
 ENV PYTHONPATH=/app
+ENV DOCKER_ENV=1
 
 # Utiliser le script de démarrage
 CMD ["/start.sh"]

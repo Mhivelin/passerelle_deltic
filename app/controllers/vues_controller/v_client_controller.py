@@ -1,8 +1,7 @@
 """
 Controlleur pour les routes des vue liées aux clients.
 """
-
-import logging  # Le standard import doit être placé avant les imports tiers
+import logging
 
 from flask import Blueprint, jsonify, render_template
 from flask_login import login_required
@@ -60,28 +59,27 @@ def form_add_requiert_passerelle(id_passerelle_client, id_client):
         liste_ebp_folder, liste_zeendoc_classeur, liste_zeendoc_index = [], [], []
 
         # Gestion des différents types de champs
-        try:
-            liste_ebp_folder = fetch_ebp_folders(id_passerelle_client, fields)
-            liste_zeendoc_classeur = fetch_zeendoc_classeurs(
-                id_passerelle_client, fields
-            )
-            liste_zeendoc_index = fetch_zeendoc_indexes(id_passerelle_client, fields)
-        except (ebp.EBPError, zeendoc.ZeendocError) as e:
-            logging.error("Erreur lors de la récupération des listes: %s", str(e))
-
-        return render_template(
-            "client/add_multiple_requiert.html",
-            fields=fields,
-            id_client=id_client,
-            id_passerelle=id_passerelle,
-            liste_ebp_folder=liste_ebp_folder,
-            liste_zeendoc_classeur=liste_zeendoc_classeur,
-            liste_zeendoc_index=liste_zeendoc_index,
-            id_passerelle_client=id_passerelle_client,
+        # try:
+        liste_ebp_folder = fetch_ebp_folders(id_passerelle_client, fields)
+        liste_zeendoc_classeur = fetch_zeendoc_classeurs(
+            id_passerelle_client, fields
         )
-    except (database.DatabaseError, database.ConnectionError) as e:
-        logging.error("Erreur lors de la récupération des champs: %s", str(e))
-        return jsonify({"error": "Erreur lors de la récupération des champs"}), 500
+        liste_zeendoc_index = fetch_zeendoc_indexes(id_passerelle_client, fields)
+    except Exception as e:
+        logging.error("Erreur lors de la récupération des listes: %s", str(e))
+
+    return render_template(
+        "client/add_multiple_requiert.html",
+        fields=fields,
+        id_client=id_client,
+        id_passerelle=id_passerelle,
+        liste_ebp_folder=liste_ebp_folder,
+        liste_zeendoc_classeur=liste_zeendoc_classeur,
+        liste_zeendoc_index=liste_zeendoc_index,
+        id_passerelle_client=id_passerelle_client,
+    )
+    # except :
+    #     return jsonify({"error": "Une erreur est survenue"}), 400
 
 
 def fetch_ebp_folders(id_passerelle_client, fields):
@@ -91,8 +89,8 @@ def fetch_ebp_folders(id_passerelle_client, fields):
             try:
                 instance_ebp = ebp.EBP(id_passerelle_client)
                 return instance_ebp.get_folders()
-            except ebp.EBPError as e:
-                logging.warning("Erreur EBP: %s", str(e))
+            except Exception as e:
+                logging.warning("Erreur EBP Dossier: %s", str(e))
                 return []
     return []
 
@@ -104,7 +102,7 @@ def fetch_zeendoc_classeurs(id_passerelle_client, fields):
             try:
                 instance_zeendoc = zeendoc.Zeendoc(id_passerelle_client)
                 return instance_zeendoc.get_classeurs()
-            except zeendoc.ZeendocError as e:
+            except Exception as e:
                 logging.warning("Erreur Zeendoc Classeur: %s", str(e))
                 return []
     return []
@@ -117,7 +115,7 @@ def fetch_zeendoc_indexes(id_passerelle_client, fields):
             try:
                 instance_zeendoc = zeendoc.Zeendoc(id_passerelle_client)
                 return instance_zeendoc.get_index()
-            except zeendoc.ZeendocError as e:
+            except Exception as e:
                 logging.warning("Erreur Zeendoc Index: %s", str(e))
                 return []
     return []
