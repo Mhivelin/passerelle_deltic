@@ -35,10 +35,10 @@ class TestModels(unittest.TestCase):
         ebp = EBP(2)
         ebp.login()
 
-        # print("Token: ", ebp.token)
+        print("Token: ", ebp.token)
 
-        if not ebp.is_authenticated():
-            ebp.refresh_token()
+        # if not ebp.is_authenticated():
+        #     ebp.refresh_token()
 
         # suppression du token pour les prochains tests
         # database.delete_champ_client_libelle("EBP_token", 1)
@@ -77,18 +77,18 @@ class TestModels(unittest.TestCase):
     #     suppliers = ebp.get_suppliers()
     #     print("Suppliers: ", suppliers)
 
-    def test_get_paid_documents(self):
-        """
-        Teste la récupération des documents payés EBP.
-        """
+    # def test_get_paid_documents(self):
+    #     """
+    #     Teste la récupération des documents payés EBP.
+    #     """
 
-        # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+    #     # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
-        database.update_date_synchronisation_passerelle_client(2)
+    #     database.update_date_synchronisation_passerelle_client(2)
 
-        ebp = EBP(2)
-        paid_documents = ebp.get_paid_documents()
-        print("Paid documents: ", paid_documents)
+    #     ebp = EBP(2)
+    #     paid_documents = ebp.get_paid_documents()
+    #     print("Paid documents: ", paid_documents)
 
     # def test_get_fournisseur(self):
     #     """

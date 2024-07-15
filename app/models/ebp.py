@@ -1,15 +1,10 @@
-# import sys
 import datetime
 import json
 import urllib.parse
-
 import requests
 from flask import url_for
 from requests.exceptions import HTTPError
-# import time
-# from oauthlib.oauth2 import InvalidClientError, TokenExpiredError, BackendApplicationClient
 from requests_oauthlib import OAuth2Session
-
 from app.models import database as db
 
 
@@ -28,19 +23,14 @@ class EBP:
 
         for info in infos:
             if info["LibChamp"] == "EBP_Client_ID":
-                # print("Client ID:", info["Valeur"])
                 self.client_id = info["Valeur"]
             elif info["LibChamp"] == "EBP_Client_Secret":
-                # print("Client Secret:", info["Valeur"])
                 self.client_secret = info["Valeur"]
             elif info["LibChamp"] == "EBP_Subscription_Key":
-                # print("Subscription Key:", info["Valeur"])
                 self.ebp_subscription_key = info["Valeur"]
             elif info["LibChamp"] == "EBP_FOLDER_ID":
-                # print("Folder ID:", info["Valeur"])
                 self.folder_id = info["Valeur"]
             elif info["LibChamp"] == "EBP_token":
-                # print("Token:", info["Valeur"])
                 self.token = json.loads(info["Valeur"])
                 self.refresh_token_value = self.token["refresh_token"]
 
@@ -75,7 +65,6 @@ class EBP:
         """
         Rafraîchit le token d'accès
         """
-
         url = "https://api-login.ebp.com/connect/token"
         headers = {"Content-Type": "application/x-www-form-urlencoded"}
         body = {
@@ -87,7 +76,7 @@ class EBP:
 
         try:
             response = requests.post(
-                url, headers=headers, data=urllib.parse.urlencode(body)
+                url, headers=headers, data=urllib.parse.urlencode(body)  # Utilisation de data= pour URL-encoding
             )
 
             if response.status_code == 200:
@@ -95,22 +84,21 @@ class EBP:
                 self.Bdtoken_saver(new_token)
                 return new_token
             else:
-                print(f"Failed to refresh token. Status Code: {response.status_code}")
-                print(f"Response Text: {response.text}")
-                print(f"Request Body: {body}")
-                print(f"Request Headers: {headers}")
+                print(f"Échec du rafraîchissement du token. Code d'état: {response.status_code}")
+                print(f"Texte de la réponse: {response.text}")
+                print(f"Corps de la requête: {body}")
+                print(f"En-têtes de la requête: {headers}")
                 response.raise_for_status()
 
         except HTTPError as http_err:
-            print(f"HTTP error occurred: {http_err}")
+            print(f"Erreur HTTP: {http_err}")
         except Exception as err:
-            print(f"Other error occurred: {err}")
+            print(f"Autre erreur: {err}")
 
     def login(self):
         """
         Gère le processus de connexion à l'API EBP.
         """
-        # print("Début du login")
         authorization_base_url = "https://api-login.ebp.com/connect/authorize"
         token_url = "https://api-login.ebp.com/connect/token"
         redirect_uri = url_for(
@@ -152,7 +140,6 @@ class EBP:
         """
         Fonction de rappel pour gérer le code d'autorisation
         """
-        # print("Début du callback")
         redirect_uri = url_for(
             "ebp.SignInRedirect", IdPasserelleClient=IdClient, _external=True
         )
@@ -272,7 +259,6 @@ class EBP:
         """
         Récupère les documents payés.
         """
-        # On enlève un jour pour éviter de récupérer les documents déjà synchronisés
         date_recherche = self.DateDerSynchronisation
         date_recherche = datetime.datetime.strptime(date_recherche, "%Y-%m-%d")
         date_recherche = date_recherche - datetime.timedelta(days=2)
@@ -280,7 +266,6 @@ class EBP:
         date_premier_doc = "1990-01-01"
         date_premier_doc = datetime.datetime.strptime(date_premier_doc, "%Y-%m-%d")
 
-        # On formate la date au format RFC3339
         date_recherche_str = date_recherche.strftime("%Y-%m-%dT%H:%M:%S")
 
         url = (f"https://api-developpeurs.ebp.com/gescom/api/v1/Folders/{self.folder_id}/Documents/"

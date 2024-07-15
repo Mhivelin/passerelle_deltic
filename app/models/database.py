@@ -26,6 +26,8 @@ def get_db_connexion():
     # Utilisez un chemin absolu pour l'environnement Docker
     db_path = '/app/instance/database.db'
 
+    # db_path = './instance/database.db'
+
     # logger.info(f"Database path: {db_path}")
 
     if not os.path.exists(db_path):
