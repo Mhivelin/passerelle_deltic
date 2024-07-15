@@ -16,4 +16,4 @@ sellsy_bp = Blueprint("sellsy", __name__)
 #     sellsy = Sellsy(client_id, client_secret, redirect_uri)
 #     authorization_response = request.url
 #     sellsy.fetch_token(authorization_response)
-#     return "Authorization successful!"
+#     return "Authorization successful!" test
