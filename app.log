@@ -1,9 +1,0 @@
-2024-07-12 10:36:26,775 - INFO - app.models.passerelles - p_remonte_paiement_ebp_zeendoc - IdPasserelleClient: 2
-2024-07-12 10:36:51,689 - INFO - app.models.passerelles - p_remonte_paiement_ebp_zeendoc - IdPasserelleClient: 2
-2024-07-12 10:37:08,821 - INFO - app.models.passerelles - p_remonte_paiement_ebp_zeendoc - IdPasserelleClient: 2
-2024-07-12 10:37:36,853 - INFO - app.models.passerelles - p_remonte_paiement_ebp_zeendoc - IdPasserelleClient: 2
-2024-07-12 10:37:37,350 - INFO - app.models.passerelles - document_number: FF00000001
-2024-07-12 10:37:37,351 - INFO - app.models.passerelles - index_paiement: custom_d2
-2024-07-12 10:37:38,301 - INFO - app.models.passerelles - res: {'Result': 1}
-2024-07-12 11:29:28,920 - INFO - app.models.passerelles - p_remonte_paiement_ebp_zeendoc - IdPasserelleClient: 2
-2024-07-15 09:59:01,339 - ERROR - app.models.database - Database file does not exist: /app/instance/database.db
