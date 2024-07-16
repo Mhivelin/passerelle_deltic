@@ -196,9 +196,6 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):  # pylint: disable=C0
         "p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: %d", IdPasserelleClient
     )
 
-    # datas = database.get_all_champ_passerelle_by_passerelle_client_with_lib_champ(
-    #     IdPasserelleClient)
-
     # connexion à Sellsy
     sellsy = Sellsy(IdPasserelleClient)
 
@@ -206,11 +203,21 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):  # pylint: disable=C0
     zeendoc = Zeendoc(IdPasserelleClient)
 
     paiddoc = sellsy.get_paid_invoices_with_last_payment()
+    logger.info("Paid invoices: %s", paiddoc)
+
+    if not paiddoc:
+        logger.error("No paid invoices found")
+        return
+
     index = database.get_champ_passerelle_by_lib_champ(
         IdPasserelleClient, "INDEX_STATUT_PAIEMENT"
     )["Valeur"]
 
     for doc in paiddoc:
+        if "last_payment" not in doc or "paid_at" not in doc["last_payment"]:
+            logger.error("Invalid document format: %s", doc)
+            continue
+
         paid_at = doc["last_payment"]["paid_at"]
         paid_at = paid_at.split("T")[0]
 
@@ -218,10 +225,8 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):  # pylint: disable=C0
         res = zeendoc.update_doc_paiement_by_num_facture(
             num_facture=doc["number"], index=index, value=paid_at
         )
-        print("res: ", res)
+        logger.info("Zeendoc update response: %s", res)
 
         # on modifie le document dans Sellsy update_invoice_smart_tags
         res = sellsy.update_invoice_smart_tags(doc["id"], [{"value": "paiement exporté"}])
-
-
-        logger.info("Update response: %s", res)
+        logger.info("Sellsy update response: %s", res)

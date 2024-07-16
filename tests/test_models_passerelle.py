@@ -65,4 +65,4 @@ class TestModels(unittest.TestCase):
         """
         Test de la fonction P_remonte_paiement_Sellsy_Zeendoc.
         """
-        passerelles.p_remonte_paiement_sellsy_zeendoc(1)
+        passerelles.p_remonte_paiement_sellsy_zeendoc(4)

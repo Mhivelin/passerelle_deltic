@@ -86,6 +86,8 @@ class Sellsy:
             "client_secret": self.client_secret,
             "scope": self.scope,
         }
+        print(f"Data sent: {data}")
+
         response = requests.post(
             url, data=data, auth=HTTPBasicAuth(self.client_id, self.client_secret)
         )
@@ -104,11 +106,15 @@ class Sellsy:
 
         return self.token
 
+
     def make_request(self, endpoint, method="GET", data=None):
         """
         Effectue une requête à l'API Sellsy.
         """
         if not self.token or self.token_is_expired():
+            # on supprime l'ancien token
+            self.token = None
+            # on génère un nouveau token
             self.get_token()
 
         url = f"{self.api_host}/{endpoint}"
@@ -251,8 +257,9 @@ class Sellsy:
         for invoice in paid_invoices:
             payments = self.get_invoice_payments(invoice["id"])
 
-            if payments:
+            if payments["data"]:
                 # récuperer le paiement avec la date la plus récente
+                print(payments)
                 last_payment = max(payments["data"], key=lambda x: x["paid_at"])
                 invoice["last_payment"] = last_payment
 

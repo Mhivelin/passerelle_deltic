@@ -1,30 +1,49 @@
-2024-07-15 16:28:44,586 - ERROR - app.models.database - Database file does not exist: /app/instance/database.db
-2024-07-15 16:28:44,698 - INFO - app - Configuration des logs terminée.
-2024-07-15 16:28:44,698 - INFO - app - Configuration des logs terminée.
-2024-07-15 16:28:44,701 - ERROR - app.models.database - Database file does not exist: /app/instance/database.db
-2024-07-15 16:28:44,701 - ERROR - app.models.database - Database file does not exist: /app/instance/database.db
-2024-07-15 16:29:03,191 - INFO - app - Configuration des logs terminée.
-2024-07-15 16:29:03,191 - INFO - app - Configuration des logs terminée.
-2024-07-15 16:40:32,913 - INFO - app - Nouvel utilisateur admin ajouté avec succès.
-2024-07-15 16:41:38,420 - INFO - app - Nouvel utilisateur admin ajouté avec succès.
-2024-07-15 16:41:49,117 - INFO - app - Nouvel utilisateur admin ajouté avec succès.
-2024-07-15 16:42:18,039 - INFO - app - Nouvel utilisateur admin ajouté avec succès.
-2024-07-15 17:07:35,022 - INFO - app - Configuration des logs terminée.
-2024-07-15 17:07:35,022 - INFO - app - Configuration des logs terminée.
-2024-07-15 17:08:56,183 - INFO - app - Configuration des logs terminée.
-2024-07-15 17:08:56,183 - INFO - app - Configuration des logs terminée.
-2024-07-15 17:09:46,592 - INFO - app - Configuration des logs terminée.
-2024-07-15 17:09:46,592 - INFO - app - Configuration des logs terminée.
-2024-07-15 17:11:02,247 - INFO - app - Configuration des logs terminée.
-2024-07-15 17:11:02,247 - INFO - app - Configuration des logs terminée.
-2024-07-15 17:13:50,884 - INFO - app - Configuration des logs terminée.
-2024-07-15 17:13:50,884 - INFO - app - Configuration des logs terminée.
-2024-07-15 17:17:17,948 - INFO - app - Configuration des logs terminée.
-2024-07-15 17:17:17,948 - INFO - app - Configuration des logs terminée.
-2024-07-15 18:16:13,676 - INFO - app.models.passerelles - p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: 1
-2024-07-15 18:16:33,659 - INFO - app.models.passerelles - p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: 1
-2024-07-15 18:24:29,695 - INFO - app.models.passerelles - p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: 1
-2024-07-15 18:26:18,097 - INFO - app.models.passerelles - p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: 1
-2024-07-15 18:26:19,912 - INFO - app.models.passerelles - Update response: {'data': [{'id': 5119729, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTE5NzI5Il0='}}
-2024-07-16 10:16:30,642 - ERROR - app.models.database - Database file does not exist: /app/instance/database.db
-2024-07-16 10:16:41,237 - INFO - app - Nouvel utilisateur admin ajouté avec succès.
+2024-07-16 20:13:15,147 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:15,478 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:15,529 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:15,844 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:15,845 - ERROR - app.models.passerelles - Invalid document format: {'id': 6995684, 'date': '2017-10-24', 'created': '2017-10-24T10:08:13+02:00', 'related': [{'type': 'company', 'id': 5880238}], 'number': 'F2017-10-83', 'amounts': {'total_raw_excl_tax': '37.500', 'total_after_discount_excl_tax': '37.500', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '37.500', 'total_incl_tax': '45.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/MWTub8j'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlODElMDglRjUlOTklRkUlOTQlRDclMTIlRDIlQzYxZyUwMnYlNUUlN0MlN0QlQzIlMUQlQUYlQkMlN0ZsayU5NiVENyUzQSVGRCUwMCVDNGMlOTFETCVFNCVENCVDMiVDNiVGRCVGQSVFOSU4RiVGQiU4RSUxN1glNUUlQTAlQzYlQjclREYlRjdBJUYwJTlDJUU1JTlGJUFDJTEwT1clMDYlRDdu==&key=77ee46f6bee1ab1ebbe01912e06f4ffe&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '7.500'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18932, 'subject': '', 'assigned_staff_id': 61106, 'invoicing_address_id': 32548679, 'delivery_address_id': 32548680, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': None, 'rate_category_id': 85028, 'service_dates': None, 'note': '1 trimestre : 45€ HT', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2017-11-23', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None}
+2024-07-16 20:13:15,908 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:16,227 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:16,281 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:16,620 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:16,682 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:16,962 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:17,023 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:17,327 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:17,393 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:17,686 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:17,744 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:18,042 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:18,100 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:18,432 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:18,499 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:18,771 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:18,846 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:19,202 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:19,267 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:19,583 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:19,647 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:19,945 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:20,006 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:20,295 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:20,354 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:20,677 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:20,739 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:21,102 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:21,163 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:21,427 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:21,489 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:21,783 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:21,848 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:22,173 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:22,236 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:22,535 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:22,612 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:22,884 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:22,946 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:23,244 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:23,310 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:23,586 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
+2024-07-16 20:13:23,654 - INFO - app.models.passerelles - Zeendoc update response: None
+2024-07-16 20:13:23,970 - INFO - app.models.passerelles - Sellsy update response: {'data': [{'id': 5127786, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTI3Nzg2Il0='}}
