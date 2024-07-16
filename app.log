@@ -26,3 +26,5 @@
 2024-07-15 18:24:29,695 - INFO - app.models.passerelles - p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: 1
 2024-07-15 18:26:18,097 - INFO - app.models.passerelles - p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: 1
 2024-07-15 18:26:19,912 - INFO - app.models.passerelles - Update response: {'data': [{'id': 5119729, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTE5NzI5Il0='}}
+2024-07-16 10:16:30,642 - ERROR - app.models.database - Database file does not exist: /app/instance/database.db
+2024-07-16 10:16:41,237 - INFO - app - Nouvel utilisateur admin ajouté avec succès.
