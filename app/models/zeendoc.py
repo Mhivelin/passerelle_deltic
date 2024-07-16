@@ -323,7 +323,7 @@ class Zeendoc:
             print(f"Erreur lors de la mise à jour du document par référence: {e}")
             return None
 
-    def update_doc_paiement_by_num_facture(self, num_facture, index, value="1"):
+    def update_doc_paiement_by_num_facture(self, num_facture, index, value="1", iteration=3):
         """
         Fonction qui permet de mettre à jour un document de paiement par numéro de facture
         num_facture: Numéro de la facture
@@ -379,6 +379,11 @@ class Zeendoc:
             print(
                 f"Erreur lors de la mise à jour du document par numéro de facture: {e}"
             )
+
+            if (iteration > 0):
+                return self.update_doc_paiement_by_num_facture(
+                    num_facture, index, value, iteration - 1
+                )
             return None
 
     def get_items_list(self, coll_id, column_name, only_deletable=50):

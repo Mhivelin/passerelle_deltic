@@ -16,6 +16,9 @@ class Sellsy:
             passerelle_client_id
         )
 
+        self.client_id = None
+        self.client_secret = None
+
         self.token = None
 
         for info in infos:
@@ -27,6 +30,8 @@ class Sellsy:
                 token_info = json.loads(info["Valeur"])
                 self.token = token_info.get("access_token")
                 self.token_expiry = token_info.get("expires_in") + time.time()
+            elif info["LibChamp"] == "ID_FAVORITE_FILTER":
+                self.favorite_filter_id = int(info["Valeur"])
 
         self.databaseId = passerelle_client_id
         self.auth_host = "https://login.sellsy.com"
@@ -166,6 +171,9 @@ class Sellsy:
         """
         Récupère les factures payées de l'API Sellsy.
         """
+        if self.token_is_expired():
+            self.get_token()
+
         endpoint = "v2/invoices/search"
         data = {
             "direction": "desc",
@@ -173,13 +181,16 @@ class Sellsy:
             "field": ["number", "status", "date", "_embed.smart_tags"],
             "embed": ["smart_tags"],
             "filters": {
-                "favourite_filter": 599129
+                "favourite_filter": self.favorite_filter_id,
             }
         }
 
+        print(f"Getting paid invoices from endpoint: {endpoint}")
+        print(f"Data: {data}")
+
         try:
             response = self.make_request(endpoint, method="POST", data=data)
-            return response.get('data')  # Assurez-vous que cette clé est correcte selon la structure de la réponse de votre API.
+            return response.get('data')
         except Exception as e:
             print(f"Erreur lors de la récupération des factures payées: {e}")
             return None
@@ -199,6 +210,19 @@ class Sellsy:
             print(f"Erreur lors de la mise à jour des smart-tags pour la facture {invoice_id}: {e}")
             return None
 
+
+    def get_favorite_filter_invoices(self):
+        """
+        Récupère la liste des filtres favoris pour les factures.
+        """
+        endpoint = "v2/invoices/favourite-filters"
+
+        try:
+            response = self.make_request(endpoint, method="GET")
+            return response
+        except Exception as e:
+            print(f"Erreur lors de la récupération des filtres favoris pour les factures: {e}")
+            return None
 
 
 

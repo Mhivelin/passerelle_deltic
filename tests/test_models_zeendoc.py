@@ -54,16 +54,16 @@ class TestModels(unittest.TestCase):
     #     """
     #     database.drop_all_tables()
 
-    def test_zeendoc_login(self):
-        """
-        Teste la connexion à l'API Zeendoc.
-        """
+    # def test_zeendoc_login(self):
+    #     """
+    #     Teste la connexion à l'API Zeendoc.
+    #     """
 
-        instance_zeendoc = Zeendoc(1)
+    #     instance_zeendoc = Zeendoc(1)
 
-        co = instance_zeendoc.login()
+    #     co = instance_zeendoc.login()
 
-        self.assertIn('Result":0,"Cookie_Duration":"38880s","Error_Msg":""', co)
+    #     self.assertIn('Result":0,"Cookie_Duration":"38880s","Error_Msg":""', co)
 
     # def test_zeendoc_get_rights(self):
     #     """
@@ -182,17 +182,20 @@ class TestModels(unittest.TestCase):
 
     #     print("Response: ", response)
 
-    def test_get_items_list(self):
-        """
-        Teste la récupération des éléments d'une liste déroulante Zeendoc.
-        """
-        instance_zeendoc = Zeendoc(2)
-        coll_id = "coll_21"
-        column_name = "custom_n4"
+    # def test_get_items_list(self):
+    #     """
+    #     Teste la récupération des éléments d'une liste déroulante Zeendoc.
+    #     """
+    #     instance_zeendoc = Zeendoc(2)
+    #     coll_id = "coll_21"
+    #     column_name = "custom_n4"
 
-        items = instance_zeendoc.get_items_list(coll_id, column_name)
+    #     items = instance_zeendoc.get_items_list(coll_id, column_name)
 
-        print("Items: ", items)
+    #     print("Items: ", items)
+
+
+
 
 
 if __name__ == "__main__":

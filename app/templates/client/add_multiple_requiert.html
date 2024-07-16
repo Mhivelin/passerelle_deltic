@@ -24,11 +24,19 @@ endblock %} {% block content %}
     {% elif field.TypeChamp == "caché" %}
     <input type="hidden" name="IdChamp[]" value="{{ field.IdChamp }}" />
     <input type="hidden" name="Valeur[]" value="{{ field.Valeur }}" />
-    {% elif field.TypeChamp == "select_ebp_folder" %} {% include
-    'logiciel/ebp/folder_select.html' %} {% elif field.TypeChamp ==
-    "select_zeendoc_classeur" %} {% include
-    'logiciel/zeendoc/classeur_select.html' %} {% elif field.TypeChamp ==
-    "select_zeendoc_index" %} {% include 'logiciel/zeendoc/index_select.html' %}
+    {% elif field.TypeChamp == "select_ebp_folder" %}
+    {% include 'logiciel/ebp/folder_select.html' %}
+
+    {% elif field.TypeChamp =="select_zeendoc_classeur" %}
+    {% include 'logiciel/zeendoc/classeur_select.html' %}
+
+    {% elif field.TypeChamp =="select_zeendoc_index" %}
+    {% include 'logiciel/zeendoc/index_select.html' %}
+
+    {% elif field.TypeChamp =="select_sellsy_filter" %}
+    {% include 'logiciel/sellsy/favorite_filter_select.html' %}
+
+
     {% else %}
     <label for="LibChamp_{{ loop.index }}">{{ field.LibChamp }}</label>
     <input type="hidden" name="IdChamp[]" value="{{ field.IdChamp }}" />

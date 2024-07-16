@@ -47,16 +47,16 @@ class TestModels(unittest.TestCase):
     #     print(sellsy.get_paid_invoices())
 
 
-    def test_update_invoice_smart_tags(self):
-        """
-        Teste la mise à jour des tags d'une facture.
-        """
-        sellsy = Sellsy(1)
-        tags = [{"value": "paiement exporté"}]  # Tags formatés correctement
-        print(
-            "update_invoice_smart_tags",
-            sellsy.update_invoice_smart_tags(51134735, tags),
-        )
+    # def test_update_invoice_smart_tags(self):
+    #     """
+    #     Teste la mise à jour des tags d'une facture.
+    #     """
+    #     sellsy = Sellsy(1)
+    #     tags = [{"value": "paiement exporté"}]  # Tags formatés correctement
+    #     print(
+    #         "update_invoice_smart_tags",
+    #         sellsy.update_invoice_smart_tags(51134735, tags),
+    #     )
 
 
 
@@ -81,3 +81,13 @@ class TestModels(unittest.TestCase):
 
     #     # Example usage
     #     # sellsy_api = Sellsy(client_id, client_secret)
+
+
+    def test_get_favorite_filter_invoices(self):
+        """
+        Teste la récupération des filtres favoris pour les factures.
+        """
+        sellsy = Sellsy(1)
+        sellsy.client_id = "78f68eac-c4e2-4221-9836-d66db48a75f0"
+        sellsy.client_secret = "9b90dc6db6554429a027cb43fe12ab4e"
+        print("Favourite filters:", sellsy.get_favorite_filter_invoices())

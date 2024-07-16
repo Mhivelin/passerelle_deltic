@@ -218,6 +218,7 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):  # pylint: disable=C0
         res = zeendoc.update_doc_paiement_by_num_facture(
             num_facture=doc["number"], index=index, value=paid_at
         )
+        print("res: ", res)
 
         # on modifie le document dans Sellsy update_invoice_smart_tags
         res = sellsy.update_invoice_smart_tags(doc["id"], [{"value": "paiement exporté"}])

@@ -6,7 +6,7 @@ import unittest
 import datetime
 
 from app import create_app
-from app.models import database, passerelles
+from app.models import database, passerelles, zeendoc, sellsy
 
 
 class TestModels(unittest.TestCase):
@@ -45,15 +45,15 @@ class TestModels(unittest.TestCase):
 
     #     print(result)
 
-    def test_p_remonte_paiement_ebp_zeendoc(self):
-        """
-        Test de la fonction P_remonte_paiement.
-        """
+    # def test_p_remonte_paiement_ebp_zeendoc(self):
+    #     """
+    #     Test de la fonction P_remonte_paiement.
+    #     """
 
-        database.reset_date_synchronisation_passerelle_client(2)
+    #     database.reset_date_synchronisation_passerelle_client(2)
 
-        value = datetime.datetime.now().strftime("%Y-%m-%d")
-        passerelles.p_remonte_paiement_ebp_zeendoc(2, value)
+    #     value = datetime.datetime.now().strftime("%Y-%m-%d")
+    #     passerelles.p_remonte_paiement_ebp_zeendoc(2, value)
 
     # def test_P_remonte_fournisseur(self):
     #     """
@@ -61,8 +61,8 @@ class TestModels(unittest.TestCase):
     #     """
     #     passerelles.P_remonte_fournisseur(2)
 
-    # def test_P_remonte_paiement_Sellsy_Zeendoc(self):
-    #     """
-    #     Test de la fonction P_remonte_paiement_Sellsy_Zeendoc.
-    #     """
-    #     passerelles.P_remonte_paiement_Sellsy_Zeendoc(1)
+    def test_P_remonte_paiement_Sellsy_Zeendoc(self):
+        """
+        Test de la fonction P_remonte_paiement_Sellsy_Zeendoc.
+        """
+        passerelles.p_remonte_paiement_sellsy_zeendoc(1)

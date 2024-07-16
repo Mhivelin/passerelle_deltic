@@ -1,0 +1,20 @@
+{% if not liste_sellsy_favorite_filter['data'] %}
+<p>La connexion à EBP n'est pas configurée</p>
+{% else %}
+
+
+
+<label for="LibChamp_{{ field.IdChamp }}">{{ field.LibChamp }}</label>
+<select class="form-control" id="LibChamp_{{ field.IdChamp }}" name="Valeur[]">
+  {% for filter in liste_sellsy_favorite_filter['data'] %}
+    {% set is_selected = (field.Valeur | string == filter.id | string) %}
+
+    {% if is_selected %}
+    <option value="{{ filter.id }}" selected>{{ filter.name }}</option>
+    {% else %}
+    <option value="{{ filter.id }}">{{ filter.name }}</option>
+    {% endif %}
+  {% endfor %}
+</select>
+<input type="hidden" name="IdChamp[]" value="{{ field.IdChamp }}" />
+{% endif %}

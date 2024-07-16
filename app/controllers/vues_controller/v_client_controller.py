@@ -9,6 +9,7 @@ from flask_login import login_required
 from app.models import database  # pylint: disable=E0401
 from app.models import ebp  # pylint: disable=E0401
 from app.models import zeendoc  # pylint: disable=E0401
+from app.models import sellsy  # pylint: disable=E0401
 
 v_client_bp = Blueprint("v_client", __name__)
 
@@ -65,6 +66,7 @@ def form_add_requiert_passerelle(id_passerelle_client, id_client):
             id_passerelle_client, fields
         )
         liste_zeendoc_index = fetch_zeendoc_indexes(id_passerelle_client, fields)
+        liste_sellsy_favorite_filter = fetch_sellsy_favorite_filters(id_passerelle_client, fields)
     except Exception as e:
         logging.error("Erreur lors de la récupération des listes: %s", str(e))
 
@@ -77,6 +79,7 @@ def form_add_requiert_passerelle(id_passerelle_client, id_client):
         liste_zeendoc_classeur=liste_zeendoc_classeur,
         liste_zeendoc_index=liste_zeendoc_index,
         id_passerelle_client=id_passerelle_client,
+        liste_sellsy_favorite_filter=liste_sellsy_favorite_filter,
     )
     # except :
     #     return jsonify({"error": "Une erreur est survenue"}), 400
@@ -118,4 +121,16 @@ def fetch_zeendoc_indexes(id_passerelle_client, fields):
             except Exception as e:
                 logging.warning("Erreur Zeendoc Index: %s", str(e))
                 return []
+    return []
+
+def fetch_sellsy_favorite_filters(id_passerelle_client, fields):
+    """Récupère les filtres favoris Sellsy pour un client donné"""
+    for field in fields:
+        if field.get("TypeChamp") == "select_sellsy_filter":
+            try:
+                instance_sellsy = sellsy.Sellsy(id_passerelle_client)
+                return instance_sellsy.get_favorite_filter_invoices()
+            except Exception as e:
+                logging.warning("Erreur Sellsy Filtre Favori: %s", str(e))
+                return [e]
     return []

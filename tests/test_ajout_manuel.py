@@ -259,6 +259,13 @@ class TestModels(unittest.TestCase):
             "select_zeendoc_index",
             "remontée de paiement date Sellsy --> Zeendoc",
         )
+        database.add_champ_to_passerelle(
+            "ID_FAVORITE_FILTER",
+            "Credentials",
+            "select_sellsy_filter",
+            "remontée de paiement date Sellsy --> Zeendoc",
+        )
+
 
         # # ajout du client
         # database.add_client("client3")

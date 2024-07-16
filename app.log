@@ -1,0 +1,28 @@
+2024-07-15 16:28:44,586 - ERROR - app.models.database - Database file does not exist: /app/instance/database.db
+2024-07-15 16:28:44,698 - INFO - app - Configuration des logs terminée.
+2024-07-15 16:28:44,698 - INFO - app - Configuration des logs terminée.
+2024-07-15 16:28:44,701 - ERROR - app.models.database - Database file does not exist: /app/instance/database.db
+2024-07-15 16:28:44,701 - ERROR - app.models.database - Database file does not exist: /app/instance/database.db
+2024-07-15 16:29:03,191 - INFO - app - Configuration des logs terminée.
+2024-07-15 16:29:03,191 - INFO - app - Configuration des logs terminée.
+2024-07-15 16:40:32,913 - INFO - app - Nouvel utilisateur admin ajouté avec succès.
+2024-07-15 16:41:38,420 - INFO - app - Nouvel utilisateur admin ajouté avec succès.
+2024-07-15 16:41:49,117 - INFO - app - Nouvel utilisateur admin ajouté avec succès.
+2024-07-15 16:42:18,039 - INFO - app - Nouvel utilisateur admin ajouté avec succès.
+2024-07-15 17:07:35,022 - INFO - app - Configuration des logs terminée.
+2024-07-15 17:07:35,022 - INFO - app - Configuration des logs terminée.
+2024-07-15 17:08:56,183 - INFO - app - Configuration des logs terminée.
+2024-07-15 17:08:56,183 - INFO - app - Configuration des logs terminée.
+2024-07-15 17:09:46,592 - INFO - app - Configuration des logs terminée.
+2024-07-15 17:09:46,592 - INFO - app - Configuration des logs terminée.
+2024-07-15 17:11:02,247 - INFO - app - Configuration des logs terminée.
+2024-07-15 17:11:02,247 - INFO - app - Configuration des logs terminée.
+2024-07-15 17:13:50,884 - INFO - app - Configuration des logs terminée.
+2024-07-15 17:13:50,884 - INFO - app - Configuration des logs terminée.
+2024-07-15 17:17:17,948 - INFO - app - Configuration des logs terminée.
+2024-07-15 17:17:17,948 - INFO - app - Configuration des logs terminée.
+2024-07-15 18:16:13,676 - INFO - app.models.passerelles - p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: 1
+2024-07-15 18:16:33,659 - INFO - app.models.passerelles - p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: 1
+2024-07-15 18:24:29,695 - INFO - app.models.passerelles - p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: 1
+2024-07-15 18:26:18,097 - INFO - app.models.passerelles - p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: 1
+2024-07-15 18:26:19,912 - INFO - app.models.passerelles - Update response: {'data': [{'id': 5119729, 'value': 'paiement exporté'}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyI1MTE5NzI5Il0='}}

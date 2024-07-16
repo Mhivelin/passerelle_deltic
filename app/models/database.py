@@ -95,7 +95,8 @@ def create_database():
                 'visible',
                 'select_zeendoc_index',
                 'select_zeendoc_classeur',
-                'select_ebp_folder')),
+                'select_ebp_folder',
+                'select_sellsy_filter')),
             FOREIGN KEY(IdPasserelle) REFERENCES PASSERELLE(IdPasserelle),
             FOREIGN KEY(IdLogiciel) REFERENCES LOGICIEL(IdLogiciel)
         );"""
