@@ -1,6 +1,14 @@
-{% extends 'base.html' %} {% block title %}Liste des Clients{% endblock %} {%
-block content %}
+{% extends "base.html" %}
+
+{% block title %}Liste des Clients{% endblock title %}
+
+{% block content %}
+
 <h2>Liste des Clients</h2>
 
-{% with clients=clients %} {% include 'client/table_clients.html' %} {% endwith
-%} {% endblock %}
+{% with clients=clients %}
+{% include "client/table_clients.html" %}
+{% endwith %}
+
+{% endblock content %}
+

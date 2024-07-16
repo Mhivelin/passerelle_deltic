@@ -1,8 +1,11 @@
-{% extends 'base.html' %} {% block title %}Erreur 404{% endblock %} {% block
-content %}
+{% extends "base.html" %}
+
+{% block title %}Erreur 404{% endblock title %}
+
+{% block content %}
 
 <h1>Erreur 404</h1>
 <p>La page que vous cherchez n'existe pas.</p>
 <img class="img" src="./static/img/500.jpg" alt="Erreur 500" />
 
-{% endblock %}
+{% endblock content %}

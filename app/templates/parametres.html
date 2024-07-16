@@ -1,5 +1,6 @@
-{% extends 'base.html' %} {% block title %} Paramètres {% endblock %} {% block
-content %}
+{% extends "base.html" %}
+{% block title %} Paramètres {% endblock title %}
+{% block content %}
 
 <h1>Paramètres</h1>
 <div class="card">
@@ -13,13 +14,10 @@ content %}
         </div>
         <div class="card-body">
 
-            {% include 'import_db.html' %}
+            {% include "import_db.html" %}
 
         </div>
     </div>
-
-
-
     </br>
 
     <div class="card">
@@ -44,7 +42,4 @@ content %}
   </div>
 </div>
 
-
-
-
-{% endblock %}
+{% endblock content %}

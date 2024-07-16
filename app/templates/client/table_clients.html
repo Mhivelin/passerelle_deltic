@@ -41,7 +41,7 @@
     <tr id="details{{ client.IdClient }}" class="collapse">
       <td colspan="3">
         {% with passerelles=client.passerellesClient %}
-            {% include 'passerelle/tableau_passerelle.html' %}
+            {% include "passerelle/tableau_passerelle.html" %}
         {% endwith %}
 
         <div>
@@ -54,9 +54,6 @@
         </div>
 
         </br>
-
-
-
 
       </td>
     </tr>

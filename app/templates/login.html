@@ -1,5 +1,7 @@
-{% extends 'base.html' %} {% block title %}Login{% endblock %} {% block content
-%}
+{% extends "base.html" %}
+{% block title %}Login{% endblock title %}
+{% block content %}
+
 <div class="card mt-5 mx-auto" style="max-width: 400px">
   <div class="card-header">
     <h2>Connexion</h2>
@@ -37,4 +39,6 @@
   {% for category, message in errors %}
   <strong>{{ category }}:</strong> {{ message }} {% endfor %}
 </div>
-{% endif %} {% endwith %} {% endblock %}
+{% endif %}
+{% endwith %}
+{% endblock content %}

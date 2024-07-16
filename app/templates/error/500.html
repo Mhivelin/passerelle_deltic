@@ -1,8 +1,11 @@
-{% extends 'base.html' %} {% block title %}Erreur 500{% endblock %} {% block
-content %}
+{% extends "base.html" %}
+
+{% block title %}Erreur 500{% endblock title %}
+
+{% block content %}
 
 <h1>Erreur 500</h1>
 <p>Une erreur serveur est survenue. Veuillez réessayer plus tard.</p>
 <img class="img" src="./static/img/500.jpg" alt="Erreur 500" />
 
-{% endblock %}
+{% endblock content %}

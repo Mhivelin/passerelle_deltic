@@ -1,5 +1,5 @@
-{% extends 'base.html' %}
-{% block title %}Documentation{% endblock %}
+{% extends "base.html" %}
+{% block title %}Documentation{% endblock title %}
 {% block content %}
 
 <style>
@@ -75,9 +75,6 @@
                 Cet outil a été conçu pour faciliter la gestion des passerelles dévellopées par Deltic. Grâce à cet outil, vous pourrez configurer et gérer vos passerelles et clients en toute simplicité.
                 Pour plus d'informations, veuillez consulter la documentation ci-dessous.
             </p>
-
-
-
 
         </section>
 
@@ -169,21 +166,12 @@
                         une fois la routine lancée, le programme va se connecter à l'API EBP, récupérer les paiements effectués et les remonter dans Zeendoc.
                         Pour cela, il va chercher le document correspondant à la reference du document EBP dans Zeendoc et passer son index de paiement à "payé".
 
-
                     </p>
-
-
+                </li>
 
             </ul>
         </div>
     </div>
-
-
-
-
-
-
-
 
         <br />
 
@@ -201,11 +189,8 @@
 
         <hr />
 
-
-
         <section id="PasserellesSage">
             <h2>Passerelles Sage</h2>
-
 
             <div class="alert alert-info" role="alert">
                 <p>
@@ -216,14 +201,12 @@
                 </p>
             </div>
 
-
         </section>
 
         <hr />
 
         <section id="PasserellesSellsy">
             <h2>Passerelles Sellsy</h2>
-
 
             <div class="alert alert-info" role="alert">
                 <p>
@@ -233,16 +216,11 @@
                     Nous vous tiendrons informé de l'avancement de ce projet.
                 </p>
             </div>
-
-
-
-
-
+        </section>
 
       </div>
     </main>
   </div>
-</div>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -264,5 +242,5 @@
   });
 </script>
 
-{% endblock %}
+{% endblock content %}
 ```

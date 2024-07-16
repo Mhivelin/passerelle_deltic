@@ -18,7 +18,6 @@ class Sellsy:
 
         self.client_id = None
         self.client_secret = None
-
         self.token = None
 
         for info in infos:
@@ -258,5 +257,12 @@ class Sellsy:
                 invoice["last_payment"] = last_payment
 
         return paid_invoices
+
+
+
+
+
+
+
 
 
