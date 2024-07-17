@@ -190,6 +190,7 @@ def p_remonte_fournisseur(IdPasserelleClient):  # pylint: disable=C0103
 
 def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):
     logger.info("p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: %d", IdPasserelleClient)
+
     sellsy = Sellsy(IdPasserelleClient)
     zeendoc = Zeendoc(IdPasserelleClient)
     paiddoc = sellsy.get_paid_invoices_with_last_payment()
@@ -198,21 +199,32 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):
         logger.error("No paid invoices found")
         return
 
+    index = database.get_champ_passerelle_by_lib_champ(
+        IdPasserelleClient, "INDEX_STATUT_PAIEMENT"
+    )["Valeur"]
+
     for doc in paiddoc:
         if "payments" not in doc:
             logger.error(f"Missing 'payments' field in document: {doc['id']}, {doc.get('number')}")
-            continue
+            continue  # Skip to the next document
 
         payments = doc["payments"]
         if not payments.get("data"):
             logger.warning(f"No payments data in document: {doc['id']}, {doc.get('number')}")
-            continue
+            paid_at = doc["due_date"]
+        else:
+            last_payment = max(payments["data"], key=lambda x: x["paid_at"])
+            paid_at = last_payment["paid_at"].split("T")[0]
 
-        last_payment = max(payments["data"], key=lambda x: x["paid_at"])
-        paid_at = last_payment["paid_at"].split("T")[0]
         res = zeendoc.update_doc_paiement_by_num_facture(doc["number"], index, paid_at)
         logger.info(f"Updated document in Zeendoc: {doc['number']} with response: {res}")
+
+        # Update the document in Sellsy
+        res = sellsy.update_invoice_smart_tags(doc["id"], [{"value": "paiement exporté"}])
+        logger.info(f"Updated smart tags in Sellsy for document: {doc['number']} with response: {res}")
+
     logger.info("Routine completed successfully.")
+
 
 
 
