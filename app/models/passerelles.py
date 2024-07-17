@@ -188,65 +188,32 @@ def p_remonte_fournisseur(IdPasserelleClient):  # pylint: disable=C0103
     return response
 
 
-def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):  # pylint: disable=C0103
-    """
-    Fonction pour la passerelle remontée de paiement.
-    """
-    logger.info(
-        "p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: %d", IdPasserelleClient
-    )
-
-    # Connexion à Sellsy
+def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):
+    logger.info("p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: %d", IdPasserelleClient)
     sellsy = Sellsy(IdPasserelleClient)
-
-    # Connexion à Zeendoc
     zeendoc = Zeendoc(IdPasserelleClient)
-
     paiddoc = sellsy.get_paid_invoices_with_last_payment()
-    logger.info("Paid invoices: %s", paiddoc)
 
     if not paiddoc:
         logger.error("No paid invoices found")
         return
 
-    index = database.get_champ_passerelle_by_lib_champ(
-        IdPasserelleClient, "INDEX_STATUT_PAIEMENT"
-    )["Valeur"]
-
     for doc in paiddoc:
-        # Vérifiez si le champ 'payments' existe et est bien formé
         if "payments" not in doc:
-            logger.error("Missing 'payments' field in document: %s", doc)
-            continue
-        if not doc["payments"].get("data"):
-            logger.error("Empty 'payments' data in document: %s", doc)
+            logger.error(f"Missing 'payments' field in document: {doc['id']}, {doc.get('number')}")
             continue
 
-        # Obtenez les paiements depuis le document
         payments = doc["payments"]
+        if not payments.get("data"):
+            logger.warning(f"No payments data in document: {doc['id']}, {doc.get('number')}")
+            continue
 
-        # Vérifiez si le champ 'data' dans 'payments' contient des éléments
-        if payments["data"]:
-            last_payment = max(payments["data"], key=lambda x: x["paid_at"])
-            paid_at = last_payment["paid_at"]
-            paid_at = paid_at.split("T")[0]
-        else:
-            logger.warning("No payments found in the data for document: %s", doc)
-            continue  # skip this document if there are no payments
+        last_payment = max(payments["data"], key=lambda x: x["paid_at"])
+        paid_at = last_payment["paid_at"].split("T")[0]
+        res = zeendoc.update_doc_paiement_by_num_facture(doc["number"], index, paid_at)
+        logger.info(f"Updated document in Zeendoc: {doc['number']} with response: {res}")
+    logger.info("Routine completed successfully.")
 
-        # Modifie le document dans zeendoc
-        res = zeendoc.update_doc_paiement_by_num_facture(
-            num_facture=doc["number"], index=index, value=paid_at
-        )
-        logger.info("Zeendoc update response: %s", res)
-
-        # Modifie le document dans Sellsy
-        res = sellsy.update_invoice_smart_tags(doc["id"], [{"value": "paiement exporté"}])
-        logger.info("Sellsy update response: %s", res)
-
-    # Mise à jour de la date de synchronisation de la passerelle
-    database.update_date_synchronisation_passerelle_client(IdPasserelleClient)
-    logger.info("Routine terminée avec succès.")
 
 
 
