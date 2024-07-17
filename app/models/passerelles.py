@@ -196,10 +196,10 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):  # pylint: disable=C0
         "p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: %d", IdPasserelleClient
     )
 
-    # connexion à Sellsy
+    # Connexion à Sellsy
     sellsy = Sellsy(IdPasserelleClient)
 
-    # connexion à Zeendoc
+    # Connexion à Zeendoc
     zeendoc = Zeendoc(IdPasserelleClient)
 
     paiddoc = sellsy.get_paid_invoices_with_last_payment()
@@ -215,8 +215,11 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):  # pylint: disable=C0
 
     for doc in paiddoc:
         # Vérifiez si le champ 'payments' existe et est bien formé
-        if "payments" not in doc or not doc["payments"].get("data"):
-            logger.error("Invalid document format: %s", doc)
+        if "payments" not in doc:
+            logger.error("Missing 'payments' field in document: %s", doc)
+            continue
+        if not doc["payments"].get("data"):
+            logger.error("Empty 'payments' data in document: %s", doc)
             continue
 
         # Obtenez les paiements depuis le document
@@ -231,14 +234,19 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):  # pylint: disable=C0
             logger.warning("No payments found in the data for document: %s", doc)
             continue  # skip this document if there are no payments
 
-        # on modifie le document dans zeendoc
+        # Modifie le document dans zeendoc
         res = zeendoc.update_doc_paiement_by_num_facture(
             num_facture=doc["number"], index=index, value=paid_at
         )
         logger.info("Zeendoc update response: %s", res)
 
-        # on modifie le document dans Sellsy update_invoice_smart_tags
+        # Modifie le document dans Sellsy
         res = sellsy.update_invoice_smart_tags(doc["id"], [{"value": "paiement exporté"}])
         logger.info("Sellsy update response: %s", res)
+
+    # Mise à jour de la date de synchronisation de la passerelle
+    database.update_date_synchronisation_passerelle_client(IdPasserelleClient)
+    logger.info("Routine terminée avec succès.")
+
 
 
