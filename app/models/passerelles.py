@@ -214,12 +214,22 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):  # pylint: disable=C0
     )["Valeur"]
 
     for doc in paiddoc:
-        if "last_payment" not in doc or "paid_at" not in doc["last_payment"]:
+        # Vérifiez si le champ 'payments' existe et est bien formé
+        if "payments" not in doc or not doc["payments"].get("data"):
             logger.error("Invalid document format: %s", doc)
             continue
 
-        paid_at = doc["last_payment"]["paid_at"]
-        paid_at = paid_at.split("T")[0]
+        # Obtenez les paiements depuis le document
+        payments = doc["payments"]
+
+        # Vérifiez si le champ 'data' dans 'payments' contient des éléments
+        if payments["data"]:
+            last_payment = max(payments["data"], key=lambda x: x["paid_at"])
+            paid_at = last_payment["paid_at"]
+            paid_at = paid_at.split("T")[0]
+        else:
+            logger.warning("No payments found in the data for document: %s", doc)
+            continue  # skip this document if there are no payments
 
         # on modifie le document dans zeendoc
         res = zeendoc.update_doc_paiement_by_num_facture(
@@ -230,3 +240,5 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):  # pylint: disable=C0
         # on modifie le document dans Sellsy update_invoice_smart_tags
         res = sellsy.update_invoice_smart_tags(doc["id"], [{"value": "paiement exporté"}])
         logger.info("Sellsy update response: %s", res)
+
+
