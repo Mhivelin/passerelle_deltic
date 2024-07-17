@@ -206,7 +206,8 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):
     for doc in paiddoc:
         if "payments" not in doc:
             logger.error(f"Missing 'payments' field in document: {doc['id']}, {doc.get('number')}")
-            continue  # Skip to the next document
+            paid_at = doc["due_date"]
+
 
         payments = doc["payments"]
         if not payments.get("data"):
