@@ -350,7 +350,7 @@ class Zeendoc:
             # Recherche du document par numéro de facture
             res = self.search_doc_by_custom(self.indexNumFacture, num_facture)
 
-            print("res: ", res)
+            print("res search_doc_by_custom: ", res)
 
             # print("self.indexNumFacture: ", self.indexNumFacture)
             # print("num_facture: ", num_facture)
