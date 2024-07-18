@@ -221,9 +221,11 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):
 
         except KeyError as e:
             logger.error(f"Clé non trouvée lors du traitement de la passerelle {IdPasserelleClient}: {e}")
+            res = sellsy.update_invoice_smart_tags(doc["id"], [{"value": "erreur export"}])
+
         except Exception as e:
             logger.error(f"Erreur inattendue lors du traitement de la passerelle {IdPasserelleClient}: {e}")
-            return sellsy.update_invoice_smart_tags(doc["id"], [{"value": "erreur export"}])
+            res = sellsy.update_invoice_smart_tags(doc["id"], [{"value": "erreur export"}])
 
 
 
