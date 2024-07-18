@@ -275,7 +275,10 @@ class Zeendoc:
             root = ET.fromstring(response_text)
             json_response = root.find(".//jsonResponse").text
 
-            print("json_response: ", json_response)
+            # json_response:  {"Result":1}
+
+            if json_response == '{"Result":1}':
+                print(f"Document {res_id} mis à jour avec succès")
 
             return json.loads(json_response)
         except (requests.RequestException, ET.ParseError, json.JSONDecodeError) as e:
@@ -331,12 +334,12 @@ class Zeendoc:
         value: La valeur de l'index à mettre à jour (par défaut "1")
         """
 
-        print("update_doc_paiement_by_num_facture")
-        print("num_facture: ", num_facture)
-        print("index: ", index)
-        print("value: ", value)
-        print("self.indexNumFacture: ", self.indexNumFacture)
-        print("self.classeur: ", self.classeur)
+        # print("update_doc_paiement_by_num_facture")
+        # print("num_facture: ", num_facture)
+        # print("index: ", index)
+        # print("value: ", value)
+        # print("self.indexNumFacture: ", self.indexNumFacture)
+        # print("self.classeur: ", self.classeur)
 
         try:
             # Vérifier que les paramètres critiques ne sont pas None

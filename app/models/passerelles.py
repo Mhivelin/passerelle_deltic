@@ -5,18 +5,33 @@ Ce module contient les fonctions de routine pour les passerelles.
 import datetime
 import json
 import logging
+import colorlog
 
 from app.models import database  # pylint: disable=E0401
 from app.models.ebp import EBP  # pylint: disable=E0401
 from app.models.sellsy import Sellsy  # pylint: disable=E0401
 from app.models.zeendoc import Zeendoc  # pylint: disable=E0401
 
-# Configuration du logger
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-)
+# Configuration du logger avec colorlog
+handler = colorlog.StreamHandler()
+handler.setFormatter(colorlog.ColoredFormatter(
+    "%(log_color)s%(asctime)s - %(levelname)s - %(name)s - %(message)s",
+    log_colors={
+        'DEBUG': 'bold_blue',
+        'INFO': 'bold_green',
+        'WARNING': 'bold_yellow',
+        'ERROR': 'bold_red',
+        'CRITICAL': 'bold_purple'
+    }
+))
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
+# Ajoutez ce code pour éviter la duplication des handlers
+if not logger.handlers:
+    logger.addHandler(handler)
+
+logger.propagate = False
 
 def routine():
     """
@@ -231,13 +246,4 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):
             logger.error(f"Erreur inattendue lors du traitement de la passerelle {IdPasserelleClient}: {e}")
             res = sellsy.update_invoice_smart_tags(doc["id"], [{"value": "erreur export"}])
 
-
-
     logger.info("Routine terminée avec succès.")
-
-
-
-
-
-
-

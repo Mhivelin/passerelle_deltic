@@ -30,20 +30,22 @@ def configure_logs(app):
         "%(asctime)s - %(levelname)s - %(name)s - %(message)s"
     )
 
-    # StreamHandler for sending logs to stdout (useful for Docker)
-    stream_handler = logging.StreamHandler(sys.stdout)
-    stream_handler.setFormatter(formatter)
-    stream_handler.setLevel(logging.INFO)
-    app.logger.addHandler(stream_handler)
+    # Ajoutez ce code pour vérifier et éviter la duplication des handlers
+    if not app.logger.handlers:
+        # StreamHandler for sending logs to stdout (useful for Docker)
+        stream_handler = logging.StreamHandler(sys.stdout)
+        stream_handler.setFormatter(formatter)
+        stream_handler.setLevel(logging.INFO)
+        app.logger.addHandler(stream_handler)
 
-    # Optional: FileHandler for writing logs to a file
-    file_handler = RotatingFileHandler("app.log", maxBytes=10000, backupCount=3)
-    file_handler.setFormatter(formatter)
-    file_handler.setLevel(logging.INFO)
-    app.logger.addHandler(file_handler)
-
+        # Optional: FileHandler for writing logs to a file
+        file_handler = RotatingFileHandler("app.log", maxBytes=10000, backupCount=3)
+        file_handler.setFormatter(formatter)
+        file_handler.setLevel(logging.INFO)
+        app.logger.addHandler(file_handler)
 
     app.logger.info("Configuration des logs terminée.")
+
 
 
 def get_ip_address():

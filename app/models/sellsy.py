@@ -52,7 +52,7 @@ class Sellsy:
         token_db = db.get_champ_passerelle_by_passerelle_client_and_lib_champ(
             self.databaseId, "Sellsy_token"
         )
-        print("Token de la base de données:", token_db)
+        # print("Token de la base de données:", token_db)
         if token_db:
             try:
                 idChamp = db.get_id_champ_by_lib_champ("Sellsy_token")
@@ -190,8 +190,8 @@ class Sellsy:
             }
         }
 
-        print(f"Getting paid invoices from endpoint: {endpoint}")
-        print(f"Data: {data}")
+        # print(f"Getting paid invoices from endpoint: {endpoint}")
+        # print(f"Data: {data}")
 
         try:
             response = self.make_request(endpoint, method="POST", data=data)
@@ -259,7 +259,7 @@ class Sellsy:
 
             if payments["data"]:
                 # récuperer le paiement avec la date la plus récente
-                print(payments)
+                # print(payments)
                 last_payment = max(payments["data"], key=lambda x: x["paid_at"])
                 invoice["last_payment"] = last_payment
 
