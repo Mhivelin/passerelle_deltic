@@ -204,10 +204,11 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):
     )["Valeur"]
 
     for doc in paiddoc:
+        logger.info(f"Processing document: {doc}")
         try:
             payments = doc.get("payments", {})
             if not payments.get("data"):
-                raise Exception("No payments data found for document : {doc['number']}")
+                raise Exception(f"No payments found for document: {doc['number']}")
             else:
                 last_payment = max(payments["data"], key=lambda x: x["paid_at"])
                 paid_at = last_payment["paid_at"].split("T")[0]
