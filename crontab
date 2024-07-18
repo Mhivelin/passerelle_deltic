@@ -1,3 +1,2 @@
-* * * * * echo "Cron job started" >> /app/logs/cron_start_debug.log 2>&1
 * * * * * /usr/local/bin/python /app/app/run_cron_task.py >> /app/logs/cron_task_debug.log 2>&1
 * * * * * echo "Cron job finished" >> /app/logs/cron_finish_debug.log 2>&1
