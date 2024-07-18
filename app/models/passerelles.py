@@ -207,8 +207,7 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):
         try:
             payments = doc.get("payments", {})
             if not payments.get("data"):
-                logger.warning(f"No payments data in document: {doc['id']}, {doc.get('number')}")
-                paid_at = doc["due_date"]
+                raise Exception("No payments data found")
             else:
                 last_payment = max(payments["data"], key=lambda x: x["paid_at"])
                 paid_at = last_payment["paid_at"].split("T")[0]
@@ -224,6 +223,9 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):
             logger.error(f"Clé non trouvée lors du traitement de la passerelle {IdPasserelleClient}: {e}")
         except Exception as e:
             logger.error(f"Erreur inattendue lors du traitement de la passerelle {IdPasserelleClient}: {e}")
+            return sellsy.update_invoice_smart_tags(doc["id"], [{"value": "erreur export"}])
+
+
 
     logger.info("Routine terminée avec succès.")
 
