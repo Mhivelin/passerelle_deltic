@@ -380,9 +380,9 @@ class Zeendoc:
 
             return update_response
         except (KeyError, IndexError, TypeError, ValueError) as e:
-            print(
-                f"Erreur lors de la mise à jour du document par numéro de facture: {e}"
-            )
+            # print(
+            #     f"Erreur lors de la mise à jour du document par numéro de facture: {e}"
+            # )
 
             if (iteration <= 0):
                 return self.update_doc_paiement_by_num_facture(
