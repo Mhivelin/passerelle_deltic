@@ -217,6 +217,9 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):
             res = zeendoc.update_doc_paiement_by_num_facture(doc["number"], index, paid_at)
             logger.info(f"Updated document in Zeendoc: {doc['number']} with response: {res}")
 
+            if res == None:
+                raise Exception(f"Error updating document in Zeendoc: {doc['number']}")
+
             # Update the document in Sellsy
             res = sellsy.update_invoice_smart_tags(doc["id"], [{"value": "paiement exporté"}])
             logger.info(f"Updated smart tags in Sellsy for document: {doc['number']} with response: {res}")
