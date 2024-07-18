@@ -1,898 +1,210 @@
-json = {
-    "Result": 0,
-    "User": {
-        "User_Id": "2199661efe186f32a741b9b286070b3f",
-        "FirstName": "Marius",
-        "LastName": "Hivelin",
-        "Mail": "marius.hivelin@gmail.com",
-        "Department": "DELTIC - Technique",
-        "Mail_Sur_Depot": None,
-        "Derniere_Connexion": "2024-06-24 17:23:44",
-        "compte_technique": "0",
-        "Prefs": {
-            "lang": "fr",
-            "Nb_Par_Page": 20,
-            "N_Comments_Color": "1",
-            "Comments_Color": "FAF898",
-            "TimeZone": "Europe/Paris",
-            "coll_21_Hidden_Result_Indexes": "|custom_f1|custom_f3|custom_f2|custom_t6|custom_t7|custom_n6|custom_n4|custom_n1|custom_n5|custom_t5|custom_n2|custom_t4|custom_t1|Res_Id|Creation_Date|N_Status|PDF_Filesize|Original_Filesize|Comment|Stamp|Postit|Conversation|N_Modele_LAD|signed|Statut_Signature|Doublons|Doublons_Inactifs|Filename|Format|Upload_User_Id|signataires_oodrive|signataires_oodrive_signed|signataires_oodrive_waiting|signataires_oodrive_refused|folders|notified_conversations|follow_notified_conversations|Shipment_Status|Posted|History|Thumb|Linked_Docs|Docs_Doublons|",
-            "_Hidden_Result_Indexes": "|Res_Id|Collection|Creation_Date|N_Status|PDF_Filesize|Original_Filesize|Comment|Stamp|Postit|Conversation|N_Modele_LAD|signed|Statut_Signature|Filename|Format|Upload_User_Id|signataires_oodrive|signataires_oodrive_signed|signataires_oodrive_waiting|signataires_oodrive_refused|folders|notified_conversations|follow_notified_conversations|Shipment_Status|Posted|Thumb|Linked_Docs|",
-            "coll_21_Result_Indexes": "|custom_n3|custom_t2|custom_t3|custom_d4|custom_d1|Commented|Page_Count|",
-            "_Result_Indexes": "|Res_Id|N_Status|Filesize|FilesizeOriginal|Comment|Stamp|N_Modele_LAD|Postit|signed|Statut_Signature|Format|folders|Linked_Docs|Shipment_Status|Is_Commented|Comment|Thumb|History|",
-            "coll_23_Hidden_Result_Indexes": "|custom_f1|custom_f3|custom_f2|custom_t6|custom_t7|custom_n6|custom_n4|custom_n1|custom_n5|custom_t5|custom_n2|custom_t4|custom_t1|Res_Id|Creation_Date|N_Status|PDF_Filesize|Original_Filesize|Comment|Stamp|Postit|Conversation|N_Modele_LAD|signed|Statut_Signature|Doublons|Doublons_Inactifs|Filename|Format|Upload_User_Id|signataires_oodrive|signataires_oodrive_signed|signataires_oodrive_waiting|signataires_oodrive_refused|folders|notified_conversations|follow_notified_conversations|Shipment_Status|Posted|History|Thumb|Linked_Docs|Docs_Doublons|",
-            "coll_23_Result_Indexes": "|custom_n3|custom_t2|custom_t3|custom_d4|custom_d1|Commented|Page_Count|",
-            "coll_11_Hidden_Result_Indexes": "|custom_t8|custom_d4|custom_d1|custom_f1|custom_f3|custom_f2|custom_t6|custom_n6|custom_n4|custom_n1|custom_n5|custom_t5|custom_n2|custom_t4|custom_t1|custom_t7|custom_n8|custom_n9|custom_d2|Res_Id|Creation_Date|N_Status|PDF_Filesize|Original_Filesize|Comment|Stamp|Postit|Conversation|N_Modele_LAD|signed|Statut_Signature|Filename|Format|Upload_User_Id|signataires_oodrive|signataires_oodrive_signed|signataires_oodrive_waiting|signataires_oodrive_refused|folders|notified_conversations|follow_notified_conversations|Shipment_Status|Posted|History|Thumb|Linked_Docs|",
-            "coll_11_Result_Indexes": "|custom_n10|custom_n3|custom_n7|custom_t2|custom_t3|Commented|Page_Count|",
-            "Upload_Form": "FLASH",
-        },
-        "Est_SuperAdmin": False,
-        "Last_Page": "/data/GedH/www/deltic_demo/ws/3_0/Zeendoc.php",
-        "Last_Access": "2024-06-25 09:23:03",
-    },
-    "Client": {
-        "Status": [
-            {"Id": 2, "Label": "TO BE INDEXED"},
-            {"Id": 1, "Label": "INDEXED"},
-            {"Id": -1, "Label": "DELETED"},
-        ],
-        "Collections_Ordonnees": ["coll_21", "coll_23"],
-    },
-    "Collections": [
-        {
-            "Coll_Id": "coll_21",
-            "Label": "Classeur Fournisseur | Marius",
-            "Indexes": [],
-            "Index": [
-                {
-                    "Index_Id": "custom_n3",
-                    "Label": "Informations Générales|Type de document",
-                    "Mandatory": True,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "DOCUMENT_TYPE",
-                    "Possible_Value": [
-                        {"Id": 13, "Label": "Avoir"},
-                        {"Id": 15, "Label": "Bon de commande"},
-                        {"Id": 14, "Label": "Bon de livraison"},
-                        {"Id": 16, "Label": "Devis"},
-                        {"Id": 3, "Label": "Facture"},
-                    ],
-                },
-                {
-                    "Index_Id": "custom_t2",
-                    "Label": "Informations Générales|Fournisseur",
-                    "Mandatory": True,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 0,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 1,
-                    "Is_Multivalued": 0,
-                    "Type": "DESIGNATION_FOURNISSEUR_CHORUS_PRO",
-                },
-                {
-                    "Index_Id": "custom_t3",
-                    "Label": "Informations Générales|Référence du document",
-                    "Mandatory": True,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 0,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "NUMERO_FACTURE_CHORUS_PRO",
-                },
-                {
-                    "Index_Id": "custom_d4",
-                    "Label": "Informations Générales|Date du document",
-                    "Mandatory": True,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 1,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "DATE_FACTURE_CHORUS_PRO",
-                },
-                {
-                    "Index_Id": "custom_d1",
-                    "Label": "Informations Générales|Date d'échéance",
-                    "Mandatory": False,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 1,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "DATE_ECHEANCE",
-                },
-                {
-                    "Index_Id": "custom_f1",
-                    "Label": "Informations Générales|Montant HT",
-                    "Mandatory": False,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "HT",
-                },
-                {
-                    "Index_Id": "custom_f3",
-                    "Label": "Informations Générales|Montant TVA",
-                    "Mandatory": False,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "TVA",
-                },
-                {
-                    "Index_Id": "custom_f2",
-                    "Label": "Informations Générales|Montant TTC",
-                    "Mandatory": False,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "TTC",
-                },
-                {
-                    "Index_Id": "custom_t6",
-                    "Label": "Validation|Responsable de validation",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "USERS_LIST",
-                    "Possible_Value": [
-                        {
-                            "Id": "74f916c011391ba7ed47caf1e1ce083c",
-                            "Label": "GRENOUILLEAU Antonin",
-                        },
-                        {
-                            "Id": "2199661efe186f32a741b9b286070b3f",
-                            "Label": "Hivelin Marius",
-                        },
-                        {
-                            "Id": "ef8d29f5361c2b7c12a25511436bbc02",
-                            "Label": "JOLLYS Mickaël",
-                        },
-                    ],
-                },
-                {
-                    "Index_Id": "custom_t7",
-                    "Label": "Validation|Responsable de validation BAP",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "USERS_LIST",
-                    "Possible_Value": [
-                        {
-                            "Id": "3e9ad4345be1b5f6e721d06d7729d39d",
-                            "Label": "Alexandre BAUDON",
-                        },
-                        {
-                            "Id": "74f916c011391ba7ed47caf1e1ce083c",
-                            "Label": "Antonin GRENOUILLEAU",
-                        },
-                        {
-                            "Id": "3a04a02e0a0f419b241ffc12e65028fa",
-                            "Label": "Arnaud DELASTRE",
-                        },
-                        {
-                            "Id": "a1c7a2fc949869d9bd625ac099e7bd9c",
-                            "Label": "Audrey MAS",
-                        },
-                        {
-                            "Id": "e2afc39b8813fc3c4f30a2dccec1adf3",
-                            "Label": "Fleur CIANTELLI",
-                        },
-                        {
-                            "Id": "710bca52a37973418e783f7fefde58f5",
-                            "Label": "Formulaire Jotform",
-                        },
-                        {
-                            "Id": "e88bef785b5a8c9c8ce8212ea94c2226",
-                            "Label": "Germain MALICZAK",
-                        },
-                        {
-                            "Id": "e69645dbaa97bcbb9e5fa62246eddd7c",
-                            "Label": "Guillaume GRIMAUD",
-                        },
-                        {
-                            "Id": "b629639e175bc740e092f0923de5e5ab",
-                            "Label": "Julien CASTAING",
-                        },
-                        {
-                            "Id": "182a9f1ff961e5acffc5dc52636734ad",
-                            "Label": "Ludovic TONDU",
-                        },
-                        {
-                            "Id": "2199661efe186f32a741b9b286070b3f",
-                            "Label": "Marius Hivelin",
-                        },
-                        {
-                            "Id": "a2f35187c8bb508f1f2fd002ac2c5282",
-                            "Label": "Marius Hivelin",
-                        },
-                        {
-                            "Id": "ef8d29f5361c2b7c12a25511436bbc02",
-                            "Label": "Mickaël JOLLYS",
-                        },
-                        {
-                            "Id": "76cc5e409d20c8e7667f902fb9a13eaa",
-                            "Label": "Nicolas SCAGLIOLA",
-                        },
-                        {
-                            "Id": "a0f2166611fa922b2e9698c6b3ab7c9e",
-                            "Label": "Oscar WOLLMANN",
-                        },
-                        {
-                            "Id": "df9e0cf700d9e6d8fb2a883ca164c5f1",
-                            "Label": "Recette Z+ DELTIC DEMO",
-                        },
-                    ],
-                },
-                {
-                    "Index_Id": "custom_n6",
-                    "Label": "Comptabilité|Code journal",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "FOREIGN_TABLE",
-                    "Possible_Value": [{"Id": 1, "Label": "AC - Achats"}],
-                },
-                {
-                    "Index_Id": "custom_n4",
-                    "Label": "Comptabilité|Compte Fournisseur",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "FOREIGN_TABLE",
-                    "Possible_Value": [
-                        {"Id": 9, "Label": "401FOURN - NOM DU FOURNISSEUR"}
-                    ],
-                },
-                {
-                    "Index_Id": "custom_n1",
-                    "Label": "Comptabilité|Imputation HT",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 1,
-                    "Type": "VENTILATION_HT",
-                    "Possible_Value_CreditDebit": [
-                        {"Nom_Groupe": "CREDIT", "Id_Father": 1},
-                        {
-                            "Nom_Groupe": "DEBIT",
-                            "Id_Father": -1,
-                            "Membre_Groupe": [
-                                {"Id": 650, "Label": "6251000 - COMPTE DE TEST"}
-                            ],
-                        },
-                    ],
-                    "Is_Son": 1,
-                    "Father": "",
-                    "Possible_Value": [
-                        {
-                            "Nom_Groupe": "-1",
-                            "Id_Father": -1,
-                            "Membre_Groupe": [
-                                {"Id": 650, "Label": "6251000 - COMPTE DE TEST"}
-                            ],
-                        }
-                    ],
-                },
-                {
-                    "Index_Id": "custom_n5",
-                    "Label": "Comptabilité|Imputation TVA",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 1,
-                    "Type": "VENTILATION_TVA",
-                    "Possible_Value_CreditDebit": [
-                        {"Nom_Groupe": "CREDIT", "Id_Father": 1},
-                        {
-                            "Nom_Groupe": "DEBIT",
-                            "Id_Father": -1,
-                            "Membre_Groupe": [
-                                {"Id": 17, "Label": "44560000 - COMPTE DE TEST"}
-                            ],
-                        },
-                    ],
-                    "Is_Son": 1,
-                    "Father": "",
-                    "Possible_Value": [
-                        {
-                            "Nom_Groupe": "-1",
-                            "Id_Father": -1,
-                            "Membre_Groupe": [
-                                {"Id": 17, "Label": "44560000 - COMPTE DE TEST"}
-                            ],
-                        }
-                    ],
-                },
-                {
-                    "Index_Id": "custom_t5",
-                    "Label": "Comptabilité|Complément libellé",
-                    "Mandatory": False,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 0,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "TEXT",
-                },
-                {
-                    "Index_Id": "custom_n2",
-                    "Label": "Comptabilité|Mode de règlement",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "FOREIGN_TABLE",
-                    "Possible_Value": [
-                        {"Id": 1, "Label": "CB - Carte Bleue"},
-                        {"Id": 3, "Label": "CHQ - Chèque"},
-                        {"Id": 2, "Label": "VIR - Virement"},
-                    ],
-                },
-                {
-                    "Index_Id": "custom_t4",
-                    "Label": "Comptabilité|Numéro de pièce comptable (auto)",
-                    "Mandatory": False,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 0,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "TEXT",
-                },
-                {
-                    "Index_Id": "custom_t1",
-                    "Label": "Comptabilité|Exporté (auto)",
-                    "Mandatory": False,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 0,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "TEXT",
-                },
-                {
-                    "Index_Id": "custom_n7",
-                    "Label": "BAP",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "FOREIGN_TABLE",
-                    "Possible_Value": [
-                        {"Id": 2, "Label": "Exporté"},
-                        {"Id": 1, "Label": "Ok"},
-                    ],
-                },
-                {
-                    "Index_Id": "custom_n8",
-                    "Label": "Statut de paiement",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "FOREIGN_TABLE",
-                    "Possible_Value": [{"Id": 1, "Label": "Payé"}],
-                },
-            ],
-            "Rights": {"Can_Upload_Docs": 1, "Can_Search_Docs": 1, "Can_View_Docs": 1},
-            "Service": [
-                "admin_documents_types",
-                "admin_shares",
-                "admin_stamps",
-                "admin_subscription_usage",
-                "admin_users",
-                "docs_conversation",
-                "export_sepa",
-                "view_comments",
-                "view_conversations",
-                "view_doc_history",
-                "view_stamps",
-                "view_system_history",
-                "visuel_doublons",
-                "admin_edit_envoi_groupe",
-                "admin_trees",
-                "docs_comment",
-                "docs_stamp",
-                "view_users_list_conversations",
-                "view_users_list_diffusion",
-                "docs_depot",
-                "docs_depot_agent",
-                "docs_depot_mail",
-                "docs_securibox",
-                "docs_edit_doc",
-                "edit_doc_folders",
-                "create_accounting_files",
-                "help_hexapage_documentation",
-                "admin_edit_indexes",
-                "create_charts",
-                "docs_history",
-                "docs_print",
-                "docs_save",
-                "docs_search",
-                "docs_view",
-                "export_excel",
-                "help_documentation",
-                "help_supportline",
-                "search_advanced_search",
-                "search_expert_search",
-                "search_save_search",
-                "search_saved_searches",
-                "search_tree_search",
-                "doc_view_original",
-                "docs_email_docs",
-                "docs_post_docs",
-                "docs_publish",
-                "admin_edit_saved_queries",
-                "lad_autoedit_templates",
-                "LAD_Edit_Templates",
-                "docs_delete_doc",
-            ],
-        },
-        {
-            "Coll_Id": "coll_23",
-            "Label": "Classeur Fournisseur | Marius_2",
-            "Indexes": [],
-            "Index": [
-                {
-                    "Index_Id": "custom_n3",
-                    "Label": "Informations Générales|Type de document",
-                    "Mandatory": True,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "DOCUMENT_TYPE",
-                    "Possible_Value": [
-                        {"Id": 13, "Label": "Avoir"},
-                        {"Id": 15, "Label": "Bon de commande"},
-                        {"Id": 14, "Label": "Bon de livraison"},
-                        {"Id": 16, "Label": "Devis"},
-                        {"Id": 3, "Label": "Facture"},
-                    ],
-                },
-                {
-                    "Index_Id": "custom_t2",
-                    "Label": "Informations Générales|Fournisseur",
-                    "Mandatory": True,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 0,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 1,
-                    "Is_Multivalued": 0,
-                    "Type": "DESIGNATION_FOURNISSEUR_CHORUS_PRO",
-                },
-                {
-                    "Index_Id": "custom_t3",
-                    "Label": "Informations Générales|Référence du document",
-                    "Mandatory": True,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 0,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "NUMERO_FACTURE_CHORUS_PRO",
-                },
-                {
-                    "Index_Id": "custom_d4",
-                    "Label": "Informations Générales|Date du document",
-                    "Mandatory": True,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 1,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "DATE_FACTURE_CHORUS_PRO",
-                },
-                {
-                    "Index_Id": "custom_d1",
-                    "Label": "Informations Générales|Date d'échéance",
-                    "Mandatory": False,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 1,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "DATE_ECHEANCE",
-                },
-                {
-                    "Index_Id": "custom_f1",
-                    "Label": "Informations Générales|Montant HT",
-                    "Mandatory": False,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "HT",
-                },
-                {
-                    "Index_Id": "custom_f3",
-                    "Label": "Informations Générales|Montant TVA",
-                    "Mandatory": False,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "TVA",
-                },
-                {
-                    "Index_Id": "custom_f2",
-                    "Label": "Informations Générales|Montant TTC",
-                    "Mandatory": False,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "TTC",
-                },
-                {
-                    "Index_Id": "custom_t6",
-                    "Label": "Validation|Responsable de validation",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "USERS_LIST",
-                    "Possible_Value": [
-                        {
-                            "Id": "74f916c011391ba7ed47caf1e1ce083c",
-                            "Label": "GRENOUILLEAU Antonin",
-                        },
-                        {
-                            "Id": "2199661efe186f32a741b9b286070b3f",
-                            "Label": "Hivelin Marius",
-                        },
-                    ],
-                },
-                {
-                    "Index_Id": "custom_t7",
-                    "Label": "Validation|Responsable de validation BAP",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "USERS_LIST",
-                    "Possible_Value": [
-                        {
-                            "Id": "3e9ad4345be1b5f6e721d06d7729d39d",
-                            "Label": "Alexandre BAUDON",
-                        },
-                        {
-                            "Id": "74f916c011391ba7ed47caf1e1ce083c",
-                            "Label": "Antonin GRENOUILLEAU",
-                        },
-                        {
-                            "Id": "3a04a02e0a0f419b241ffc12e65028fa",
-                            "Label": "Arnaud DELASTRE",
-                        },
-                        {
-                            "Id": "a1c7a2fc949869d9bd625ac099e7bd9c",
-                            "Label": "Audrey MAS",
-                        },
-                        {
-                            "Id": "e2afc39b8813fc3c4f30a2dccec1adf3",
-                            "Label": "Fleur CIANTELLI",
-                        },
-                        {
-                            "Id": "710bca52a37973418e783f7fefde58f5",
-                            "Label": "Formulaire Jotform",
-                        },
-                        {
-                            "Id": "e88bef785b5a8c9c8ce8212ea94c2226",
-                            "Label": "Germain MALICZAK",
-                        },
-                        {
-                            "Id": "e69645dbaa97bcbb9e5fa62246eddd7c",
-                            "Label": "Guillaume GRIMAUD",
-                        },
-                        {
-                            "Id": "b629639e175bc740e092f0923de5e5ab",
-                            "Label": "Julien CASTAING",
-                        },
-                        {
-                            "Id": "182a9f1ff961e5acffc5dc52636734ad",
-                            "Label": "Ludovic TONDU",
-                        },
-                        {
-                            "Id": "2199661efe186f32a741b9b286070b3f",
-                            "Label": "Marius Hivelin",
-                        },
-                        {
-                            "Id": "a2f35187c8bb508f1f2fd002ac2c5282",
-                            "Label": "Marius Hivelin",
-                        },
-                        {
-                            "Id": "ef8d29f5361c2b7c12a25511436bbc02",
-                            "Label": "Mickaël JOLLYS",
-                        },
-                        {
-                            "Id": "76cc5e409d20c8e7667f902fb9a13eaa",
-                            "Label": "Nicolas SCAGLIOLA",
-                        },
-                        {
-                            "Id": "a0f2166611fa922b2e9698c6b3ab7c9e",
-                            "Label": "Oscar WOLLMANN",
-                        },
-                        {
-                            "Id": "df9e0cf700d9e6d8fb2a883ca164c5f1",
-                            "Label": "Recette Z+ DELTIC DEMO",
-                        },
-                    ],
-                },
-                {
-                    "Index_Id": "custom_n6",
-                    "Label": "Comptabilité|Code journal",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "FOREIGN_TABLE",
-                    "Possible_Value": [{"Id": 1, "Label": "AC - Achats"}],
-                },
-                {
-                    "Index_Id": "custom_n4",
-                    "Label": "Comptabilité|Compte Fournisseur",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "FOREIGN_TABLE",
-                    "Possible_Value": [
-                        {"Id": 9, "Label": "401FOURN - NOM DU FOURNISSEUR"}
-                    ],
-                },
-                {
-                    "Index_Id": "custom_n1",
-                    "Label": "Comptabilité|Imputation HT",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 1,
-                    "Type": "VENTILATION_HT",
-                    "Possible_Value_CreditDebit": [
-                        {"Nom_Groupe": "CREDIT", "Id_Father": 1},
-                        {
-                            "Nom_Groupe": "DEBIT",
-                            "Id_Father": -1,
-                            "Membre_Groupe": [
-                                {"Id": 650, "Label": "6251000 - COMPTE DE TEST"}
-                            ],
-                        },
-                    ],
-                    "Is_Son": 1,
-                    "Father": "",
-                    "Possible_Value": [
-                        {
-                            "Nom_Groupe": "-1",
-                            "Id_Father": -1,
-                            "Membre_Groupe": [
-                                {"Id": 650, "Label": "6251000 - COMPTE DE TEST"}
-                            ],
-                        }
-                    ],
-                },
-                {
-                    "Index_Id": "custom_n5",
-                    "Label": "Comptabilité|Imputation TVA",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 1,
-                    "Type": "VENTILATION_TVA",
-                    "Possible_Value_CreditDebit": [
-                        {"Nom_Groupe": "CREDIT", "Id_Father": 1},
-                        {
-                            "Nom_Groupe": "DEBIT",
-                            "Id_Father": -1,
-                            "Membre_Groupe": [
-                                {"Id": 17, "Label": "44560000 - COMPTE DE TEST"}
-                            ],
-                        },
-                    ],
-                    "Is_Son": 1,
-                    "Father": "",
-                    "Possible_Value": [
-                        {
-                            "Nom_Groupe": "-1",
-                            "Id_Father": -1,
-                            "Membre_Groupe": [
-                                {"Id": 17, "Label": "44560000 - COMPTE DE TEST"}
-                            ],
-                        }
-                    ],
-                },
-                {
-                    "Index_Id": "custom_t5",
-                    "Label": "Comptabilité|Complément libellé",
-                    "Mandatory": False,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 0,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "TEXT",
-                },
-                {
-                    "Index_Id": "custom_n2",
-                    "Label": "Comptabilité|Mode de règlement",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "FOREIGN_TABLE",
-                    "Possible_Value": [
-                        {"Id": 1, "Label": "CB - Carte Bleue"},
-                        {"Id": 3, "Label": "CHQ - Chèque"},
-                        {"Id": 2, "Label": "VIR - Virement"},
-                    ],
-                },
-                {
-                    "Index_Id": "custom_t4",
-                    "Label": "Comptabilité|Numéro de pièce comptable (auto)",
-                    "Mandatory": False,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 0,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "TEXT",
-                },
-                {
-                    "Index_Id": "custom_t1",
-                    "Label": "Comptabilité|Exporté (auto)",
-                    "Mandatory": False,
-                    "Is_ListChoice": 0,
-                    "Is_Date": 0,
-                    "Is_Numeric": 0,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "TEXT",
-                },
-                {
-                    "Index_Id": "custom_n15",
-                    "Label": "BAP",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "FOREIGN_TABLE",
-                    "Possible_Value": [
-                        {"Id": 2, "Label": "Exporté"},
-                        {"Id": 1, "Label": "Ok"},
-                    ],
-                },
-                {
-                    "Index_Id": "custom_n7",
-                    "Label": "Statut de paiement",
-                    "Mandatory": False,
-                    "Is_ListChoice": 1,
-                    "Is_Date": 0,
-                    "Is_Numeric": 1,
-                    "Is_Autocomplete": 0,
-                    "Is_Multivalued": 0,
-                    "Type": "FOREIGN_TABLE",
-                    "Possible_Value": [{"Id": 1, "Label": "Payé"}],
-                },
-            ],
-            "Rights": {"Can_Upload_Docs": 1, "Can_Search_Docs": 1, "Can_View_Docs": 1},
-            "Service": [
-                "admin_documents_types",
-                "admin_shares",
-                "admin_stamps",
-                "admin_subscription_usage",
-                "admin_users",
-                "docs_conversation",
-                "export_sepa",
-                "view_comments",
-                "view_conversations",
-                "view_doc_history",
-                "view_stamps",
-                "view_system_history",
-                "visuel_doublons",
-                "admin_edit_envoi_groupe",
-                "admin_trees",
-                "docs_comment",
-                "docs_stamp",
-                "view_users_list_conversations",
-                "view_users_list_diffusion",
-                "docs_depot",
-                "docs_depot_agent",
-                "docs_depot_mail",
-                "docs_securibox",
-                "docs_edit_doc",
-                "edit_doc_folders",
-                "create_accounting_files",
-                "help_hexapage_documentation",
-                "admin_edit_indexes",
-                "create_charts",
-                "docs_history",
-                "docs_print",
-                "docs_save",
-                "docs_search",
-                "docs_view",
-                "export_excel",
-                "help_documentation",
-                "help_supportline",
-                "search_advanced_search",
-                "search_expert_search",
-                "search_save_search",
-                "search_saved_searches",
-                "search_tree_search",
-                "doc_view_original",
-                "docs_email_docs",
-                "docs_post_docs",
-                "docs_publish",
-                "admin_edit_saved_queries",
-                "lad_autoedit_templates",
-                "LAD_Edit_Templates",
-                "docs_delete_doc",
-            ],
-        },
-        {
-            "Coll_Id": "",
-            "Label": "_SERVICE_RECHERCHE_MULTI_CLASSEUR_LABEL",
-            "Indexes": [],
-            "Rights": {"Can_Upload_Docs": 0, "Can_Search_Docs": 1, "Can_View_Docs": 0},
-            "Service": [
-                "docs_search",
-                "search_advanced_search",
-                "search_expert_search",
-                "search_save_search",
-                "search_saved_searches",
-                "search_tree_search",
-            ],
-        },
-    ],
-}
+2024-07-18 09:01:03,161 - INFO - app.models.passerelles - Routine démarrée. Nombre de passerelles à traiter: 1
+2024-07-18 09:01:03,161 - INFO - Routine démarrée. Nombre de passerelles à traiter: 1
+2024-07-18 09:01:03,162 - INFO - app.models.passerelles - p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: 4
+2024-07-18 09:01:03,162 - INFO - p_remonte_paiement_sellsy_zeendoc - IdPasserelleClient: 4
+Getting paid invoices from endpoint: v2/invoices/search
+Data: {'direction': 'desc', 'limit': 100, 'field': ['number', 'status', 'date', '_embed.smart_tags'], 'embed': ['smart_tags'], 'filters': {'favourite_filter': 602097}}
+{'data': [{'id': 7841596, 'number': None, 'paid_at': '2019-11-07T10:55:57+01:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '2520.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13122621}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTczMTIwNTU3Il0='}}
+{'data': [{'id': 6790757, 'number': None, 'paid_at': '2019-05-29T16:15:28+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '1530.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13124991}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTU5MTM5MzI4Il0='}}
+{'data': [{'id': 7167845, 'number': None, 'paid_at': '2019-07-25T14:33:01+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '291.54', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13125396}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTY0MDU3OTgxIl0='}}
+{'data': [{'id': 7030547, 'number': None, 'paid_at': '2019-07-04T10:54:16+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '3327.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13207750}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTYyMjMwNDU2Il0='}}
+{'data': [{'id': 6846548, 'number': None, 'paid_at': '2019-06-06T17:47:46+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '4050.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13291065}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTU5ODM2MDY2Il0='}}
+{'data': [{'id': 7210563, 'number': None, 'paid_at': '2019-08-01T14:16:14+02:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '144.17', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13465803}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTY0NjYxNzc0Il0='}}
+{'data': [{'id': 7070141, 'number': None, 'paid_at': '2019-07-10T14:21:29+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '77.75', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13465892}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTYyNzYxMjg5Il0='}}
+{'data': [{'id': 6926363, 'number': None, 'paid_at': '2019-06-19T09:35:22+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '946.59', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13465984}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTYwOTI5NzIyIl0='}}
+{'data': [{'id': 7334752, 'number': None, 'paid_at': '2019-08-26T09:58:27+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '4575.60', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13466106}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTY2ODA2MzA3Il0='}}
+{'data': [{'id': 7147595, 'number': None, 'paid_at': '2019-07-10T17:46:42+02:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '6600.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13769817}]}, {'id': 7334754, 'number': None, 'paid_at': '2019-08-27T09:58:34+02:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '6600.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13769817}]}, {'id': 7447631, 'number': None, 'paid_at': '2019-09-12T11:44:30+02:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '6600.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13769817}]}, {'id': 7679931, 'number': None, 'paid_at': '2019-10-15T11:36:48+02:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '6600.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13769817}]}, {'id': 7841601, 'number': None, 'paid_at': '2019-11-07T10:56:13+01:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '6600.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13769817}]}, {'id': 8165810, 'number': None, 'paid_at': '2019-12-13T11:26:03+01:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '6600.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13769817}]}, {'id': 8409413, 'number': None, 'paid_at': '2020-01-17T15:37:47+01:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '6600.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13769817}]}, {'id': 8899287, 'number': None, 'paid_at': '2020-03-24T15:59:20+01:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '13200.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13769817}]}, {'id': 11319233, 'number': None, 'paid_at': '2021-01-29T16:17:16+01:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '6600.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13769817}]}], 'pagination': {'limit': 25, 'count': 9, 'total': 9, 'offset': 'WyIxNjExOTMzNDM2Il0='}}
+{'data': [{'id': 6939701, 'number': None, 'paid_at': '2019-06-20T16:55:38+02:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '175.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13833227}]}, {'id': 7147608, 'number': None, 'paid_at': '2019-07-22T17:48:45+02:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '175.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13833227}]}, {'id': 7335261, 'number': None, 'paid_at': '2019-08-20T10:34:52+02:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '175.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13833227}]}, {'id': 7549708, 'number': None, 'paid_at': '2019-09-27T11:53:29+02:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '175.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13833227}]}, {'id': 7763878, 'number': None, 'paid_at': '2019-10-25T17:06:41+02:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '175.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13833227}]}, {'id': 7991582, 'number': None, 'paid_at': '2019-11-22T11:58:05+01:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '175.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13833227}]}, {'id': 8220040, 'number': None, 'paid_at': '2019-12-20T11:48:16+01:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '175.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13833227}]}], 'pagination': {'limit': 25, 'count': 7, 'total': 7, 'offset': 'WyIxNTc2ODM4ODk2Il0='}}
+{'data': [{'id': 7147591, 'number': None, 'paid_at': '2019-07-15T17:46:03+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '18886.50', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13837754}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTYzMjA1NTYzIl0='}}
+{'data': [{'id': 7167853, 'number': None, 'paid_at': '2019-07-25T14:33:40+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '5864.40', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13880673}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTY0MDU4MDIwIl0='}}
+{'data': [{'id': 7167842, 'number': None, 'paid_at': '2019-07-25T14:32:50+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '206.71', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13881216}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTY0MDU3OTcwIl0='}}
+{'data': [{'id': 7163370, 'number': None, 'paid_at': '2019-07-02T17:52:19+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '76363.63', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13905676}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTYyMDgyNzM5Il0='}}
+{'data': [{'id': 7029906, 'number': None, 'paid_at': '2019-07-03T10:18:13+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '3054.54', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13905863}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTYyMTQxODkzIl0='}}
+{'data': [{'id': 7412523, 'number': None, 'paid_at': '2019-09-06T15:42:36+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '2217.60', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13931797}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTY3Nzc3MzU2Il0='}}
+{'data': [{'id': 8084538, 'number': None, 'paid_at': '2019-12-04T09:57:41+01:00', 'status': 'confirmed', 'payment_method_id': 2016306, 'type': 'credit', 'amount': {'value': '342.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13981446}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTc1NDQ5ODYxIl0='}}
+{'data': [{'id': 7182168, 'number': None, 'paid_at': '2019-07-29T11:21:49+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '1680.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14062704}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTY0MzkyMTA5Il0='}}
+{'data': [{'id': 7182165, 'number': None, 'paid_at': '2019-07-29T11:21:41+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '41.04', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14063143}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTY0MzkyMTAxIl0='}}
+{'data': [{'id': 7147586, 'number': None, 'paid_at': '2019-07-15T17:45:24+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '700.17', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14100295}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTYzMjA1NTI0Il0='}}
+{'data': [{'id': 7426503, 'number': None, 'paid_at': '2019-09-10T17:38:09+02:00', 'status': 'confirmed', 'payment_method_id': 2016306, 'type': 'credit', 'amount': {'value': '113.95', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14100352}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTY4MTI5ODg5Il0='}}
+{'data': [{'id': 7334789, 'number': None, 'paid_at': '2019-08-01T09:59:30+02:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '150.50', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14100502}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTY0NjQ2MzcwIl0='}}
+{'data': [{'id': 7210560, 'number': None, 'paid_at': '2019-08-01T14:16:02+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '600.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14117627}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTY0NjYxNzYyIl0='}}
+{'data': [{'id': 7182156, 'number': None, 'paid_at': '2019-07-29T11:21:22+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '24488.47', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14264279}]}], 'pagination': {'limit': 25, 'count': 1, 'total': 1, 'offset': 'WyIxNTY0MzkyMDgyIl0='}}
+2024-07-18 09:01:14,123 - INFO - app.models.passerelles - Processing document: {'id': 13122621, 'date': '2019-05-20', 'created': '2019-05-20T11:46:11+02:00', 'related': [{'type': 'company', 'id': 5783612}, {'type': 'contact', 'id': 4209872}], 'number': 'F-1905-129', 'amounts': {'total_raw_excl_tax': '2100.000', 'total_after_discount_excl_tax': '2100.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '2100.000', 'total_incl_tax': '2520.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/kKbjMv2'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlRjAlRUYlMDMlRDhaJUU5TSUyNCUwRSUxQkQlRDclN0MlQUIlOEYlMTYlQkMlRDElODUlRUZEJUEzViVDNiVGOCVDRSUxRStMJUI2JUU2JUMxJUUwJUE0JTI2WCVBRGQlMDNCJTNEJUE1JTVCJTkyTCVDMlVNNyUyQiUwQyVFQyVCMSVCRiUwMSUxMUclMDNNJUEzbyVENCVGMiVBRg==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '420.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Client Music Global Consulting', 'assigned_staff_id': 69391, 'invoicing_address_id': 59062477, 'delivery_address_id': 59062478, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 4209872, 'rate_category_id': 85028, 'service_dates': None, 'note': 'Maintenance annuelle à échoir 387€HT/an<br /><div style="text-align:justify;">sur la durée du contrat : 60 mois</div>', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-06-30', 'parent': {'type': 'estimate', 'id': 12541243}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7841596, 'number': None, 'paid_at': '2019-11-07T10:55:57+01:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '2520.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13122621}]}}
+2024-07-18 09:01:14,123 - INFO - Processing document: {'id': 13122621, 'date': '2019-05-20', 'created': '2019-05-20T11:46:11+02:00', 'related': [{'type': 'company', 'id': 5783612}, {'type': 'contact', 'id': 4209872}], 'number': 'F-1905-129', 'amounts': {'total_raw_excl_tax': '2100.000', 'total_after_discount_excl_tax': '2100.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '2100.000', 'total_incl_tax': '2520.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/kKbjMv2'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlRjAlRUYlMDMlRDhaJUU5TSUyNCUwRSUxQkQlRDclN0MlQUIlOEYlMTYlQkMlRDElODUlRUZEJUEzViVDNiVGOCVDRSUxRStMJUI2JUU2JUMxJUUwJUE0JTI2WCVBRGQlMDNCJTNEJUE1JTVCJTkyTCVDMlVNNyUyQiUwQyVFQyVCMSVCRiUwMSUxMUclMDNNJUEzbyVENCVGMiVBRg==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '420.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Client Music Global Consulting', 'assigned_staff_id': 69391, 'invoicing_address_id': 59062477, 'delivery_address_id': 59062478, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 4209872, 'rate_category_id': 85028, 'service_dates': None, 'note': 'Maintenance annuelle à échoir 387€HT/an<br /><div style="text-align:justify;">sur la durée du contrat : 60 mois</div>', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-06-30', 'parent': {'type': 'estimate', 'id': 12541243}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7841596, 'number': None, 'paid_at': '2019-11-07T10:55:57+01:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '2520.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13122621}]}}
+2024-07-18 09:01:14,123 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1905-129
+2024-07-18 09:01:14,123 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1905-129
+2024-07-18 09:01:14,519 - INFO - app.models.passerelles - Processing document: {'id': 13124991, 'date': '2019-05-20', 'created': '2019-05-20T14:14:59+02:00', 'related': [{'type': 'company', 'id': 15644623}, {'type': 'contact', 'id': 14844412}], 'number': 'F-1905-130', 'amounts': {'total_raw_excl_tax': '1275.000', 'total_after_discount_excl_tax': '1275.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '1275.000', 'total_incl_tax': '1530.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/h2znHuL'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUJmJTk5OCVDQSVDODElQUMlQkZYJTAxJUNCJUI4JUI0JTNDcCUyOHIlQkYlQkIlOEQlQ0QlQThTJUU4JUQwJUM0JUEwJUE4JTFCJTA2JUFDJTEzJUY5JUNEWDclOTQlQTklN0IlRTIlQTMlMDFtJTk3JUUwJThEJTlEJThEJTgxJTQwWW9sJTg2JTBDJTJCJTdFJUFGJUE1eW04byVEMw==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '255.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': '', 'assigned_staff_id': 85664, 'invoicing_address_id': 59081181, 'delivery_address_id': 59081182, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 14844412, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-05-31', 'parent': {'type': 'estimate', 'id': 11327728}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 6790757, 'number': None, 'paid_at': '2019-05-29T16:15:28+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '1530.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13124991}]}}
+2024-07-18 09:01:14,519 - INFO - Processing document: {'id': 13124991, 'date': '2019-05-20', 'created': '2019-05-20T14:14:59+02:00', 'related': [{'type': 'company', 'id': 15644623}, {'type': 'contact', 'id': 14844412}], 'number': 'F-1905-130', 'amounts': {'total_raw_excl_tax': '1275.000', 'total_after_discount_excl_tax': '1275.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '1275.000', 'total_incl_tax': '1530.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/h2znHuL'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUJmJTk5OCVDQSVDODElQUMlQkZYJTAxJUNCJUI4JUI0JTNDcCUyOHIlQkYlQkIlOEQlQ0QlQThTJUU4JUQwJUM0JUEwJUE4JTFCJTA2JUFDJTEzJUY5JUNEWDclOTQlQTklN0IlRTIlQTMlMDFtJTk3JUUwJThEJTlEJThEJTgxJTQwWW9sJTg2JTBDJTJCJTdFJUFGJUE1eW04byVEMw==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '255.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': '', 'assigned_staff_id': 85664, 'invoicing_address_id': 59081181, 'delivery_address_id': 59081182, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 14844412, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-05-31', 'parent': {'type': 'estimate', 'id': 11327728}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 6790757, 'number': None, 'paid_at': '2019-05-29T16:15:28+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '1530.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13124991}]}}
+2024-07-18 09:01:14,520 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1905-130
+2024-07-18 09:01:14,520 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1905-130
+2024-07-18 09:01:14,851 - INFO - app.models.passerelles - Processing document: {'id': 13125396, 'date': '2019-05-20', 'created': '2019-05-20T14:33:46+02:00', 'related': [{'type': 'company', 'id': 5783612}, {'type': 'contact', 'id': 4209872}], 'number': 'F-1905-131', 'amounts': {'total_raw_excl_tax': '242.950', 'total_after_discount_excl_tax': '242.950', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '242.950', 'total_incl_tax': '291.540', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/fAcMqzj'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlRkYlQzglRTklMDQlODFwJTEyJThEJUI2JTlCbS0lMTRWJUZCJUVBJTNFUWd2JUIzJTg1RCVEMiU5NiUyMSVBOCVCQiVGQyU5QiUyNUQlRjklQ0RYNyU5NCVBOSU3QiVFMiVBMyUwMW0lOTclRTAlOEQlOUQlOEQlODElNDBZb2wlODYlMEMlMkIlN0UlQUYlQTV5bThvJUQz==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '48.590'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Maintenance annuelle - pro rata - client Music Global Consulting<br />', 'assigned_staff_id': 69391, 'invoicing_address_id': 59083925, 'delivery_address_id': 59083926, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 4209872, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-06-19', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7167845, 'number': None, 'paid_at': '2019-07-25T14:33:01+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '291.54', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13125396}]}}
+2024-07-18 09:01:14,851 - INFO - Processing document: {'id': 13125396, 'date': '2019-05-20', 'created': '2019-05-20T14:33:46+02:00', 'related': [{'type': 'company', 'id': 5783612}, {'type': 'contact', 'id': 4209872}], 'number': 'F-1905-131', 'amounts': {'total_raw_excl_tax': '242.950', 'total_after_discount_excl_tax': '242.950', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '242.950', 'total_incl_tax': '291.540', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/fAcMqzj'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlRkYlQzglRTklMDQlODFwJTEyJThEJUI2JTlCbS0lMTRWJUZCJUVBJTNFUWd2JUIzJTg1RCVEMiU5NiUyMSVBOCVCQiVGQyU5QiUyNUQlRjklQ0RYNyU5NCVBOSU3QiVFMiVBMyUwMW0lOTclRTAlOEQlOUQlOEQlODElNDBZb2wlODYlMEMlMkIlN0UlQUYlQTV5bThvJUQz==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '48.590'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Maintenance annuelle - pro rata - client Music Global Consulting<br />', 'assigned_staff_id': 69391, 'invoicing_address_id': 59083925, 'delivery_address_id': 59083926, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 4209872, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-06-19', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7167845, 'number': None, 'paid_at': '2019-07-25T14:33:01+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '291.54', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13125396}]}}
+2024-07-18 09:01:14,852 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1905-131
+2024-07-18 09:01:14,852 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1905-131
+2024-07-18 09:01:15,108 - INFO - app.models.passerelles - Processing document: {'id': 13207750, 'date': '2019-05-27', 'created': '2019-05-27T14:29:37+02:00', 'related': [{'type': 'company', 'id': 17983196}, {'type': 'contact', 'id': 17431100}], 'number': 'F-1905-132', 'amounts': {'total_raw_excl_tax': '2772.500', 'total_after_discount_excl_tax': '2772.500', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '2772.500', 'total_incl_tax': '3327.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/2ZDX7Z8'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlQkMlQjklQjklOTklMkYlRTYlRDIlQkIlODclM0ZqJUVCJTEwJUYxJUQ3JUM5TCUwRCUyNSVGMyU3RkJUJUUyciU3RSUyOCU5NiVFRiVFQ3clQTclRjklQ0RYNyU5NCVBOSU3QiVFMiVBMyUwMW0lOTclRTAlOEQlOUQlOEQlODElNDBZb2wlODYlMEMlMkIlN0UlQUYlQTV5bThvJUQz==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '554.500'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Prestations Docuware', 'assigned_staff_id': 61106, 'invoicing_address_id': 59393819, 'delivery_address_id': 59393820, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 17431100, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-06-26', 'parent': {'type': 'delivery', 'id': 12847834}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7030547, 'number': None, 'paid_at': '2019-07-04T10:54:16+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '3327.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13207750}]}}
+2024-07-18 09:01:15,108 - INFO - Processing document: {'id': 13207750, 'date': '2019-05-27', 'created': '2019-05-27T14:29:37+02:00', 'related': [{'type': 'company', 'id': 17983196}, {'type': 'contact', 'id': 17431100}], 'number': 'F-1905-132', 'amounts': {'total_raw_excl_tax': '2772.500', 'total_after_discount_excl_tax': '2772.500', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '2772.500', 'total_incl_tax': '3327.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/2ZDX7Z8'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlQkMlQjklQjklOTklMkYlRTYlRDIlQkIlODclM0ZqJUVCJTEwJUYxJUQ3JUM5TCUwRCUyNSVGMyU3RkJUJUUyciU3RSUyOCU5NiVFRiVFQ3clQTclRjklQ0RYNyU5NCVBOSU3QiVFMiVBMyUwMW0lOTclRTAlOEQlOUQlOEQlODElNDBZb2wlODYlMEMlMkIlN0UlQUYlQTV5bThvJUQz==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '554.500'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Prestations Docuware', 'assigned_staff_id': 61106, 'invoicing_address_id': 59393819, 'delivery_address_id': 59393820, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 17431100, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-06-26', 'parent': {'type': 'delivery', 'id': 12847834}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7030547, 'number': None, 'paid_at': '2019-07-04T10:54:16+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '3327.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13207750}]}}
+2024-07-18 09:01:15,109 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1905-132
+2024-07-18 09:01:15,109 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1905-132
+2024-07-18 09:01:15,447 - INFO - app.models.passerelles - Processing document: {'id': 13291065, 'date': '2019-05-29', 'created': '2019-05-29T14:43:35+02:00', 'related': [{'type': 'company', 'id': 5696422}], 'number': 'F-1905-133', 'amounts': {'total_raw_excl_tax': '3375.000', 'total_after_discount_excl_tax': '3375.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '3375.000', 'total_incl_tax': '4050.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/4nHnq6u'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUJ6NCUyQUklRTElREJKJUVDJUJFSiVFNlclQUQlNUIlRjJaJTBGJTIzJTdFJTIzJUI3JUU1TCVFQSUxOCU5MiUyN1YlQjglOTYlRkYlM0MlRTAlQTQlMjZYJUFEZCUwM0IlM0QlQTUlNUIlOTJMJUMyVU03JTJCJTBDJUVDJUIxJUJGJTAxJTExRyUwM00lQTNvJUQ0JUYyJUFG==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '675.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Dossier OTIM', 'assigned_staff_id': 61106, 'invoicing_address_id': 59678394, 'delivery_address_id': 59678395, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': None, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-06-28', 'parent': {'type': 'estimate', 'id': 7079609}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 6846548, 'number': None, 'paid_at': '2019-06-06T17:47:46+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '4050.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13291065}]}}
+2024-07-18 09:01:15,447 - INFO - Processing document: {'id': 13291065, 'date': '2019-05-29', 'created': '2019-05-29T14:43:35+02:00', 'related': [{'type': 'company', 'id': 5696422}], 'number': 'F-1905-133', 'amounts': {'total_raw_excl_tax': '3375.000', 'total_after_discount_excl_tax': '3375.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '3375.000', 'total_incl_tax': '4050.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/4nHnq6u'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUJ6NCUyQUklRTElREJKJUVDJUJFSiVFNlclQUQlNUIlRjJaJTBGJTIzJTdFJTIzJUI3JUU1TCVFQSUxOCU5MiUyN1YlQjglOTYlRkYlM0MlRTAlQTQlMjZYJUFEZCUwM0IlM0QlQTUlNUIlOTJMJUMyVU03JTJCJTBDJUVDJUIxJUJGJTAxJTExRyUwM00lQTNvJUQ0JUYyJUFG==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '675.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Dossier OTIM', 'assigned_staff_id': 61106, 'invoicing_address_id': 59678394, 'delivery_address_id': 59678395, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': None, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-06-28', 'parent': {'type': 'estimate', 'id': 7079609}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 6846548, 'number': None, 'paid_at': '2019-06-06T17:47:46+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '4050.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13291065}]}}
+2024-07-18 09:01:15,447 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1905-133
+2024-07-18 09:01:15,447 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1905-133
+2024-07-18 09:01:15,740 - INFO - app.models.passerelles - Processing document: {'id': 13465803, 'date': '2019-06-06', 'created': '2019-06-06T17:55:53+02:00', 'related': [{'type': 'company', 'id': 17362427}, {'type': 'contact', 'id': 16846482}], 'number': 'F-1906-134', 'amounts': {'total_raw_excl_tax': '130.390', 'total_after_discount_excl_tax': '130.390', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '130.390', 'total_incl_tax': '144.170', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/8oskHnP'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlQkVERyVFOCUxNiU4QSVGMSUwOCVFNiUwM3klMDElRkElOTglQ0FYJUIxJTg4JUYyZyUzRiU1RCVFMyVCRCVDQyUwRiU1QyUwRiVCNSVCQSUwNiU3RiVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '13.780'}, {'label': 'TVA 0,0%', 'id': 2622353, 'rate': '0.000000000', 'amount': '0.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Consommation Editique mai 2019', 'assigned_staff_id': 69391, 'invoicing_address_id': 60277799, 'delivery_address_id': 60277800, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 16846482, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-06-30', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7210563, 'number': None, 'paid_at': '2019-08-01T14:16:14+02:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '144.17', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13465803}]}}
+2024-07-18 09:01:15,740 - INFO - Processing document: {'id': 13465803, 'date': '2019-06-06', 'created': '2019-06-06T17:55:53+02:00', 'related': [{'type': 'company', 'id': 17362427}, {'type': 'contact', 'id': 16846482}], 'number': 'F-1906-134', 'amounts': {'total_raw_excl_tax': '130.390', 'total_after_discount_excl_tax': '130.390', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '130.390', 'total_incl_tax': '144.170', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/8oskHnP'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlQkVERyVFOCUxNiU4QSVGMSUwOCVFNiUwM3klMDElRkElOTglQ0FYJUIxJTg4JUYyZyUzRiU1RCVFMyVCRCVDQyUwRiU1QyUwRiVCNSVCQSUwNiU3RiVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '13.780'}, {'label': 'TVA 0,0%', 'id': 2622353, 'rate': '0.000000000', 'amount': '0.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Consommation Editique mai 2019', 'assigned_staff_id': 69391, 'invoicing_address_id': 60277799, 'delivery_address_id': 60277800, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 16846482, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-06-30', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7210563, 'number': None, 'paid_at': '2019-08-01T14:16:14+02:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '144.17', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13465803}]}}
+2024-07-18 09:01:15,741 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-134
+2024-07-18 09:01:15,741 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-134
+2024-07-18 09:01:16,071 - INFO - app.models.passerelles - Processing document: {'id': 13465892, 'date': '2019-06-06', 'created': '2019-06-06T17:58:25+02:00', 'related': [{'type': 'company', 'id': 5679351}, {'type': 'contact', 'id': 13903928}], 'number': 'F-1906-135', 'amounts': {'total_raw_excl_tax': '69.450', 'total_after_discount_excl_tax': '69.450', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '69.450', 'total_incl_tax': '77.750', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/kn113m4'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUI1JTI3aCUxMCUzRCVGNyUyQyVEMSU5QiVFRCUwOCVFQSVBMyVCRWMlODYlREUlOTU3JUUydSUyNyVFNSUwNiVCMnolQzIlMDlIJTFGJUJBJUI5JUY5JUNEWDclOTQlQTklN0IlRTIlQTMlMDFtJTk3JUUwJThEJTlEJThEJTgxJTQwWW9sJTg2JTBDJTJCJTdFJUFGJUE1eW04byVEMw==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '8.300'}, {'label': 'TVA 0,0%', 'id': 2622353, 'rate': '0.000000000', 'amount': '0.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': "Consommation d'éditique - mai 2019", 'assigned_staff_id': 69391, 'invoicing_address_id': 60278100, 'delivery_address_id': 60278101, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 13903928, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-06', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7070141, 'number': None, 'paid_at': '2019-07-10T14:21:29+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '77.75', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13465892}]}}
+2024-07-18 09:01:16,071 - INFO - Processing document: {'id': 13465892, 'date': '2019-06-06', 'created': '2019-06-06T17:58:25+02:00', 'related': [{'type': 'company', 'id': 5679351}, {'type': 'contact', 'id': 13903928}], 'number': 'F-1906-135', 'amounts': {'total_raw_excl_tax': '69.450', 'total_after_discount_excl_tax': '69.450', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '69.450', 'total_incl_tax': '77.750', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/kn113m4'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUI1JTI3aCUxMCUzRCVGNyUyQyVEMSU5QiVFRCUwOCVFQSVBMyVCRWMlODYlREUlOTU3JUUydSUyNyVFNSUwNiVCMnolQzIlMDlIJTFGJUJBJUI5JUY5JUNEWDclOTQlQTklN0IlRTIlQTMlMDFtJTk3JUUwJThEJTlEJThEJTgxJTQwWW9sJTg2JTBDJTJCJTdFJUFGJUE1eW04byVEMw==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '8.300'}, {'label': 'TVA 0,0%', 'id': 2622353, 'rate': '0.000000000', 'amount': '0.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': "Consommation d'éditique - mai 2019", 'assigned_staff_id': 69391, 'invoicing_address_id': 60278100, 'delivery_address_id': 60278101, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 13903928, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-06', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7070141, 'number': None, 'paid_at': '2019-07-10T14:21:29+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '77.75', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13465892}]}}
+2024-07-18 09:01:16,071 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-135
+2024-07-18 09:01:16,071 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-135
+2024-07-18 09:01:16,434 - INFO - app.models.passerelles - Processing document: {'id': 13465984, 'date': '2019-06-06', 'created': '2019-06-06T18:00:53+02:00', 'related': [{'type': 'company', 'id': 5690406}, {'type': 'contact', 'id': 6629322}], 'number': 'F-1906-136', 'amounts': {'total_raw_excl_tax': '830.690', 'total_after_discount_excl_tax': '830.690', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '830.690', 'total_incl_tax': '946.590', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/2ofcVsS'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlRDIlQzYlQkElMUMlOEIlN0QlODMlQjElRDQlMTVLJTNDJTE1JUZGJUU3JUFGJUVGJTA5ciUwOTElQkIlRjJmOSVFMiVERm1UJThBRCVCMiVFMCVBNCUyNlglQURkJTAzQiUzRCVBNSU1QiU5MkwlQzJVTTclMkIlMEMlRUMlQjElQkYlMDElMTFHJTAzTSVBM28lRDQlRjIlQUY==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '115.900'}, {'label': 'TVA 0,0%', 'id': 2622353, 'rate': '0.000000000', 'amount': '0.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': "Consommation d'éditique - mai 2019", 'assigned_staff_id': 69391, 'invoicing_address_id': 60278404, 'delivery_address_id': 60278405, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 6629322, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-06', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 6926363, 'number': None, 'paid_at': '2019-06-19T09:35:22+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '946.59', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13465984}]}}
+2024-07-18 09:01:16,434 - INFO - Processing document: {'id': 13465984, 'date': '2019-06-06', 'created': '2019-06-06T18:00:53+02:00', 'related': [{'type': 'company', 'id': 5690406}, {'type': 'contact', 'id': 6629322}], 'number': 'F-1906-136', 'amounts': {'total_raw_excl_tax': '830.690', 'total_after_discount_excl_tax': '830.690', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '830.690', 'total_incl_tax': '946.590', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/2ofcVsS'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlRDIlQzYlQkElMUMlOEIlN0QlODMlQjElRDQlMTVLJTNDJTE1JUZGJUU3JUFGJUVGJTA5ciUwOTElQkIlRjJmOSVFMiVERm1UJThBRCVCMiVFMCVBNCUyNlglQURkJTAzQiUzRCVBNSU1QiU5MkwlQzJVTTclMkIlMEMlRUMlQjElQkYlMDElMTFHJTAzTSVBM28lRDQlRjIlQUY==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '115.900'}, {'label': 'TVA 0,0%', 'id': 2622353, 'rate': '0.000000000', 'amount': '0.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': "Consommation d'éditique - mai 2019", 'assigned_staff_id': 69391, 'invoicing_address_id': 60278404, 'delivery_address_id': 60278405, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 6629322, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-06', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 6926363, 'number': None, 'paid_at': '2019-06-19T09:35:22+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '946.59', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13465984}]}}
+2024-07-18 09:01:16,435 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-136
+2024-07-18 09:01:16,435 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-136
+2024-07-18 09:01:17,353 - INFO - app.models.passerelles - Processing document: {'id': 13466106, 'date': '2019-06-06', 'created': '2019-06-06T18:04:23+02:00', 'related': [{'type': 'company', 'id': 13661252}, {'type': 'contact', 'id': 12570762}], 'number': 'F-1906-137', 'amounts': {'total_raw_excl_tax': '3813.000', 'total_after_discount_excl_tax': '3813.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '3813.000', 'total_incl_tax': '4575.600', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/iQJIGio'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlREUyKyU4M3glQzQlRkYlOEMlQTUlOEYlRDklRTFacyU5MSU4MiUxNWUlRDFIRSVEOSUxNFglQTclQjElQ0UlRkYlOEJTYSU5MiVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '762.600'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Commande : client ODOMOTIQ', 'assigned_staff_id': 69391, 'invoicing_address_id': 60278793, 'delivery_address_id': 60278794, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 12570762, 'rate_category_id': 85028, 'service_dates': None, 'note': '<br /><br />', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-06-16', 'parent': {'type': 'estimate', 'id': 13088363}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7334752, 'number': None, 'paid_at': '2019-08-26T09:58:27+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '4575.60', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13466106}]}}
+2024-07-18 09:01:17,353 - INFO - Processing document: {'id': 13466106, 'date': '2019-06-06', 'created': '2019-06-06T18:04:23+02:00', 'related': [{'type': 'company', 'id': 13661252}, {'type': 'contact', 'id': 12570762}], 'number': 'F-1906-137', 'amounts': {'total_raw_excl_tax': '3813.000', 'total_after_discount_excl_tax': '3813.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '3813.000', 'total_incl_tax': '4575.600', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/iQJIGio'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlREUyKyU4M3glQzQlRkYlOEMlQTUlOEYlRDklRTFacyU5MSU4MiUxNWUlRDFIRSVEOSUxNFglQTclQjElQ0UlRkYlOEJTYSU5MiVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '762.600'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Commande : client ODOMOTIQ', 'assigned_staff_id': 69391, 'invoicing_address_id': 60278793, 'delivery_address_id': 60278794, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 12570762, 'rate_category_id': 85028, 'service_dates': None, 'note': '<br /><br />', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-06-16', 'parent': {'type': 'estimate', 'id': 13088363}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7334752, 'number': None, 'paid_at': '2019-08-26T09:58:27+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '4575.60', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13466106}]}}
+2024-07-18 09:01:17,354 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-137
+2024-07-18 09:01:17,354 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-137
+2024-07-18 09:01:17,597 - INFO - app.models.passerelles - Processing document: {'id': 13769817, 'date': '2019-06-18', 'created': '2019-06-18T09:57:30+02:00', 'related': [{'type': 'company', 'id': 5818264}, {'type': 'contact', 'id': 8076488}], 'number': 'F-1906-138', 'amounts': {'total_raw_excl_tax': '55000.000', 'total_after_discount_excl_tax': '55000.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '55000.000', 'total_incl_tax': '66000.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/CdJIUvv'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlRTklQTglQURkJUU4JThEJUE5JTkyY0lYJTI1JTkzJTAyJThGJUJFJTI0ViVDNCUwQyU1QiVFRiU5MSVDOSVCNyU4RCVBN0ZpTSVBMyVBRSVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '11000.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Cotation Colibri - 10 licences', 'assigned_staff_id': 69391, 'invoicing_address_id': 61325013, 'delivery_address_id': 61325014, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 8076488, 'rate_category_id': 85028, 'service_dates': None, 'note': "<strong>Coûts additionnels obligatoires facturés directement au client : </strong><br /><br />Maintenance et MAJ annuelle par licence - 850€ HT/an (achat 400€/an)<br /><em>Conditions : engagement en tacite reconduction<br />Facturation en année civile à échoir<br />Pro-rata sur l'année en cours appliqué </em><br /><br />Pack Install et paramétrage Colibri par licence<br />Import mail & aide sur gabarits<br /><em>450€ HT - facturation après l'installation </em>", 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-10', 'parent': {'type': 'estimate', 'id': 13422128}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 11319233, 'number': None, 'paid_at': '2021-01-29T16:17:16+01:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '6600.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13769817}]}}
+2024-07-18 09:01:17,597 - INFO - Processing document: {'id': 13769817, 'date': '2019-06-18', 'created': '2019-06-18T09:57:30+02:00', 'related': [{'type': 'company', 'id': 5818264}, {'type': 'contact', 'id': 8076488}], 'number': 'F-1906-138', 'amounts': {'total_raw_excl_tax': '55000.000', 'total_after_discount_excl_tax': '55000.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '55000.000', 'total_incl_tax': '66000.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/CdJIUvv'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlRTklQTglQURkJUU4JThEJUE5JTkyY0lYJTI1JTkzJTAyJThGJUJFJTI0ViVDNCUwQyU1QiVFRiU5MSVDOSVCNyU4RCVBN0ZpTSVBMyVBRSVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '11000.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Cotation Colibri - 10 licences', 'assigned_staff_id': 69391, 'invoicing_address_id': 61325013, 'delivery_address_id': 61325014, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 8076488, 'rate_category_id': 85028, 'service_dates': None, 'note': "<strong>Coûts additionnels obligatoires facturés directement au client : </strong><br /><br />Maintenance et MAJ annuelle par licence - 850€ HT/an (achat 400€/an)<br /><em>Conditions : engagement en tacite reconduction<br />Facturation en année civile à échoir<br />Pro-rata sur l'année en cours appliqué </em><br /><br />Pack Install et paramétrage Colibri par licence<br />Import mail & aide sur gabarits<br /><em>450€ HT - facturation après l'installation </em>", 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-10', 'parent': {'type': 'estimate', 'id': 13422128}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 11319233, 'number': None, 'paid_at': '2021-01-29T16:17:16+01:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '6600.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13769817}]}}
+2024-07-18 09:01:17,598 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-138
+2024-07-18 09:01:17,598 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-138
+2024-07-18 09:01:18,490 - INFO - app.models.passerelles - Processing document: {'id': 13833227, 'date': '2019-06-20', 'created': '2019-06-20T16:52:06+02:00', 'related': [{'type': 'company', 'id': 17983196}, {'type': 'contact', 'id': 17431100}], 'number': 'F-1906-139', 'amounts': {'total_raw_excl_tax': '1020.830', 'total_after_discount_excl_tax': '1020.830', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '1020.830', 'total_incl_tax': '1225.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/r5tP1Kd'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlQUY3JUJFdSUwMiVENyUyNCVDMSVDNHQlODM0JTA3JTE3JUEwJTE1JTE0JUZGJTEwaSU4MiVDNSU5NEolRUYlRUNlJTBCJUUzJTk1JTg2JTEydCVEMyVCMHglQTglQjklRDl1JTFCJTdCNEolMkIlRDdnJTJDJTYwJTE2JUE5ckElQUMlMEYlRTYlOEElMTklM0QlMkNTJURDJUNEJURD==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '204.170'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Maintenance annuelle de votre logiciel DocuWare <br />', 'assigned_staff_id': 69391, 'invoicing_address_id': 61562192, 'delivery_address_id': 61562193, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 17431100, 'rate_category_id': 85028, 'service_dates': None, 'note': 'Attention - ceci est un état de facturation <br />Les mensualités sont prélevées directement par GRENKE', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-06-30', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 8220040, 'number': None, 'paid_at': '2019-12-20T11:48:16+01:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '175.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13833227}]}}
+2024-07-18 09:01:18,490 - INFO - Processing document: {'id': 13833227, 'date': '2019-06-20', 'created': '2019-06-20T16:52:06+02:00', 'related': [{'type': 'company', 'id': 17983196}, {'type': 'contact', 'id': 17431100}], 'number': 'F-1906-139', 'amounts': {'total_raw_excl_tax': '1020.830', 'total_after_discount_excl_tax': '1020.830', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '1020.830', 'total_incl_tax': '1225.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/r5tP1Kd'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlQUY3JUJFdSUwMiVENyUyNCVDMSVDNHQlODM0JTA3JTE3JUEwJTE1JTE0JUZGJTEwaSU4MiVDNSU5NEolRUYlRUNlJTBCJUUzJTk1JTg2JTEydCVEMyVCMHglQTglQjklRDl1JTFCJTdCNEolMkIlRDdnJTJDJTYwJTE2JUE5ckElQUMlMEYlRTYlOEElMTklM0QlMkNTJURDJUNEJURD==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '204.170'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Maintenance annuelle de votre logiciel DocuWare <br />', 'assigned_staff_id': 69391, 'invoicing_address_id': 61562192, 'delivery_address_id': 61562193, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 17431100, 'rate_category_id': 85028, 'service_dates': None, 'note': 'Attention - ceci est un état de facturation <br />Les mensualités sont prélevées directement par GRENKE', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-06-30', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 8220040, 'number': None, 'paid_at': '2019-12-20T11:48:16+01:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '175.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13833227}]}}
+2024-07-18 09:01:18,490 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-139
+2024-07-18 09:01:18,490 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-139
+2024-07-18 09:01:18,756 - INFO - app.models.passerelles - Processing document: {'id': 13837754, 'date': '2019-06-21', 'created': '2019-06-21T09:45:14+02:00', 'related': [{'type': 'company', 'id': 5686909}], 'number': 'F-1906-140', 'amounts': {'total_raw_excl_tax': '17487.500', 'total_after_discount_excl_tax': '15738.75', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '15738.750', 'total_incl_tax': '18886.500', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/aOClT3P'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlQjVNJUE3RUVSJUMxJTE2JTJDJTAyJUY4JUFBJUEyJTk2JTNEJUYzVyVFRDElNUN5JUM4JTEzLSU3RCUwOSU5MSVEOCVEOCUyOCU5NyU3RiVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '3147.750'}], 'discount': {'percent': '10.000', 'amount': '1748.750', 'type': 'percent'}, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'AUDIT DOCUMENTAIRE & PROCESS ADEI17', 'assigned_staff_id': 69391, 'invoicing_address_id': 61579105, 'delivery_address_id': 61579106, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': None, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-21', 'parent': {'type': 'estimate', 'id': 11660942}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7147591, 'number': None, 'paid_at': '2019-07-15T17:46:03+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '18886.50', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13837754}]}}
+2024-07-18 09:01:18,756 - INFO - Processing document: {'id': 13837754, 'date': '2019-06-21', 'created': '2019-06-21T09:45:14+02:00', 'related': [{'type': 'company', 'id': 5686909}], 'number': 'F-1906-140', 'amounts': {'total_raw_excl_tax': '17487.500', 'total_after_discount_excl_tax': '15738.75', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '15738.750', 'total_incl_tax': '18886.500', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/aOClT3P'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlQjVNJUE3RUVSJUMxJTE2JTJDJTAyJUY4JUFBJUEyJTk2JTNEJUYzVyVFRDElNUN5JUM4JTEzLSU3RCUwOSU5MSVEOCVEOCUyOCU5NyU3RiVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '3147.750'}], 'discount': {'percent': '10.000', 'amount': '1748.750', 'type': 'percent'}, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'AUDIT DOCUMENTAIRE & PROCESS ADEI17', 'assigned_staff_id': 69391, 'invoicing_address_id': 61579105, 'delivery_address_id': 61579106, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': None, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-21', 'parent': {'type': 'estimate', 'id': 11660942}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7147591, 'number': None, 'paid_at': '2019-07-15T17:46:03+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '18886.50', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13837754}]}}
+2024-07-18 09:01:18,757 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-140
+2024-07-18 09:01:18,757 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-140
+2024-07-18 09:01:19,151 - INFO - app.models.passerelles - Processing document: {'id': 13880673, 'date': '2019-06-25', 'created': '2019-06-25T14:38:14+02:00', 'related': [{'type': 'company', 'id': 5783612}, {'type': 'contact', 'id': 4209872}], 'number': 'F-1906-141', 'amounts': {'total_raw_excl_tax': '4887.000', 'total_after_discount_excl_tax': '4887.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '4887.000', 'total_incl_tax': '5864.400', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/MT6cNSh'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlQkQlMDYlMDF1SSVFOCVDNCU4NGklRTIlMEUlQjElQ0VnJTE1JTBGbCVEQSU1QyVDQSUwOSUzRiVDRiUzRCUxQSU3RSU4OW4lMjFkJTI3JUQ1JUY5JUNEWDclOTQlQTklN0IlRTIlQTMlMDFtJTk3JUUwJThEJTlEJThEJTgxJTQwWW9sJTg2JTBDJTJCJTdFJUFGJUE1eW04byVEMw==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '977.400'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Client MIROITERIE CONCEPT DESIGN SERVICE<br />', 'assigned_staff_id': 69391, 'invoicing_address_id': 61782088, 'delivery_address_id': 61782089, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 4209872, 'rate_category_id': 85028, 'service_dates': None, 'note': 'Maintenance : 317€HT/an', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-25', 'parent': {'type': 'estimate', 'id': 13235985}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7167853, 'number': None, 'paid_at': '2019-07-25T14:33:40+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '5864.40', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13880673}]}}
+2024-07-18 09:01:19,151 - INFO - Processing document: {'id': 13880673, 'date': '2019-06-25', 'created': '2019-06-25T14:38:14+02:00', 'related': [{'type': 'company', 'id': 5783612}, {'type': 'contact', 'id': 4209872}], 'number': 'F-1906-141', 'amounts': {'total_raw_excl_tax': '4887.000', 'total_after_discount_excl_tax': '4887.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '4887.000', 'total_incl_tax': '5864.400', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/MT6cNSh'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlQkQlMDYlMDF1SSVFOCVDNCU4NGklRTIlMEUlQjElQ0VnJTE1JTBGbCVEQSU1QyVDQSUwOSUzRiVDRiUzRCUxQSU3RSU4OW4lMjFkJTI3JUQ1JUY5JUNEWDclOTQlQTklN0IlRTIlQTMlMDFtJTk3JUUwJThEJTlEJThEJTgxJTQwWW9sJTg2JTBDJTJCJTdFJUFGJUE1eW04byVEMw==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '977.400'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Client MIROITERIE CONCEPT DESIGN SERVICE<br />', 'assigned_staff_id': 69391, 'invoicing_address_id': 61782088, 'delivery_address_id': 61782089, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 4209872, 'rate_category_id': 85028, 'service_dates': None, 'note': 'Maintenance : 317€HT/an', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-25', 'parent': {'type': 'estimate', 'id': 13235985}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7167853, 'number': None, 'paid_at': '2019-07-25T14:33:40+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '5864.40', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13880673}]}}
+2024-07-18 09:01:19,152 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-141
+2024-07-18 09:01:19,152 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-141
+2024-07-18 09:01:19,527 - INFO - app.models.passerelles - Processing document: {'id': 13881216, 'date': '2019-06-25', 'created': '2019-06-25T14:55:13+02:00', 'related': [{'type': 'company', 'id': 5783612}, {'type': 'contact', 'id': 4209872}], 'number': 'F-1906-142', 'amounts': {'total_raw_excl_tax': '172.260', 'total_after_discount_excl_tax': '172.260', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '172.260', 'total_incl_tax': '206.710', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/acDkIOO'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUJ4JTI0JTYwJUY2diVBQiU4MSslMjJ2JTFDJTg0JTE1JTAyUzVtJUU3YSVDMSUyMiVBQiU4NyVBMiUyMiVGMUclQjBIJTFBJUE2cSVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '34.450'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Maintenance MCDS', 'assigned_staff_id': 69391, 'invoicing_address_id': 61783993, 'delivery_address_id': 61783994, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 4209872, 'rate_category_id': 85028, 'service_dates': None, 'note': 'Maintenance annuelle à échoir appliquée - 317€ HT/an<br />sur la durée du contrat : 60 mois', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-25', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7167842, 'number': None, 'paid_at': '2019-07-25T14:32:50+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '206.71', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13881216}]}}
+2024-07-18 09:01:19,527 - INFO - Processing document: {'id': 13881216, 'date': '2019-06-25', 'created': '2019-06-25T14:55:13+02:00', 'related': [{'type': 'company', 'id': 5783612}, {'type': 'contact', 'id': 4209872}], 'number': 'F-1906-142', 'amounts': {'total_raw_excl_tax': '172.260', 'total_after_discount_excl_tax': '172.260', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '172.260', 'total_incl_tax': '206.710', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/acDkIOO'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUJ4JTI0JTYwJUY2diVBQiU4MSslMjJ2JTFDJTg0JTE1JTAyUzVtJUU3YSVDMSUyMiVBQiU4NyVBMiUyMiVGMUclQjBIJTFBJUE2cSVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '34.450'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Maintenance MCDS', 'assigned_staff_id': 69391, 'invoicing_address_id': 61783993, 'delivery_address_id': 61783994, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 4209872, 'rate_category_id': 85028, 'service_dates': None, 'note': 'Maintenance annuelle à échoir appliquée - 317€ HT/an<br />sur la durée du contrat : 60 mois', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-25', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7167842, 'number': None, 'paid_at': '2019-07-25T14:32:50+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '206.71', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13881216}]}}
+2024-07-18 09:01:19,528 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-142
+2024-07-18 09:01:19,528 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-142
+2024-07-18 09:01:19,816 - INFO - app.models.passerelles - Processing document: {'id': 13905676, 'date': '2019-06-26', 'created': '2019-06-26T16:32:19+02:00', 'related': [{'type': 'company', 'id': 5654648}], 'number': 'F-1906-143', 'amounts': {'total_raw_excl_tax': '63636.360', 'total_after_discount_excl_tax': '63636.360', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '63636.360', 'total_incl_tax': '76363.630', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/LIuTV3L'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlMUQlMjclMEUlODIlMkJpJThFJTgxJTIyJTEzJUFDJTI1JUEzJTA1aSVFRiU2MCUwMyUwQiVBRHklNUIlRTBrJTg1JUUwaSUyMSVGRCUyNDglM0MlRjklQ0RYNyU5NCVBOSU3QiVFMiVBMyUwMW0lOTclRTAlOEQlOUQlOEQlODElNDBZb2wlODYlMEMlMkIlN0UlQUYlQTV5bThvJUQz==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '12727.270'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Contrat de financement n°135-32902', 'assigned_staff_id': 85664, 'invoicing_address_id': 61889226, 'delivery_address_id': 61889227, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': None, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-26', 'parent': {'type': 'estimate', 'id': 12429766}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7163370, 'number': None, 'paid_at': '2019-07-02T17:52:19+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '76363.63', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13905676}]}}
+2024-07-18 09:01:19,816 - INFO - Processing document: {'id': 13905676, 'date': '2019-06-26', 'created': '2019-06-26T16:32:19+02:00', 'related': [{'type': 'company', 'id': 5654648}], 'number': 'F-1906-143', 'amounts': {'total_raw_excl_tax': '63636.360', 'total_after_discount_excl_tax': '63636.360', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '63636.360', 'total_incl_tax': '76363.630', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/LIuTV3L'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlMUQlMjclMEUlODIlMkJpJThFJTgxJTIyJTEzJUFDJTI1JUEzJTA1aSVFRiU2MCUwMyUwQiVBRHklNUIlRTBrJTg1JUUwaSUyMSVGRCUyNDglM0MlRjklQ0RYNyU5NCVBOSU3QiVFMiVBMyUwMW0lOTclRTAlOEQlOUQlOEQlODElNDBZb2wlODYlMEMlMkIlN0UlQUYlQTV5bThvJUQz==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '12727.270'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Contrat de financement n°135-32902', 'assigned_staff_id': 85664, 'invoicing_address_id': 61889226, 'delivery_address_id': 61889227, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': None, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-26', 'parent': {'type': 'estimate', 'id': 12429766}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7163370, 'number': None, 'paid_at': '2019-07-02T17:52:19+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '76363.63', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13905676}]}}
+2024-07-18 09:01:19,816 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-143
+2024-07-18 09:01:19,816 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-143
+2024-07-18 09:01:20,166 - INFO - app.models.passerelles - Processing document: {'id': 13905863, 'date': '2019-06-26', 'created': '2019-06-26T16:40:08+02:00', 'related': [{'type': 'company', 'id': 5654648}, {'type': 'contact', 'id': 4059911}], 'number': 'F-1906-144', 'amounts': {'total_raw_excl_tax': '2545.450', 'total_after_discount_excl_tax': '2545.450', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '2545.450', 'total_incl_tax': '3054.540', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/QbAFoDO'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUJlJTg3M3IlN0UlNjBjJTBBJUNCUCVERiVCQyVFQkclMTclMkYlRUMlQ0QlRTglRkMlODYlRTI4JUM4JURBJTBGJTg4JUZCJUYyJUI5dyU5RSVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '509.090'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Commission - Dossier de financement n°135-32902', 'assigned_staff_id': 69391, 'invoicing_address_id': 61889927, 'delivery_address_id': 61889928, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 4059911, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-26', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7029906, 'number': None, 'paid_at': '2019-07-03T10:18:13+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '3054.54', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13905863}]}}
+2024-07-18 09:01:20,166 - INFO - Processing document: {'id': 13905863, 'date': '2019-06-26', 'created': '2019-06-26T16:40:08+02:00', 'related': [{'type': 'company', 'id': 5654648}, {'type': 'contact', 'id': 4059911}], 'number': 'F-1906-144', 'amounts': {'total_raw_excl_tax': '2545.450', 'total_after_discount_excl_tax': '2545.450', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '2545.450', 'total_incl_tax': '3054.540', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/QbAFoDO'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUJlJTg3M3IlN0UlNjBjJTBBJUNCUCVERiVCQyVFQkclMTclMkYlRUMlQ0QlRTglRkMlODYlRTI4JUM4JURBJTBGJTg4JUZCJUYyJUI5dyU5RSVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '509.090'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Commission - Dossier de financement n°135-32902', 'assigned_staff_id': 69391, 'invoicing_address_id': 61889927, 'delivery_address_id': 61889928, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 4059911, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-26', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7029906, 'number': None, 'paid_at': '2019-07-03T10:18:13+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '3054.54', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13905863}]}}
+2024-07-18 09:01:20,167 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-144
+2024-07-18 09:01:20,167 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-144
+2024-07-18 09:01:20,562 - INFO - app.models.passerelles - Processing document: {'id': 13931797, 'date': '2019-06-27', 'created': '2019-06-27T16:50:20+02:00', 'related': [{'type': 'company', 'id': 5686191}], 'number': 'F-1906-145', 'amounts': {'total_raw_excl_tax': '2400.000', 'total_after_discount_excl_tax': '1848.00', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '1848.000', 'total_incl_tax': '2217.600', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/k5iuMVS'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlODYlODklREYlRjVVciVEOS4lQUYlMEVHJUI0ZyUwOU53JURBRHI2dyVDMyVCNCVGRSVDRiVENCU5QiVGQ0clMDclQTklOEQlRjklQ0RYNyU5NCVBOSU3QiVFMiVBMyUwMW0lOTclRTAlOEQlOUQlOEQlODElNDBZb2wlODYlMEMlMkIlN0UlQUYlQTV5bThvJUQz==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '369.600'}], 'discount': {'percent': '23.000', 'amount': '552.000', 'type': 'percent'}, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Audit Documentaire & process IRIS', 'assigned_staff_id': 77086, 'invoicing_address_id': 61985507, 'delivery_address_id': 61985508, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': None, 'rate_category_id': 85028, 'service_dates': None, 'note': 'Remise appliquée   &gt; 23%', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-27', 'parent': {'type': 'estimate', 'id': 12299076}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7412523, 'number': None, 'paid_at': '2019-09-06T15:42:36+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '2217.60', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13931797}]}}
+2024-07-18 09:01:20,562 - INFO - Processing document: {'id': 13931797, 'date': '2019-06-27', 'created': '2019-06-27T16:50:20+02:00', 'related': [{'type': 'company', 'id': 5686191}], 'number': 'F-1906-145', 'amounts': {'total_raw_excl_tax': '2400.000', 'total_after_discount_excl_tax': '1848.00', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '1848.000', 'total_incl_tax': '2217.600', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/k5iuMVS'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlODYlODklREYlRjVVciVEOS4lQUYlMEVHJUI0ZyUwOU53JURBRHI2dyVDMyVCNCVGRSVDRiVENCU5QiVGQ0clMDclQTklOEQlRjklQ0RYNyU5NCVBOSU3QiVFMiVBMyUwMW0lOTclRTAlOEQlOUQlOEQlODElNDBZb2wlODYlMEMlMkIlN0UlQUYlQTV5bThvJUQz==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '369.600'}], 'discount': {'percent': '23.000', 'amount': '552.000', 'type': 'percent'}, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Audit Documentaire & process IRIS', 'assigned_staff_id': 77086, 'invoicing_address_id': 61985507, 'delivery_address_id': 61985508, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': None, 'rate_category_id': 85028, 'service_dates': None, 'note': 'Remise appliquée   &gt; 23%', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-27', 'parent': {'type': 'estimate', 'id': 12299076}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7412523, 'number': None, 'paid_at': '2019-09-06T15:42:36+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '2217.60', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13931797}]}}
+2024-07-18 09:01:20,563 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-145
+2024-07-18 09:01:20,563 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1906-145
+2024-07-18 09:01:21,104 - INFO - app.models.passerelles - Processing document: {'id': 13981446, 'date': '2019-07-01', 'created': '2019-07-01T09:57:20+02:00', 'related': [{'type': 'company', 'id': 5685215}, {'type': 'contact', 'id': 4090586}], 'number': 'F-1907-146', 'amounts': {'total_raw_excl_tax': '285.000', 'total_after_discount_excl_tax': '285.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '285.000', 'total_incl_tax': '342.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/quRAUiV'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlQ0MlQTYlOTQlOEElQzclOER2JTNGeSVEMCVFOSU5RSVERSUwMyUwQiU4OSUxQUw2JTFCJTE3JURCJTVDJUE1JTE1aSUxRSU4MiVCQyU5MCUyMyVCQiVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '57.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Location GED - Echéance 10', 'assigned_staff_id': 69391, 'invoicing_address_id': 62152858, 'delivery_address_id': 62152859, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 4090586, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-31', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 8084538, 'number': None, 'paid_at': '2019-12-04T09:57:41+01:00', 'status': 'confirmed', 'payment_method_id': 2016306, 'type': 'credit', 'amount': {'value': '342.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13981446}]}}
+2024-07-18 09:01:21,104 - INFO - Processing document: {'id': 13981446, 'date': '2019-07-01', 'created': '2019-07-01T09:57:20+02:00', 'related': [{'type': 'company', 'id': 5685215}, {'type': 'contact', 'id': 4090586}], 'number': 'F-1907-146', 'amounts': {'total_raw_excl_tax': '285.000', 'total_after_discount_excl_tax': '285.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '285.000', 'total_incl_tax': '342.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/quRAUiV'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlQ0MlQTYlOTQlOEElQzclOER2JTNGeSVEMCVFOSU5RSVERSUwMyUwQiU4OSUxQUw2JTFCJTE3JURCJTVDJUE1JTE1aSUxRSU4MiVCQyU5MCUyMyVCQiVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '57.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Location GED - Echéance 10', 'assigned_staff_id': 69391, 'invoicing_address_id': 62152858, 'delivery_address_id': 62152859, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 4090586, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-31', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 8084538, 'number': None, 'paid_at': '2019-12-04T09:57:41+01:00', 'status': 'confirmed', 'payment_method_id': 2016306, 'type': 'credit', 'amount': {'value': '342.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13981446}]}}
+2024-07-18 09:01:21,104 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1907-146
+2024-07-18 09:01:21,104 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1907-146
+2024-07-18 09:01:21,496 - INFO - app.models.passerelles - Processing document: {'id': 14062704, 'date': '2019-07-08', 'created': '2019-07-08T09:20:49+02:00', 'related': [{'type': 'company', 'id': 17467125}, {'type': 'contact', 'id': 16978146}], 'number': 'F-1907-147', 'amounts': {'total_raw_excl_tax': '1400.000', 'total_after_discount_excl_tax': '1400.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '1400.000', 'total_incl_tax': '1680.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/1lG5YnK'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlMUQlRDMlRjQlQjklQjF5eiVFOUpzJUNGJTg1JThGJURCJUExWFNhJTE3JTIxJTIyJUI5cyUyRiUwOGFXJTkxJTA3JTlEJUVDJUVBJUY5JUNEWDclOTQlQTklN0IlRTIlQTMlMDFtJTk3JUUwJThEJTlEJThEJTgxJTQwWW9sJTg2JTBDJTJCJTdFJUFGJUE1eW04byVEMw==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '280.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Dossier YANA FINANCES', 'assigned_staff_id': 69391, 'invoicing_address_id': 62477707, 'delivery_address_id': 62477708, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 16978146, 'rate_category_id': 85028, 'service_dates': None, 'note': 'Maintenance annuelle de 70€HT/an', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-31', 'parent': {'type': 'estimate', 'id': 14017669}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7182168, 'number': None, 'paid_at': '2019-07-29T11:21:49+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '1680.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14062704}]}}
+2024-07-18 09:01:21,496 - INFO - Processing document: {'id': 14062704, 'date': '2019-07-08', 'created': '2019-07-08T09:20:49+02:00', 'related': [{'type': 'company', 'id': 17467125}, {'type': 'contact', 'id': 16978146}], 'number': 'F-1907-147', 'amounts': {'total_raw_excl_tax': '1400.000', 'total_after_discount_excl_tax': '1400.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '1400.000', 'total_incl_tax': '1680.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/1lG5YnK'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlMUQlRDMlRjQlQjklQjF5eiVFOUpzJUNGJTg1JThGJURCJUExWFNhJTE3JTIxJTIyJUI5cyUyRiUwOGFXJTkxJTA3JTlEJUVDJUVBJUY5JUNEWDclOTQlQTklN0IlRTIlQTMlMDFtJTk3JUUwJThEJTlEJThEJTgxJTQwWW9sJTg2JTBDJTJCJTdFJUFGJUE1eW04byVEMw==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '280.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Dossier YANA FINANCES', 'assigned_staff_id': 69391, 'invoicing_address_id': 62477707, 'delivery_address_id': 62477708, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 16978146, 'rate_category_id': 85028, 'service_dates': None, 'note': 'Maintenance annuelle de 70€HT/an', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-31', 'parent': {'type': 'estimate', 'id': 14017669}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7182168, 'number': None, 'paid_at': '2019-07-29T11:21:49+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '1680.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14062704}]}}
+2024-07-18 09:01:21,497 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1907-147
+2024-07-18 09:01:21,497 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1907-147
+2024-07-18 09:01:21,855 - INFO - app.models.passerelles - Processing document: {'id': 14063143, 'date': '2019-07-08', 'created': '2019-07-08T09:41:03+02:00', 'related': [{'type': 'company', 'id': 17467125}, {'type': 'contact', 'id': 16978146}], 'number': 'F-1907-148', 'amounts': {'total_raw_excl_tax': '34.200', 'total_after_discount_excl_tax': '34.200', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '34.200', 'total_incl_tax': '41.040', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/HhnogAS'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlODkuJTA2ciU3Q0glMkIlQzMlM0JEJURCMCVGQSVEMSUwNCVCOCVEQyUzRSUyQyVFRCVBMDIlQjAlOENvJURGSjklQzBlJUMxJUE2JUUwJUE0JTI2WCVBRGQlMDNCJTNEJUE1JTVCJTkyTCVDMlVNNyUyQiUwQyVFQyVCMSVCRiUwMSUxMUclMDNNJUEzbyVENCVGMiVBRg==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '6.840'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'YANA FINANCES', 'assigned_staff_id': 69391, 'invoicing_address_id': 62479388, 'delivery_address_id': 62479389, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 16978146, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-31', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7182165, 'number': None, 'paid_at': '2019-07-29T11:21:41+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '41.04', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14063143}]}}
+2024-07-18 09:01:21,855 - INFO - Processing document: {'id': 14063143, 'date': '2019-07-08', 'created': '2019-07-08T09:41:03+02:00', 'related': [{'type': 'company', 'id': 17467125}, {'type': 'contact', 'id': 16978146}], 'number': 'F-1907-148', 'amounts': {'total_raw_excl_tax': '34.200', 'total_after_discount_excl_tax': '34.200', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '34.200', 'total_incl_tax': '41.040', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/HhnogAS'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlODkuJTA2ciU3Q0glMkIlQzMlM0JEJURCMCVGQSVEMSUwNCVCOCVEQyUzRSUyQyVFRCVBMDIlQjAlOENvJURGSjklQzBlJUMxJUE2JUUwJUE0JTI2WCVBRGQlMDNCJTNEJUE1JTVCJTkyTCVDMlVNNyUyQiUwQyVFQyVCMSVCRiUwMSUxMUclMDNNJUEzbyVENCVGMiVBRg==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '6.840'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'YANA FINANCES', 'assigned_staff_id': 69391, 'invoicing_address_id': 62479388, 'delivery_address_id': 62479389, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 16978146, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-31', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7182165, 'number': None, 'paid_at': '2019-07-29T11:21:41+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '41.04', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14063143}]}}
+2024-07-18 09:01:21,856 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1907-148
+2024-07-18 09:01:21,856 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1907-148
+2024-07-18 09:01:22,287 - INFO - app.models.passerelles - Processing document: {'id': 14100295, 'date': '2019-07-10', 'created': '2019-07-10T14:20:48+02:00', 'related': [{'type': 'company', 'id': 5690406}, {'type': 'contact', 'id': 6629322}], 'number': 'F-1907-149', 'amounts': {'total_raw_excl_tax': '615.210', 'total_after_discount_excl_tax': '615.210', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '615.210', 'total_incl_tax': '700.170', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/HwLId9w'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlRUMlQkYlNUMlOTklOTQlQjklMUUlRjROJTg0QiVDRSVGMCUxOCVFNiVBMnctJTVCJTAxSCU4MDUlQjElOEUlQTclQjclRDExdiUwRCVFQiVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '84.960'}, {'label': 'TVA 0,0%', 'id': 2622353, 'rate': '0.000000000', 'amount': '0.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': "Consommation d'éditique - juin 2019", 'assigned_staff_id': 69391, 'invoicing_address_id': 62621609, 'delivery_address_id': 62621610, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 6629322, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-08-09', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7147586, 'number': None, 'paid_at': '2019-07-15T17:45:24+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '700.17', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14100295}]}}
+2024-07-18 09:01:22,287 - INFO - Processing document: {'id': 14100295, 'date': '2019-07-10', 'created': '2019-07-10T14:20:48+02:00', 'related': [{'type': 'company', 'id': 5690406}, {'type': 'contact', 'id': 6629322}], 'number': 'F-1907-149', 'amounts': {'total_raw_excl_tax': '615.210', 'total_after_discount_excl_tax': '615.210', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '615.210', 'total_incl_tax': '700.170', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/HwLId9w'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlRUMlQkYlNUMlOTklOTQlQjklMUUlRjROJTg0QiVDRSVGMCUxOCVFNiVBMnctJTVCJTAxSCU4MDUlQjElOEUlQTclQjclRDExdiUwRCVFQiVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '84.960'}, {'label': 'TVA 0,0%', 'id': 2622353, 'rate': '0.000000000', 'amount': '0.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': "Consommation d'éditique - juin 2019", 'assigned_staff_id': 69391, 'invoicing_address_id': 62621609, 'delivery_address_id': 62621610, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 6629322, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-08-09', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7147586, 'number': None, 'paid_at': '2019-07-15T17:45:24+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '700.17', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14100295}]}}
+2024-07-18 09:01:22,287 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1907-149
+2024-07-18 09:01:22,287 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1907-149
+2024-07-18 09:01:22,610 - INFO - app.models.passerelles - Processing document: {'id': 14100352, 'date': '2019-07-10', 'created': '2019-07-10T14:23:22+02:00', 'related': [{'type': 'company', 'id': 5679351}, {'type': 'contact', 'id': 13903928}], 'number': 'F-1907-150', 'amounts': {'total_raw_excl_tax': '101.460', 'total_after_discount_excl_tax': '101.460', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '101.460', 'total_incl_tax': '113.950', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/IGNvlwZ'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlMEQlQTQlM0MlMUNEJTVDJTA5JUI1bSVENiVBNiU5QyVBMCVGQSVCRCUxRkUlM0ZnJUE5RyVCNyVEOCUwMy1qeCUxQiVCRTE5dCVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '12.490'}, {'label': 'TVA 0,0%', 'id': 2622353, 'rate': '0.000000000', 'amount': '0.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': "Consommation d'éditique - juin 2019", 'assigned_staff_id': 69391, 'invoicing_address_id': 62621814, 'delivery_address_id': 62621815, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 13903928, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-08-09', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7426503, 'number': None, 'paid_at': '2019-09-10T17:38:09+02:00', 'status': 'confirmed', 'payment_method_id': 2016306, 'type': 'credit', 'amount': {'value': '113.95', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14100352}]}}
+2024-07-18 09:01:22,610 - INFO - Processing document: {'id': 14100352, 'date': '2019-07-10', 'created': '2019-07-10T14:23:22+02:00', 'related': [{'type': 'company', 'id': 5679351}, {'type': 'contact', 'id': 13903928}], 'number': 'F-1907-150', 'amounts': {'total_raw_excl_tax': '101.460', 'total_after_discount_excl_tax': '101.460', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '101.460', 'total_incl_tax': '113.950', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/IGNvlwZ'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlMEQlQTQlM0MlMUNEJTVDJTA5JUI1bSVENiVBNiU5QyVBMCVGQSVCRCUxRkUlM0ZnJUE5RyVCNyVEOCUwMy1qeCUxQiVCRTE5dCVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '12.490'}, {'label': 'TVA 0,0%', 'id': 2622353, 'rate': '0.000000000', 'amount': '0.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': "Consommation d'éditique - juin 2019", 'assigned_staff_id': 69391, 'invoicing_address_id': 62621814, 'delivery_address_id': 62621815, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 13903928, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-08-09', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7426503, 'number': None, 'paid_at': '2019-09-10T17:38:09+02:00', 'status': 'confirmed', 'payment_method_id': 2016306, 'type': 'credit', 'amount': {'value': '113.95', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14100352}]}}
+2024-07-18 09:01:22,611 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1907-150
+2024-07-18 09:01:22,611 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1907-150
+2024-07-18 09:01:22,904 - INFO - app.models.passerelles - Processing document: {'id': 14100502, 'date': '2019-07-10', 'created': '2019-07-10T14:30:25+02:00', 'related': [{'type': 'company', 'id': 17362427}, {'type': 'contact', 'id': 16846482}], 'number': 'F-1907-151', 'amounts': {'total_raw_excl_tax': '136.600', 'total_after_discount_excl_tax': '136.600', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '136.600', 'total_incl_tax': '150.500', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/SP4wn3A'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlRTglOUIlOTElRERwMiVBMEwlMENKJTA2JTgwJTlGJUJGJTVCJTBBJTNDJTgzJTE4UCUwNCU4MSUyOGwlQUMlQkQlMUElN0MyJUI2LSVCRiVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '13.900'}, {'label': 'TVA 0,0%', 'id': 2622353, 'rate': '0.000000000', 'amount': '0.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Consommation Editique juin 2019', 'assigned_staff_id': 69391, 'invoicing_address_id': 62622390, 'delivery_address_id': 62622391, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 16846482, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-31', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7334789, 'number': None, 'paid_at': '2019-08-01T09:59:30+02:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '150.50', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14100502}]}}
+2024-07-18 09:01:22,904 - INFO - Processing document: {'id': 14100502, 'date': '2019-07-10', 'created': '2019-07-10T14:30:25+02:00', 'related': [{'type': 'company', 'id': 17362427}, {'type': 'contact', 'id': 16846482}], 'number': 'F-1907-151', 'amounts': {'total_raw_excl_tax': '136.600', 'total_after_discount_excl_tax': '136.600', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '136.600', 'total_incl_tax': '150.500', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': True, 'url': 'https://sellsy.link/SP4wn3A'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlRTglOUIlOTElRERwMiVBMEwlMENKJTA2JTgwJTlGJUJGJTVCJTBBJTNDJTgzJTE4UCUwNCU4MSUyOGwlQUMlQkQlMUElN0MyJUI2LSVCRiVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '13.900'}, {'label': 'TVA 0,0%', 'id': 2622353, 'rate': '0.000000000', 'amount': '0.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Consommation Editique juin 2019', 'assigned_staff_id': 69391, 'invoicing_address_id': 62622390, 'delivery_address_id': 62622391, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 16846482, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-31', 'parent': None, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7334789, 'number': None, 'paid_at': '2019-08-01T09:59:30+02:00', 'status': 'confirmed', 'payment_method_id': 2016311, 'type': 'credit', 'amount': {'value': '150.50', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14100502}]}}
+2024-07-18 09:01:22,904 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1907-151
+2024-07-18 09:01:22,904 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1907-151
+2024-07-18 09:01:23,243 - INFO - app.models.passerelles - Processing document: {'id': 14117627, 'date': '2019-07-11', 'created': '2019-07-11T14:24:51+02:00', 'related': [{'type': 'company', 'id': 15644623}, {'type': 'contact', 'id': 14844412}], 'number': 'F-1907-152', 'amounts': {'total_raw_excl_tax': '500.000', 'total_after_discount_excl_tax': '500.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '500.000', 'total_incl_tax': '600.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/LuHOwA9'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlMUQlRTMlM0YlQUMlQUQlOTUlRUMlMUIlQTElRjYlNUUlOER2JUVCLUslMjJhJTVCMWslMTMlQjclRTAlMTRDJURDJUQzJTdEJUJFZDQlRjklQ0RYNyU5NCVBOSU3QiVFMiVBMyUwMW0lOTclRTAlOEQlOUQlOEQlODElNDBZb2wlODYlMEMlMkIlN0UlQUYlQTV5bThvJUQz==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '100.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'JOURNEE DE CREATION NOUVEAU CLASSEUR', 'assigned_staff_id': 85664, 'invoicing_address_id': 62687514, 'delivery_address_id': 62687515, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 14844412, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-31', 'parent': {'type': 'estimate', 'id': 13201919}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7210560, 'number': None, 'paid_at': '2019-08-01T14:16:02+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '600.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14117627}]}}
+2024-07-18 09:01:23,243 - INFO - Processing document: {'id': 14117627, 'date': '2019-07-11', 'created': '2019-07-11T14:24:51+02:00', 'related': [{'type': 'company', 'id': 15644623}, {'type': 'contact', 'id': 14844412}], 'number': 'F-1907-152', 'amounts': {'total_raw_excl_tax': '500.000', 'total_after_discount_excl_tax': '500.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '500.000', 'total_incl_tax': '600.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/LuHOwA9'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlMUQlRTMlM0YlQUMlQUQlOTUlRUMlMUIlQTElRjYlNUUlOER2JUVCLUslMjJhJTVCMWslMTMlQjclRTAlMTRDJURDJUQzJTdEJUJFZDQlRjklQ0RYNyU5NCVBOSU3QiVFMiVBMyUwMW0lOTclRTAlOEQlOUQlOEQlODElNDBZb2wlODYlMEMlMkIlN0UlQUYlQTV5bThvJUQz==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '100.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'JOURNEE DE CREATION NOUVEAU CLASSEUR', 'assigned_staff_id': 85664, 'invoicing_address_id': 62687514, 'delivery_address_id': 62687515, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 14844412, 'rate_category_id': 85028, 'service_dates': None, 'note': '', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-31', 'parent': {'type': 'estimate', 'id': 13201919}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7210560, 'number': None, 'paid_at': '2019-08-01T14:16:02+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '600.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14117627}]}}
+2024-07-18 09:01:23,244 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1907-152
+2024-07-18 09:01:23,244 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1907-152
+2024-07-18 09:01:23,506 - INFO - app.models.passerelles - Processing document: {'id': 14264279, 'date': '2019-07-24', 'created': '2019-07-24T16:29:51+02:00', 'related': [{'type': 'company', 'id': 5654648}], 'number': 'F-1907-153', 'amounts': {'total_raw_excl_tax': '20407.060', 'total_after_discount_excl_tax': '20407.060', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '20407.060', 'total_incl_tax': '24488.470', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/O6Q7hYF'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlRUUlQTYtJUQwJTk3RCU4NiUwNkYlRTUlQ0YlMEMlQjklRTNCJTI4JUM2JUZDJTlDTF8lMTUlRDJaJTI2JUM4JUQwJUMzJUZDJUNFJUUxbyVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '4081.410'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Dossier de financement n°135-034535', 'assigned_staff_id': 69391, 'invoicing_address_id': 63323839, 'delivery_address_id': 63323840, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': None, 'rate_category_id': 85028, 'service_dates': None, 'note': 'Maintenance 474€/an<br />soit 39,50€ HT/mois', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-31', 'parent': {'type': 'estimate', 'id': 13618310}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7182156, 'number': None, 'paid_at': '2019-07-29T11:21:22+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '24488.47', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14264279}]}}
+2024-07-18 09:01:23,506 - INFO - Processing document: {'id': 14264279, 'date': '2019-07-24', 'created': '2019-07-24T16:29:51+02:00', 'related': [{'type': 'company', 'id': 5654648}], 'number': 'F-1907-153', 'amounts': {'total_raw_excl_tax': '20407.060', 'total_after_discount_excl_tax': '20407.060', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '20407.060', 'total_incl_tax': '24488.470', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/O6Q7hYF'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlRUUlQTYtJUQwJTk3RCU4NiUwNkYlRTUlQ0YlMEMlQjklRTNCJTI4JUM2JUZDJTlDTF8lMTUlRDJaJTI2JUM4JUQwJUMzJUZDJUNFJUUxbyVGOSVDRFg3JTk0JUE5JTdCJUUyJUEzJTAxbSU5NyVFMCU4RCU5RCU4RCU4MSU0MFlvbCU4NiUwQyUyQiU3RSVBRiVBNXltOG8lRDM==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '4081.410'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Dossier de financement n°135-034535', 'assigned_staff_id': 69391, 'invoicing_address_id': 63323839, 'delivery_address_id': 63323840, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': None, 'rate_category_id': 85028, 'service_dates': None, 'note': 'Maintenance 474€/an<br />soit 39,50€ HT/mois', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-07-31', 'parent': {'type': 'estimate', 'id': 13618310}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7182156, 'number': None, 'paid_at': '2019-07-29T11:21:22+02:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '24488.47', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 14264279}]}}
+2024-07-18 09:01:23,507 - ERROR - app.models.passerelles - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1907-153
+2024-07-18 09:01:23,507 - ERROR - Erreur inattendue lors du traitement de la passerelle 4: No payments found for document: F-1907-153
+2024-07-18 09:01:23,859 - INFO - app.models.passerelles - Routine terminée avec succès.
+2024-07-18 09:01:23,859 - INFO - Routine terminée avec succès.
+2024-07-18 09:01:23,860 - INFO - app.models.passerelles - mise à jour de la date de synchronisation de la passerelle: 4
+2024-07-18 09:01:23,860 - INFO - mise à jour de la date de synchronisation de la passerelle: 4
+2024-07-18 09:01:23,861 - INFO - app.models.passerelles - Routine terminée avec succès.
+2024-07-18 09:01:23,861 - INFO - Routine terminée avec succès.
+2024-07-18 09:01:23,861 - INFO - Cron task completed
+
+
+
+
+
+
+{'id': 13122621,
+ 'date': '2019-05-20',
+ 'created': '2019-05-20T11:46:11+02:00',
+ 'related': [{
+     'type': 'company',
+     'id': 5783612},
+     {'type': 'contact',
+      'id': 4209872}],
+'number': 'F-1905-129',
+'amounts':
+    {'total_raw_excl_tax': '2100.000',
+    'total_after_discount_excl_tax': '2100.000',
+    'total_packaging': '0.000',
+    'total_shipping': '0.000',
+    'total_excl_tax': '2100.000',
+    'total_incl_tax': '2520.000',
+    'total_remaining_due_incl_tax': '0.000',
+    'total_primes_incl_tax': '0.000'},
+'currency': 'EUR',
+'public_link':
+    {'enabled': False,
+    'url': 'https://sellsy.link/kKbjMv2'},
+'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlRjAlRUYlMDMlRDhaJUU5TSUyNCUwRSUxQkQlRDclN0MlQUIlOEYlMTYlQkMlRDElODUlRUZEJUEzViVDNiVGOCVDRSUxRStMJUI2JUU2JUMxJUUwJUE0JTI2WCVBRGQlMDNCJTNEJUE1JTVCJTkyTCVDMlVNNyUyQiUwQyVFQyVCMSVCRiUwMSUxMUclMDNNJUEzbyVENCVGMiVBRg==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y',
+'taxes':
+    [{'label': 'TVA 20%',
+    'id': 2016322,
+    'rate': '20.000000000',
+    'amount': '420.000'}],
+'discount': None,
+'owner': {'id': 69391, 'type': 'staff'},
+'fiscal_year_id': 18934,
+'subject': 'Client Music Global Consulting',
+'assigned_staff_id': 69391,
+'invoicing_address_id': 59062477,
+'delivery_address_id': 59062478,
+'decimal_number':
+    {'main': 3,
+    'quantity': 3,
+    'unit_price': 3},
+'contact_id': 4209872,
+'rate_category_id': 85028,
+'service_dates': None,
+'note': 'Maintenance annuelle à échoir 387€HT/an<br /><div style="text-align:justify;">sur la durée du contrat : 60 mois</div>',
+'status': 'paid',
+'payment_conditions_acceptance': {'enabled': False},
+'is_deposit': False,
+'due_date': '2019-06-30',
+'parent': {'type': 'estimate',
+            'id': 12541243},
+'order_reference': '',
+'subscription_id': None,
+'is_sent_to_accounting': False,
+'shipping_date': None,
+'last_payment': {'id':
+    7841596,
+    'number': None,
+    'paid_at': '2019-11-07T10:55:57+01:00',
+    'status': 'confirmed',
+    'payment_method_id': 2016308,
+    'type': 'credit',
+    'amount': {
+        'value': '2520.00',
+        'currency': 'EUR'},
+    'related': [{
+        'type': 'invoice',
+        'id': 13122621}]}}

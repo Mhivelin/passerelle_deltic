@@ -205,12 +205,13 @@ def p_remonte_paiement_sellsy_zeendoc(IdPasserelleClient):
 
     for doc in paiddoc:
         logger.info(f"Processing document: {doc}")
+        # 2024-07-18 09:01:14,123 - INFO - Processing document: {'id': 13122621, 'date': '2019-05-20', 'created': '2019-05-20T11:46:11+02:00', 'related': [{'type': 'company', 'id': 5783612}, {'type': 'contact', 'id': 4209872}], 'number': 'F-1905-129', 'amounts': {'total_raw_excl_tax': '2100.000', 'total_after_discount_excl_tax': '2100.000', 'total_packaging': '0.000', 'total_shipping': '0.000', 'total_excl_tax': '2100.000', 'total_incl_tax': '2520.000', 'total_remaining_due_incl_tax': '0.000', 'total_primes_incl_tax': '0.000'}, 'currency': 'EUR', 'public_link': {'enabled': False, 'url': 'https://sellsy.link/kKbjMv2'}, 'pdf_link': 'https://file.sellsy.com/?id=JUE0JTdDJTlBMkNsJTg2ZCUzQiVGQSUwNTglNUIlQkMlQjYlQTUlOEMlQjYlMTAlMDElQzYlRDIlQjklM0UzJTAwJTdEUVpMViVGMSVBNiUxQSUxMEYlQjklQjklN0UlQzQlMDElODQlODVnJUZEJTlBJTE4JTA4JTAzJTgwJUFGKyVEQSVFMSU5MSVFMCUwOSVCMSVDQUElMTUlODQlREMlOUIlRjAlRUYlMDMlRDhaJUU5TSUyNCUwRSUxQkQlRDclN0MlQUIlOEYlMTYlQkMlRDElODUlRUZEJUEzViVDNiVGOCVDRSUxRStMJUI2JUU2JUMxJUUwJUE0JTI2WCVBRGQlMDNCJTNEJUE1JTVCJTkyTCVDMlVNNyUyQiUwQyVFQyVCMSVCRiUwMSUxMUclMDNNJUEzbyVENCVGMiVBRg==&key=007ea9fc54fa11fe42464c344b6cfbbc&display=Y', 'taxes': [{'label': 'TVA 20%', 'id': 2016322, 'rate': '20.000000000', 'amount': '420.000'}], 'discount': None, 'owner': {'id': 69391, 'type': 'staff'}, 'fiscal_year_id': 18934, 'subject': 'Client Music Global Consulting', 'assigned_staff_id': 69391, 'invoicing_address_id': 59062477, 'delivery_address_id': 59062478, 'decimal_number': {'main': 3, 'quantity': 3, 'unit_price': 3}, 'contact_id': 4209872, 'rate_category_id': 85028, 'service_dates': None, 'note': 'Maintenance annuelle à échoir 387€HT/an<br /><div style="text-align:justify;">sur la durée du contrat : 60 mois</div>', 'status': 'paid', 'payment_conditions_acceptance': {'enabled': False}, 'is_deposit': False, 'due_date': '2019-06-30', 'parent': {'type': 'estimate', 'id': 12541243}, 'order_reference': '', 'subscription_id': None, 'is_sent_to_accounting': False, 'shipping_date': None, 'last_payment': {'id': 7841596, 'number': None, 'paid_at': '2019-11-07T10:55:57+01:00', 'status': 'confirmed', 'payment_method_id': 2016308, 'type': 'credit', 'amount': {'value': '2520.00', 'currency': 'EUR'}, 'related': [{'type': 'invoice', 'id': 13122621}]}}
+
         try:
-            payments = doc.get("payments", {})
-            if not payments.get("data"):
+            last_payment = doc.get("last_payment")
+            if not last_payment:
                 raise Exception(f"No payments found for document: {doc['number']}")
             else:
-                last_payment = max(payments["data"], key=lambda x: x["paid_at"])
                 paid_at = last_payment["paid_at"].split("T")[0]
 
             res = zeendoc.update_doc_paiement_by_num_facture(doc["number"], index, paid_at)
