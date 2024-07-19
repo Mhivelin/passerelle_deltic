@@ -13,7 +13,6 @@ services:
     networks:
       - monitoring
     restart: always
-    command: sh -c "flask run & tail -f logs/cron_task_debug.log"
 
 networks:
   monitoring:
