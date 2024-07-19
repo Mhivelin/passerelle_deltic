@@ -1,0 +1,64 @@
+<!-- Description: Template pour afficher et supprimer les utilisateurs Tableau -->
+
+<div class="card">
+  <div class="card-header">
+    <h2>Liste des utilisateurs</h2>
+</div>
+    <div class="card-body">
+        <table class="table table-striped">
+        <thead>
+            <tr>
+            <th>Id</th>
+            <th>Nom d'utilisateur</th>
+            <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>
+                <form
+                    class="delete-user-form"
+                    onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')"
+                >
+                    <input
+                    type="hidden"
+                    name="user_id"
+                    value="{{ user.id }}"
+                    />
+                    <button type="submit" class="btn btn-danger delete-btn">🗑️</button>
+                </form>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+      $(".delete-user-form").submit(function (e) {
+        e.preventDefault();
+        const userId = $(this).find("input[name='user_id']").val();
+        $.ajax({
+          url: `/user/${userId}`,
+          type: "DELETE",
+          success: function (response) {
+            window.location.reload();
+          },
+          error: function (error) {
+            console.log(error);
+          },
+        });
+      });
+    });
+  </script>
+
+

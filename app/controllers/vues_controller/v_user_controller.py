@@ -76,3 +76,18 @@ def logout():
     """Route pour déconnecter l'utilisateur"""
     logout_user()
     return redirect(url_for("user.login"))
+
+@v_user_bp.route("/user/<int:user_id>", methods=["DELETE"])
+@login_required
+def delete_user(user_id):
+    """Route pour supprimer un utilisateur"""
+    user = User.query.get(user_id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+    return redirect(url_for("v_interface.home"))
+
+
+
+
+

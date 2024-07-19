@@ -10,6 +10,7 @@ from flask import Blueprint, jsonify, render_template, request, send_file
 from flask_login import login_required
 
 from app.models import database  # pylint: disable=E0401
+from app.models.user import User  # pylint: disable=E0401
 
 # Création d'un Blueprint pour le controller
 main_bp = Blueprint("main", __name__)
@@ -78,4 +79,5 @@ def parametres():
     """
     Route pour afficher les paramètres
     """
-    return render_template("parametres.html")
+    users = User.get_all_users()
+    return render_template("parametres.html", users=users)

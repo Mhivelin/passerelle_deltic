@@ -37,6 +37,10 @@
   <div class="card-header">
     <h2>Gestion des utilisateurs</h2>
   </div>
+  {% with users=users %}
+  {% include "tableau_user.html" %}
+  {% endwith %}
+
   <div class="card-body">
     <a href="{{ url_for('user.register') }}" class="btn btn-primary">Ajouter un utilisateur</a>
   </div>

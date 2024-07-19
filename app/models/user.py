@@ -31,3 +31,9 @@ class User(db.Model, UserMixin):
         si le mot de passe correspond, la méthode retourne True, sinon elle retourne False.
         """
         return check_password_hash(self.password, password)
+
+    def get_all_users():
+        """
+        Méthode qui permet de récupérer tous les utilisateurs de la base de données.
+        """
+        return User.query.all()
