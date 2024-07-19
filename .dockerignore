@@ -8,4 +8,5 @@ __pycache__
 .git
 .gitignore
 ./tests\test_ajout_manuel.py
+./instance/database.db
 npm-debug.log
